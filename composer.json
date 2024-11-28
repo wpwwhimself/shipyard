@@ -1,6 +1,6 @@
 {
     "$schema": "https://getcomposer.org/schema.json",
-    "name": "wpww/shipyard",
+    "name": "wpwwhimself/shipyard",
     "type": "library",
     "version": "0.0.1",
     "description": "Building blocks of WPWW's web app",
@@ -31,11 +31,19 @@
             "Shipyard\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Shipyard\\Tests\\": "tests/"
+        }
+    },
     "extra": {
         "laravel": {
             "providers": [
                 "Shipyard\\ShipyardServiceProvider"
             ]
+        },
+        "branch-alias": {
+            "dev-main": "0.x-dev"
         }
     },
     "config": {
