@@ -2,6 +2,7 @@
     "$schema": "https://getcomposer.org/schema.json",
     "name": "wpww/shipyard",
     "type": "library",
+    "version": "0.0.1",
     "description": "Building blocks of WPWW's web app",
     "authors": [
         {
@@ -45,7 +46,5 @@
             "pestphp/pest-plugin": true,
             "php-http/discovery": true
         }
-    },
-    "minimum-stability": "stable",
-    "prefer-stable": true
+    }
 }
