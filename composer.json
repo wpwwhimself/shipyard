@@ -49,9 +49,6 @@
             "providers": [
                 "Shipyard\\ShipyardServiceProvider"
             ]
-        },
-        "branch-alias": {
-            "dev-main": "0.x-dev"
         }
     },
     "config": {
