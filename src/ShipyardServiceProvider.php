@@ -1,6 +1,6 @@
 <?php
 
-namespace Shipyard;
+namespace Wpwwhimself\Shipyard;
 
 use App\Http\Middleware\EnsureUserHasRole;
 use Illuminate\Console\Scheduling\Schedule;

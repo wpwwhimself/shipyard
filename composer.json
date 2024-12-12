@@ -10,30 +10,31 @@
             "email": "contact@wpww.pl"
         }
     ],
-    "keywords": ["laravel", "framework"],
+    "keywords": ["laravel", "framework", "wpwwhimself", "shipyard"],
+    "homepage": "https://github.com/wpwwhimself/shipyard",
     "license": "MIT",
     "require": {
         "php": "^8.2",
-        "laravel/framework": "^11.31",
-        "laravel/tinker": "^2.9",
+        "spatie/laravel-backup": "*",
+        "spatie/laravel-package-tools": "^1.16",
         "andcarpi/laravel-popper": "^0.9.4",
         "haruncpi/laravel-log-reader": "^1.0",
-        "laravel/sanctum": "^3.3",
-        "spatie/laravel-backup": "*",
         "wildside/userstamps": "^2.4"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",
+        "orchestra/testbench": "^9.0",
         "laravel/pail": "^1.1",
         "laravel/pint": "^1.13",
         "laravel/sail": "^1.26",
         "mockery/mockery": "^1.6",
         "nunomaduro/collision": "^8.1",
-        "phpunit/phpunit": "^11.0.1"
+        "phpunit/phpunit": "^10.0"
     },
     "autoload": {
         "psr-4": {
-            "Shipyard\\": "src/"
+            "Wpwwhimself\\Shipyard\\": "src/",
+            "Wpwwhimself\\Shipyard\\Database\\Factories\\": "database/factories/"
         },
         "files": [
             "src/helpers.php"
@@ -41,14 +42,22 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Shipyard\\Tests\\": "tests/"
+            "Wpwwhimself\\Shipyard\\Tests\\": "tests/",
+            "Workbench\\App\\": "workbench/app/"
         }
+    },
+    "scripts": {
+        "post-autoload-dump": "@composer run prepare",
+        "prepare": "@php vendor/bin/testbench package:discover --ansi"
     },
     "extra": {
         "laravel": {
             "providers": [
-                "Shipyard\\ShipyardServiceProvider"
-            ]
+                "Wpwwhimself\\Shipyard\\ShipyardServiceProvider"
+            ],
+            "aliases": {
+                "Shipyard": "Wpwwhimself\\Shipyard\\Facades\\Shipyard"
+            }
         }
     },
     "config": {
@@ -59,5 +68,7 @@
             "pestphp/pest-plugin": true,
             "php-http/discovery": true
         }
-    }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }
