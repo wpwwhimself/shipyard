@@ -1,8 +1,8 @@
 <?php
 
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\DocumentationController;
-use App\Http\Controllers\UserController;
+use Shipyard\Controllers\AuthController;
+use Shipyard\Controllers\DocumentationController;
+use Shipyard\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
