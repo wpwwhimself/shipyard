@@ -6,6 +6,9 @@ use App\Http\Middleware\EnsureUserHasRole;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Routing\Router;
 use Illuminate\Support\ServiceProvider;
+use Shipyard\Controllers\AuthController;
+use Shipyard\Controllers\DocumentationController;
+use Shipyard\Controllers\UserController;
 
 class ShipyardServiceProvider extends ServiceProvider
 {
@@ -13,6 +16,11 @@ class ShipyardServiceProvider extends ServiceProvider
     {
         // Merge config
         $this->mergeConfigFrom(__DIR__.'/../config/shipyard.php', 'shipyard');
+
+        // Controllers
+        $this->app->make(AuthController::class);
+        $this->app->make(UserController::class);
+        $this->app->make(DocumentationController::class);
     }
 
     public function boot()
