@@ -32,7 +32,7 @@ class ShipyardServiceProvider extends ServiceProvider
         });
 
         // Load routes and views
-        $this->loadRoutesFrom(__DIR__.'/../routes/');
+        $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'shipyard');
 
         // Publish configuration
