@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace Shipyard\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;

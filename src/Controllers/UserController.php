@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace Shipyard\Controllers;
 
 use App\Models\Role;
-use App\Models\Supplier;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;

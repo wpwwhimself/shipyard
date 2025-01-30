@@ -2,11 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DocumentationController;
-use App\Http\Controllers\DocumentOutputController;
-use App\Http\Controllers\OfferController;
-use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\UserController;
-use App\Models\Supplier;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
