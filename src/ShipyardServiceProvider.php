@@ -14,10 +14,10 @@ class ShipyardServiceProvider extends ServiceProvider
         // Merge config
         $this->mergeConfigFrom(__DIR__.'/../config/shipyard.php', 'shipyard');
 
-        // Controllers
-        $this->app->make("Shipyard\Controllers\AuthController");
-        $this->app->make("Shipyard\Controllers\UserController");
-        $this->app->make("Shipyard\Controllers\DocumentationController");
+        // // Controllers
+        // $this->app->make("Shipyard\Controllers\AuthController");
+        // $this->app->make("Shipyard\Controllers\UserController");
+        // $this->app->make("Shipyard\Controllers\DocumentationController");
     }
 
     public function boot()
