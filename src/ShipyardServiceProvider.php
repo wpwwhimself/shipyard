@@ -2,7 +2,7 @@
 
 namespace Wpwwhimself\Shipyard;
 
-use App\Http\Middleware\EnsureUserHasRole;
+use Shipyard\Middleware\EnsureUserHasRole;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Routing\Router;
 use Illuminate\Support\ServiceProvider;

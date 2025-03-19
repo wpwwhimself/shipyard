@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Middleware;
+namespace Shipyard\Middleware;
 
-use App\Models\Role;
+use Shipyard\Models\Role;
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
 class EnsureUserHasRole
@@ -17,7 +18,7 @@ class EnsureUserHasRole
     public function handle(Request $request, Closure $next, string $role): Response
     {
         if (empty($role)) $next($request);
-        if (!userIs($role)) {
+        if (!Auth::user()->userIs($role)) {
             abort(403);
         }
 
