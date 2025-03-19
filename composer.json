@@ -35,10 +35,7 @@
         "psr-4": {
             "Wpwwhimself\\Shipyard\\": "src/",
             "Wpwwhimself\\Shipyard\\Database\\Factories\\": "database/factories/"
-        },
-        "files": [
-            "src/helpers.php"
-        ]
+        }
     },
     "autoload-dev": {
         "psr-4": {
