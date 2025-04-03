@@ -32,6 +32,14 @@ class InstallCommand extends Command
 
         (new Filesystem)->copyDirectory(__DIR__.'/../../files/install/routes', base_path("routes"));
 
+        // copy gitignore
+        foreach ([
+            base_path("app/Http/Controllers/.gitignore"),
+            base_path("routes/.gitignore"),
+        ] as $path) {
+            (new Filesystem)->copy(__DIR__.'/../../files/install/.gitignore.example', $path);
+        }
+
         $this->call("shipyard:update");
 
         return Command::SUCCESS;
