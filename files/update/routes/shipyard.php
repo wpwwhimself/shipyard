@@ -1,12 +1,12 @@
 <?php
 
-use App\Http\Controllers\AdminController;
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\DocsController;
-use App\Http\Controllers\EntityManagementController;
-use App\Http\Controllers\FrontController;
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\SpellbookController;
+use App\Http\Controllers\Shipyard\AdminController;
+use App\Http\Controllers\Shipyard\AuthController;
+use App\Http\Controllers\Shipyard\DocsController;
+use App\Http\Controllers\Shipyard\EntityManagementController;
+use App\Http\Controllers\Shipyard\FrontController;
+use App\Http\Controllers\Shipyard\ProfileController;
+use App\Http\Controllers\Shipyard\SpellbookController;
 use Illuminate\Support\Facades\Route;
 
 #region auth

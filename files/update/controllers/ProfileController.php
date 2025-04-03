@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Shipyard;
 
 use App\Http\Requests\ProfileUpdateRequest;
 use App\Models\User;

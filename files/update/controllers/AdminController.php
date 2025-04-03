@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Shipyard;
 
 use App\Models\AdvertSetting;
 use App\Models\Role;
