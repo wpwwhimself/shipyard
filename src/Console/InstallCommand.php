@@ -19,7 +19,7 @@ class InstallCommand extends Command
      *
      * @var string
      */
-    protected $description = 'Installs Shipyard files';
+    protected $description = 'Installs/updates Shipyard files';
 
     /**
      * Execute the console command.
@@ -28,21 +28,43 @@ class InstallCommand extends Command
      */
     public function handle()
     {
-        $this->info("⚓ Shipyard will now be installed...");
+        $this->info("⚓ Shipyard will now be installed. Hang tight...");
 
-        $this->comment("Preparing routes...");
-        (new Filesystem)->copyDirectory(__DIR__.'/../../files/install/routes', base_path("routes"));
+        $this->comment("Updating routes...");
+        (new Filesystem)->copyDirectory(__DIR__.'/../../files/routes', base_path("routes/Shipyard"));
 
-        $this->comment("Adding gitignores...");
+        $this->comment("Updating traits...");
+        (new Filesystem)->copyDirectory(__DIR__.'/../../files/traits', base_path("app/Traits/Shipyard"));
+
+        $this->comments("Updating models...");
+        (new Filesystem)->copyDirectory(__DIR__.'/../../files/models', base_path("app/Models/Shipyard"));
+
+        $this->comment("Updating migrations...");
+        (new Filesystem)->copyDirectory(__DIR__.'/../../files/migrations', base_path("database/migrations"));
+        $this->call("migrate");
+
+        $this->comment("Updating controllers...");
+        (new Filesystem)->copyDirectory(__DIR__.'/../../files/controllers', base_path("app/Http/Controllers/Shipyard"));
+
+        $this->comment("Updating stubs...");
+        (new Filesystem)->copyDirectory(__DIR__.'/../../files/stubs', base_path("stubs"));
+
+        $this->comment("Updating .gitignore files...");
         foreach ([
-            base_path("app/Http/Controllers/.gitignore"),
             base_path("routes/.gitignore"),
+            base_path("app/Traits/.gitignore"),
+            base_path("app/Models/.gitignore"),
             base_path("database/migrations/.gitignore"),
+            base_path("app/Http/Controllers/.gitignore"),
+            base_path("stubs/.gitignore"),
         ] as $path) {
-            (new Filesystem)->copy(__DIR__.'/../../files/install/.gitignore.example', $path);
+            (new Filesystem)->copy(__DIR__.'/../../files/.gitignore.example', $path);
         }
 
-        $this->call("shipyard:update");
+        $this->info("✅ Shipyard is ready!");
+
+        $this->comment("Things to do now:");
+        $this->comment("> make sure your `routes/web.php` file contains `require __DIR__.'/Shipyard/shipyard.php';`");
 
         return Command::SUCCESS;
     }

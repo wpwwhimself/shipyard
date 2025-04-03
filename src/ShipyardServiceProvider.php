@@ -19,7 +19,6 @@ class ShipyardServiceProvider extends ServiceProvider
 
         $this->commands([
             \Wpwwhimself\Shipyard\Console\InstallCommand::class,
-            \Wpwwhimself\Shipyard\Console\UpdateCommand::class,
         ]);
 
         // // Middleware
@@ -35,22 +34,12 @@ class ShipyardServiceProvider extends ServiceProvider
 
         // // Load routes and views
         // $this->loadViewsFrom(__DIR__.'/../resources/views', 'shipyard');
-
-        // // Publish configuration
-        // $this->publishes([
-        //     // config
-        //     __DIR__.'/../config/shipyard.php' => config_path('shipyard.php'),
-
-        //     // views
-        //     __DIR__.'/../resources/views/test.blade.php' => resource_path('resources/views/test.blade.php'),
-        // ]);
     }
 
     public function provides()
     {
         return [
             \Wpwwhimself\Shipyard\Console\InstallCommand::class,
-            \Wpwwhimself\Shipyard\Console\UpdateCommand::class,
         ];
     }
 }
