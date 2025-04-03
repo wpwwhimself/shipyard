@@ -30,12 +30,14 @@ class InstallCommand extends Command
     {
         $this->info("⚓ Shipyard will now be installed...");
 
+        $this->comment("Preparing routes...");
         (new Filesystem)->copyDirectory(__DIR__.'/../../files/install/routes', base_path("routes"));
 
-        // copy gitignore
+        $this->comment("Adding gitignores...");
         foreach ([
             base_path("app/Http/Controllers/.gitignore"),
             base_path("routes/.gitignore"),
+            base_path("database/migrations/.gitignore"),
         ] as $path) {
             (new Filesystem)->copy(__DIR__.'/../../files/install/.gitignore.example', $path);
         }

@@ -30,7 +30,14 @@ class UpdateCommand extends Command
     {
         $this->info("⚓ Shipyard will now be updated...");
 
+        $this->comment("Updating routes...");
         (new Filesystem)->copyDirectory(__DIR__.'/../../files/update/routes', base_path("routes/Shipyard"));
+
+        $this->comment("Updating migrations...");
+        (new Filesystem)->copyDirectory(__DIR__.'/../../files/update/migrations', base_path("database/migrations"));
+        $this->call("migrate");
+
+        $this->comment("Updating controllers...");
         (new Filesystem)->copyDirectory(__DIR__.'/../../files/update/controllers', base_path("app/Http/Controllers/Shipyard"));
 
         $this->info("✅ Shipyard is ready!");
