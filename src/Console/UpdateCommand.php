@@ -33,8 +33,6 @@ class UpdateCommand extends Command
         (new Filesystem)->copyDirectory(__DIR__.'/../../files/update/routes', base_path("routes/Shipyard"));
         (new Filesystem)->copyDirectory(__DIR__.'/../../files/update/controllers', base_path("app/Http/Controllers/Shipyard"));
 
-        $this->exec("composer dump-autoload");
-
         $this->info("✅ Shipyard is ready!");
 
         return Command::SUCCESS;
