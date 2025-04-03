@@ -19,6 +19,7 @@ class ShipyardServiceProvider extends ServiceProvider
 
         $this->commands([
             \Wpwwhimself\Shipyard\Console\InstallCommand::class,
+            \Wpwwhimself\Shipyard\Console\UpdateCommand::class,
         ]);
 
         // // Migrations
@@ -27,11 +28,6 @@ class ShipyardServiceProvider extends ServiceProvider
         // // Middleware
         // $router = $this->app->make(Router::class);
         // $router->aliasMiddleware("role", EnsureUserHasRole::class);
-
-        // // Controllers
-        // $this->app->make(AuthController::class);
-        // $this->app->make(UserController::class);
-        // $this->app->make(DocumentationController::class);
 
         // // Commands
         // $this->app->booted(function () {
@@ -56,6 +52,9 @@ class ShipyardServiceProvider extends ServiceProvider
 
     public function provides()
     {
-        return [\Wpwwhimself\Shipyard\Console\InstallCommand::class];
+        return [
+            \Wpwwhimself\Shipyard\Console\InstallCommand::class,
+            \Wpwwhimself\Shipyard\Console\UpdateCommand::class,
+        ];
     }
 }

@@ -3,6 +3,7 @@
 namespace Wpwwhimself\Shipyard\Console;
 
 use Illuminate\Console\Command;
+use Illuminate\Filesystem\Filesystem;
 
 class InstallCommand extends Command
 {
@@ -27,7 +28,12 @@ class InstallCommand extends Command
      */
     public function handle()
     {
-        echo "Hello world!";
+        $this->info("⚓ Shipyard will now be installed...");
+
+        (new Filesystem)->copyDirectory(__DIR__.'/../../files/install/routes', base_path("routes"));
+
+        $this->call("shipyard:update");
+
         return Command::SUCCESS;
     }
 }
