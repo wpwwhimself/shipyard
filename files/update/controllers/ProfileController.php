@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Shipyard;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\ProfileUpdateRequest;
 use App\Models\User;
 use App\Models\UserSurveyQuestion;

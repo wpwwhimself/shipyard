@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Shipyard;
 
+use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Shipyard;
 
+use App\Http\Controllers\Controller;
 use App\Models\NewsletterSubscriber;
 use App\Models\User;
 use App\Notifications\NewsletterSubscribedNotification;
