@@ -52,6 +52,9 @@ class InstallCommand extends Command
         $this->comment("Updating stubs...");
         (new Filesystem)->copyDirectory(__DIR__.'/../../files/stubs', base_path("stubs"));
 
+        $this->comment("Updating assets...");
+        (new Filesystem)->copyDirectory(__DIR__.'/../../files/css', base_path("resources/css/Shipyard"));
+
         $this->comment("Updating .gitignore files...");
         foreach ([
             base_path("app/Http/Middleware/Shipyard/.gitignore"),
@@ -60,6 +63,7 @@ class InstallCommand extends Command
             base_path("app/Models/Shipyard/.gitignore"),
             base_path("app/Http/Controllers/Shipyard/.gitignore"),
             base_path("stubs/.gitignore"),
+            base_path("resources/css/Shipyard/.gitignore"),
         ] as $path) {
             (new Filesystem)->copy(__DIR__.'/../../files/.gitignore.all.example', $path);
         }
