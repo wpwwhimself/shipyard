@@ -2,7 +2,7 @@
     color-scheme: light dark;
     --fg: light-dark(black, #eaeaea);
     --bg: light-dark(white, #1c1c1c);
-    --bg-light: light-dark(#e3e3e3, #313131);
+    --bg-lite: light-dark(#e3e3e3, #313131);
     --shadow: light-dark(#00000055, #f6f6f655);
 
     --success: #07e33d;
@@ -133,11 +133,6 @@ body {
     color: var(--white) !important;
 }
 
-.bordered {
-    border: 2px solid currentColor;
-    box-sizing: border-box;
-}
-
 .disabled, :disabled {
     opacity: 0.5;
     pointer-events: none;
@@ -171,7 +166,7 @@ span.large {
 
 .line-separated {
     padding-bottom: 0.5em;
-    border-bottom: 2px solid var(--bg-light);
+    border-bottom: 2px solid var(--bg-lite);
     border-bottom-left-radius: 0 !important; border-bottom-right-radius: 0 !important;
 
     &:last-of-type {
@@ -179,24 +174,8 @@ span.large {
     }
 }
 
-.padded {
-    padding: 0.5em 1em;
-
-    &.large {
-        padding: 1.5em 2em;
-    }
-}
-
 .placeholder {
-    background: repeating-linear-gradient(-45deg, var(--bg-light), var(--bg-light) 10px, var(--tertiary) 10px, var(--tertiary) 20px);
-}
-
-.rounded, a:has(> .rounded) {
-    border-radius: 0.75em;
-}
-
-.shaded {
-    box-shadow: 0 0 0.75em var(--shadow);
+    background: repeating-linear-gradient(-45deg, var(--bg-lite), var(--bg-lite) 10px, var(--tertiary) 10px, var(--tertiary) 20px);
 }
 
 .stick-top {
@@ -310,7 +289,7 @@ body {
 
 code, pre {
     font-family: 'Courier New', Courier, monospace;
-    background-color: var(--bg-light);
+    background-color: var(--bg-lite);
     border-radius: 0.5em;
 }
 
@@ -411,7 +390,7 @@ hr {
 }
 
 .input {
-    border: 2px solid var(--bg-light);
+    border: 2px solid var(--bg-lite);
     grid-template-columns: auto auto 1fr;
     flex-grow: 1;
 
@@ -529,15 +508,15 @@ table {
     }
 
     & td:has(input) {
-        border: 1px solid var(--bg-light);
+        border: 1px solid var(--bg-lite);
 
         &:hover {
-            background-color: var(--bg-light);
+            background-color: var(--bg-lite);
         }
     }
 
     & tr:hover {
-        background-color: var(--bg-light);
+        background-color: var(--bg-lite);
     }
 
     & .button {
@@ -595,7 +574,7 @@ table {
     .side-content-container {
         & > .content:last-child {
             border-left: none;
-            border-top: 2px solid var(--bg-light);
+            border-top: 2px solid var(--bg-lite);
         }
     }
 }

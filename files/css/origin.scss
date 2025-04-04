@@ -1,0 +1,35 @@
+@import "./_base.css";
+
+/******************* attributes *******************/
+
+@mixin bordered {
+    border: 2px solid currentColor;
+    box-sizing: border-box;
+}
+
+@mixin padded {
+    padding: 0.5em 1em;
+
+    &.large {
+        padding: 1.5em 2em;
+    }
+}
+
+@mixin rounded {
+    border-radius: 0.75em;
+}
+
+@mixin shaded {
+    box-shadow: 0 0 0.75em var(--shadow);
+}
+
+@mixin with-backdrop {
+    background-color: var(--bg-lite);
+}
+
+/******************* theme *******************/
+
+.card {
+    @include with-backdrop;
+    @include padded;
+}

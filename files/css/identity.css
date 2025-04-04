@@ -3,7 +3,7 @@
  */
 
 /*** theme ***/
-@import "./Shipyard/base.css";
+@import "./Shipyard/origin.scss";
 
 :root {
     /*** fonts ***/

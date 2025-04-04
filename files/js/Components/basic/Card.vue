@@ -1,11 +1,5 @@
 <template>
-    <div class="card rounded padded shaded">
+    <div class="card">
         <slot />
     </div>
 </template>
-
-<style scoped>
-.card {
-    background-color: var(--bg-lite);
-}
-</style>
