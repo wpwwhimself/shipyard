@@ -14,12 +14,13 @@ use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\View\View;
 use Illuminate\Support\Str;
+use Inertia\Inertia;
 
 class FrontController extends Controller
 {
     public function index()
     {
-        return view("main");
+        return Inertia::render("index");
     }
 
     public function standardPage(string $slug): View
