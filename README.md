@@ -4,28 +4,31 @@ Soon I'll write more here but for now know that this project is a framework for 
 
 ## How to start?
 
-1. Add repository to Composer and require it:
+1. Add Composer settings:
 ```json
 {
     ...
-    "repositories": {
+    "repositories": { // appends Shipyard repository
         "shipyard": {
             "type": "vcs",
             "url": "https://github.com/wpwwhimself/shipyard.git"
         }
     },
-    "require": {
+    "require": { // adds Shipyard to packages
         ...
         "wpwwhimself/shipyard": "dev-main"
+    },
+    "scripts": {
+        ...
+        "post-update-cmd": [ // refresh Shipyard after updates
+            ...
+            "@php artisan shipyard:install"
+        ],
     },
     ...
 }
 ```
 2. Install package:
-```bash
-composer update
 ```
-3. Install files:
-```bash
-php artisan shipyard:install
+composer update
 ```
