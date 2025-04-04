@@ -8,7 +8,7 @@ const props = defineProps<{
 </script>
 
 <template>
-    <div class="button padded rounded small bordered interactive">
+    <div class="button">
         <Link v-if="typeof props.action === 'string'" :href="props.action">
             <slot />
         </Link>
@@ -18,9 +18,3 @@ const props = defineProps<{
         </template>
     </div>
 </template>
-
-<style scoped>
-.button {
-
-}
-</style>

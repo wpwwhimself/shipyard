@@ -1,4 +1,4 @@
-@import "./_base.scss";
+@import "base";
 
 /******************* attributes *******************/
 
@@ -7,11 +7,15 @@
     box-sizing: border-box;
 }
 
-.padded {
-    padding: 0.5em 1em;
+.marginned {
+    margin: 1em 2em;
+}
 
-    &.large {
-        padding: 1.5em 2em;
+.padded {
+    padding: 1em 2em;
+
+    &.small {
+        padding: 0.5em 1em;
     }
 }
 
@@ -29,14 +33,29 @@
 
 /******************* theme *******************/
 
+.button {
+    @extend .padded, .rounded, .padded, .small, .interactive;
+    @extend .accent, .bordered, .primary;
+
+    & a {
+        text-decoration: none;
+    }
+
+    &:hover {
+        @extend .background;
+    }
+}
+
 .card {
     @extend .backdropped;
     @extend .padded;
 }
 
 header {
-    @extend .flex, .right, .middle, .padded;
+    @extend .flex, .right, .middle, .marginned, .padded, .rounded;
     @extend .backdropped;
+
+    justify-content: space-between;
 
     & .title-wrapper {
         @extend .flex, .right, .middle;
@@ -44,5 +63,10 @@ header {
 
     & .nav-wrapper {
         @extend .flex, .right, .middle;
+    }
+
+    & h1 {
+        margin: 0;
+        font-size: 1.2em;
     }
 }

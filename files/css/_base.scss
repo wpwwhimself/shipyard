@@ -55,8 +55,9 @@ body, #app {
 
 /******************** fonts *******************/
 
-* {
+body {
     font-family: var(--base-font);
+    font-size: 16px;
 
     & h1, & h2, & h3, & h4, & h5, & h6 {
         font-family: var(--heading-font), sans-serif;
@@ -238,71 +239,12 @@ a.button, a:has(> .tile), a:has(> .full-width) {
         margin: 0 auto;
         mask-image: linear-gradient(to right, transparent, black 5em, black calc(100% - 5em), transparent);
     }
-
-    /*
-    & .background {
-        position: absolute;
-        top: 0; left: 0; right: 0; bottom: 0;
-        z-index: -1;
-        scale: 1.1;
-
-        background-position: center center;
-        background-size: cover;
-        background-repeat: no-repeat;
-        filter: blur(0.75em);
-    }
-    */
-}
-
-body {
-    color: var(--fg);
-    background-color: var(--bg);
-    font-size: 1em;
-    margin: 0;
-    padding: 0;
-
-    min-height: 100vh;
-    flex-wrap: nowrap;
-
-    font-size: 1em;
-}
-
-.button {
-    background-color: var(--primary);
-    color: white;
-
-    &.phantom {
-        background-color: transparent;
-        color: var(--fg);
-    }
-
-    &.danger {
-        background-color: var(--danger);
-        color: white;
-    }
-
-    &.small {
-        font-size: 1em;
-        padding: 0 0.75em !important;
-    }
 }
 
 code, pre {
     font-family: 'Courier New', Courier, monospace;
     background-color: var(--bg-lite);
     border-radius: 0.5em;
-}
-
-#filters {
-    max-height: calc(100vh - 2 * 1.2em);
-    overflow-y: auto;
-
-    & .grid {
-        &:has(input[type='checkbox']),
-        &:has(input[type='radio']) {
-            grid-template-columns: auto 1fr;
-        }
-    }
 }
 
 .flex {
@@ -449,10 +391,6 @@ input[type="radio"] {
 
 main {
     flex-grow: 1;
-}
-
-nav {
-    z-index: 100;
 }
 
 search {

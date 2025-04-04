@@ -25,17 +25,6 @@
         @vite('resources/css/app.css')
         @vite('resources/css/identity.scss')
 
-        <style>
-        :root {
-            --primary-light: {{ setting("color_primary") }};
-            --secondary-light: {{ setting("color_secondary") }};
-            --tertiary-light: {{ setting("color_tertiary") }};
-            --primary-dark: {{ setting("color_primary_dark") }};
-            --secondary-dark: {{ setting("color_secondary_dark") }};
-            --tertiary-dark: {{ setting("color_tertiary_dark") }};
-        }
-        </style>
-
         <!-- Scripts -->
         @routes
         @vite(['resources/js/app.ts', "resources/js/Pages/{$page['component']}.vue"])
