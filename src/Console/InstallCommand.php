@@ -30,6 +30,9 @@ class InstallCommand extends Command
     {
         $this->info("⚓ Shipyard will now be installed. Hang tight...");
 
+        $this->comment("Updating middleware...");
+        (new Filesystem)->copyDirectory(__DIR__.'/../../files/middleware', base_path("app/Http/Middleware/Shipyard"));
+
         $this->comment("Updating routes...");
         (new Filesystem)->copyDirectory(__DIR__.'/../../files/routes', base_path("routes/Shipyard"));
 
