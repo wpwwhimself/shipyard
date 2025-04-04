@@ -54,14 +54,18 @@ class InstallCommand extends Command
 
         $this->comment("Updating .gitignore files...");
         foreach ([
-            base_path("routes/.gitignore"),
-            base_path("app/Traits/.gitignore"),
-            base_path("app/Models/.gitignore"),
+            base_path("routes/Shipyard/.gitignore"),
+            base_path("app/Traits/Shipyard/.gitignore"),
+            base_path("app/Models/Shipyard/.gitignore"),
+            base_path("app/Http/Controllers/Shipyard/.gitignore"),
+        ] as $path) {
+            (new Filesystem)->copy(__DIR__.'/../../files/.gitignore.all.example', $path);
+        }
+        foreach ([
             base_path("database/migrations/.gitignore"),
-            base_path("app/Http/Controllers/.gitignore"),
             base_path("stubs/.gitignore"),
         ] as $path) {
-            (new Filesystem)->copy(__DIR__.'/../../files/.gitignore.example', $path);
+            (new Filesystem)->copy(__DIR__.'/../../files/.gitignore.nametagged.example', $path);
         }
 
         $this->info("✅ Shipyard is ready!");
