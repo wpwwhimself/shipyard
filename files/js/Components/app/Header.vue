@@ -10,30 +10,15 @@ const props = defineProps<{
 </script>
 
 <template>
-    <header class="padded">
-        <Card class="flex right middle padded">
-            <div class="flex right middle">
-                <Logo />
-                <h1 v-if="title">{{ title }}</h1>
-            </div>
+    <header>
+        <div class="title-wrapper">
+            <Logo />
+            <h1 v-if="title">{{ title }}</h1>
+        </div>
 
-            <div class="flex right middle">
-                <Nav />
-                <AuthButtons />
-            </div>
-        </Card>
+        <div class="nav-wrapper">
+            <Nav />
+            <AuthButtons />
+        </div>
     </header>
 </template>
-
-<style scoped>
-header {
-    & > .card {
-        justify-content: space-between;
-    }
-
-    & h1 {
-        margin: 0;
-        font-size: 1.3em;
-    }
-}
-</style>

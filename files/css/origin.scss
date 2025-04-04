@@ -1,13 +1,13 @@
-@import "./_base.css";
+@import "./_base.scss";
 
 /******************* attributes *******************/
 
-@mixin bordered {
+.bordered {
     border: 2px solid currentColor;
     box-sizing: border-box;
 }
 
-@mixin padded {
+.padded {
     padding: 0.5em 1em;
 
     &.large {
@@ -15,21 +15,34 @@
     }
 }
 
-@mixin rounded {
+.rounded {
     border-radius: 0.75em;
 }
 
-@mixin shaded {
+.shaded {
     box-shadow: 0 0 0.75em var(--shadow);
 }
 
-@mixin with-backdrop {
+.backdropped {
     background-color: var(--bg-lite);
 }
 
 /******************* theme *******************/
 
 .card {
-    @include with-backdrop;
-    @include padded;
+    @extend .backdropped;
+    @extend .padded;
+}
+
+header {
+    @extend .flex, .right, .middle, .padded;
+    @extend .backdropped;
+
+    & .title-wrapper {
+        @extend .flex, .right, .middle;
+    }
+
+    & .nav-wrapper {
+        @extend .flex, .right, .middle;
+    }
 }

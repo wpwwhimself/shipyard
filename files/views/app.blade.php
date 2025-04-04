@@ -23,7 +23,7 @@
 
         <!-- Styles -->
         @vite('resources/css/app.css')
-        @vite('resources/css/identity.css')
+        @vite('resources/css/identity.scss')
 
         <style>
         :root {
