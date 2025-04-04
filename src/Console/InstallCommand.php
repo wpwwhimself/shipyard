@@ -33,6 +33,9 @@ class InstallCommand extends Command
         $this->comment("Updating middleware...");
         (new Filesystem)->copyDirectory(__DIR__.'/../../files/middleware', base_path("app/Http/Middleware/Shipyard"));
 
+        $this->comment("Updating helpers...");
+        (new Filesystem)->copyDirectory(__DIR__.'/../../files/helpers', base_path("app/Helpers/Shipyard"));
+
         $this->comment("Updating routes...");
         (new Filesystem)->copyDirectory(__DIR__.'/../../files/routes', base_path("routes/Shipyard"));
 
@@ -62,6 +65,7 @@ class InstallCommand extends Command
         $this->comment("Updating .gitignore files...");
         foreach ([
             base_path("app/Http/Middleware/Shipyard/.gitignore"),
+            base_path("app/Helpers/Shipyard/.gitignore"),
             base_path("routes/Shipyard/.gitignore"),
             base_path("app/Traits/Shipyard/.gitignore"),
             base_path("app/Models/Shipyard/.gitignore"),

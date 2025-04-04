@@ -4,6 +4,8 @@ Soon I'll write more here but for now know that this project is a framework for 
 
 ## How to start?
 
+Shipyard requires _Laravel_ installation configured with _Breeze_ and _Vue + Inertia_.
+
 1. Add Composer settings:
 ```json
 {
@@ -25,6 +27,10 @@ Soon I'll write more here but for now know that this project is a framework for 
             "@php artisan shipyard:install"
         ],
     },
+    "files": [ // register Shipyard helpers
+        ...
+        "app/Helpers/Shipyard/Shipyard.php"
+    ],
     ...
 }
 ```

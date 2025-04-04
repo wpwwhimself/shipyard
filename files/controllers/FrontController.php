@@ -20,7 +20,7 @@ class FrontController extends Controller
 {
     public function index()
     {
-        return Inertia::render("index");
+        return Inertia::render("Welcome");
     }
 
     public function standardPage(string $slug): View
