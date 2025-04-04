@@ -36,7 +36,7 @@ class InstallCommand extends Command
         $this->comment("Updating traits...");
         (new Filesystem)->copyDirectory(__DIR__.'/../../files/traits', base_path("app/Traits/Shipyard"));
 
-        $this->comments("Updating models...");
+        $this->comment("Updating models...");
         (new Filesystem)->copyDirectory(__DIR__.'/../../files/models', base_path("app/Models/Shipyard"));
 
         $this->comment("Updating migrations...");
