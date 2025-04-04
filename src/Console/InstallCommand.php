@@ -59,12 +59,12 @@ class InstallCommand extends Command
             base_path("app/Traits/Shipyard/.gitignore"),
             base_path("app/Models/Shipyard/.gitignore"),
             base_path("app/Http/Controllers/Shipyard/.gitignore"),
+            base_path("stubs/.gitignore"),
         ] as $path) {
             (new Filesystem)->copy(__DIR__.'/../../files/.gitignore.all.example', $path);
         }
         foreach ([
             base_path("database/migrations/.gitignore"),
-            base_path("stubs/.gitignore"),
         ] as $path) {
             (new Filesystem)->copy(__DIR__.'/../../files/.gitignore.nametagged.example', $path);
         }
