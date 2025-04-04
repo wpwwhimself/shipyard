@@ -63,7 +63,10 @@ class InstallCommand extends Command
 
         $this->comment("Updating views...");
         (new Filesystem)->copyDirectory(__DIR__.'/../../files/views', base_path("resources/views"));
-        (new Filesystem)->copyDirectory(__DIR__.'/../../files/js', base_path("resources/js"));
+        (new Filesystem)->copyDirectory(__DIR__.'/../../files/js/Components', base_path("resources/js/Components/Shipyard"));
+        (new Filesystem)->copyDirectory(__DIR__.'/../../files/js/Layouts', base_path("resources/js/Layouts/Shipyard"));
+        (new Filesystem)->copyDirectory(__DIR__.'/../../files/js/Pages', base_path("resources/js/Pages/Shipyard"));
+        (new Filesystem)->move(base_path("resources/js/Pages/Shipyard/Welcome.vue"), base_path("resources/js/Partials/Welcome.vue"));
 
         $this->comment("Updating .gitignore files...");
         foreach ([
@@ -76,7 +79,9 @@ class InstallCommand extends Command
             base_path("stubs/.gitignore"),
             base_path("resources/css/Shipyard/.gitignore"),
             base_path("resources/views/.gitignore"),
-            base_path("resources/js/.gitignore"),
+            base_path("resources/js/Components/Shipyard/.gitignore"),
+            base_path("resources/js/Layouts/Shipyard/.gitignore"),
+            base_path("resources/js/Pages/Shipyard/.gitignore"),
         ] as $path) {
             (new Filesystem)->copy(__DIR__.'/../../files/.gitignore.all.example', $path);
         }
@@ -90,6 +95,7 @@ class InstallCommand extends Command
 
         $this->comment("Things to do now:");
         $this->comment("> make sure your `routes/web.php` file contains `require __DIR__.'/Shipyard/shipyard.php';`");
+        $this->comment("> make sure your `resources/css/app.css` file is clean - it may overwrite themes");
 
         return Command::SUCCESS;
     }
