@@ -7,6 +7,7 @@ use App\Http\Controllers\Shipyard\EntityManagementController;
 use App\Http\Controllers\Shipyard\FrontController;
 use App\Http\Controllers\Shipyard\ProfileController;
 use App\Http\Controllers\Shipyard\SpellbookController;
+use App\Http\Middleware\Shipyard\EnsureUserHasRole;
 use Illuminate\Support\Facades\Route;
 
 #region auth
@@ -38,7 +39,7 @@ Route::middleware("auth")->group(function () {
     });
 
     Route::controller(AdminController::class)->prefix("admin")->group(function () {
-        Route::prefix("settings")->middleware("role:technical")->group(function () {
+        Route::prefix("settings")->middleware(EnsureUserHasRole::class.":technical")->group(function () {
             Route::get("", "settings")->name("admin-settings");
             Route::post("", "processSettings")->name("admin-process-settings");
         });
@@ -46,7 +47,7 @@ Route::middleware("auth")->group(function () {
         Route::prefix("files")->group(function () {
             Route::get("", "files")->name("files-list");
             Route::get("download", "filesDownload")->name("files-download");
-            Route::middleware("role:blogger")->group(function () {
+            Route::middleware(EnsureUserHasRole::class.":blogger")->group(function () {
                 Route::post("upload", "filesUpload")->name("files-upload");
                 Route::get("delete", "filesDelete")->name("files-delete");
             });
@@ -98,7 +99,7 @@ Route::controller(DocsController::class)->prefix("docs")->group(function () {
 #endregion
 
 #region spellbook
-Route::controller(SpellbookController::class)->middleware("role:super")->group(function () {
+Route::controller(SpellbookController::class)->middleware(EnsureUserHasRole::class.":super")->group(function () {
     foreach (SpellbookController::SPELLS as $spell_name => $route) {
         Route::get($route, $spell_name);
     }
