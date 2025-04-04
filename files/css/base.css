@@ -43,6 +43,16 @@ h1, h2, h3, h4, h5, h6, p {
     margin: 0.75em 0 0.5em;
 }
 
+/******************** layout *******************/
+
+body, #app {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
 /******************** fonts *******************/
 
 * {
@@ -70,6 +80,8 @@ h3 {
 body {
     --white: white;
     --black: #1c1c1c;
+
+    background: radial-gradient(circle at center 200%, var(--primary) 30%, var(--bg));
 }
 
 .accent {
