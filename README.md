@@ -10,31 +10,35 @@ Shipyard requires _Laravel_ installation configured with _Breeze_ and _Vue + Ine
 ```json
 {
     ...
-    "repositories": { // appends Shipyard repository
+    // appends Shipyard repository
+    "repositories": {
         "shipyard": {
             "type": "vcs",
             "url": "https://github.com/wpwwhimself/shipyard.git"
         }
     },
-    "require": { // adds Shipyard to packages
+    // adds Shipyard to packages
+    "require": {
         ...
         "wpwwhimself/shipyard": "dev-main"
     },
+    // refresh Shipyard after updates
     "scripts": {
         ...
-        "post-update-cmd": [ // refresh Shipyard after updates
+        "post-update-cmd": [
             ...
             "@php artisan shipyard:install"
         ],
     },
-    "files": [ // register Shipyard helpers
+    // register Shipyard helpers
+    "files": [
         ...
         "app/Helpers/Shipyard/Shipyard.php"
     ],
     ...
 }
 ```
-2. Install package:
+1. Install package:
 ```
 composer update
 ```
