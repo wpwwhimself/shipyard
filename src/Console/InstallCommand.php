@@ -54,6 +54,7 @@ class InstallCommand extends Command
 
         $this->comment("Updating .gitignore files...");
         foreach ([
+            base_path("app/Middleware/Shipyard/.gitignore"),
             base_path("routes/Shipyard/.gitignore"),
             base_path("app/Traits/Shipyard/.gitignore"),
             base_path("app/Models/Shipyard/.gitignore"),
