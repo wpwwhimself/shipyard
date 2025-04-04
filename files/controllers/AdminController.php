@@ -3,10 +3,9 @@
 namespace App\Http\Controllers\Shipyard;
 
 use App\Http\Controllers\Controller;
-use App\Models\AdvertSetting;
-use App\Models\Role;
-use App\Models\Setting;
-use App\Models\User;
+use App\Models\Shipyard\Role;
+use App\Models\Shipyard\Setting;
+use App\Models\Shipyard\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;

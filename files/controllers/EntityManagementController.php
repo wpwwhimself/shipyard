@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Shipyard;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
+use App\Models\Shipyard\User;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;

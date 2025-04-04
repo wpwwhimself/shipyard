@@ -4,8 +4,6 @@ namespace App\Http\Controllers\Shipyard;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProfileUpdateRequest;
-use App\Models\User;
-use App\Models\UserSurveyQuestion;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -72,39 +70,4 @@ class ProfileController extends Controller
 
         return Redirect::to('/');
     }
-
-    #region survey
-    public function listSurveys(): View
-    {
-        $meta = UserSurveyQuestion::META;
-        $users = User::has("surveyQuestions")->paginate(25);
-
-        return view('admin.surveys.list', compact(
-            "meta",
-            "users",
-        ));
-    }
-
-    public function editSurvey(): View
-    {
-        $questions = UserSurveyQuestion::visible()->get();
-        $meta = UserSurveyQuestion::META;
-
-        return view('pages.profile.survey', compact(
-            "meta",
-            "questions",
-        ));
-    }
-
-    public function processSurvey(Request $rq): RedirectResponse
-    {
-        $user = Auth::user();
-
-        $answers = collect($rq->except("_token"))
-            ->mapWithKeys(fn ($ans, $q) => [Str::afterLast($q, "_") => ["answer" => $ans]]);
-        $user->surveyQuestions()->sync($answers);
-
-        return redirect()->route("profile")->with("success", "Dziękujemy za wypełnienie ankiety");
-    }
-    #endregion
 }

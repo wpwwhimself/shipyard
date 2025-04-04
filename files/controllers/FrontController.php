@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Shipyard;
 
 use App\Http\Controllers\Controller;
-use App\Models\StandardPage;
-use App\Models\User;
+use App\Models\Shipyard\StandardPage;
+use App\Models\Shipyard\User;
 use App\Notifications\ContactFormMsgNotification;
 use App\Notifications\ContactFormSentNotification;
 use App\Notifications\ErrorReportNotification;
