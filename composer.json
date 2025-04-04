@@ -19,7 +19,10 @@
     "autoload": {
         "psr-4": {
             "Wpwwhimself\\Shipyard\\": "src/"
-        }
+        },
+        "files": [
+            "src/helpers.php"
+        ]
     },
     "scripts": {
         "post-autoload-dump": "@composer run prepare"

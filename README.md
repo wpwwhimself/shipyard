@@ -30,11 +30,6 @@ Shipyard requires _Laravel_ installation configured with _Breeze_ and _Vue + Ine
             "@php artisan shipyard:install"
         ],
     },
-    // register Shipyard helpers
-    "files": [
-        ...
-        "app/Helpers/Shipyard/Shipyard.php"
-    ],
     ...
 }
 ```
