@@ -55,8 +55,11 @@ class InstallCommand extends Command
         $this->comment("Updating stubs...");
         (new Filesystem)->copyDirectory(__DIR__.'/../../files/stubs', base_path("stubs"));
 
-        $this->comment("Updating assets...");
+        $this->comment("Updating styles...");
         (new Filesystem)->copyDirectory(__DIR__.'/../../files/css', base_path("resources/css/Shipyard"));
+        if (!file_exists(base_path("resources/css/identity.css"))) {
+            (new Filesystem)->copy(__DIR__.'/../../files/css/identity.css', base_path("resources/css/identity.css"));
+        }
 
         $this->comment("Updating views...");
         (new Filesystem)->copyDirectory(__DIR__.'/../../files/views', base_path("resources/views"));

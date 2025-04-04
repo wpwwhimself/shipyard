@@ -23,7 +23,7 @@
 
         <!-- Styles -->
         @vite('resources/css/app.css')
-        @vite('resources/css/Shipyard/base.css')
+        @vite('resources/css/identity.css')
 
         <style>
         :root {

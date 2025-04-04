@@ -18,12 +18,9 @@ return new class extends Migration
         });
 
         DB::table("settings")->insert([
-            ["name" => "app_name", "value" => "Portal Logopedy"],
+            ["name" => "app_name", "value" => "Shipyard"],
             ["name" => "app_logo_path", "value" => null],
             ["name" => "app_favicon_path", "value" => null],
-            ["name" => "color_primary", "value" => "#e30715"],
-            ["name" => "color_secondary", "value" => "#e3dd07"],
-            ["name" => "color_tertiary", "value" => "#0796e3"],
         ]);
     }
 
