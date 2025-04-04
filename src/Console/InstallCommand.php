@@ -57,7 +57,7 @@ class InstallCommand extends Command
 
         $this->comment("Updating views...");
         (new Filesystem)->copyDirectory(__DIR__.'/../../files/views', base_path("resources/views"));
-        (new Filesystem)->copy(__DIR__.'/../../files/js', base_path("resources/js"));
+        (new Filesystem)->copyDirectory(__DIR__.'/../../files/js', base_path("resources/js"));
 
         $this->comment("Updating .gitignore files...");
         foreach ([
