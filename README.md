@@ -33,7 +33,7 @@ Shipyard requires _Laravel_ installation configured with _Breeze_ and _Vue + Ine
     ...
 }
 ```
-1. Install package:
+2. Install package:
 ```
 composer update
 ```
