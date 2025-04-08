@@ -4,6 +4,7 @@ namespace {{ namespace }};
 
 {{ factoryImport }}
 use Illuminate\Database\Eloquent\Model;
+use Wildside\Userstamps;
 
 class {{ class }} extends Model
 {
@@ -15,7 +16,11 @@ class {{ class }} extends Model
         "description" => "",
     ];
 
+    use Userstamps;
+
     protected $fillable = [
+        "name",
+        "visible",
     ];
 
     public const FIELDS = [

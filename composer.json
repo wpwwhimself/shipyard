@@ -14,7 +14,8 @@
     "require": {
         "illuminate/console": "^12.7",
         "illuminate/support": "^12.7",
-        "inertiajs/inertia-laravel": "*"
+        "inertiajs/inertia-laravel": "*",
+        "wildside/userstamps": "*"
     },
     "autoload": {
         "psr-4": {
