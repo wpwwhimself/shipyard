@@ -31,41 +31,41 @@ class InstallCommand extends Command
         $this->info("⚓ Shipyard will now be installed. Hang tight...");
 
         $this->comment("Updating middleware...");
-        (new Filesystem)->copyDirectory(__DIR__.'/../../files/middleware', base_path("app/Http/Middleware/Shipyard"));
+        (new Filesystem)->link(__DIR__.'/../../files/middleware', base_path("app/Http/Middleware/Shipyard"));
 
         $this->comment("Updating helpers...");
-        (new Filesystem)->copyDirectory(__DIR__.'/../../files/helpers', base_path("app/Helpers/Shipyard"));
+        (new Filesystem)->link(__DIR__.'/../../files/helpers', base_path("app/Helpers/Shipyard"));
 
         $this->comment("Updating routes...");
-        (new Filesystem)->copyDirectory(__DIR__.'/../../files/routes', base_path("routes/Shipyard"));
+        (new Filesystem)->link(__DIR__.'/../../files/routes', base_path("routes/Shipyard"));
 
         $this->comment("Updating traits...");
-        (new Filesystem)->copyDirectory(__DIR__.'/../../files/traits', base_path("app/Traits/Shipyard"));
+        (new Filesystem)->link(__DIR__.'/../../files/traits', base_path("app/Traits/Shipyard"));
 
         $this->comment("Updating models...");
-        (new Filesystem)->copyDirectory(__DIR__.'/../../files/models', base_path("app/Models/Shipyard"));
+        (new Filesystem)->link(__DIR__.'/../../files/models', base_path("app/Models/Shipyard"));
 
         $this->comment("Updating migrations...");
-        (new Filesystem)->copyDirectory(__DIR__.'/../../files/migrations', base_path("database/migrations"));
+        (new Filesystem)->link(__DIR__.'/../../files/migrations', base_path("database/migrations"));
         $this->call("migrate");
 
         $this->comment("Updating controllers...");
-        (new Filesystem)->copyDirectory(__DIR__.'/../../files/controllers', base_path("app/Http/Controllers/Shipyard"));
+        (new Filesystem)->link(__DIR__.'/../../files/controllers', base_path("app/Http/Controllers/Shipyard"));
 
         $this->comment("Updating stubs...");
-        (new Filesystem)->copyDirectory(__DIR__.'/../../files/stubs', base_path("stubs"));
+        (new Filesystem)->link(__DIR__.'/../../files/stubs', base_path("stubs"));
 
         $this->comment("Updating styles...");
-        (new Filesystem)->copyDirectory(__DIR__.'/../../files/css', base_path("resources/css/Shipyard"));
+        (new Filesystem)->link(__DIR__.'/../../files/css', base_path("resources/css/Shipyard"));
         if (!file_exists(base_path("resources/css/identity.scss"))) {
             (new Filesystem)->copy(__DIR__.'/../../files/css/identity.scss', base_path("resources/css/identity.scss"));
         }
 
         $this->comment("Updating views...");
-        (new Filesystem)->copyDirectory(__DIR__.'/../../files/views', base_path("resources/views"));
-        (new Filesystem)->copyDirectory(__DIR__.'/../../files/js/Components', base_path("resources/js/Components/Shipyard"));
-        (new Filesystem)->copyDirectory(__DIR__.'/../../files/js/Layouts', base_path("resources/js/Layouts/Shipyard"));
-        (new Filesystem)->copyDirectory(__DIR__.'/../../files/js/Pages', base_path("resources/js/Pages/Shipyard"));
+        (new Filesystem)->link(__DIR__.'/../../files/views', base_path("resources/views"));
+        (new Filesystem)->link(__DIR__.'/../../files/js/Components', base_path("resources/js/Components/Shipyard"));
+        (new Filesystem)->link(__DIR__.'/../../files/js/Layouts', base_path("resources/js/Layouts/Shipyard"));
+        (new Filesystem)->link(__DIR__.'/../../files/js/Pages', base_path("resources/js/Pages/Shipyard"));
         (new Filesystem)->move(base_path("resources/js/Pages/Shipyard/Welcome.vue"), base_path("resources/js/Pages/Welcome.vue"));
 
         $this->comment("Updating .gitignore files...");
