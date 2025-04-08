@@ -31,47 +31,43 @@ class InstallCommand extends Command
         $this->info("⚓ Shipyard will now be installed. Hang tight...");
 
         $this->comment("Updating middleware...");
-        (new Filesystem)->link(__DIR__.'/../../files/middleware', base_path("app/Http/Middleware/Shipyard"));
-
-        $this->comment("Updating helpers...");
-        (new Filesystem)->link(__DIR__.'/../../files/helpers', base_path("app/Helpers/Shipyard"));
+        $this->tryLink(__DIR__.'/../../files/middleware', base_path("app/Http/Middleware/Shipyard"));
 
         $this->comment("Updating routes...");
-        (new Filesystem)->link(__DIR__.'/../../files/routes', base_path("routes/Shipyard"));
+        $this->tryLink(__DIR__.'/../../files/routes', base_path("routes/Shipyard"));
 
         $this->comment("Updating traits...");
-        (new Filesystem)->link(__DIR__.'/../../files/traits', base_path("app/Traits/Shipyard"));
+        $this->tryLink(__DIR__.'/../../files/traits', base_path("app/Traits/Shipyard"));
 
         $this->comment("Updating models...");
-        (new Filesystem)->link(__DIR__.'/../../files/models', base_path("app/Models/Shipyard"));
+        $this->tryLink(__DIR__.'/../../files/models', base_path("app/Models/Shipyard"));
 
         $this->comment("Updating migrations...");
-        (new Filesystem)->link(__DIR__.'/../../files/migrations', base_path("database/migrations"));
+        $this->tryLink(__DIR__.'/../../files/migrations', base_path("database/migrations"));
         $this->call("migrate");
 
         $this->comment("Updating controllers...");
-        (new Filesystem)->link(__DIR__.'/../../files/controllers', base_path("app/Http/Controllers/Shipyard"));
+        $this->tryLink(__DIR__.'/../../files/controllers', base_path("app/Http/Controllers/Shipyard"));
 
         $this->comment("Updating stubs...");
-        (new Filesystem)->link(__DIR__.'/../../files/stubs', base_path("stubs"));
+        $this->tryLink(__DIR__.'/../../files/stubs', base_path("stubs"));
 
         $this->comment("Updating styles...");
-        (new Filesystem)->link(__DIR__.'/../../files/css', base_path("resources/css/Shipyard"));
+        $this->tryLink(__DIR__.'/../../files/css', base_path("resources/css/Shipyard"));
         if (!file_exists(base_path("resources/css/identity.scss"))) {
             (new Filesystem)->copy(__DIR__.'/../../files/css/identity.scss', base_path("resources/css/identity.scss"));
         }
 
         $this->comment("Updating views...");
-        (new Filesystem)->link(__DIR__.'/../../files/views', base_path("resources/views"));
-        (new Filesystem)->link(__DIR__.'/../../files/js/Components', base_path("resources/js/Components/Shipyard"));
-        (new Filesystem)->link(__DIR__.'/../../files/js/Layouts', base_path("resources/js/Layouts/Shipyard"));
-        (new Filesystem)->link(__DIR__.'/../../files/js/Pages', base_path("resources/js/Pages/Shipyard"));
+        $this->tryLink(__DIR__.'/../../files/views', base_path("resources/views"));
+        $this->tryLink(__DIR__.'/../../files/js/Components', base_path("resources/js/Components/Shipyard"));
+        $this->tryLink(__DIR__.'/../../files/js/Layouts', base_path("resources/js/Layouts/Shipyard"));
+        $this->tryLink(__DIR__.'/../../files/js/Pages', base_path("resources/js/Pages/Shipyard"));
         (new Filesystem)->move(base_path("resources/js/Pages/Shipyard/Welcome.vue"), base_path("resources/js/Pages/Welcome.vue"));
 
         $this->comment("Updating .gitignore files...");
         foreach ([
             base_path("app/Http/Middleware/Shipyard/.gitignore"),
-            base_path("app/Helpers/Shipyard/.gitignore"),
             base_path("routes/Shipyard/.gitignore"),
             base_path("app/Traits/Shipyard/.gitignore"),
             base_path("app/Models/Shipyard/.gitignore"),
@@ -98,5 +94,13 @@ class InstallCommand extends Command
         $this->comment("> make sure your `resources/css/app.css` file is clean - it may overwrite themes");
 
         return Command::SUCCESS;
+    }
+
+    private function tryLink($from, $to) {
+        if (file_exists($to)) {
+            return;
+        }
+
+        (new Filesystem)->link($from, $to);
     }
 }
