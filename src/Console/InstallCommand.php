@@ -4,6 +4,9 @@ namespace Wpwwhimself\Shipyard\Console;
 
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
+use Illuminate\Support\Str;
+
+use function PHPUnit\Framework\directoryExists;
 
 class InstallCommand extends Command
 {
@@ -63,7 +66,7 @@ class InstallCommand extends Command
         $this->tryLink(__DIR__.'/../../files/js/Components', base_path("resources/js/Components/Shipyard"));
         $this->tryLink(__DIR__.'/../../files/js/Layouts', base_path("resources/js/Layouts/Shipyard"));
         $this->tryLink(__DIR__.'/../../files/js/Pages', base_path("resources/js/Pages/Shipyard"));
-        (new Filesystem)->move(base_path("resources/js/Pages/Shipyard/Welcome.vue"), base_path("resources/js/Pages/Welcome.vue"));
+        $this->tryMove(base_path("resources/js/Pages/Shipyard/Welcome.vue"), base_path("resources/js/Pages/Welcome.vue"));
 
         $this->comment("Updating .gitignore files...");
         foreach ([
@@ -79,12 +82,12 @@ class InstallCommand extends Command
             base_path("resources/js/Layouts/Shipyard/.gitignore"),
             base_path("resources/js/Pages/Shipyard/.gitignore"),
         ] as $path) {
-            (new Filesystem)->copy(__DIR__.'/../../files/.gitignore.all.example', $path);
+            $this->tryCopy(__DIR__.'/../../files/.gitignore.all.example', $path);
         }
         foreach ([
             base_path("database/migrations/.gitignore"),
         ] as $path) {
-            (new Filesystem)->copy(__DIR__.'/../../files/.gitignore.nametagged.example', $path);
+            $this->tryCopy(__DIR__.'/../../files/.gitignore.nametagged.example', $path);
         }
 
         $this->info("✅ Shipyard is ready!");
@@ -101,6 +104,23 @@ class InstallCommand extends Command
             return;
         }
 
+        $to_before = Str::beforeLast($to, '/');
+        if (!file_exists($to_before)) {
+            (new Filesystem)->makeDirectory($to_before);
+        }
+
         (new Filesystem)->link($from, $to);
+    }
+
+    private function tryMove($from, $to) {
+        if (!file_exists($from)) {
+            return;
+        }
+
+        (new Filesystem)->move($from, $to);
+    }
+
+    private function tryCopy($from, $to) {
+        (new Filesystem)->copy($from, $to);
     }
 }
