@@ -66,7 +66,7 @@ class InstallCommand extends Command
         $this->tryLink(__DIR__.'/../../files/js/Components', base_path("resources/js/Components/Shipyard"));
         $this->tryLink(__DIR__.'/../../files/js/Layouts', base_path("resources/js/Layouts/Shipyard"));
         $this->tryLink(__DIR__.'/../../files/js/Pages', base_path("resources/js/Pages/Shipyard"));
-        $this->tryMove(base_path("resources/js/Pages/Shipyard/Welcome.vue"), base_path("resources/js/Pages/Welcome.vue"));
+        $this->tryCopy(base_path("resources/js/Pages/Shipyard/Welcome.vue"), base_path("resources/js/Pages/Welcome.vue"));
 
         $this->comment("Updating .gitignore files...");
         foreach ([
