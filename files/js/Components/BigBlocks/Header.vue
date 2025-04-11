@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import Card from '../basic/Card.vue';
+import Card from '../Card.vue';
 import AuthButtons from './AuthButtons.vue';
 import Logo from './Logo.vue';
 import Nav from './Nav.vue';

@@ -46,7 +46,7 @@ class InstallCommand extends Command
         $this->tryLink(__DIR__.'/../../files/models', base_path("app/Models/Shipyard"));
 
         $this->comment("Updating migrations...");
-        $this->tryLink(__DIR__.'/../../files/migrations', base_path("database/migrations"));
+        $this->tryCopyDirectory(__DIR__.'/../../files/migrations', base_path("database/migrations"));
         $this->call("migrate");
 
         $this->comment("Updating controllers...");
@@ -57,12 +57,10 @@ class InstallCommand extends Command
 
         $this->comment("Updating styles...");
         $this->tryLink(__DIR__.'/../../files/css', base_path("resources/css/Shipyard"));
-        if (!file_exists(base_path("resources/css/identity.scss"))) {
-            (new Filesystem)->copy(__DIR__.'/../../files/css/identity.scss', base_path("resources/css/identity.scss"));
-        }
+        $this->tryCopy(__DIR__.'/../../files/css/identity.scss', base_path("resources/css/identity.scss"));
 
         $this->comment("Updating views...");
-        $this->tryLink(__DIR__.'/../../files/views', base_path("resources/views"));
+        $this->tryCopyDirectory(__DIR__.'/../../files/views', base_path("resources/views"));
         $this->tryLink(__DIR__.'/../../files/js/Components', base_path("resources/js/Components/Shipyard"));
         $this->tryLink(__DIR__.'/../../files/js/Layouts', base_path("resources/js/Layouts/Shipyard"));
         $this->tryLink(__DIR__.'/../../files/js/Pages', base_path("resources/js/Pages/Shipyard"));
@@ -93,8 +91,9 @@ class InstallCommand extends Command
         $this->info("✅ Shipyard is ready!");
 
         $this->comment("Things to do now:");
-        $this->comment("> make sure your `routes/web.php` file contains `require __DIR__.'/Shipyard/shipyard.php';`");
-        $this->comment("> make sure your `resources/css/app.css` file is clean - it may overwrite themes");
+        $this->comment("| add `require __DIR__.'/Shipyard/shipyard.php';` to `routes/web.php`");
+        $this->comment("| clean your `resources/css/app.css` file - it may overwrite themes");
+        $this->comment("| install SASS with `npm install -D sass-embedded`");
 
         return Command::SUCCESS;
     }
@@ -110,6 +109,10 @@ class InstallCommand extends Command
         }
 
         (new Filesystem)->link($from, $to);
+    }
+
+    private function tryCopyDirectory($from, $to) {
+        (new Filesystem)->copyDirectory($from, $to);
     }
 
     private function tryMove($from, $to) {

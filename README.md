@@ -17,11 +17,6 @@ Shipyard requires _Laravel_ installation configured with _Breeze_ and _Vue + Ine
             "url": "https://github.com/wpwwhimself/shipyard.git"
         }
     },
-    // adds Shipyard to packages
-    "require": {
-        ...
-        "wpwwhimself/shipyard": "dev-main"
-    },
     // refresh Shipyard after updates
     "scripts": {
         ...
@@ -35,5 +30,5 @@ Shipyard requires _Laravel_ installation configured with _Breeze_ and _Vue + Ine
 ```
 2. Install package:
 ```
-composer update
+composer require wpwwhimself/shipyard
 ```

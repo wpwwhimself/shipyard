@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import BaseLayout from '@/Layouts/BaseLayout.vue';
+import BaseLayout from '@/Layouts/Shipyard/BaseLayout.vue';
 
 defineProps<{
     canLogin?: boolean;

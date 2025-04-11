@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import ApplicationLogo from '@/Components/ApplicationLogo.vue';
-import Header from '@/Components/App/Header.vue';
-import Footer from '@/Components/App/Footer.vue';
+import ApplicationLogo from '@/Components/Shipyard/ApplicationLogo.vue';
+import Header from '@/Components/Shipyard/BigBlocks/Header.vue';
+import Footer from '@/Components/Shipyard/BigBlocks/Footer.vue';
 import { Head, Link } from '@inertiajs/vue3';
 
 const props = defineProps<{
