@@ -28,7 +28,11 @@ Shipyard requires _Laravel_ installation configured with _Breeze_ and _Vue + Ine
     ...
 }
 ```
-2. Install package:
+2. Fill out important fields in `.env`, mainly:
+   - `DB_??` - required for migrations,
+   - `MAIL_FROM_ADDRESS` - required for archmage user migration,
+
+3. Install package:
 ```
 composer require wpwwhimself/shipyard
 ```
