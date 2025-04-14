@@ -1,10 +1,14 @@
-@import "base";
+@use "_base.scss" as *;
 
 /******************* attributes *******************/
 
 .bordered {
     border: 2px solid currentColor;
     box-sizing: border-box;
+}
+
+.with-bottom-separator {
+    border-bottom: 1px solid var(--fg-lite);
 }
 
 .marginned {
@@ -48,7 +52,15 @@
 
 .card {
     @extend .backdropped;
-    @extend .padded;
+    @extend .padded, .rounded;
+
+    & .title-wrapper {
+        @extend .flex, .right, .middle;
+        @extend .with-bottom-separator;
+
+        justify-content: space-between;
+        flex-wrap: nowrap;
+    }
 }
 
 header {
@@ -65,8 +77,23 @@ header {
         @extend .flex, .right, .middle;
     }
 
+    & #auth-btns {
+        @extend .flex, .right, .middle;
+    }
+
     & h1 {
         margin: 0;
         font-size: 1.2em;
     }
+}
+
+/******************* transitions *******************/
+
+.v-enter-active,
+.v-leave-active {
+    transition: opacity 0.3s ease-out;
+}
+.v-enter-from,
+.v-leave-to {
+    opacity: 0;
 }
