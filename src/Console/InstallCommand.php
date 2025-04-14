@@ -94,6 +94,7 @@ class InstallCommand extends Command
         $this->comment("| add `require __DIR__.'/Shipyard/shipyard.php';` to `routes/web.php`");
         $this->comment("| clean your `resources/css/app.css` file - it may overwrite themes");
         $this->comment("| install SASS with `npm install -D sass-embedded`");
+        $this->comment("| install icons with `npm install @coreui/icons @coreui/icons-vue`");
 
         return Command::SUCCESS;
     }
