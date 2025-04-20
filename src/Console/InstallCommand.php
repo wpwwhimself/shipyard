@@ -35,6 +35,7 @@ class InstallCommand extends Command
 
         $this->comment("Updating middleware...");
         $this->tryLink(__DIR__.'/../../files/middleware', base_path("app/Http/Middleware/Shipyard"));
+        $this->tryCopy(app_path("Http/Middleware/Shipyard/HandleInertiaRequests.php"), app_path("Http/Middleware/HandleInertiaRequests.php"));
 
         $this->comment("Updating routes...");
         $this->tryLink(__DIR__.'/../../files/routes', base_path("routes/Shipyard"));

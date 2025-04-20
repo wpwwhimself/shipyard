@@ -2,7 +2,10 @@
 import ApplicationLogo from '@/Components/Shipyard/ApplicationLogo.vue';
 import Header from '@/Components/Shipyard/BigBlocks/Header.vue';
 import Footer from '@/Components/Shipyard/BigBlocks/Footer.vue';
-import { Head, Link } from '@inertiajs/vue3';
+import { usePage } from '@inertiajs/vue3';
+
+const page = usePage()
+console.log(page.props.flash)
 </script>
 
 <template>
