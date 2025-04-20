@@ -32,7 +32,7 @@
 }
 
 .backdropped {
-    background: radial-gradient(circle at center, var(--bg-lite), var(--bg), var(--bg-lite));
+    background: linear-gradient(to bottom, var(--bg), var(--bg-lite));
 }
 
 /******************* theme *******************/
@@ -67,6 +67,14 @@ body {
 
     & > .contents {
         @extend .flex, .down;
+    }
+}
+
+form {
+    @extend .flex, .down;
+
+    & .bottom-btns {
+        @extend .flex, .right, .center, .middle;
     }
 }
 
