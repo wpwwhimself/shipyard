@@ -5,6 +5,6 @@ import Button from '../Inputs/Button.vue';
 
 <template>
     <div id="auth-btns">
-        <Button :action="route('login')">Zaloguj się</Button>
+        <Button :action="route('login')" icon="sign-in">Zaloguj się</Button>
     </div>
 </template>

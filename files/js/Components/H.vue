@@ -2,10 +2,10 @@
 import Icon from './Icon.vue';
 
 const props = withDefaults(defineProps<{
-    lvl: string,
+    lvl?: string,
     icon?: string,
 }>(), {
-    lvl: 2,
+    lvl: "2",
 })
 </script>
 

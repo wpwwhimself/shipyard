@@ -1,16 +1,17 @@
 <script setup lang="ts">
 import Icon from '../Icon.vue';
 import Button from '../Inputs/Button.vue';
-import { ref } from 'vue';
+import { ref, useAttrs } from 'vue';
 
 let storageFile = ref(false)
 let extraButtons = ref(false)
+const attrs = useAttrs()
+const model = defineModel()
 
 const props = withDefaults(defineProps<{
     name: string,
     label?: string,
     type?: string,
-    value?: any,
     icon?: string,
     hint?: string,
     characterLimit?: number,
@@ -18,25 +19,11 @@ const props = withDefaults(defineProps<{
     options?: object,
     emptyOption?: string | false,
     columnTypes?: object,
-
-    placeholder?: string,
-    required?: boolean,
-    autofocus?: boolean,
-    disabled?: boolean,
-    checked?: boolean,
-    autocomplete?: string,
 }>(), {
     type: "text",
 
     options: [],
     emptyOption: false,
-
-    placeholder: "– brak –",
-    required: false,
-    autofocus: false,
-    disabled: false,
-    checked: false,
-    autocomplete: "on",
 })
 
 if (props.type === "storage_url") {
@@ -45,7 +32,7 @@ if (props.type === "storage_url") {
 }
 
 if (
-    (props.type === "url" && props.value)
+    props.type === "url"
     || storageFile.value
 ) {
     extraButtons.value = true
@@ -61,7 +48,7 @@ if (
             <label :for="props.name">
                 {{ props.label }}
                 <span v-if="props.hint">
-                    <Icon icon="" />
+                    <Icon icon="question-circle" />
                 </span>
                 :
             </label>
@@ -69,26 +56,19 @@ if (
             <input v-if="props.type === 'checkbox'" type="checkbox"
                 :id="props.name"
                 :name="props.name"
-                :value="props.value"
-
-                :required="props.required"
-                :autofocus="props.autofocus"
-                :disabled="props.disabled"
-                :checked="props.checked"
+                v-model="model"
+                :="$attrs"
             />
 
             <select v-else-if="props.type === 'select'"
                 :id="props.name"
                 :name="props.name"
-
-                :required="props.required"
-                :autofocus="props.autofocus"
-                :disabled="props.disabled"
+                v-model="model"
+                :="$attrs"
             >
                 <option v-if="props.emptyOption" value="">— brak —</option>
                 <option v-for="(opt_value, opt_label) in props.options" :key="opt_value"
                     :value="opt_value"
-                    :selected="opt_value == props.value"
                 >
                     {{ opt_label }}
                 </option>
@@ -97,17 +77,17 @@ if (
             <textarea v-else-if="props.type === 'TEXT'"
                 :id="props.name"
                 :name="props.name"
+                v-model="model"
                 placeholder="Zacznij pisać..."
+                :="$attrs"
+            ></textarea>
 
-                :required="props.required"
-                :autofocus="props.autofocus"
-                :disabled="props.disabled"
-            >{{ props.value }}</textarea>
-
+            <!--
             <x-ckeditor v-else-if="props.type === 'HTML'"
                 :name="props.name"
                 :value="props.value"
             />
+            -->
 
             <template v-else-if="props.type === 'JSON'">
                 <!--
@@ -183,13 +163,8 @@ if (
             <input v-else :type="props.type"
                 :id="props.name"
                 :name="props.name"
-                :value="props.value"
-                :placeholder="props.placeholder"
-
-                :required="props.required"
-                :autofocus="props.autofocus"
-                :disabled="props.disabled"
-                :autocomplete="props.autocomplete"
+                v-model="model"
+                :="$attrs"
             />
         </div>
 
