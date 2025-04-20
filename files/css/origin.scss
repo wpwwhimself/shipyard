@@ -32,10 +32,14 @@
 }
 
 .backdropped {
-    background-color: var(--bg-lite);
+    background: radial-gradient(circle at center, var(--bg-lite), var(--bg), var(--bg-lite));
 }
 
 /******************* theme *******************/
+
+body {
+    background: radial-gradient(circle at center 200%, var(--primary) 30%, var(--bg));
+}
 
 .button {
     @extend .padded, .rounded, .padded, .small, .interactive;
@@ -51,23 +55,24 @@
 }
 
 .card {
-    @extend .backdropped;
-    @extend .padded, .rounded;
+    @extend .flex, .down;
+    @extend .padded, .rounded, .backdropped;
 
     & .title-wrapper {
-        @extend .flex, .right, .middle;
+        @extend .flex, .right, .middle, .spread;
         @extend .with-bottom-separator;
 
-        justify-content: space-between;
         flex-wrap: nowrap;
+    }
+
+    & > .contents {
+        @extend .flex, .down;
     }
 }
 
 header {
-    @extend .flex, .right, .middle, .marginned, .padded, .rounded;
+    @extend .flex, .right, .middle, .spread, .marginned, .padded, .rounded;
     @extend .backdropped;
-
-    justify-content: space-between;
 
     & .title-wrapper {
         @extend .flex, .right, .middle;
@@ -84,6 +89,45 @@ header {
     & h1 {
         margin: 0;
         font-size: 1.2em;
+    }
+}
+
+.input-outer-wrapper {
+    @extend .flex, .right, .middle, .spread;
+
+    & > .input-inner-wrapper {
+        @extend .grid, .middle;
+        @extend .padded, .rounded, .animatable, .bordered;
+
+        grid-template-columns: auto auto 1fr;
+        flex-grow: 1;
+
+        &:has(:focus) {
+            border-color: var(--primary);
+        }
+
+        & input, & textarea, & select {
+            color: var(--fg);
+        }
+
+        & textarea {
+            font-family: monospace;
+            min-height: 3.5em;
+        }
+
+        & select {
+            & option {
+                font-family: inherit;
+                background-color: var(--bg);
+            }
+        }
+
+        & input[type="checkbox"],
+        & input[type="radio"] {
+            accent-color: var(--primary);
+            height: 1em;
+            width: 1em;
+        }
     }
 }
 

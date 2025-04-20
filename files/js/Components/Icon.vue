@@ -1,14 +1,11 @@
 <script setup lang="ts">
-import { CIcon } from '@/../../node_modules/@coreui/icons-vue';
-import * as icons from '@/../../node_modules/@coreui/icons';
-import { computed } from 'vue';
+import '@/../../node_modules/primeicons/primeicons.css';
 
 const props = defineProps<{
-    icon: string,
+    name: string,
 }>()
-const icon_name = computed(() => `cil${props.icon.charAt(0).toUpperCase() + props.icon.slice(1)}`);
 </script>
 
 <template>
-    <CIcon :icon="icons[icon_name]" />
+    <i :class="`pi pi-${props.name}`"></i>
 </template>

@@ -3,18 +3,15 @@ import ApplicationLogo from '@/Components/Shipyard/ApplicationLogo.vue';
 import Header from '@/Components/Shipyard/BigBlocks/Header.vue';
 import Footer from '@/Components/Shipyard/BigBlocks/Footer.vue';
 import { Head, Link } from '@inertiajs/vue3';
-
-const props = defineProps<{
-    title: string,
-}>();
 </script>
 
 <template>
-    <Head :title="title" />
-    <Header :title="title" />
-    <main class="padded">
-        <slot />
-    </main>
+    <Header />
+    <Transition>
+        <main class="padded">
+            <slot />
+        </main>
+    </Transition>
     <Footer />
 </template>
 

@@ -36,3 +36,7 @@ Shipyard requires _Laravel_ installation configured with _Breeze_ and _Vue + Ine
 ```
 composer require wpwwhimself/shipyard
 ```
+
+## Resources
+
+- icons reference - [Prime Icons](https://primevue.org/icons/)

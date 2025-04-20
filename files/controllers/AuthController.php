@@ -11,14 +11,15 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Validator;
+use Inertia\Inertia;
 
 class AuthController extends Controller
 {
     #region login
     public function login()
     {
-        if (Auth::check()) return redirect(route("profile"));
-        return view("auth.login");
+        if (Auth::check()) return to_route("profile.index");
+        return Inertia::render("Shipyard/Auth/Login");
     }
 
     public function processLogin(Request $rq)

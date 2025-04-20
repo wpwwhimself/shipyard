@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import H from './H.vue';
 import Icon from './Icon.vue';
 
 const props = defineProps<{
@@ -10,16 +11,15 @@ const props = defineProps<{
 <template>
     <div class="card">
         <div class="title-wrapper" v-if="props.title">
-            <h2>
-                <Icon v-if="props.icon" :icon="props.icon" />
-                {{ props.title }}
-            </h2>
+            <h :icon="props.icon">{{ props.title }}</h>
 
             <div class="buttons" v-if="$slots.buttons">
                 <slot name="buttons" />
             </div>
         </div>
 
-        <slot />
+        <div class="contents">
+            <slot />
+        </div>
     </div>
 </template>

@@ -1,12 +1,15 @@
 <script setup lang="ts">
+import { ref } from 'vue';
 import Card from '../Card.vue';
 import AuthButtons from './AuthButtons.vue';
 import Logo from './Logo.vue';
 import Nav from './Nav.vue';
 
-const props = defineProps<{
-    title?: string;
-}>();
+const title = ref(window.document.title.split(' | ')[0]);
+
+// watch(() => window.document.title, (newTitle) => {
+//     title.value = newTitle.split(' | ')[0];
+// });
 </script>
 
 <template>

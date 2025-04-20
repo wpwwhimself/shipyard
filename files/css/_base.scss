@@ -82,8 +82,6 @@ h3 {
 body {
     --white: white;
     --black: #1c1c1c;
-
-    background: radial-gradient(circle at center 200%, var(--primary) 30%, var(--bg));
 }
 
 .accent {
@@ -321,6 +319,9 @@ hr {
     &.middle {
         align-items: center;
     }
+    &.spread {
+        justify-content: space-between;
+    }
 }
 
 .icon {
@@ -329,48 +330,6 @@ hr {
 
     &.large {
         height: 3em;
-    }
-}
-
-.input {
-    border: 2px solid var(--bg-lite);
-    grid-template-columns: auto auto 1fr;
-    flex-grow: 1;
-
-    &:has(:focus) {
-        border-color: var(--primary);
-    }
-
-    & input, & textarea, & select {
-        color: var(--fg);
-    }
-
-    & textarea {
-        font-family: monospace;
-        min-height: 3.5em;
-    }
-
-    & select {
-        & option {
-            font-family: inherit;
-            background-color: var(--bg);
-        }
-    }
-}
-input[type="checkbox"],
-input[type="radio"] {
-    accent-color: var(--primary);
-    height: 1em;
-    width: 1em;
-}
-
-.input, search form {
-    &.rounded {
-        border-radius: 2em;
-    }
-
-    & input {
-        color: var(--fg);
     }
 }
 
