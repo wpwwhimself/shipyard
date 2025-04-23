@@ -17,62 +17,21 @@ class AdminController extends Controller
 {
     #region constants and helpers
     public const SCOPES = [
-        "users" => [
-            "model" => \App\Models\User::class,
-            "role" => "technical",
-        ],
-        "user-survey-questions" => [
-            "model" => \App\Models\UserSurveyQuestion::class,
-            "role" => "blogger",
-        ],
-        "standard-pages" => [
-            "model" => \App\Models\StandardPage::class,
-            "role" => "technical",
-        ],
-        "social-media" => [
-            "model" => \App\Models\SocialMedium::class,
-            "role" => "blogger",
-        ],
-        "blog-articles" => [
-            "model" => \App\Models\BlogArticle::class,
-            "role" => "blogger",
-        ],
-        "courses" => [
-            "model" => \App\Models\Course::class,
-            "role" => "course-master|course-manager",
-        ],
-        "industries" => [
-            "model" => \App\Models\Industry::class,
-            "role" => "course-master",
-            "disabled" => true,
-        ],
-        "review-criteria" => [
-            "model" => \App\Models\ReviewCriterion::class,
-            "role" => "technical",
-        ],
-        "newsletter-subscribers" => [
-            "model" => \App\Models\NewsletterSubscriber::class,
-            "role" => "technical",
-        ],
-        "universities" => [
-            "model" => \App\Models\University::class,
-            "role" => "university-master",
-        ],
-        "films" => [
-            "model" => \App\Models\Film::class,
-            "role" => "film-master",
-        ],
+        // "users" => [
+        //     "model" => \App\Models\User::class,
+        //     "role" => "technical",
+        // ],
     ];
 
     public const SCOPE_GROUPS = [
-        "Użytkownicy" => [
-            "icon" => "account",
-            "scopes" => ["users", "user-survey-questions", "industries", "review-criteria", "newsletter-subscribers",],
-        ],
-        "Treści" => [
-            "icon" => "text",
-            "scopes" => ["standard-pages", "courses", "universities", "films", "blog-articles", "social-media",],
-        ],
+        // "Użytkownicy" => [
+        //     "icon" => "account",
+        //     "scopes" => ["users", "user-survey-questions", "industries", "review-criteria", "newsletter-subscribers",],
+        // ],
+        // "Treści" => [
+        //     "icon" => "text",
+        //     "scopes" => ["standard-pages", "courses", "universities", "films", "blog-articles", "social-media",],
+        // ],
     ];
 
     public const VISIBILITIES = [
@@ -151,28 +110,6 @@ class AdminController extends Controller
         }
 
         return redirect()->route("admin-settings")->with("success", "Zapisano");
-    }
-
-    public function advertSettings(): View
-    {
-        $setting = AdvertSetting::class;
-
-        return view("admin.advert-settings", compact(
-            "setting",
-        ));
-    }
-
-    public function processAdvertSettings(Request $rq): RedirectResponse
-    {
-        foreach (AdvertSetting::all() as $setting) {
-            $namecode = "$setting->ad_type%$setting->name";
-            $value = in_array($setting->name, ["white_text"])
-                ? $rq->has($namecode)
-                : $rq->get($namecode);
-            $setting->update(["value" => $value]);
-        }
-
-        return redirect()->route("admin-advert-settings")->with("success", "Zapisano");
     }
     #endregion
 

@@ -12,24 +12,13 @@ use Illuminate\Support\Str;
 class EntityManagementController extends Controller
 {
     #region constants and helpers
-    public const SCOPES = [
-        "users" => [
-            "model" => \App\Models\User::class,
-            "role" => "technical",
-        ],
-        "courses" => [
-            "model" => \App\Models\Course::class,
-            "role" => "course-master",
-        ],
-        "universities" => [
-            "model" => \App\Models\University::class,
-            "role" => "university-master",
-        ],
-        "films" => [
-            "model" => \App\Models\Film::class,
-            "role" => "film-master",
-        ],
-    ];
+    //todo skorzystać z admincontrollera
+    // public const SCOPES = [
+    //     "users" => [
+    //         "model" => \App\Models\User::class,
+    //         "role" => "technical",
+    //     ],
+    // ];
 
     private function getModelName(string $scope): string
     {

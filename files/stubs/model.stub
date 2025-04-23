@@ -61,58 +61,23 @@ class {{ class }} extends Model
     ];
 
     public const FILTERS = [
-        "categories" => [
-            "compare-using" => "field",
-            "discr" => "categories",
-            "operator" => "any",
-        ],
-        // "rating" => [
-        //     "label" => "Ranking",
-        //     "icon" => "star",
-        //     "compare-using" => "function",
-        //     "discr" => "averageRating",
-        //     "mode" => "one",
-        //     "operator" => ">=",
+        // "<name>" => [
+        //     "label" => "",
+        //     "icon" => "",
+        //     "compare-using" => "function|field",
+        //     "discr" => "<function_name|field_name>",
+        //     "mode" => "<one|many>",
+        //     "operator" => "",
         //     "options" => [
-        //         "4,5 i wyższa" => 4.5,
-        //         "4,0 i wyższa" => 4,
-        //         "3.5 i wyższa" => 3.5,
-        //         "3,0 i wyższa" => 3,
-        //         "2,0 i wyższa" => 2,
-        //         "ocenione" => 1,
+        //         "<label>" => <value>,
         //     ],
-        // ],
-        // "cost" => [
-        //     "label" => "Cena",
-        //     "icon" => self::FIELDS["cost"]["icon"],
-        //     "compare-using" => "function",
-        //     "discr" => "isFree",
-        //     "mode" => "one",
-        //     "options" => [
-        //         "Płatny" => 0,
-        //         "Bezpłatny" => 1,
-        //     ],
-        // ],
-        "keywords" => [
-            "compare-using" => "field",
-            "discr" => "keywords",
-            "operator" => "any",
-        ],
-        "locations" => [
-            "compare-using" => "field",
-            "discr" => "locations",
-            "operator" => "any",
-        ],
-        // "final_document" => [
-        //     "compare-using" => "field",
-        //     "discr" => "final_document",
         // ],
     ];
 
     public const CONNECTIONS = [
-        // "industries" => [
-        //     "model" => Industry::class,
-        //     "mode" => "many",
+        // "<name>" => [
+        //     "model" => ,
+        //     "mode" => "<one|many>",
         // ],
     ];
 
@@ -126,11 +91,7 @@ class {{ class }} extends Model
     protected function casts(): array
     {
         return [
-            "categories" => "collection",
-            "locations" => "collection",
-            "dates" => "collection",
-            "keywords" => "collection",
-            "image_paths" => "collection",
+            //
         ];
     }
 
@@ -138,86 +99,8 @@ class {{ class }} extends Model
     {
         return $this->visible > 1 - Auth::check();
     }
-
-    public function fullCategoryPretty(): Attribute
-    {
-        return Attribute::make(
-            get: fn () => $this->categories?->first() . (($this->categories?->count() > 1)
-                ? " (+".($this->categories->count() - 1).")" . view("components.icon", ['name' => "chevron-down", "hint" => $this->categories->join("<br>")])->render()
-                : ""
-            ),
-        );
-    }
-
-    public function trainerPretty(): Attribute
-    {
-        return Attribute::make(
-            get: fn () => implode(" | ", array_filter([$this->trainer_name, $this->trainer_organization])),
-        );
-    }
-
-    public function locationsPretty(): Attribute
-    {
-        return Attribute::make(
-            get: fn () => $this->locations?->first() . (($this->locations?->count() > 1)
-                ? " (+".($this->locations->count() - 1).")" . view("components.icon", ['name' => "chevron-down", "hint" => $this->locations->join("<br>")])->render()
-                : ""
-            ),
-        );
-    }
-
-    public function datesProcessed(): Attribute
-    {
-        return Attribute::make(
-            get: fn () => $this->dates?->map(fn ($d) => Str::of($d)->test('/^\d{4}-\d{2}-\d{2}/') ? Carbon::parse($d) : null)->filter(),
-        );
-    }
-
-    public function datesPretty(): Attribute
-    {
-        return Attribute::make(
-            get: fn () => $this->dates?->map(fn ($d) => Str::of($d)->test('/^\d{4}-\d{2}-\d{2}/') ? Carbon::parse($d)->format("Y-m-d H:i") : $d),
-        );
-    }
-
-    public function datesAvailable(): Attribute
-    {
-        return Attribute::make(
-            get: fn () => $this->dates_processed?->filter(fn ($d) => $d?->gte(now()))->sort(),
-        );
-    }
-
-    public function isExpired(): bool
-    {
-        return $this->dates_available?->isEmpty()
-            && $this->dates_processed?->isNotEmpty()
-            && !$this->places?->contains("online");
-    }
-
-    public function costPretty(): Attribute
-    {
-        $show_suffix = is_numeric($this->cost);
-        return Attribute::make(
-            get: fn () => $this->cost . ($show_suffix ? " zł" : ""),
-        );
-    }
-
-    public function isFree(): bool
-    {
-        return in_array(Str::lower($this->cost), [
-            "bezpłatny",
-            "bezpłatnie",
-            "za darmo",
-        ]);
-    }
     #endregion
 
     #region relations
-    use CanBeReviewed;
-
-    public function industries(): MorphToMany
-    {
-        return $this->morphToMany(Industry::class, "industriable");
-    }
     #endregion
 }
