@@ -28,10 +28,10 @@ class AuthController extends Controller
 
         if (Auth::attempt($credentials, $rq->has("remember_token"))) {
             $rq->session()->regenerate();
-            return redirect()->intended(route("profile"))->with("success", "Zalogowano");
+            return redirect()->intended(route("profile"))->with("toast", ["success", "Zalogowano"]);
         }
 
-        return back()->with("error", "Nieprawidłowe dane logowania");
+        return back()->with("toast", ["error", "Nieprawidłowe dane logowania"]);
     }
     #endregion
 

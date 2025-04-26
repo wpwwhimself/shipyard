@@ -34,14 +34,10 @@ class HandleInertiaRequests extends Middleware
             'auth' => [
                 'user' => $request->user(),
             ],
-            'toast' => [
-                'type' => implode("", array_keys(array_filter([ // chooses one
-                    "success" => $request->session()->has("success"),
-                    "error" => $request->session()->has("error"),
-                ]))),
-                'message' => $request->session()->get("success")
-                    ?? $request->session()->get("error")
-            ]
+            'toast' => !$request->session()->has("toast") ? null : [
+                'type' => $request->session()->get("toast")[0],
+                'message' => $request->session()->get("toast")[1],
+            ],
         ];
     }
 }

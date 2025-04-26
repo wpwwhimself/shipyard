@@ -453,6 +453,24 @@ table {
     }
 }
 
+.toast {
+    opacity: 0;
+
+    &.success {
+        color: var(--success);
+    }
+    &.danger {
+        color: var(--danger);
+    }
+    &.error {
+        color: var(--error);
+    }
+
+    &.visible {
+        opacity: 1;
+    }
+}
+
 /******************** mobile *******************/
 
 @media screen and (max-width: 960px) {
