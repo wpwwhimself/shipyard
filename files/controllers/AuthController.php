@@ -24,7 +24,7 @@ class AuthController extends Controller
 
     public function processLogin(Request $rq)
     {
-        $credentials = $rq->only(["email", "password"]);
+        $credentials = $rq->only(["name", "password"]);
 
         if (Auth::attempt($credentials, $rq->has("remember_token"))) {
             $rq->session()->regenerate();

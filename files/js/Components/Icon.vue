@@ -7,5 +7,10 @@ const props = defineProps<{
 </script>
 
 <template>
+    <img v-if="props.name.endsWith('.svg')"
+        :src="name"
+        :alt="name"
+        class="icon"
+    >
     <i :class="`pi pi-${props.name}`"></i>
 </template>

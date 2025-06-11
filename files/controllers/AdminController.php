@@ -8,6 +8,7 @@ use App\Models\Shipyard\Setting;
 use App\Models\Shipyard\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
@@ -16,24 +17,6 @@ use Illuminate\Support\Str;
 class AdminController extends Controller
 {
     #region constants and helpers
-    public const SCOPES = [
-        // "users" => [
-        //     "model" => \App\Models\User::class,
-        //     "role" => "technical",
-        // ],
-    ];
-
-    public const SCOPE_GROUPS = [
-        // "Użytkownicy" => [
-        //     "icon" => "account",
-        //     "scopes" => ["users", "user-survey-questions", "industries", "review-criteria", "newsletter-subscribers",],
-        // ],
-        // "Treści" => [
-        //     "icon" => "text",
-        //     "scopes" => ["standard-pages", "courses", "universities", "films", "blog-articles", "social-media",],
-        // ],
-    ];
-
     public const VISIBILITIES = [
         0 => "nikt",
         1 => "zalogowani",
