@@ -19,9 +19,14 @@
 
         <link rel="icon" href="{{ setting("app_favicon_path") }}">
 
+        {{-- Vue --}}
+        <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+        
         @inertiaHead
-
+        
         <!-- Styles -->
+        <script src="https://unpkg.com/sass-embedded@1/dist/bin/sass.js"></script>
+        <script src="https://unpkg.com/primeicons@4/primeicons.css"></script>
         @vite('resources/css/app.css')
         @vite('resources/css/identity.scss')
 

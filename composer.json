@@ -15,6 +15,7 @@
         "illuminate/console": "^12.7",
         "illuminate/support": "^12.7",
         "inertiajs/inertia-laravel": "*",
+        "laravel/sanctum": "*",
         "wildside/userstamps": "*"
     },
     "autoload": {

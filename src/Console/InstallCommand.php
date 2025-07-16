@@ -94,8 +94,8 @@ class InstallCommand extends Command
         $this->comment("Things to do now:");
         $this->comment("| add `require __DIR__.'/Shipyard/shipyard.php';` to `routes/web.php`");
         $this->comment("| clean your `resources/css/app.css` file - it may overwrite themes");
-        $this->comment("| install SASS with `npm install -D sass-embedded`");
-        $this->comment("| install icons with `npm install primeicons`");
+        // $this->comment("| install SASS with `npm install -D sass-embedded`");
+        // $this->comment("| install icons with `npm install primeicons`");
 
         return Command::SUCCESS;
     }

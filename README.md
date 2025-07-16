@@ -37,6 +37,34 @@ Shipyard requires _Laravel_ installation configured with _Breeze_ and _Vue + Ine
 composer require wpwwhimself/shipyard
 ```
 
+## Dev mode - load Shipyard from a directory next door
+
+1. In a joint folder, clone this repository into `shipyard` subfolder
+2. Install Laravel app in a `app` subfolder
+3. Add Composer settings:
+```json
+{
+    ...
+    // appends Shipyard repository
+    "repositories": {
+        "shipyard": {
+            "type": "path",
+            "url": "../shipyard"
+        }
+    },
+    // refresh Shipyard after updates
+    "scripts": {
+        ...
+        "post-update-cmd": [
+            ...
+            "@php artisan shipyard:install"
+        ],
+    },
+    ...
+}
+```
+4. The rest goes like normal installation
+
 ## Resources
 
 - icons reference - [Prime Icons](https://primevue.org/icons/)
