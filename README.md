@@ -2,9 +2,16 @@
 
 Soon I'll write more here but for now know that this project is a framework for my own web apps.
 
+## Concepts
+
+This template aims to create a starting point (and a joint upgrade environment, IYKWIM) for all projects made _usually_ for environments without luxury of `npm` – like on a shared hosting. That's why it covers a specific scenario:
+- no NPM reliance
+  - no asset bundling (Vite)
+  - no big frontend frameworks (React, Vue)
+
 ## How to start?
 
-Shipyard requires _Laravel_ installation configured with _Breeze_ and _Vue + Inertia_.
+Shipyard requires _Laravel_ installation.
 
 1. Add Composer settings:
 ```json
@@ -28,11 +35,11 @@ Shipyard requires _Laravel_ installation configured with _Breeze_ and _Vue + Ine
     ...
 }
 ```
-2. Fill out important fields in `.env`, mainly:
+1. Fill out important fields in `.env`, mainly:
    - `DB_??` - required for migrations,
    - `MAIL_FROM_ADDRESS` - required for archmage user migration,
 
-3. Install package:
+2. Install package:
 ```
 composer require wpwwhimself/shipyard
 ```
@@ -52,19 +59,10 @@ composer require wpwwhimself/shipyard
             "url": "../shipyard"
         }
     },
-    // refresh Shipyard after updates
-    "scripts": {
-        ...
-        "post-update-cmd": [
-            ...
-            "@php artisan shipyard:install"
-        ],
-    },
     ...
 }
 ```
-4. The rest goes like normal installation
-
-## Resources
-
-- icons reference - [Prime Icons](https://primevue.org/icons/)
+4. Install package in dev mode:
+```
+composer require wpwwhimself/shipyard:dev-main
+```

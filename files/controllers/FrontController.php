@@ -14,13 +14,12 @@ use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\View\View;
 use Illuminate\Support\Str;
-use Inertia\Inertia;
 
 class FrontController extends Controller
 {
     public function index()
     {
-        return Inertia::render("Welcome");
+        return view("welcome_to_shipyard");
     }
 
     public function standardPage(string $slug): View

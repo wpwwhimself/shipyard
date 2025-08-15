@@ -11,7 +11,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Validator;
-use Inertia\Inertia;
 
 class AuthController extends Controller
 {
@@ -19,7 +18,7 @@ class AuthController extends Controller
     public function login()
     {
         if (Auth::check()) return to_route("profile.index");
-        return Inertia::render("Shipyard/Auth/Login");
+        return view("shipyard.auth.login");
     }
 
     public function processLogin(Request $rq)

@@ -6,8 +6,6 @@ use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Str;
 
-use function PHPUnit\Framework\directoryExists;
-
 class InstallCommand extends Command
 {
     /**
@@ -33,69 +31,81 @@ class InstallCommand extends Command
     {
         $this->info("⚓ Shipyard will now be installed. Hang tight...");
 
-        $this->comment("Updating middleware...");
-        $this->tryLink(__DIR__.'/../../files/middleware', base_path("app/Http/Middleware/Shipyard"));
-        $this->tryCopy(app_path("Http/Middleware/Shipyard/HandleInertiaRequests.php"), app_path("Http/Middleware/HandleInertiaRequests.php"));
+        #region copying
+        $this->info("📨 Copying...");
 
-        $this->comment("Updating routes...");
+        $this->comment("- middleware...");
+        $this->tryLink(__DIR__.'/../../files/middleware', base_path("app/Http/Middleware/Shipyard"));
+
+        $this->comment("- routes...");
         $this->tryLink(__DIR__.'/../../files/routes', base_path("routes/Shipyard"));
 
-        $this->comment("Updating traits...");
+        $this->comment("- traits...");
         $this->tryLink(__DIR__.'/../../files/traits', base_path("app/Traits/Shipyard"));
 
-        $this->comment("Updating models...");
+        $this->comment("- models...");
         $this->tryLink(__DIR__.'/../../files/models', base_path("app/Models/Shipyard"));
 
-        $this->comment("Updating migrations...");
+        $this->comment("- migrations...");
         $this->tryCopyDirectory(__DIR__.'/../../files/migrations', base_path("database/migrations"));
-        $this->call("migrate");
 
-        $this->comment("Updating controllers...");
+        $this->comment("- controllers...");
         $this->tryLink(__DIR__.'/../../files/controllers', base_path("app/Http/Controllers/Shipyard"));
 
-        $this->comment("Updating stubs...");
-        $this->tryLink(__DIR__.'/../../files/stubs', base_path("stubs"));
+        $this->comment("- stubs...");
+        $this->tryCopyDirectory(__DIR__.'/../../files/stubs', base_path("stubs"));
 
-        $this->comment("Updating styles...");
-        $this->tryLink(__DIR__.'/../../files/css', base_path("resources/css/Shipyard"));
-        $this->tryCopy(__DIR__.'/../../files/css/identity.scss', base_path("resources/css/identity.scss"));
+        $this->comment("- styles...");
+        $this->tryLink(__DIR__.'/../../files/css', base_path("public/css/Shipyard"));
+        $this->tryCopy(__DIR__.'/../../files/css/identity.css', base_path("public/css/identity.css"), true);
 
-        $this->comment("Updating views...");
-        $this->tryCopyDirectory(__DIR__.'/../../files/views', base_path("resources/views"));
-        $this->tryLink(__DIR__.'/../../files/js/Components', base_path("resources/js/Components/Shipyard"));
-        $this->tryLink(__DIR__.'/../../files/js/Layouts', base_path("resources/js/Layouts/Shipyard"));
-        $this->tryLink(__DIR__.'/../../files/js/Pages', base_path("resources/js/Pages/Shipyard"));
-        $this->tryCopy(base_path("resources/js/Pages/Shipyard/Welcome.vue"), base_path("resources/js/Pages/Welcome.vue"));
+        $this->comment("- scripts...");
+        $this->tryLink(__DIR__.'/../../files/js', base_path("public/js/Shipyard"));
 
-        $this->comment("Updating .gitignore files...");
+        $this->comment("- views...");
+        $this->tryLink(__DIR__.'/../../files/views/layouts', base_path("resources/views/layouts/shipyard"));
+        $this->tryLink(__DIR__.'/../../files/views/components', base_path("resources/views/components/shipyard"));
+        $this->tryLink(__DIR__.'/../../files/views/pages', base_path("resources/views/pages/shipyard"));
+        $this->tryLink(__DIR__.'/../../files/views/auth', base_path("resources/views/auth/shipyard"));
+        $this->tryCopyDirectory(__DIR__.'/../../files/views/errors', base_path("resources/views/errors"));
+        $this->tryCopy(__DIR__.'/../../files/views/welcome_to_shipyard.blade.php', base_path("resources/views/welcome_to_shipyard.blade.php"));
+
+        $this->comment("- media...");
+        $this->tryLink(__DIR__.'/../../files/media', base_path("public/media/Shipyard"));
+
+        $this->comment("- .gitignore files...");
         foreach ([
-            base_path("app/Http/Middleware/Shipyard/.gitignore"),
-            base_path("routes/Shipyard/.gitignore"),
-            base_path("app/Traits/Shipyard/.gitignore"),
-            base_path("app/Models/Shipyard/.gitignore"),
-            base_path("app/Http/Controllers/Shipyard/.gitignore"),
             base_path("stubs/.gitignore"),
-            base_path("resources/css/Shipyard/.gitignore"),
+            base_path("resources/views/errors/.gitignore"),
             base_path("resources/views/.gitignore"),
-            base_path("resources/js/Components/Shipyard/.gitignore"),
-            base_path("resources/js/Layouts/Shipyard/.gitignore"),
-            base_path("resources/js/Pages/Shipyard/.gitignore"),
         ] as $path) {
             $this->tryCopy(__DIR__.'/../../files/.gitignore.all.example', $path);
+        }
+        foreach ([
+            base_path("app/.gitignore"),
+            base_path("routes/.gitignore"),
+            base_path("resources/.gitignore"),
+            base_path("public/media/.gitignore"),
+        ] as $path) {
+            $this->tryCopy(__DIR__.'/../../files/.gitignore.directory.example', $path);
         }
         foreach ([
             base_path("database/migrations/.gitignore"),
         ] as $path) {
             $this->tryCopy(__DIR__.'/../../files/.gitignore.nametagged.example', $path);
         }
+        #endregion
+
+        #region installing
+        $this->info("📭 Installing...");
+        $this->call("migrate");
+        #endregion
 
         $this->info("✅ Shipyard is ready!");
 
         $this->comment("Things to do now:");
         $this->comment("| add `require __DIR__.'/Shipyard/shipyard.php';` to `routes/web.php`");
         $this->comment("| clean your `resources/css/app.css` file - it may overwrite themes");
-        // $this->comment("| install SASS with `npm install -D sass-embedded`");
-        // $this->comment("| install icons with `npm install primeicons`");
 
         return Command::SUCCESS;
     }
@@ -107,7 +117,7 @@ class InstallCommand extends Command
 
         $to_before = Str::beforeLast($to, '/');
         if (!file_exists($to_before)) {
-            (new Filesystem)->makeDirectory($to_before);
+            (new Filesystem)->makeDirectory($to_before, recursive: true);
         }
 
         (new Filesystem)->link($from, $to);
@@ -125,7 +135,10 @@ class InstallCommand extends Command
         (new Filesystem)->move($from, $to);
     }
 
-    private function tryCopy($from, $to) {
+    private function tryCopy($from, $to, $only_once = false) {
+        if (file_exists($to) && $only_once) {
+            return;
+        }
         (new Filesystem)->copy($from, $to);
     }
 }

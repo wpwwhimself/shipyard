@@ -12,9 +12,9 @@
     "homepage": "https://github.com/wpwwhimself/shipyard",
     "license": "MIT",
     "require": {
+        "andcarpi/laravel-popper": "^0.9.4",
         "illuminate/console": "^12.7",
         "illuminate/support": "^12.7",
-        "inertiajs/inertia-laravel": "*",
         "laravel/sanctum": "*",
         "wildside/userstamps": "*"
     },
@@ -25,9 +25,6 @@
         "files": [
             "src/helpers.php"
         ]
-    },
-    "scripts": {
-        "post-autoload-dump": "@composer run prepare"
     },
     "extra": {
         "laravel": {

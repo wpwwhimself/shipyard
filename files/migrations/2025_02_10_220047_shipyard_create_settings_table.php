@@ -21,6 +21,14 @@ return new class extends Migration
             ["name" => "app_name", "value" => "Shipyard"],
             ["name" => "app_logo_path", "value" => null],
             ["name" => "app_favicon_path", "value" => null],
+            ["name" => "app_adaptive_dark_mode", "value" => true],
+            ["name" => "app_theme", "value" => "origin"],
+            ["name" => "app_accent_color_1_light", "value" => "#09f"],
+            ["name" => "app_accent_color_1_dark", "value" => "#09f"],
+            ["name" => "app_accent_color_2_light", "value" => "#f90"],
+            ["name" => "app_accent_color_2_dark", "value" => "#f90"],
+            ["name" => "app_accent_color_3_light", "value" => "#84f"],
+            ["name" => "app_accent_color_3_dark", "value" => "#84f"],
         ]);
     }
 

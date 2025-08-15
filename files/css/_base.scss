@@ -151,7 +151,8 @@ body {
     }
 
     & > .contents {
-        max-width: min(calc(1920px * 2 / 3), calc(100vw - (1em * 2)));
+        width: calc(100vw - (1em * 2));
+        max-width: calc(1920px * 2 / 3), ;
         margin: 0 auto;
     }
 }
@@ -199,6 +200,9 @@ span.large {
     }
     &.shift-right:hover {
         translate: 0.75em;
+    }
+    &.zoom:hover {
+        scale: 1.5;
     }
 }
 @media (prefers-reduced-motion: reduce) {
@@ -334,7 +338,7 @@ hr {
 }
 
 .logo {
-    height: calc(2 * 2em);
+    height: 4em;
 }
 
 .line-banner {
@@ -529,4 +533,26 @@ table {
     .stick-top.but-mobile-reset {
         position: initial;
     }
+}
+
+/******************** misc *******************/
+
+#wpww-tag {
+    @extend .animatable, .interactive, .zoom;
+
+    --size: 1em;
+
+    display: inline-block;
+    width: var(--size);
+    height: var(--size);
+    vertical-align: middle;
+    background: linear-gradient(
+        135deg,
+        #09f,
+        #84f,
+        #f90
+    );
+    mask-image: url("media/Shipyard/wpww.svg");
+    mask-position: center;
+    mask-repeat: no-repeat;
 }

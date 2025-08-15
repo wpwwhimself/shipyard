@@ -37,7 +37,38 @@
 
 /******************* theme *******************/
 
+/** common **/
+
+aside,
+header,
+footer,
+main,
+.card {
+    @extend .bordered, .padded, .rounded, .shaded, .backdropped;
+}
+
+/** specific **/
+
+#app-badge {
+    @extend .flex, .right, .middle;
+
+    flex-direction: row-reverse;
+
+    & > [role="details"] {
+        @extend .flex, .down, .no-gap;
+
+        & > * {
+            margin: 0;
+        }
+        & > [role="app-name"] {
+            font-size: 1.2em;
+        }
+    }
+}
+
 body {
+    @extend .full-width;
+
     background: radial-gradient(circle at center 200%, var(--primary) 30%, var(--bg));
 }
 
@@ -70,6 +101,29 @@ body {
     }
 }
 
+footer,
+header {
+    & > * {
+        flex-grow: 1;
+    }
+
+    & > [role="top-part"] {
+        text-align: left;
+    }
+    & > [role="middle-part"] {
+        text-align: center;
+    }
+    & > [role="bottom-part"] {
+        text-align: right;
+    }
+}
+
+footer {
+    & [role="details"] a {
+        text-decoration: none;
+    }
+}
+
 form {
     @extend .flex, .down;
 
@@ -79,24 +133,8 @@ form {
 }
 
 header {
-    @extend .flex, .right, .middle, .spread, .marginned, .padded, .rounded;
-    @extend .backdropped;
-
-    & .title-wrapper {
+    & > [role="top-part"] {
         @extend .flex, .right, .middle;
-    }
-
-    & .nav-wrapper {
-        @extend .flex, .right, .middle;
-    }
-
-    & #auth-btns {
-        @extend .flex, .right, .middle;
-    }
-
-    & h1 {
-        margin: 0;
-        font-size: 1.2em;
     }
 }
 
@@ -143,8 +181,40 @@ header {
     @extend .flex, .down;
 }
 
+main {
+
+}
+
+#main-wrapper {
+    @extend .contents, .marginned, .padded;
+    @extend .flex, .down;
+}
+
+#middle-wrapper {
+    @extend .flex, .right, .spread;
+}
+
 [role="actions"] {
     @extend .flex, .right, .middle, .spread;
+}
+
+#page-title {
+    @extend .flex, .down, .no-gap;
+
+    align-items: baseline;
+
+    & > * {
+        margin: 0;
+
+        &[role="title"] {
+            font-size: 1.5em;
+        }
+        &[role="subtitle"] {
+            @extend .ghost;
+            font-size: 1em;
+        }
+    }
+
 }
 
 .toast {
@@ -164,15 +234,4 @@ header {
     & .content {
         font-weight: bold;
     }
-}
-
-/******************* transitions *******************/
-
-.v-enter-active,
-.v-leave-active {
-    transition: opacity 0.3s ease-out;
-}
-.v-enter-from,
-.v-leave-to {
-    opacity: 0;
 }
