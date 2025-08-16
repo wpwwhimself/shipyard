@@ -89,7 +89,6 @@ class InstallCommand extends Command
             base_path("routes/.gitignore"),
             base_path("resources/.gitignore"),
             base_path("public/.gitignore"),
-            base_path("public/media/.gitignore"),
         ] as $path) {
             $this->tryCopy(__DIR__.'/../../files/.gitignore.directory.example', $path);
         }
@@ -100,7 +99,7 @@ class InstallCommand extends Command
         }
         foreach ([
             [base_path("config/.gitignore"), "popper.php"],
-            // [base_path("public/css/.gitignore"), "shipyard_theme_cache.css"],
+            [base_path("public/css/.gitignore"), "shipyard_theme_cache.css"],
         ] as [$path, $file_name]) {
             $contents = "$file_name\n.gitignore";
             file_put_contents($path, $contents);

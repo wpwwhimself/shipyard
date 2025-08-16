@@ -8,11 +8,11 @@
         <title>@yield("title", "Strona główna") | {{ setting("app_name") }}</title>
 
         {{-- 💄 styles 💄 --}}
+        <link rel="stylesheet" href="{{ asset("css/identity.css") }}">
         @if (file_exists(public_path("css/shipyard_theme_cache.css")))
         <link rel="stylesheet" href="{{ asset("css/shipyard_theme_cache.css") }}">
         @else
         <style id="shipyard-styles" type="text/x-scss">
-{!! file_get_contents(public_path("css/identity.css")) !!}
 :root {
     --primary: light-dark({{ setting("app_accent_color_1_light") }}, {{ setting("app_accent_color_1_dark") }});
     --secondary: light-dark({{ setting("app_accent_color_2_light") }}, {{ setting("app_accent_color_2_dark") }});
