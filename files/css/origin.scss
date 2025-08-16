@@ -3,7 +3,7 @@
 /******************* attributes *******************/
 
 .bordered {
-    border: 2px solid currentColor;
+    border: 2px solid lightgray;
     box-sizing: border-box;
 }
 
@@ -28,11 +28,11 @@
 }
 
 .shaded {
-    box-shadow: 0 0 0.75em var(--shadow);
+    box-shadow: 0 0.5em 0.75em var(--shadow);
 }
 
 .backdropped {
-    background: linear-gradient(to bottom, var(--bg), var(--bg-lite));
+    background: var(--bg);
 }
 
 /******************* theme *******************/

@@ -73,6 +73,9 @@ class InstallCommand extends Command
         $this->comment("- media...");
         $this->tryLink(__DIR__.'/../../files/media', base_path("public/media/Shipyard"));
 
+        $this->comment("- configs...");
+        $this->tryCopy(__DIR__.'/../../files/configs/popper.php', base_path("config/popper.php"), true);
+
         $this->comment("- .gitignore files...");
         foreach ([
             base_path("stubs/.gitignore"),

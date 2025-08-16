@@ -2,7 +2,11 @@
 
 @section("sidebar")
 
-I am a sidebar
+<x-shipyard.ui.button
+    icon="user"
+    action="/"
+    pop="hello"
+/>
 
 @endsection
 

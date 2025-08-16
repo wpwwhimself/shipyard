@@ -9,9 +9,15 @@
     --success: #07e33d;
     --error: rgb(215, 61, 61);
     --danger: rgb(227, 147, 36);
+
+    --margin-size: 1em;
 }
 
 /******************** discard existing *******************/
+
+* {
+    font-size: 12px;
+}
 
 a {
     /* text-decoration: none; */
@@ -151,8 +157,8 @@ body {
     }
 
     & > .contents {
-        width: calc(100vw - (1em * 2));
-        max-width: calc(1920px * 2 / 3), ;
+        width: calc(100vw - (var(--margin-size) * 4));
+        max-width: 1280px;
         margin: 0 auto;
     }
 }

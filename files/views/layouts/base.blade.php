@@ -59,12 +59,12 @@
         </script>
         {{-- <script type="module" src="{{ asset("js/ckeditor.js") }}?{{ time() }}"></script> --}}
         {{-- ✏️ ckeditor stuff ✏️ --}}
-
-        @include("popper::assets")
     </head>
     <body>
         <div id="main-wrapper">
             @yield("body")
         </div>
+
+        @include("popper::assets")
     </body>
 </html>
