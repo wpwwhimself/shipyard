@@ -71,6 +71,8 @@
             @yield("body")
         </div>
 
+        <x-shipyard.app.toast />
+
         @include("popper::assets")
     </body>
 </html>

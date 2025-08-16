@@ -221,7 +221,7 @@ main {
 
 }
 
-.toast {
+#toast {
     @extend .padded, .rounded, .bordered, .backdropped, .animatable;
     @extend .flex, .right, .middle;
 

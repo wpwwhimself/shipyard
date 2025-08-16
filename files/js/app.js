@@ -5,19 +5,19 @@
 //#region handling toasts
 const TOAST_TIMEOUT = 4000;
 
-const toast = document.querySelector(".toast")
+const toast = document.querySelector("#toast")
 if(toast) {
     //appear
     setTimeout(() => {
-        toast.classList.add("in");
+        toast.classList.add("visible");
     }, 1);
 
     //allow dismissal
-    toast.addEventListener("click", (ev) => ev.target.classList.remove("in"));
+    toast.addEventListener("click", (ev) => ev.target.classList.remove("visible"));
 
     //disappear
     setTimeout(() => {
-        toast.classList.remove("in");
+        toast.classList.remove("visible");
     }, TOAST_TIMEOUT);
 }
 //#endregion

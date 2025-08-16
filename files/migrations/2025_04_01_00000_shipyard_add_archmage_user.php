@@ -15,7 +15,7 @@ return new class extends Migration
     {
         $archmage = User::create([
             "name" => "archmage",
-            "email" => env("MAIL_FROM_ADDRESS", "qwp@test.test"),
+            "email" => env("MAIL_FROM_ADDRESS", "test@test.test"),
             "password" => Hash::make("archmage"),
         ]);
 
