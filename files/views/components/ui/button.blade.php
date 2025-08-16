@@ -11,15 +11,19 @@
 
 @if ($action == null)
 <button disabled
+
 @elseif ($action == "submit")
+
 <button type="submit"
+
 @elseif ($action == "none")
-<span {{ $attributes->class("button-like animatable flex-right center-both padded") }}
+<span {{ $attributes->class("button") }}
+
 @else
 <a href="{{ $download ? route("file-download", ["path" => urlencode($action)]) : $action }}"
 @endif
 
-    {{ $attributes->merge(["class" => "button-like animatable flex-right center-both padded"]) }}
+    {{ $attributes->merge(["class" => "button"]) }}
 
     @if ($pop || $hideLabel)
     {{ Popper::pop($pop ?? $label) }}
@@ -29,14 +33,16 @@
     @if (!$hideLabel) <span>{{ $label }}</span> @endif
     @if ($icon && $iconRight) <i class="fas fa-{{ $icon }}"></i> @endif
 
-    @if ($badge) <strong class="badge flex-right center middle">{{ $badge }}</strong> @endif
+    @if ($badge) <strong class="badge">{{ $badge }}</strong> @endif
 
     @if ($slot) {{ $slot }} @endif
 
 @if (in_array($action, ["submit"]) || $action == null)
 </button>
+
 @elseif ($action == "none")
 </span>
+
 @else
 </a>
 @endif

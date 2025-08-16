@@ -8,6 +8,9 @@
         <title>@yield("title", "Strona główna") | {{ setting("app_name") }}</title>
 
         {{-- 💄 styles 💄 --}}
+        @if (file_exists(public_path("css/shipyard_theme_cache.css")))
+        <link rel="stylesheet" href="{{ asset("css/shipyard_theme_cache.css") }}">
+        @else
         <style id="shipyard-styles" type="text/x-scss">
 {!! file_get_contents(public_path("css/identity.css")) !!}
 :root {
@@ -19,6 +22,7 @@
 {!! file_get_contents(public_path("css/Shipyard/".setting("app_theme").".scss")) !!}
         </style>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/sass.js/0.11.1/sass.sync.min.js"></script>
+        @endif
         <link rel="stylesheet" href="{{ asset("css/app.css") }}">
         {{-- 💄 styles 💄 --}}
 
@@ -59,6 +63,8 @@
         </script>
         {{-- <script type="module" src="{{ asset("js/ckeditor.js") }}?{{ time() }}"></script> --}}
         {{-- ✏️ ckeditor stuff ✏️ --}}
+
+        @csrf
     </head>
     <body>
         <div id="main-wrapper">

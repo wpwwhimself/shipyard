@@ -1,10 +1,10 @@
 :root {
     color-scheme: light dark;
-    --fg: light-dark(black, #eaeaea);
+    --fg: light-dark(black, white);
     --fg-lite: light-dark(#777, #aaa);
-    --bg: light-dark(white, #1c1c1c);
-    --bg-lite: light-dark(#e3e3e3, #313131);
-    --shadow: light-dark(#00000055, #f6f6f655);
+    --bg: light-dark(white, #222);
+    --bg-lite: light-dark(#bbb, #666);
+    --shadow: #00000055;
 
     --success: #07e33d;
     --error: rgb(215, 61, 61);
@@ -558,7 +558,7 @@ table {
         #84f,
         #f90
     );
-    mask-image: url("media/Shipyard/wpww.svg");
+    mask-image: url("/media/Shipyard/wpww.svg");
     mask-position: center;
     mask-repeat: no-repeat;
 }

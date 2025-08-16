@@ -35,13 +35,27 @@ document.querySelectorAll("button.danger, .button.danger")
 
 //#region compiling sass
 const styleElement = document.getElementById("shipyard-styles");
-Sass.compile(styleElement.innerHTML, (result) => {
-    if (result.status == 1) {
-        console.error(result);
-        return;
-    }
+if (styleElement) {
+    Sass.compile(styleElement.innerHTML, (result) => {
+        if (result.status == 1) {
+            console.error(result);
+            return;
+        }
 
-    styleElement.innerHTML = result.text;
-    styleElement.type = "text/css";
-});
+        styleElement.innerHTML = result.text;
+        styleElement.type = "text/css";
+
+        // cache compiled style
+        fetch(`/api/theme/cache`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').content
+            },
+            body: JSON.stringify({
+                css: result.text,
+            }),
+        }).catch(err => console.error("🚨 Caching styles failed:", err));
+    });
+}
 //#endregion

@@ -3,7 +3,7 @@
 /******************* attributes *******************/
 
 .bordered {
-    border: 2px solid lightgray;
+    border: 2px solid var(--bg-lite);
     box-sizing: border-box;
 }
 
@@ -73,7 +73,7 @@ body {
 }
 
 .button {
-    @extend .padded, .rounded, .padded, .small, .interactive;
+    @extend .padded, .small, .rounded, .interactive;
     @extend .accent, .bordered, .primary;
 
     & a {
@@ -103,6 +103,10 @@ body {
 
 footer,
 header {
+    @extend .flex, .right;
+
+    align-items: center;
+
     & > * {
         flex-grow: 1;
     }

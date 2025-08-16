@@ -31,6 +31,10 @@
 </div id="middle-wrapper">
 
 <x-shipyard.app.big.footer>
+    <x-slot:top>
+        <x-shipyard.auth.user-badge />
+    </x-slot:top>
+
     <x-slot:bottom>
         <x-shipyard.app.app-badge />
     </x-slot:bottom>

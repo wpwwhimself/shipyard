@@ -7,6 +7,7 @@ use App\Http\Controllers\Shipyard\EntityManagementController;
 use App\Http\Controllers\Shipyard\FrontController;
 use App\Http\Controllers\Shipyard\ProfileController;
 use App\Http\Controllers\Shipyard\SpellbookController;
+use App\Http\Controllers\Shipyard\ThemeController;
 use App\Http\Middleware\Shipyard\EnsureUserHasRole;
 use Illuminate\Support\Facades\Route;
 
@@ -96,5 +97,12 @@ Route::controller(SpellbookController::class)->middleware(EnsureUserHasRole::cla
     foreach (SpellbookController::SPELLS as $spell_name => $route) {
         Route::get($route, $spell_name);
     }
+});
+#endregion
+
+#region styles
+Route::controller(ThemeController::class)->prefix("api/theme")->group(function () {
+    Route::post("cache", "cache");
+    Route::post("reset", "reset");
 });
 #endregion

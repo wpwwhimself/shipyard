@@ -18,7 +18,7 @@ class AuthController extends Controller
     public function login()
     {
         if (Auth::check()) return to_route("profile.index");
-        return view("shipyard.auth.login");
+        return view("auth.shipyard.login");
     }
 
     public function processLogin(Request $rq)

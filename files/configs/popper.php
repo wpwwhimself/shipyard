@@ -49,7 +49,7 @@ return [
          * Type can be 'sharp' or 'round'
          */
         'arrow' => [
-            'active' => false,
+            'active' => true,
             'type' => 'sharp',
         ],
 
@@ -71,7 +71,7 @@ return [
          * Tooltip theme
          * Values: 'dark', 'light', 'google', 'light-border'
          */
-        'theme' => 'dark',
+        'theme' => 'light',
 
         /*
          * What will trigger the Tooltip
@@ -123,6 +123,6 @@ return [
         /*
          * Enable the user to interact with the tooltip, to copy, or click elements.
          */
-        'interactive' => false,
+        'interactive' => true,
     ],
 ];
