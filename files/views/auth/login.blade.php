@@ -7,17 +7,13 @@
     method="post"
     class="tight"
 >
-    <x-shipyard.ui.input
-        name="email"
-        type="email"
-        label="Email"
+    <x-shipyard.ui.input type="text"
+        name="name" label="Login"
         icon="user"
         required
     />
-    <x-shipyard.ui.input
-        name="password"
-        type="password"
-        label="Hasło"
+    <x-shipyard.ui.input type="password"
+        name="password" label="Hasło"
         icon="key"
         required
     />
