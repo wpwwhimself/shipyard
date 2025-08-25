@@ -74,7 +74,9 @@ body {
 
 .button {
     @extend .padded, .small, .rounded, .interactive;
-    @extend .accent, .bordered, .primary;
+    @extend .accent, .bordered, .secondary;
+
+    background: var(--bg);
 
     & a {
         text-decoration: none;
@@ -131,7 +133,12 @@ footer {
 form {
     @extend .flex, .down;
 
-    & .bottom-btns {
+    &.tight {
+        max-width: 25em;
+        margin-inline: auto;
+    }
+
+    & .actions {
         @extend .flex, .right, .center, .middle;
     }
 }

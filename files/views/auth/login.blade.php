@@ -2,9 +2,11 @@
 
 @section("content")
 
-<form action="{{ route('process-login') }}" method="post">
-    @csrf
-    
+<x-shipyard.app.form
+    :action="route('process-login')"
+    method="post"
+    class="tight"
+>
     <x-shipyard.ui.input
         name="email"
         type="email"
@@ -20,11 +22,19 @@
         required
     />
 
-    <x-shipyard.ui.button
-        icon="right-to-bracket"
-        label="Zaloguj się"
-        action="submit"
-    />
-</form>
+    <x-slot:actions>
+        <x-shipyard.ui.button
+            icon="right-to-bracket"
+            label="Zaloguj się"
+            action="submit"
+            class="primary"
+        />
+        <x-shipyard.ui.button
+            icon="user-plus"
+            label="Rejestracja"
+            :action="route('register')"
+        />
+    </x-slot:actions>
+</x-shipyard.app.form>
 
 @endsection

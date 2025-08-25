@@ -4,7 +4,7 @@
 @else
 <x-shipyard.ui.button
     icon="right-to-bracket"
-    label="Zaloguj się"
+    label="Logowanie"
     :action="route('login')"
 />
 
