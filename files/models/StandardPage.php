@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+use Mattiverse\Userstamps\Traits\Userstamps;
 
 class StandardPage extends Model
 {
@@ -19,6 +20,8 @@ class StandardPage extends Model
         "icon" => "script-text",
         "description" => "Podstrony aplikacji, stanowiące dodatkową treść portalu. Ich pełna lista wyświetla się w stopce strony.",
     ];
+
+    use Userstamps;
 
     protected $fillable = [
         "name", "content",

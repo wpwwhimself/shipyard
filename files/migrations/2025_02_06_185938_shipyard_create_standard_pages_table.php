@@ -17,7 +17,12 @@ return new class extends Migration
             $table->text('content')->nullable();
             $table->integer("visible")->default(2);
             $table->integer("order")->nullable();
+            
+            $table->foreignId("created_by")->nullable()->constrained("users")->cascadeOnUpdate()->nullOnDelete();
+            $table->foreignId("updated_by")->nullable()->constrained("users")->cascadeOnUpdate()->nullOnDelete();
+            $table->foreignId("deleted_by")->nullable()->constrained("users")->cascadeOnUpdate()->nullOnDelete();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

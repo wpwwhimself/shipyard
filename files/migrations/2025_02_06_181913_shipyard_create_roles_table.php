@@ -14,12 +14,14 @@ return new class extends Migration
     {
         Schema::create('roles', function (Blueprint $table) {
             $table->string("name")->primary();
+            $table->string("icon");
             $table->text("description");
         });
 
         DB::table("roles")->insert([
-            ["name" => "archmage", "description" => "Może wszystko"],
-            ["name" => "technical", "description" => "Ma dostęp do parametrów systemu"],
+            ["name" => "archmage",              "icon" => "hat-wizard",     "description" => "Może wszystko"],
+            ["name" => "technical",             "icon" => "wrench",         "description" => "Ma dostęp do parametrów systemu"],
+            ["name" => "content-manager",       "icon" => "photo-film",     "description" => "Ma dostęp do repozytorium plików"],
         ]);
 
         Schema::create('role_user', function (Blueprint $table) {
