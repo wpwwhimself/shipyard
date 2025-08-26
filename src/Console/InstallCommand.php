@@ -114,8 +114,8 @@ class InstallCommand extends Command
         $this->info("✅ Shipyard is ready!");
 
         $this->comment("Things to do now:");
-        $this->comment("| add `require __DIR__.'/Shipyard/shipyard.php';` to `routes/web.php`");
-        $this->comment("| clean your `resources/css/app.css` file - it may overwrite themes");
+        $this->comment("> in your `routes/web.php` add the following: \n\t require __DIR__.'/Shipyard/shipyard.php';");
+        $this->comment("> clear your `resources/css/app.css` file - it may overwrite themes");
 
         return Command::SUCCESS;
     }

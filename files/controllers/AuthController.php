@@ -17,7 +17,7 @@ class AuthController extends Controller
     #region login
     public function login()
     {
-        if (Auth::check()) return to_route("profile.index");
+        if (Auth::check()) return redirect()->intended(route("profile"));
         return view("auth.shipyard.login");
     }
 
@@ -37,8 +37,8 @@ class AuthController extends Controller
     #region register
     public function register()
     {
-        if (Auth::check()) return redirect(route("profile"));
-        return view("auth.register");
+        if (Auth::check()) return redirect()->intended(route("profile"));
+        return view("auth.shipyard.register");
     }
 
     public function processRegister(Request $rq)
@@ -52,7 +52,7 @@ class AuthController extends Controller
             'password' => ['required', 'confirmed'],
             'phone' => ['required'],
         ]);
-        if ($validator->fails()) return view("auth.register")->with("error", "Coś poszło nie tak z Twoimi danymi");
+        if ($validator->fails()) return view("auth.shipyard.register")->with("error", "Coś poszło nie tak z Twoimi danymi");
 
         $user = User::create([
             "name" => $rq->name,

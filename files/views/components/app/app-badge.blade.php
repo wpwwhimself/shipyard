@@ -2,7 +2,7 @@
     <x-shipyard.app.logo />
 
     <div role="details">
-        <h2 role="app-name">{{ setting("app_name") }}</h2>
+        <h2 role="app-name"><a href="/">{{ setting("app_name") }}</a></h2>
         <span role="copyright">
             <a href="https://creativecommons.org/licenses/by-sa/3.0/pl/">
                 <i class="fa-brands fa-creative-commons" aria-hidden="true"></i>

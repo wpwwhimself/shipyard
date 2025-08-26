@@ -1,3 +1,4 @@
+@if (setting("app_logo_path") !== null)
 <a href="/">
     <img
         class="logo"
@@ -5,3 +6,4 @@
         alt="{{ setting("app_name") }}"
     >
 </a>
+@endif
