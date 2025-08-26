@@ -14,22 +14,22 @@ use Illuminate\Support\Facades\Route;
 #region auth
 Route::controller(AuthController::class)->prefix("auth")->group(function () {
     Route::get("/login", "login")->name("login");
-    Route::post("/login", "processLogin")->name("process-login");
+    Route::post("/login", "processLogin")->name("login.process");
 
     Route::get("/register", "register")->name("register");
-    Route::post("/register", "processRegister")->name("process-register");
+    Route::post("/register", "processRegister")->name("register.process");
 
     Route::middleware("auth")->group(function () {
         Route::get("/change-password", "changePassword")->name("change-password");
-        Route::post("/change-password", "processChangePassword")->name("process-change-password");
+        Route::post("/change-password", "processChangePassword")->name("change-password.process");
 
         Route::get("/logout", "logout")->name("logout");
     });
 
     Route::get("/forgot-password", "forgotPassword")->name("forgot-password");
-    Route::post("/forgot-password", "processForgotPassword")->name("process-forgot-password");
+    Route::post("/forgot-password", "processForgotPassword")->name("forgot-password.process");
     Route::get("/reset-password/{token}", "resetPassword")->name("password.reset");
-    Route::post("/reset-password", "processResetPassword")->name("process-reset-password");
+    Route::post("/reset-password", "processResetPassword")->name("password.reset.process");
 });
 #endregion
 
@@ -41,35 +41,35 @@ Route::middleware("auth")->group(function () {
 
     Route::controller(AdminController::class)->prefix("admin")->group(function () {
         Route::prefix("settings")->middleware(EnsureUserHasRole::class.":technical")->group(function () {
-            Route::get("", "settings")->name("admin-settings");
-            Route::post("", "processSettings")->name("admin-process-settings");
+            Route::get("", "settings")->name("admin.system-settings");
+            Route::post("", "processSettings")->name("admin.system-settings.process");
         });
 
         Route::prefix("files")->group(function () {
-            Route::get("", "files")->name("files-list");
-            Route::get("download", "filesDownload")->name("files-download");
+            Route::get("", "files")->name("files.list");
+            Route::get("download", "filesDownload")->name("files.download");
             Route::middleware(EnsureUserHasRole::class.":blogger")->group(function () {
-                Route::post("upload", "filesUpload")->name("files-upload");
-                Route::get("delete", "filesDelete")->name("files-delete");
+                Route::post("upload", "filesUpload")->name("files.upload");
+                Route::get("delete", "filesDelete")->name("files.delete");
             });
 
             Route::prefix("folder")->group(function () {
-                Route::get("new", "folderNew")->name("folder-new");
-                Route::post("create", "folderCreate")->name("folder-create");
-                Route::get("delete", "folderDelete")->name("folder-delete");
+                Route::get("new", "folderNew")->name("folder.new");
+                Route::post("create", "folderCreate")->name("folder.create");
+                Route::get("delete", "folderDelete")->name("folder.delete");
             });
         });
 
         Route::prefix("{model}")->group(function () {
-            Route::get("", "listModel")->name("admin-list-model");
-            Route::get("edit/{id?}", "editModel")->name("admin-edit-model");
-            Route::post("edit", "processEditModel")->name("admin-process-edit-model");
+            Route::get("", "listModel")->name("admin.model.list");
+            Route::get("edit/{id?}", "editModel")->name("admin.model.edit");
+            Route::post("edit", "processEditModel")->name("admin.model.edit.process");
         });
     });
 
     Route::controller(EntityManagementController::class)->prefix("admin/entmgr")->group(function () {
         Route::prefix("{model}")->group(function () {
-            Route::get("", "listModel")->name("entmgr-list");
+            Route::get("", "listModel")->name("entmgr.list");
         });
     });
 });
@@ -81,19 +81,19 @@ Route::controller(FrontController::class)->group(function () {
     Route::get("/pages/{slug}", "standardPage")->name("standard-page");
 
     Route::get("contact", "contactForm")->name("contact-form");
-    Route::post("contact", "processContactForm")->name("contact-form-process");
+    Route::post("contact", "processContactForm")->name("contact-form.process");
 });
 #endregion
 
 #region docs
 Route::controller(DocsController::class)->prefix("docs")->group(function () {
-    Route::get("{slug}", "view")->where("slug", "[a-zA-Z0-9-/]+")->name("docs-view");
-    Route::get("", "index")->name("docs-index");
+    Route::get("{slug}", "view")->where("slug", "[a-zA-Z0-9-/]+")->name("docs.view");
+    Route::get("", "index")->name("docs.index");
 });
 #endregion
 
 #region spellbook
-Route::controller(SpellbookController::class)->middleware(EnsureUserHasRole::class.":super")->group(function () {
+Route::controller(SpellbookController::class)->middleware(EnsureUserHasRole::class.":archmage")->group(function () {
     foreach (SpellbookController::SPELLS as $spell_name => $route) {
         Route::get($route, $spell_name);
     }

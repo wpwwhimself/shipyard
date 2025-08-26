@@ -30,7 +30,7 @@
     @endif
 >
     @if ($icon && !$iconRight) <i class="fas fa-{{ $icon }}"></i> @endif
-    @if (!$hideLabel) <span>{{ $label }}</span> @endif
+    @if ($label && !$hideLabel) <span>{{ $label }}</span> @endif
     @if ($icon && $iconRight) <i class="fas fa-{{ $icon }}"></i> @endif
 
     @if ($badge) <strong class="badge">{{ $badge }}</strong> @endif

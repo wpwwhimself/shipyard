@@ -8,9 +8,8 @@
 <x-shipyard.ui.button
     icon="gears"
     pop="Ustawienia systemu"
-    :action="route('system-settings')"
+    :action="route('admin.system-settings')"
 />
-
 @endif
 <x-shipyard.ui.button
     icon="right-from-bracket"

@@ -39,10 +39,8 @@
 
 /** common **/
 
-aside,
 header,
 footer,
-main,
 .card {
     @extend .bordered, .padded, .rounded, .shaded, .backdropped;
 }
@@ -73,10 +71,13 @@ body {
 }
 
 .button {
+    @extend .flex, .right, .center, .middle;
     @extend .padded, .small, .rounded, .interactive;
     @extend .accent, .bordered, .secondary;
 
+    display: inline-flex;
     background: var(--bg);
+    margin: 0;
 
     & a {
         text-decoration: none;
@@ -91,11 +92,18 @@ body {
     @extend .flex, .down;
     @extend .padded, .rounded, .backdropped;
 
-    & .title-wrapper {
+    & > [role="top-bar"] {
         @extend .flex, .right, .middle, .spread;
         @extend .with-bottom-separator;
-
+        
+        padding-bottom: 0.5em;
         flex-wrap: nowrap;
+    }
+    
+    & .title-wrapper {
+        @extend .flex, .right, .spread;
+
+        align-items: baseline;
     }
 
     & > .contents {
@@ -105,21 +113,23 @@ body {
 
 footer,
 header {
-    @extend .flex, .right;
-
-    align-items: center;
+    @extend .flex, .right, .spread, .middle;
 
     & > * {
         flex-grow: 1;
     }
 
     & > [role="top-part"] {
+        @extend .flex, .right;
         text-align: left;
     }
     & > [role="middle-part"] {
+        @extend .flex, .right, .center;
         text-align: center;
     }
     & > [role="bottom-part"] {
+        @extend .flex, .right;
+        justify-content: right;
         text-align: right;
     }
 }
@@ -222,16 +232,17 @@ main {
 
     & > * {
         margin: 0;
-
-        &[role="title"] {
-            font-size: 1.5em;
-        }
-        &[role="subtitle"] {
-            @extend .ghost;
-            font-size: 1em;
-        }
     }
+}
 
+[role="title"] {
+    margin: 0;
+    font-size: 1.5em;
+}
+[role="subtitle"] {
+    margin: 0;
+    @extend .ghost;
+    font-size: 1em;
 }
 
 #toast {
