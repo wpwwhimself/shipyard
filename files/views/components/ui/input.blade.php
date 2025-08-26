@@ -2,6 +2,7 @@
     'type' => 'text',
     'name',
     'label' => null,
+    'icon' => null,
     'autofocus' => false,
     'required' => false,
     "disabled" => false,
@@ -17,6 +18,8 @@
         ->merge(["for" => $name])
         ->class(["input-small" => $small, "input-container"])
     }}>
+
+    @if ($icon) <i class="fas fa-{{ $icon }}"></i> @endif
 
     @if($type != "hidden" && $label)
     <label for="{{ $name }}">{{ $label }}</label>

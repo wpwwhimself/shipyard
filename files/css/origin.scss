@@ -74,7 +74,9 @@ body {
 
 .button {
     @extend .padded, .small, .rounded, .interactive;
-    @extend .accent, .bordered, .primary;
+    @extend .accent, .bordered, .secondary;
+
+    background: var(--bg);
 
     & a {
         text-decoration: none;
@@ -131,7 +133,12 @@ footer {
 form {
     @extend .flex, .down;
 
-    & .bottom-btns {
+    &.tight {
+        max-width: 25em;
+        margin-inline: auto;
+    }
+
+    & .actions {
         @extend .flex, .right, .center, .middle;
     }
 }
@@ -142,42 +149,48 @@ header {
     }
 }
 
-.input-outer-wrapper {
-    @extend .flex, .right, .middle, .spread;
+.input-container {
+    @extend .grid, .middle;
+    @extend .padded, .rounded, .animatable, .bordered;
 
-    & > .input-inner-wrapper {
-        @extend .grid, .middle;
-        @extend .padded, .rounded, .animatable, .bordered;
+    grid-template-columns: auto auto 1fr;
+    flex-grow: 1;
+    margin: 0;
 
-        grid-template-columns: auto auto 1fr;
-        flex-grow: 1;
+    &:has(:focus) {
+        border-color: var(--primary);
+    }
 
-        &:has(:focus) {
-            border-color: var(--primary);
+    & input, & textarea, & select {
+        color: var(--fg);
+    }
+
+    & textarea {
+        font-family: monospace;
+        min-height: 3.5em;
+    }
+
+    & select {
+        & option {
+            font-family: inherit;
+            background-color: var(--bg);
         }
+    }
 
-        & input, & textarea, & select {
-            color: var(--fg);
-        }
+    & input[type="checkbox"],
+    & input[type="radio"] {
+        accent-color: var(--primary);
+        height: 1em;
+        width: 1em;
+    }
 
-        & textarea {
-            font-family: monospace;
-            min-height: 3.5em;
-        }
+    & > label,
+    & > i {
+        @extend .ghost;
+    }
 
-        & select {
-            & option {
-                font-family: inherit;
-                background-color: var(--bg);
-            }
-        }
-
-        & input[type="checkbox"],
-        & input[type="radio"] {
-            accent-color: var(--primary);
-            height: 1em;
-            width: 1em;
-        }
+    & > i {
+        font-size: 1.25em;
     }
 }
 
