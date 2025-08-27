@@ -8,7 +8,7 @@
     icon="user"
 >
     <p>Zalogowano jako {{ Auth::user()->name }}</p>
-    
+
     <h3>Role w systemie</h3>
     <ul>
         @foreach (Auth::user()->roles as $role)
