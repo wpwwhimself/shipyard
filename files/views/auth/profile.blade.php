@@ -7,7 +7,22 @@
     title="Dane użytkownika"
     icon="user"
 >
-    <p>Login: {{ Auth::user()->name }}</p>
+    <p>Zalogowano jako {{ Auth::user()->name }}</p>
+    
+    <h3>Role w systemie</h3>
+    <ul>
+        @foreach (Auth::user()->roles as $role)
+        <li><x-shipyard.app.role.full :role="$role" /></li>
+        @endforeach
+    </ul>
+
+    <x-slot:actions>
+        <x-shipyard.ui.button
+            icon="pencil"
+            label="Edytuj"
+            :action="route('admin.model.edit', ['model' => 'user', 'id' => Auth::user()->id])"
+        />
+    </x-slot:actions>
 </x-shipyard.app.card>
 
 @endsection
