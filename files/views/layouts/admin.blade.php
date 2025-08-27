@@ -36,6 +36,16 @@
     </x-slot:top>
 
     <x-slot:bottom>
+        @unless (setting("app_adaptive_dark_mode"))
+        <x-shipyard.ui.button
+            icon="circle-half-stroke"
+            pop="Tryb ciemny"
+            action="none"
+            onclick="toggleTheme()"
+            class="tertiary"
+        />
+        @endunless
+
         <x-shipyard.app.app-badge />
     </x-slot:bottom>
 </x-shipyard.app.big.footer>

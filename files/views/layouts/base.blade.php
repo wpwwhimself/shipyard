@@ -12,6 +12,13 @@
         @if (file_exists(public_path("css/shipyard_theme_cache.css")))
         <link rel="stylesheet" href="{{ asset("css/shipyard_theme_cache.css") }}">
         @else
+        @if (setting("app_adaptive_dark_mode"))
+        <style>
+        body {
+            color-scheme: light dark !important;
+        }
+        </style>
+        @endif
         <style id="shipyard-styles" type="text/x-scss">
 :root {
     --primary: light-dark({{ setting("app_accent_color_1_light") }}, {{ setting("app_accent_color_1_dark") }});
@@ -67,6 +74,12 @@
         @csrf
     </head>
     <body>
+        @if (!setting("app_adaptive_dark_mode"))
+        <script>
+        if (localStorage.getItem("theme") == "dark") toggleTheme()
+        </script>
+        @endif
+
         <div id="main-wrapper">
             @yield("body")
         </div>

@@ -1,9 +1,11 @@
 :root {
-    color-scheme: light dark;
     --fg: light-dark(black, white);
     --fg-lite: light-dark(#777, #aaa);
     --bg: light-dark(white, #222);
     --bg-lite: light-dark(#bbb, #666);
+
+    --white: white;
+    --black: #1c1c1c;
     --shadow: #00000055;
 
     --success: #07e33d;
@@ -84,8 +86,14 @@ h3 {
 /******************** colors *******************/
 
 body {
-    --white: white;
-    --black: #1c1c1c;
+    color-scheme: light;
+
+    color: var(--fg);
+    background-color: var(--bg);
+
+    &.dark {
+        color-scheme: dark;
+    }
 }
 
 .accent {
