@@ -58,9 +58,12 @@ class InstallCommand extends Command
         $this->comment("- styles...");
         $this->tryLink(__DIR__.'/../../files/css', base_path("public/css/Shipyard"));
         $this->tryCopy(__DIR__.'/../../files/css/identity.css', base_path("public/css/identity.css"), true);
+        $this->tryCreateEmptyFile(base_path("public/css/app.css"));
 
         $this->comment("- scripts...");
         $this->tryLink(__DIR__.'/../../files/js', base_path("public/js/Shipyard"));
+        $this->tryCreateEmptyFile(base_path("public/js/earlies.js"));
+        $this->tryCreateEmptyFile(base_path("public/js/app.js"));
 
         $this->comment("- views...");
         $this->tryLink(__DIR__.'/../../files/views/layouts', base_path("resources/views/layouts/shipyard"));
@@ -150,5 +153,12 @@ class InstallCommand extends Command
             return;
         }
         (new Filesystem)->copy($from, $to);
+    }
+
+    private function tryCreateEmptyFile($path) {
+        if (file_exists($path)) {
+            return;
+        }
+        (new Filesystem)->put($path, "");
     }
 }
