@@ -86,14 +86,8 @@ h3 {
 /******************** colors *******************/
 
 body {
-    color-scheme: light;
-
     color: var(--fg);
     background-color: var(--bg);
-
-    &.dark {
-        color-scheme: dark;
-    }
 }
 
 .accent {
