@@ -60,6 +60,13 @@ main {
     flex-direction: column;
 }
 
+[role*="title"] {
+    margin: 0;
+}
+[role*="subtitle"] {
+    @extend .ghost;
+}
+
 /** specific **/
 
 #app-badge {
@@ -110,11 +117,11 @@ body {
     & > [role="top-bar"] {
         @extend .flex, .right, .middle, .spread;
         @extend .with-bottom-separator;
-        
+
         padding-bottom: 0.5em;
         flex-wrap: nowrap;
     }
-    
+
     & .title-wrapper {
         @extend .flex, .right, .spread;
 
@@ -251,12 +258,9 @@ main {
 }
 
 [role="title"] {
-    margin: 0;
     font-size: 1.5em;
 }
 [role="subtitle"] {
-    margin: 0;
-    @extend .ghost;
     font-size: 1em;
 }
 

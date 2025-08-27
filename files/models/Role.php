@@ -16,11 +16,12 @@ class Role extends Model
 
     public const META = [
         "label" => "Role",
-        "icon" => "key-chain",
+        "icon" => "key",
     ];
 
     protected $fillable = [
         "name",
+        "icon",
         "description",
     ];
 

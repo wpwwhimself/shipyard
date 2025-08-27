@@ -2,33 +2,42 @@
     'type' => 'text',
     'name',
     'label' => null,
-    'icon' => null,
-    'autofocus' => false,
-    'required' => false,
-    "disabled" => false,
-    "selectData" => null,
-    "value" => null,
-    "small" => false,
     "hint" => null,
+    "value" => null,
+    'icon' => null,
+    "selectData" => null,
     "columnTypes" => [],
+    "autofillFrom" => null,
+    "characterLimit" => null,
 ])
+
+@php
+$storageFile = $type == "storage_url";
+if ($storageFile) $type = "url";
+
+$autofillRoute = $autofillFrom
+    ? route($autofillFrom[0], ['model_name' => $autofillFrom[1]])
+    : null;
+
+$extraButtons = ($type == "url" && $value) || $storageFile;
+@endphp
 
 <div {{
     $attributes
         // ->filter(fn($val, $key) => (!in_array($key, ["autofocus", "required", "placeholder", "small"])))
         ->merge(["for" => $name])
-        ->class(["input-small" => $small, "input-container"])
+        ->class(["input-container"])
     }}>
 
     <span role="label-wrapper">
         @if ($icon)
         <i class="fas fa-{{ $icon }}"></i>
         @endif
-    
+
         @if($type != "hidden" && $label)
         <label for="{{ $name }}">{{ $label }}</label>
         @endif
-    
+
         @if ($hint)
         <i class="fas fa-circle-question" {{ Popper::pop($hint) }}></i>
         @endif
@@ -36,20 +45,15 @@
 
     @switch ($type)
         @case ("TEXT")
-        <textarea
-            name="{{ $name }}"
+        <textarea name="{{ $name }}"
             id="{{ $name }}"
-            {{ $autofocus ? "autofocus" : "" }}
-            {{ $required ? "required" : "" }}
-            {{ $disabled ? "disabled" : "" }}
-            {{ $attributes->filter(fn($val, $key) => (!in_array($key, ["autofocus", "required", "class"]))) }}
-            {{-- onfocus="highlightInput(this)" onblur="clearHighlightInput(this)" --}}
-        >{{ html_entity_decode($value) }}</textarea>
+            placeholder="Zacznij pisać..."
+            {{ $attributes->only(["required", "autofocus", "disabled"]) }}
+        >{{ $value }}</textarea>
         @break
 
-        @case ("dummy")
-        <input type="hidden" name="{{ $name }}" value="{{ $value }}">
-        <input type="text" disabled value="{{ $value }}">
+        @case ("HTML")
+        <x-shipyard.ui.ckeditor :name="$name" :value="$value" />
         @break
 
         @case ("JSON")
@@ -127,45 +131,99 @@
         @case ("select")
             @if ($selectData["radio"] ?? false)
             <div role="radio-group">
-                @foreach ($selectData["options"] as $option)
+                @foreach ($selectData["options"] ?? [] as $option)
                 <label>
-                    <input type="radio" name="{{ $name }}" value="{{ $option["value"] }}" {{ ($option["value"] == $value) ? "checked" : "" }} {{ $disabled ? "disabled" : "" }}>
+                    <input type="radio"
+                        name="{{ $name }}"
+                        value="{{ $option["value"] }}"
+                        {{ $attributes->only(["required", "autofocus", "disabled", "checked"]) }}
+                    />
                     {{ $option["label"] }}
                 </label>
                 @endforeach
             </div>
 
             @else
-            <select
-                name="{{ $name }}"
+            <select name="{{ $name }}"
                 id="{{ $name }}"
-                {{ $autofocus ? "autofocus" : "" }}
-                {{ $required ? "required" : "" }}
-                {{ $disabled ? "disabled" : "" }}
-                {{ $attributes->filter(fn($val, $key) => (!in_array($key, ["autofocus", "required", "class"]))) }}
-                {{-- onfocus="highlightInput(this)" onblur="clearHighlightInput(this)" --}}
+                {{ $attributes->only(["required", "autofocus", "disabled"]) }}
             >
-                @foreach ($selectData["options"] as $option)
-                <option value="{{ $option["value"] }}" {{ ($option["value"] == $value) ? "selected" : "" }}>{{ $option["label"] }}</option>
+                @isset ($selectData["emptyOption"]) <option value="">— brak —</option> @endisset
+                @foreach ($selectData["options"] ?? [] as ["value" => $opt_val, "label" => $opt_label])
+                <option value="{{ $opt_val }}"
+                    @if ($opt_val == $value) selected @endif
+                >
+                    {{ $opt_label }}
+                </option>
                 @endforeach
             </select>
             @endif
         @break
 
-        @default
-        <input
-            type="{{ $type }}"
-            name="{{ $name }}"
+        @case ("checkbox")
+        <input type="checkbox"
             id="{{ $name }}"
-            @if ($type == "checkbox" && $value)
-            checked
-            @endif
-            {{ $attributes->merge(["value" => ($type == "checkbox") ? "1" : html_entity_decode($value)]) }}
-            {{ $autofocus ? "autofocus" : "" }}
-            {{ $required ? "required" : "" }}
-            {{ $disabled ? "disabled" : "" }}
-            {{ $attributes->filter(fn($val, $key) => (!in_array($key, ["autofocus", "required", "class"]))) }}
-            {{-- onfocus="highlightInput(this)" onblur="clearHighlightInput(this)" --}}
+            name="{{ $name }}"
+            value="{{ $value ?? 1 }}"
+            {{ $attributes->only(["required", "autofocus", "disabled", "checked"]) }}
+        />
+        @break
+
+        @default
+        <input type="{{ $type }}"
+            id="{{ $name }}"
+            name="{{ $name }}"
+            value="{{ $value }}"
+            placeholder="{{ $attributes->get("placeholder", "— brak —") }}"
+            {{ $attributes->only(["required", "autofocus", "disabled", "autocomplete"]) }}
         />
     @endswitch
+
+    @if ($extraButtons)
+    <div role="extra-buttons">
+        @if ($storageFile)
+        <x-shipyard.ui.button
+            icon="folder-open"
+            class="phantom interactive"
+            onclick="browseFiles('{{ route('files-list', ['select' => $name]) }}')"
+        />
+        @endif
+
+        @if ($value)
+        <x-shipyard.ui.button
+            :action="$value"
+            icon="open-in-new"
+            class="accent background secondary"
+            target="_blank"
+        />
+        @endif
+    </div>
+    @endif
+
+    @if ($characterLimit)
+    <span role="character-count"></span>
+    <script defer>
+    const input = document.querySelector(`#{{ $name }}`)
+    const counter = input.parentElement.parentElement.querySelector("[role='character-count']")
+    const counter_content_template = `current / {{ $characterLimit }}`
+
+    counter.textContent = counter_content_template.replace("current", input.textContent.length)
+
+    input.addEventListener("input", (ev) => {
+        if (ev.target.value.length > {{ $characterLimit }}) {
+            ev.target.value = ev.target.value.slice(0, {{ $characterLimit }})
+        }
+        counter.textContent = counter_content_template.replace("current", ev.target.value.length)
+    })
+    </script>
+    @endif
 </div>
+
+@if ($autofillFrom)
+<script>
+window.autofill = window.autofill ?? {}
+fetch("{{ $autofillRoute }}").then(res => res.json()).then(data => {
+    window.autofill['{{ $name }}'] = data
+})
+</script>
+@endif

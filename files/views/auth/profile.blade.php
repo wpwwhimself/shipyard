@@ -5,11 +5,11 @@
 
 <x-shipyard.app.card
     title="Dane użytkownika"
-    icon="user"
+    :icon="model_icon('users')"
 >
     <p>Zalogowano jako {{ Auth::user()->name }}</p>
 
-    <h3>Role w systemie</h3>
+    <x-shipyard.app.h lvl="3" :icon="model_icon('roles')">Role w systemie</x-shipyard.app.h>
     <ul>
         @foreach (Auth::user()->roles as $role)
         <li><x-shipyard.app.role.full :role="$role" /></li>

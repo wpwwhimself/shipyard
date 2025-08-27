@@ -2,6 +2,7 @@
     "title" => null,
     "subtitle" => null,
     "icon" => null,
+    "titleLvl" => 2,
 ])
 
 <div class="card" {{ $attributes }}>
@@ -9,12 +10,11 @@
     <div role="top-bar">
         <div class="title-wrapper">
             @if ($title)
-            <h2 role="title">
-                @if ($icon) <i class="fa-solid fa-{{ $icon }}"></i> @endif
-                {{ $title }}
-            </h2>
+            <x-shipyard.app.h :lvl="$titleLvl" role="card-title" :icon="$icon">{{ $title }}</x-shipyard.app.h>
             @endif
-            @if ($subtitle) <h3 role="subtitle">{{ $subtitle }}</h3> @endif
+            @if ($subtitle)
+            <x-shipyard.app.h :lvl="$titleLvl + 1" role="card-subtitle">{{ $subtitle }}</x-shipyard.app.h>
+            @endif
         </div>
 
         @isset($actions)

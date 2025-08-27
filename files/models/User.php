@@ -22,8 +22,9 @@ class User extends Authenticatable
 
     public const META = [
         "label" => "Użytkownicy",
-        "icon" => "account",
+        "icon" => "user",
         "description" => "Lista użytkowników systemu. Każdy z wymienionych może otrzymać role, które nadają mu uprawnienia do korzystania z konkretnych funkcjonalności.",
+        "role" => "technical",
     ];
 
     /**
@@ -35,8 +36,6 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'phone',
-        'company_data',
     ];
 
     public const FIELDS = [
@@ -44,21 +43,6 @@ class User extends Authenticatable
             "type" => "email",
             "label" => "Adres email",
             "icon" => "email",
-        ],
-        "phone" => [
-            "type" => "tel",
-            "label" => "Numer telefonu",
-            "icon" => "phone",
-        ],
-        "company_data" => [
-            "type" => "JSON",
-            "column-types" => [
-                "Pole" => "text",
-                "Wartość" => "text",
-            ],
-            "label" => "Dane firmy",
-            "icon" => "domain",
-            "role" => "administrator|course-manager",
         ],
     ];
 
@@ -90,7 +74,6 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
-            'company_data' => 'collection',
         ];
     }
 
@@ -99,7 +82,7 @@ class User extends Authenticatable
 
     public function scopeMailableAdmins($query, ?string $role = null)
     {
-        $query = $query->whereHas("roles", fn ($q) => $q->where("name", "administrator"));
+        $query = $query->whereHas("roles", fn ($q) => $q->where("name", "technical"));
         if ($role) {
             $query = $query->whereHas("roles", fn ($q) => $q->where("name", $role));
         }
@@ -110,18 +93,7 @@ class User extends Authenticatable
     #endregion
 
     #region attributes
-    public function badges(): Attribute
-    {
-        return Attribute::make(
-            get: fn () => [
-                [
-                    "label" => "Administrator",
-                    "icon" => "wizard-hat",
-                    "show" => $this->roles->contains(Role::find("administrator")),
-                ],
-            ],
-        );
-    }
+
     #endregion
 
     #region relations
@@ -146,9 +118,6 @@ class User extends Authenticatable
     #endregion
 
     #region password reset
-    public function sendPasswordResetNotification($token)
-    {
-        $this->notify(new ResetPasswordNotification($token));
-    }
+
     #endregion
 }

@@ -5,7 +5,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>@yield("title", "Strona główna") | {{ setting("app_name") }}</title>
+        <title>@yield("title", "Strona główna")
+            @hasSection("subtitle")
+            | @yield("subtitle")
+            @endif
+            | {{ setting("app_name") }}
+        </title>
 
         {{-- 💄 styles 💄 --}}
         <link rel="stylesheet" href="{{ asset("css/identity.css") }}">

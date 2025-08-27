@@ -7,7 +7,7 @@
         <x-shipyard.app.logo />
         <x-shipyard.app.page-title>
             <x-slot:title>@yield("title", "Strona główna")</x-slot:title>
-            <x-slot:subtitle><a href="/">{{ setting("app_name") }}</a></x-slot:subtitle>
+            <x-slot:subtitle><a href="/">@yield("subtitle", setting("app_name"))</a></x-slot:subtitle>
         </x-shipyard.app.page-title>
     </x-slot:top>
 

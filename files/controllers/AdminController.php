@@ -24,14 +24,8 @@ class AdminController extends Controller
         2 => "wszyscy",
     ];
 
-    private function getModelName(string $scope): string
-    {
-        return "App\\Models\\".(Str::of($scope)->singular()->studly()->toString());
-    }
-
     private function getFields(string $scope): array
     {
-        $modelName = $this->getModelName($scope);
         return array_merge(array_filter([
             "name" => in_array($scope, ["newsletter-subscribers"]) ? null : [
                 "type" => "text",
@@ -52,23 +46,21 @@ class AdminController extends Controller
                 "icon" => "order-numeric-ascending",
                 "role" => "course-master",
             ],
-        ]), $modelName::FIELDS);
+        ]), model($scope)::FIELDS);
     }
 
     private function getConnections(string $scope): array
     {
-        $modelName = $this->getModelName($scope);
         return array_filter(array_merge(
-            defined($modelName."::CONNECTIONS") ? $modelName::CONNECTIONS : [],
+            defined(model($scope)."::CONNECTIONS") ? model($scope)::CONNECTIONS : [],
         ));
     }
 
     private function getActions(string $scope, string $showOn): array
     {
-        $modelName = $this->getModelName($scope);
         return array_filter(array_merge(
-            defined($modelName."::ACTIONS")
-                ? array_filter($modelName::ACTIONS, fn ($a) => ($a["show-on"] ?? "list") == $showOn)
+            defined(model($scope)."::ACTIONS")
+                ? array_filter(model($scope)::ACTIONS, fn ($a) => ($a["show-on"] ?? "list") == $showOn)
                 : [],
         ));
     }
@@ -246,29 +238,38 @@ class AdminController extends Controller
     #region automatic model editors
     public function listModel(string $scope): View
     {
-        if (!User::hasRole(self::SCOPES[$scope]["role"])) abort(403);
+        if (!User::hasRole(model($scope)::META["role"])) abort(403);
 
-        $modelName = $this->getModelName($scope);
-        $meta = array_merge(self::SCOPES[$scope], $modelName::META);
-        $data = $modelName::forAdminList()
+        $meta = model($scope)::META;
+        $data = model($scope)::forAdminList()
             ->paginate(25);
         $actions = $this->getActions($scope, "list");
 
-        return view("admin.list-model", compact("data", "meta", "scope", "actions"));
+        return view("pages.shipyard.admin.model.list", compact("data", "meta", "scope", "actions"));
     }
 
     public function editModel(string $scope, ?int $id = null): View
     {
         if (
-            !User::hasRole(self::SCOPES[$scope]["role"])
+            !User::hasRole(model($scope)::META["role"])
             && !($scope == "users" && Auth::id() == $id) // user can edit themself
         ) abort(403);
 
-        $modelName = $this->getModelName($scope);
-        $meta = array_merge(self::SCOPES[$scope], $modelName::META);
-        $data = $modelName::find($id);
+        $meta = model($scope)::META;
+        $data = model($scope)::find($id);
         $fields = $this->getFields($scope);
         $connections = $this->getConnections($scope);
+        $sections = array_merge(
+            [["icon" => $meta["icon"], "title" => "Dane podstawowe", "id" => "basic"]],
+            collect($connections)->map(fn ($con, $con_scope) => [
+                "icon" => model_icon($con_scope),
+                "title" => model($con_scope)::META['label'],
+                "id" => "connections_$con_scope",
+                "show" => User::hasRole($con["role"]),
+            ])
+                ->filter(fn ($con) => $con["show"])
+                ->toArray(),
+        );
         $actions = $this->getActions($scope, "edit");
 
         if ($data && $scope == "courses") {
@@ -277,17 +278,16 @@ class AdminController extends Controller
             }
         }
 
-        return view("admin.edit-model", compact("data", "meta", "scope", "fields", "connections", "actions"));
+        return view("pages.shipyard.admin.model.edit", compact("data", "meta", "scope", "fields", "connections", "sections", "actions"));
     }
 
     public function processEditModel(Request $rq, string $scope): RedirectResponse
     {
         if (
-            !User::hasRole(self::SCOPES[$scope]["role"])
+            !User::hasRole(model($scope)::META["role"])
             && !($scope == "users" && Auth::id() == $rq->id) // user can edit themself
         ) abort(403);
 
-        $modelName = $this->getModelName($scope);
         $fields = $this->getFields($scope);
         $data = $rq->except("_token", "_connections", "method");
         foreach ($fields as $name => $fdata) {
@@ -305,14 +305,14 @@ class AdminController extends Controller
         }
 
         if ($rq->input("method") == "save") {
-            $model = $modelName::updateOrCreate(
+            $model = model($scope)::updateOrCreate(
                 ["id" => $rq->id],
                 $data,
             );
 
             if ($rq->has("_connections")) {
                 foreach ($rq->get("_connections") as $connection) {
-                    switch ($modelName::CONNECTIONS[$connection]["mode"]) {
+                    switch (model($scope)::CONNECTIONS[$connection]["mode"]) {
                         case "many":
                             $model->{$connection}()->sync($rq->get($connection));
                             break;
@@ -335,15 +335,15 @@ class AdminController extends Controller
                         ))
                 );
 
-            return redirect()->route("admin-edit-model", ["model" => $scope, "id" => $model->id])
-                ->with("success", "Zapisano");
+            return redirect()->route("admin.model.edit", ["model" => $scope, "id" => $model->id])
+                ->with("toast", ["success", "Zapisano"]);
         } else if ($rq->input("method") == "delete") {
-            $modelName::destroy($rq->id);
-            return redirect()->route("admin-list-model", ["model" => $scope])
-                ->with("success", "Usunięto");
+            model($scope)::destroy($rq->id);
+            return redirect()->route("admin.model.list", ["model" => $scope])
+                ->with("toast", ["success", "Usunięto"]);
         }
 
-        return back()->with("error", "Nieprawidłowa operacja");
+        return back()->with("toast", ["error", "Nieprawidłowa operacja"]);
     }
     #endregion
 
@@ -410,12 +410,11 @@ class AdminController extends Controller
 
     public function apiGetModel(string $scope, ?int $id = null)
     {
-        if (!User::hasRole(self::SCOPES[$scope]["role"])) abort(403);
+        if (!User::hasRole(model($scope)::META["role"])) abort(403);
 
-        $modelName = $this->getModelName($scope);
         $data = ($id)
-            ? $modelName::find($id)
-            : $modelName::all();
+            ? model($scope)::find($id)
+            : model($scope)::all();
 
         if (!$data) return self::apiResponse(404, Str::of($scope)->singular() . " not found");
 

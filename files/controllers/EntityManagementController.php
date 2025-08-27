@@ -29,11 +29,10 @@ class EntityManagementController extends Controller
     #region general
     public function listModel(string $scope): View
     {
-        if (!User::hasRole(self::SCOPES[$scope]["role"])) abort(403);
+        if (!User::hasRole(model($scope)::META["role"])) abort(403);
 
-        $modelName = $this->getModelName($scope);
-        $meta = array_merge(self::SCOPES[$scope], $modelName::META);
-        $data = $modelName::forAdminList()
+        $meta = model($scope)::META;
+        $data = model($scope)::forAdminList()
             ->get();
 
         return view("admin.entity-management.list", compact("data", "meta", "scope", "modelName"));
