@@ -10,6 +10,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 use Illuminate\Support\Str;
@@ -73,26 +74,172 @@ class AdminController extends Controller
     }
     #endregion
 
-    #region general settings
+    #region system settings
     public function settings(): View
     {
-        $setting = Setting::class;
+        /**
+         * * hierarchical structure of the page *
+         * grouped by sections (title, subtitle, icon, identifier)
+         * each section contains fields (name, label, hint, icon)
+         */
+        $fields = [
+            [
+                "title" => "Tożsamość strony",
+                "subtitle" => "Podstawowe informacje wyróżniające aplikację",
+                "icon" => "address-card",
+                "id" => "basic",
+                "fields" => [
+                    [
+                        "name" => "app_name",
+                        "label" => "Nazwa systemu",
+                        "icon" => "address-card",
+                        "hint" => "Nazwa aplikacji wyświetlana w tytule strony.",
+                    ],
+                    [
+                        "name" => "app_logo_path",
+                        "label" => "Logo",
+                        "icon" => "image",
+                        "hint" => "Link do logo aplikacji. Po dodaniu wyświetla się w nagłówku strony oraz, jeśli nie podano favicona, na karcie przeglądarki.",
+                    ],
+                    [
+                        "name" => "app_favicon_path",
+                        "label" => "Favicon",
+                        "icon" => "compress",
+                        "hint" => "Link do favicona aplikacji – małej ikony wyświetlanej na karcie przeglądarki.",
+                    ],
+                ],
+            ],
+            [
+                "title" => "Wygląd",
+                "subtitle" => "Style i kolory",
+                "icon" => "palette",
+                "id" => "theme",
+                "fields" => [
+                    [
+                        "name" => "app_theme",
+                        "label" => "Motyw",
+                        "icon" => "swatchbook",
+                        "select_data" => [
+                            "options" => [
+                                ["label" => "Origin", "value" => "origin",],
+                            ],
+                        ],
+                    ],
+                    [
+                        "name" => "app_adaptive_dark_mode",
+                        "label" => "Automatyczny tryb ciemny",
+                        "icon" => "moon",
+                        "hint" => "Automatycznie ustawia tryb ciemny aplikacji w zależności od ustawień przeglądarki/systemu. Jeśli opcja jest wyłączona, tryb ciemny może zostać włączony ręcznie za pomocą odpowiedniego przycisku na dole strony.",
+                    ],
+                    [
+                        "subsection_title" => "Kolory akcentu",
+                        "subsection_icon" => "paint-roller",
+                        "columns" => [
+                            [
+                                "subsection_title" => "Tryb jasny",
+                                "subsection_icon" => "sun",
+                                "fields" => [
+                                    [
+                                        "name" => "app_accent_color_1_light",
+                                        "label" => "Podstawowy",
+                                        "icon" => "1",
+                                    ],
+                                    [
+                                        "name" => "app_accent_color_2_light",
+                                        "label" => "Drugorzędny",
+                                        "icon" => "2",
+                                    ],
+                                    [
+                                        "name" => "app_accent_color_3_light",
+                                        "label" => "Trzeciorzędny",
+                                        "icon" => "3",
+                                    ],
+                                ],
+                            ],
+                            [
+                                "subsection_title" => "Tryb ciemny",
+                                "subsection_icon" => "moon",
+                                "fields" => [
+                                    [
+                                        "name" => "app_accent_color_1_dark",
+                                        "label" => "Podstawowy",
+                                        "icon" => "1",
+                                    ],
+                                    [
+                                        "name" => "app_accent_color_2_dark",
+                                        "label" => "Drugorzędny",
+                                        "icon" => "2",
+                                    ],
+                                    [
+                                        "name" => "app_accent_color_3_dark",
+                                        "label" => "Trzeciorzędny",
+                                        "icon" => "3",
+                                    ],
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+            [
+                "title" => "SEO",
+                "subtitle" => "Metadane na potrzeby wyszukiwarek",
+                "icon" => "globe",
+                "id" => "seo",
+                "fields" => [
+                    [
+                        "name" => "metadata_title",
+                        "label" => "Tytuł",
+                        "icon" => "address-card",
+                    ],
+                    [
+                        "name" => "metadata_author",
+                        "label" => "Autor",
+                        "icon" => "at",
+                    ],
+                    [
+                        "name" => "metadata_description",
+                        "label" => "Opis",
+                        "icon" => "align-left",
+                    ],
+                    [
+                        "name" => "metadata_image",
+                        "label" => "Baner",
+                        "icon" => "image",
+                    ],
+                    [
+                        "name" => "metadata_keywords",
+                        "label" => "Słowa kluczowe",
+                        "icon" => "tags",
+                    ],
+                    [
+                        "name" => "metadata_google_tag_code",
+                        "label" => "Kod śledzący Google Analytics",
+                        "icon" => "magnifying-glass",
+                    ],
+                ],
+            ],
+        ];
+        $settings = Setting::all();
 
-        return view("admin.settings", compact(
-            "setting",
+        return view("pages.shipyard.admin.settings", compact(
+            "fields",
+            "settings",
         ));
     }
 
     public function processSettings(Request $rq): RedirectResponse
     {
         foreach (Setting::all() as $setting) {
-            $value = in_array($setting->name, [])
+            $value = ($setting->type == "checkbox")
                 ? $rq->has($setting->name)
                 : $rq->get($setting->name);
             $setting->update(["value" => $value]);
         }
 
-        return redirect()->route("admin-settings")->with("success", "Zapisano");
+        ThemeController::_reset();
+
+        return redirect()->route("admin.system-settings")->with("success", "Zapisano");
     }
     #endregion
 

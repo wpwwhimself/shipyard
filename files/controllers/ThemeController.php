@@ -25,4 +25,23 @@ class ThemeController extends Controller
             "message" => "Cache file created",
         ]);
     }
+
+    public function reset(Request $rq)
+    {
+        if (!file_exists(public_path("css/shipyard_theme_cache.css"))) {
+            return response()->json([
+                "message" => "Cache file not found",
+            ], 404);
+        }
+        
+        self::_reset();
+
+        return response()->json([
+            "message" => "Cache file deleted",
+        ]);
+    }
+
+    public static function _reset() {
+        unlink(public_path("css/shipyard_theme_cache.css"));
+    }
 }

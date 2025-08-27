@@ -4,7 +4,7 @@
     "icon" => null,
 ])
 
-<div class="card">
+<div class="card" {{ $attributes }}>
     @if ($title || $subtitle || $icon)
     <div role="top-bar">
         <div class="title-wrapper">

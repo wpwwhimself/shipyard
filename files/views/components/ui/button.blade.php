@@ -5,6 +5,7 @@
     "hideLabel" => false,
     "iconRight" => false,
     "pop" => null,
+    "popDirection" => "top",
     "badge" => null,
     "download" => null,
 ])
@@ -17,16 +18,22 @@
 <button type="submit"
 
 @elseif ($action == "none")
-<span {{ $attributes->class("button") }}
+<span {{ $attributes->class([
+    "button",
+    "active" => URL::current() == $action,
+]) }}
 
 @else
 <a href="{{ $download ? route("file-download", ["path" => urlencode($action)]) : $action }}"
 @endif
 
-    {{ $attributes->merge(["class" => "button"]) }}
+    {{ $attributes->class([
+        "button",
+        "active" => URL::current() == $action,
+    ]) }}
 
     @if ($pop || $hideLabel)
-    {{ Popper::pop($pop ?? $label) }}
+    {{ Popper::position($popDirection)->pop($pop ?? $label) }}
     @endif
 >
     @if ($icon && !$iconRight) <i class="fas fa-{{ $icon }}"></i> @endif

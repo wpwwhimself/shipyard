@@ -13,12 +13,12 @@ return new class extends Migration
     public function up(): void
     {
         Setting::insert([
-            ["name" => "metadata_title", "value" => ""],
-            ["name" => "metadata_author", "value" => ""],
-            ["name" => "metadata_description", "value" => ""],
-            ["name" => "metadata_keywords", "value" => ""],
-            ["name" => "metadata_image", "value" => ""],
-            ["name" => "metadata_google_tag_code", "value" => ""],
+            ["name" => "metadata_title", "type" => "text", "value" => ""],
+            ["name" => "metadata_author", "type" => "text", "value" => ""],
+            ["name" => "metadata_description", "type" => "TEXT", "value" => ""],
+            ["name" => "metadata_keywords", "type" => "text", "value" => ""],
+            ["name" => "metadata_image", "type" => "url", "value" => ""],
+            ["name" => "metadata_google_tag_code", "type" => "TEXT", "value" => ""],
         ]);
     }
 

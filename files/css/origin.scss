@@ -5,6 +5,14 @@
 .bordered {
     border: 2px solid var(--bg-lite);
     box-sizing: border-box;
+
+    &.active {
+        border-color: currentColor;
+
+        &:hover {
+            border-color: var(--bg-lite);
+        }
+    }
 }
 
 .with-bottom-separator {
@@ -43,6 +51,13 @@ header,
 footer,
 .card {
     @extend .bordered, .padded, .rounded, .shaded, .backdropped;
+}
+
+aside,
+main {
+    @extend .flex;
+
+    flex-direction: column;
 }
 
 /** specific **/
@@ -163,7 +178,7 @@ header {
     @extend .grid, .middle;
     @extend .padded, .rounded, .animatable, .bordered;
 
-    grid-template-columns: auto auto 1fr;
+    grid-template-columns: auto 1fr;
     flex-grow: 1;
     margin: 0;
 
@@ -194,8 +209,8 @@ header {
         width: 1em;
     }
 
-    & > label,
-    & > i {
+    & label,
+    & i {
         @extend .ghost;
     }
 
