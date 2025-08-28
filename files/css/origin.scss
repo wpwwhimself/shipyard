@@ -63,7 +63,8 @@ main {
 [role*="title"] {
     margin: 0;
 }
-[role*="subtitle"] {
+[role*="subtitle"],
+[role="model-badges"] {
     @extend .ghost;
 }
 
@@ -134,7 +135,8 @@ body {
 }
 
 footer,
-header {
+header,
+[role$="card"] {
     @extend .flex, .right, .spread, .middle;
 
     & > * {
@@ -241,6 +243,10 @@ main {
 
 #middle-wrapper {
     @extend .flex, .right, .spread;
+}
+
+[role="model-card"] {
+    @extend .rounded, .backdropped;
 }
 
 [role="actions"] {

@@ -106,8 +106,17 @@ class User extends Authenticatable
     }
     #endregion
 
-    #region attributes
-
+    #region attributes\
+    public function badges(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => collect($this->roles)
+                ->map(fn ($r) => [
+                    "label" => $r->name,
+                    "icon" => $r->icon,
+                ]),
+        );
+    }
     #endregion
 
     #region relations

@@ -194,7 +194,7 @@ class AdminController extends Controller
         $meta = model($scope)::META;
         $data = model($scope)::forAdminList()
             ->paginate(25);
-        $actions = $this->getActions($scope, "list");
+        $actions = model($scope)::actions("list");
 
         return view("pages.shipyard.admin.model.list", compact("data", "meta", "scope", "actions"));
     }

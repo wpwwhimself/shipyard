@@ -9,6 +9,9 @@ function setting(string $key, $default = null): ?string
 }
 
 #region model info
+/**
+ * returns model class from scope
+ */
 function model(string $scope): string
 {
     $scope = Str::of($scope)->singular()->studly()->toString();
@@ -17,11 +20,22 @@ function model(string $scope): string
         glob(app_path("Models/Shipyard/*.php"))
     );
     $is_shipyard_model = in_array($scope, $shipyard_models);
-    return "App\\Models\\".($is_shipyard_model ? "Shipyard\\" : "").(Str::of($scope)->singular()->studly()->toString());
+    return "App\\Models\\".($is_shipyard_model ? "Shipyard\\" : "").$scope;
 }
 
+/**
+ * returns model icon from scope
+ */
 function model_icon(string $scope): string
 {
     return model($scope)::META['icon'];
+}
+
+/**
+ * extracts scope name from model class
+ */
+function scope(string $model): string
+{
+    return Str::of($model)->afterLast("\\")->replace("::class", "")->singular()->lower()->toString();
 }
 #endregion

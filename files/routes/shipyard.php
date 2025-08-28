@@ -69,7 +69,7 @@ Route::middleware("auth")->group(function () {
 
     Route::controller(EntityManagementController::class)->prefix("admin/entmgr")->group(function () {
         Route::prefix("{model}")->group(function () {
-            Route::get("", "listModel")->name("entmgr.list");
+            Route::get("", "listModel")->name("admin.entmgr.list");
         });
     });
 });

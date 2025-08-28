@@ -2,47 +2,64 @@
 @section("title", $meta["label"])
 @section("subtitle", "Administracja")
 
+@section("sidebar")
+
+<div class="card stick-top">
+    <x-shipyard.ui.button
+        icon="plus"
+        pop="Dodaj"
+        pop-direction="right"
+        class="primary"
+        :action="route('admin.model.edit', ['model' => $scope])"
+    />
+    
+    @if ($actions)
+    <x-shipyard.app.sidebar-separator />
+
+    @foreach ($actions as $action)
+    @if (isset($action["role"]) && !auth()->user()->hasRole($action["role"])) @continue @endif
+    <x-shipyard.ui.button
+        :icon="$action['icon']"
+        :pop="$action['label']"
+        pop-direction="right"
+        :action="route($action['route'], ['id' => $data->id])"
+        class="{{ ($action['dangerous'] ?? false) ? 'danger' : '' }}"
+    />
+    @endforeach
+    @endif
+
+    <x-shipyard.app.sidebar-separator />
+
+    <x-shipyard.ui.button
+        icon="eye"
+        pop="Przegląd danych"
+        pop-direction="right"
+        :action="route('admin.entmgr.list', ['model' => $scope])"
+    />
+</div>
+
+@endsection
+
 @section("content")
 
 <x-shipyard.app.card>
-    <x-shipyard.app.model.intro :meta="$meta" />
+    <p>{{ $meta['description'] }}</p>
 
     @forelse ($data as $item)
-    <x-tile :action="route('admin-edit-model', ['model' => $scope, 'id' => $item->id])"
-        class="flex right spread middle" no-border
-    >
-        <x-h lvl="2">{!! $item !!}</x-h>
-
-        <div class="flex right middle">
-            @foreach ($item->badges ?? [] as $badge)
-            @unless ($badge['show']) @continue @endunless
-            <small>
-                <x-icon :name="$badge['icon']" hint="{{ $badge['label'] }}" />
-            </small>
-            @endforeach
-
-            @isset ($item->visible)
-            <small>
-                <x-icon name="eye" hint="Widoczność" />
-                {{ App\Http\Controllers\AdminController::VISIBILITIES[$item->visible] }}
-            </small>
-            @endisset
-        </div>
-    </x-tile>
+    <x-shipyard.app.model.card :model="$item">
+        <x-slot:actions>
+            <x-shipyard.ui.button
+                icon="pencil"
+                label="Edytuj"
+                :action="route('admin.model.edit', ['model' => $scope, 'id' => $item->id])"
+            />
+        </x-slot:actions>
+    </x-shipyard.app.model.card>
     @empty
-    <div class="ghost">Brak danych do wyświetlenia</div>
+    <div role="empty">Brak danych do wyświetlenia</div>
     @endforelse
 
     {{ $data->links() }}
-
-    <x-slot:actions>
-        <x-button :action="route('admin-edit-model', ['model' => $scope])" icon="plus">Dodaj</x-button>
-        @foreach ($actions as $action)
-        <x-button :action="route($action['route'])" :icon="$action['icon']" class="phantom {{ ($action['dangerous'] ?? false) ? 'danger' : '' }}">{{ $action['label'] }}</x-button>
-        @endforeach
-        <x-button :action="route('entmgr-list', ['model' => $scope])" icon="eye" class="phantom">Przegląd danych</x-button>
-        <x-button :action="route('profile')" icon="arrow-left" class="phantom">Wróć</x-button>
-    </x-slot:actions>
 </x-shipyard.app.card>
 
 @endsection

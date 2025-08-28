@@ -92,7 +92,19 @@ class {{ class }} extends Model
     #endregion
 
     #region attributes
-    use HasIconedAttributes;
+    // public function badges(): Attribute
+    // {
+    //     return Attribute::make(
+    //         get: fn () => [
+    //             [
+    //                 "label" => "",
+    //                 "icon" => "",
+    //                 "class" => "",
+    //                 "condition" => "",
+    //             ],
+    //         ],
+    //     );
+    // }
 
     protected function casts(): array
     {
