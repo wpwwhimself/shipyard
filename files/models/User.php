@@ -7,6 +7,7 @@ namespace App\Models\Shipyard;
 use App\Traits\Shipyard\CanBeStringified;
 use App\Traits\Shipyard\HasStandardScopes;
 use App\Notifications\ResetPasswordNotification;
+use App\Traits\Shipyard\HasStandardFields;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -38,11 +39,14 @@ class User extends Authenticatable
         'password',
     ];
 
+    #region fields
+    use HasStandardFields;
+
     public const FIELDS = [
         "email" => [
             "type" => "email",
             "label" => "Adres email",
-            "icon" => "email",
+            "icon" => "at",
         ],
     ];
 
@@ -53,6 +57,16 @@ class User extends Authenticatable
             "role" => "technical",
         ],
     ];
+
+    public const ACTIONS = [
+        [
+            "icon" => "lock",
+            "label" => "Zarządzaj hasłem",
+            "show-on" => "edit",
+            "route" => "change-password",
+        ],
+    ];
+    #endregion
 
     /**
      * The attributes that should be hidden for serialization.

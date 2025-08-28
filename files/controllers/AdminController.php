@@ -17,55 +17,6 @@ use Illuminate\Support\Str;
 
 class AdminController extends Controller
 {
-    #region constants and helpers
-    public const VISIBILITIES = [
-        0 => "nikt",
-        1 => "zalogowani",
-        2 => "wszyscy",
-    ];
-
-    private function getFields(string $scope): array
-    {
-        return array_merge(array_filter([
-            "name" => in_array($scope, ["newsletter-subscribers"]) ? null : [
-                "type" => "text",
-                "label" => "Nazwa",
-                "hint" => "Tytuł wpisu, wyświetlany jako pierwszy.",
-                "icon" => "card-text",
-                "required" => true,
-            ],
-            "visible" => in_array($scope, ["users", "industries", "newsletter-subscribers"]) ? null : [
-                "type" => "select", "options" => self::VISIBILITIES,
-                "label" => "Widoczny dla",
-                "icon" => "eye",
-                "role" => "course-master",
-            ],
-            "order" => in_array($scope, ["users", "industries", "newsletter-subscribers"]) ? null : [
-                "type" => "number",
-                "label" => "Wymuś kolejność",
-                "icon" => "order-numeric-ascending",
-                "role" => "course-master",
-            ],
-        ]), model($scope)::FIELDS);
-    }
-
-    private function getConnections(string $scope): array
-    {
-        return array_filter(array_merge(
-            defined(model($scope)."::CONNECTIONS") ? model($scope)::CONNECTIONS : [],
-        ));
-    }
-
-    private function getActions(string $scope, string $showOn): array
-    {
-        return array_filter(array_merge(
-            defined(model($scope)."::ACTIONS")
-                ? array_filter(model($scope)::ACTIONS, fn ($a) => ($a["show-on"] ?? "list") == $showOn)
-                : [],
-        ));
-    }
-    #endregion
-
     #region system settings
     public function settings(): View
     {
@@ -257,8 +208,8 @@ class AdminController extends Controller
 
         $meta = model($scope)::META;
         $data = model($scope)::find($id);
-        $fields = $this->getFields($scope);
-        $connections = $this->getConnections($scope);
+        $fields = model($scope)::fields();
+        $connections = model($scope)::connections();
         $sections = array_merge(
             [["icon" => $meta["icon"], "title" => "Dane podstawowe", "id" => "basic"]],
             collect($connections)->map(fn ($con, $con_scope) => [
@@ -270,13 +221,7 @@ class AdminController extends Controller
                 ->filter(fn ($con) => $con["show"])
                 ->toArray(),
         );
-        $actions = $this->getActions($scope, "edit");
-
-        if ($data && $scope == "courses") {
-            if (User::hasRole("course-manager", true) && $data->created_by != Auth::id()) {
-                abort(403);
-            }
-        }
+        $actions = model($scope)::actions("edit");
 
         return view("pages.shipyard.admin.model.edit", compact("data", "meta", "scope", "fields", "connections", "sections", "actions"));
     }

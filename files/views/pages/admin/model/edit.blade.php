@@ -16,6 +16,21 @@
 
     <x-shipyard.app.sidebar-separator />
 
+    @if ($data)
+    @foreach ($actions as $action)
+    @if (isset($action["role"]) && !auth()->user()->hasRole($action["role"])) @continue @endif
+    <x-shipyard.ui.button
+        :icon="$action['icon']"
+        :pop="$action['label']"
+        pop-direction="right"
+        :action="route($action['route'], ['id' => $data->id])"
+        class="{{ ($action['dangerous'] ?? false) ? 'danger' : '' }}"
+    />
+    @endforeach
+
+    <x-shipyard.app.sidebar-separator />
+    @endif
+
     <x-shipyard.ui.button
         icon="check"
         pop="Zapisz zmiany"
@@ -27,7 +42,7 @@
     @if ($data)
     <x-shipyard.ui.button
         icon="trash"
-        pop="Usuń wpis"
+        pop="Usuń"
         pop-direction="right"
         class="danger"
         action="none"
@@ -42,13 +57,6 @@
             ? route('admin.model.list', ['model' => $scope])
             : route('profile')"
     />
-
-    @if ($data)
-    @foreach ($actions as $action)
-    @if (isset($action["role"]) && !auth()->user()->hasRole($action["role"])) @continue @endif
-    <x-shipyard.ui.button :action="route($action['route'], ['id' => $data->id])" :icon="$action['icon']" class="phantom {{ ($action['dangerous'] ?? false) ? 'danger' : '' }}">{{ $action['label'] }}</x-shipyard.ui.button>
-    @endforeach
-    @endif
 </div>
 
 @endsection
@@ -120,8 +128,10 @@
                 label="Wybierz"
                 :icon="$rdata['model']::META['icon']"
                 :value="$data?->{Str::studly($relation)} ? $data?->{Str::studly($relation)}->id : null"
-                :options="$rdata['model']::all()->pluck('name', 'id')->toArray()"
-                empty-option
+                :select-data="[
+                    'options' => $rdata['model']::all()->pluck('name', 'id')->toArray(),
+                    'emptyOption' => true,
+                ]"
             />
             @break
 

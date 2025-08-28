@@ -4,6 +4,7 @@ namespace {{ namespace }};
 
 {{ factoryImport }}
 use Illuminate\Database\Eloquent\Model;
+use App\Traits\Shipyard\HasStandardFields;
 use Wildside\Userstamps;
 
 class {{ class }} extends Model
@@ -23,6 +24,9 @@ class {{ class }} extends Model
         "name",
         "visible",
     ];
+    
+    #region fields
+    use HasStandardFields;
 
     public const FIELDS = [
         // "<column_name>" => [
@@ -41,6 +45,13 @@ class {{ class }} extends Model
         // ],
     ];
 
+    public const CONNECTIONS = [
+        // "<name>" => [
+        //     "model" => ,
+        //     "mode" => "<one|many>",
+        // ],
+    ];
+
     public const ACTIONS = [
         // [
         //     "icon" => "",
@@ -51,6 +62,7 @@ class {{ class }} extends Model
         //     "dangerous" => true,
         // ],
     ];
+    #endregion
 
     // use CanBeSorted;
     public const SORTS = [
@@ -72,13 +84,6 @@ class {{ class }} extends Model
         //     "options" => [
         //         "<label>" => <value>,
         //     ],
-        // ],
-    ];
-
-    public const CONNECTIONS = [
-        // "<name>" => [
-        //     "model" => ,
-        //     "mode" => "<one|many>",
         // ],
     ];
 
