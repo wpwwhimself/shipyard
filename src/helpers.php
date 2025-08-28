@@ -8,6 +8,17 @@ function setting(string $key, $default = null): ?string
     return Setting::get($key, $default);
 }
 
+/**
+ * returns app lifetime dates for footer
+ */
+function app_lifetime(): string
+{
+    $init = date('Y', filemtime(base_path('composer.json')));
+    $now = date('Y');
+
+    return ($init != $now) ? "$init – $now" : $now;
+}
+
 #region model info
 /**
  * returns model class from scope

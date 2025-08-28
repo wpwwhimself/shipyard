@@ -9,7 +9,7 @@
                 <i class="fa-brands fa-creative-commons-by" aria-hidden="true"></i>
                 <i class="fa-brands fa-creative-commons-sa" aria-hidden="true"></i>
             </a>
-            {{ config("app.since", "??") }} – {{ date("Y") }}
+            {{ app_lifetime() }}
             <span role="author"><x-shipyard.app.wpww-tag /></span>
         </span>
     </div>
