@@ -60,7 +60,7 @@
                         :icon="$sub_field['icon'] ?? null"
                         :select-data="$sub_field['select_data'] ?? null"
                         :value="$settings->find($sub_field['name'])->type == 'checkbox' ? null : setting($sub_field['name'])"
-                        :checked="$settings->find($sub_field['name'])->type == 'checkbox' ? setting($sub_field['name']) : null"
+                        :checked="$settings->find($sub_field['name'])->type == 'checkbox' && setting($sub_field['name'])"
                     />
                     @endforeach
                 </x-shipyard.app.card>
@@ -77,7 +77,7 @@
             :icon="$field['icon'] ?? null"
             :select-data="$field['select_data'] ?? null"
             :value="$settings->find($field['name'])->type == 'checkbox' ? null : setting($field['name'])"
-            :checked="$settings->find($field['name'])->type == 'checkbox' ? setting($field['name']) : null"
+            :checked="$settings->find($field['name'])->type == 'checkbox' && setting($field['name'])"
         />
         @endisset
     @endforeach
