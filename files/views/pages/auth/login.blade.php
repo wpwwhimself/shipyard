@@ -27,11 +27,13 @@
                 action="submit"
                 class="primary"
             />
+            @if (setting("users_self_register_enabled"))
             <x-shipyard.ui.button
                 icon="user-plus"
                 label="Rejestracja"
                 :action="route('register')"
             />
+            @endif
         </x-slot:actions>
     </x-shipyard.app.form>
 </div>

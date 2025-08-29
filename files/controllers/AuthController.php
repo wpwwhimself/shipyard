@@ -18,7 +18,7 @@ class AuthController extends Controller
     public function login()
     {
         if (Auth::check()) return redirect()->intended(route("profile"));
-        return view("auth.shipyard.login");
+        return view("pages.shipyard.auth.login");
     }
 
     public function processLogin(Request $rq)
@@ -38,7 +38,7 @@ class AuthController extends Controller
     public function register()
     {
         if (Auth::check()) return redirect()->intended(route("profile"));
-        return view("auth.shipyard.register");
+        return view("pages.shipyard.auth.register");
     }
 
     public function processRegister(Request $rq)

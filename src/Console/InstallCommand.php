@@ -69,7 +69,6 @@ class InstallCommand extends Command
         $this->tryLink(__DIR__.'/../../files/views/layouts', base_path("resources/views/layouts/shipyard"));
         $this->tryLink(__DIR__.'/../../files/views/components', base_path("resources/views/components/shipyard"));
         $this->tryLink(__DIR__.'/../../files/views/pages', base_path("resources/views/pages/shipyard"));
-        $this->tryLink(__DIR__.'/../../files/views/auth', base_path("resources/views/auth/shipyard"));
         $this->tryCopyDirectory(__DIR__.'/../../files/views/errors', base_path("resources/views/errors"));
         $this->tryCopy(__DIR__.'/../../files/views/welcome_to_shipyard.blade.php', base_path("resources/views/welcome_to_shipyard.blade.php"));
 
@@ -83,7 +82,6 @@ class InstallCommand extends Command
         foreach ([
             base_path("stubs/.gitignore"),
             base_path("resources/views/errors/.gitignore"),
-            base_path("resources/views/.gitignore"),
         ] as $path) {
             $this->tryCopy(__DIR__.'/../../files/.gitignore.all.example', $path);
         }
@@ -97,6 +95,7 @@ class InstallCommand extends Command
         }
         foreach ([
             base_path("database/migrations/.gitignore"),
+            base_path("resources/views/.gitignore"),
         ] as $path) {
             $this->tryCopy(__DIR__.'/../../files/.gitignore.nametagged.example', $path);
         }

@@ -162,6 +162,31 @@ class AdminController extends Controller
                     ],
                 ],
             ],
+            [
+                "title" => "Użytkownicy",
+                "icon" => "user",
+                "id" => "users",
+                "fields" => [
+                    [
+                        "name" => "users_login_is",
+                        "label" => "Loginem jest",
+                        "icon" => "id-card-clip",
+                        "hint" => "Pole wykorzystywane do procesu logowania.",
+                        "select_data" => [
+                            "options" => [
+                                ["label" => "Nazwa użytkownika", "value" => "name",],
+                                ["label" => "Adres email", "value" => "email",],
+                            ],
+                        ],
+                    ],
+                    [
+                        "name" => "users_self_register_enabled",
+                        "label" => "Zezwól na rejestrację",
+                        "icon" => "registered",
+                        "hint" => "Jeśli ta opcja jest włączona, użytkownicy mogą sami zakładać własne konta. W przeciwnym wypadku tworzenie kont jest możliwe tylko przez administratora.",
+                    ],
+                ]
+            ],
         ];
         $settings = Setting::all();
 

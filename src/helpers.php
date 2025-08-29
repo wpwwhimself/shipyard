@@ -3,11 +3,6 @@
 use App\Models\Shipyard\Setting;
 use Illuminate\Support\Str;
 
-function setting(string $key, $default = null): ?string
-{
-    return Setting::get($key, $default);
-}
-
 /**
  * returns app lifetime dates for footer
  */
@@ -17,6 +12,22 @@ function app_lifetime(): string
     $now = date('Y');
 
     return ($init != $now) ? "$init – $now" : $now;
+}
+
+/**
+ * returns value if condition is true, otherwise returns null
+ */
+function nullif(string $value, bool $condition): string|null
+{
+    return $condition ? $value : null;
+}
+
+/**
+ * retrieve setting
+ */
+function setting(string $key, $default = null): ?string
+{
+    return Setting::get($key, $default);
 }
 
 #region model info

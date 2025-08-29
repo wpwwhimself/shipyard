@@ -21,7 +21,10 @@
 @else
 <x-shipyard.ui.button
     icon="right-to-bracket"
-    label="Logowanie"
+    :label="implode('/', array_filter([
+        'Logowanie',
+        nullif('Rejestracja', setting('users_self_register_enabled')),
+    ]))"
     :action="route('login')"
 />
 
