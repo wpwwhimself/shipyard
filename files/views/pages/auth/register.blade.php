@@ -1,43 +1,43 @@
 @extends("layouts.shipyard.admin")
-@section("title", "Logowanie")
+@section("title", "Rejestracja")
 
 @section("content")
 
 <div class="card">
     <x-shipyard.app.form
-        :action="route('login.process')"
+        :action="route('register.process')"
         method="post"
         class="tight"
     >
         <x-shipyard.ui.input type="text"
-            :name="setting('users_login_is')" label="Login"
+            name="name" label="Login"
             icon="badge-account"
             required
         />
-        <x-shipyard.ui.input type="password"
-            name="password" label="Hasło"
-            icon="key"
+        <x-shipyard.ui.input type="text"
+            name="email" label="Adres email"
+            icon="at"
             required
         />
+
         <x-shipyard.ui.input type="checkbox"
-            name="remember" label="Zapamiętaj mnie"
-            icon="cookie"
+            name="script-text" label="Akceptuję regulamin"
+            icon="script-text"
+            required
         />
 
         <x-slot:actions>
             <x-shipyard.ui.button
-                icon="login"
-                label="Zaloguj się"
+                icon="account-plus"
+                label="Zarejestruj się"
                 action="submit"
                 class="primary"
             />
-            @if (setting("users_self_register_enabled"))
             <x-shipyard.ui.button
-                icon="account-plus"
-                label="Rejestracja"
-                :action="route('register')"
+                icon="login"
+                label="Mam już konto"
+                :action="route('login')"
             />
-            @endif
         </x-slot:actions>
     </x-shipyard.app.form>
 </div>
