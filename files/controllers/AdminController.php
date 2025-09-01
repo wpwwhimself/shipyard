@@ -29,13 +29,13 @@ class AdminController extends Controller
             [
                 "title" => "Tożsamość strony",
                 "subtitle" => "Podstawowe informacje wyróżniające aplikację",
-                "icon" => "address-card",
+                "icon" => "card-account-details",
                 "id" => "basic",
                 "fields" => [
                     [
                         "name" => "app_name",
                         "label" => "Nazwa systemu",
-                        "icon" => "address-card",
+                        "icon" => "card-account-details",
                         "hint" => "Nazwa aplikacji wyświetlana w tytule strony.",
                     ],
                     [
@@ -47,7 +47,7 @@ class AdminController extends Controller
                     [
                         "name" => "app_favicon_path",
                         "label" => "Favicon",
-                        "icon" => "compress",
+                        "icon" => "image-text",
                         "hint" => "Link do favicona aplikacji – małej ikony wyświetlanej na karcie przeglądarki.",
                     ],
                 ],
@@ -61,7 +61,7 @@ class AdminController extends Controller
                     [
                         "name" => "app_theme",
                         "label" => "Motyw",
-                        "icon" => "swatchbook",
+                        "icon" => "palette-swatch",
                         "select_data" => [
                             "options" => [
                                 ["label" => "Origin", "value" => "origin",],
@@ -71,52 +71,52 @@ class AdminController extends Controller
                     [
                         "name" => "app_adaptive_dark_mode",
                         "label" => "Automatyczny tryb ciemny",
-                        "icon" => "moon",
+                        "icon" => "theme-light-dark",
                         "hint" => "Automatycznie ustawia tryb ciemny aplikacji w zależności od ustawień przeglądarki/systemu. Jeśli opcja jest wyłączona, tryb ciemny może zostać włączony ręcznie za pomocą odpowiedniego przycisku na dole strony.",
                     ],
                     [
                         "subsection_title" => "Kolory akcentu",
-                        "subsection_icon" => "paint-roller",
+                        "subsection_icon" => "format-paint",
                         "columns" => [
                             [
                                 "subsection_title" => "Tryb jasny",
-                                "subsection_icon" => "sun",
+                                "subsection_icon" => "white-balance-sunny",
                                 "fields" => [
                                     [
                                         "name" => "app_accent_color_1_light",
                                         "label" => "Podstawowy",
-                                        "icon" => "1",
+                                        "icon" => "numeric-1",
                                     ],
                                     [
                                         "name" => "app_accent_color_2_light",
                                         "label" => "Drugorzędny",
-                                        "icon" => "2",
+                                        "icon" => "numeric-2",
                                     ],
                                     [
                                         "name" => "app_accent_color_3_light",
                                         "label" => "Trzeciorzędny",
-                                        "icon" => "3",
+                                        "icon" => "numeric-3",
                                     ],
                                 ],
                             ],
                             [
                                 "subsection_title" => "Tryb ciemny",
-                                "subsection_icon" => "moon",
+                                "subsection_icon" => "moon-waning-crescent",
                                 "fields" => [
                                     [
                                         "name" => "app_accent_color_1_dark",
                                         "label" => "Podstawowy",
-                                        "icon" => "1",
+                                        "icon" => "numeric-1",
                                     ],
                                     [
                                         "name" => "app_accent_color_2_dark",
                                         "label" => "Drugorzędny",
-                                        "icon" => "2",
+                                        "icon" => "numeric-2",
                                     ],
                                     [
                                         "name" => "app_accent_color_3_dark",
                                         "label" => "Trzeciorzędny",
-                                        "icon" => "3",
+                                        "icon" => "numeric-3",
                                     ],
                                 ],
                             ],
@@ -127,23 +127,23 @@ class AdminController extends Controller
             [
                 "title" => "SEO",
                 "subtitle" => "Metadane na potrzeby wyszukiwarek",
-                "icon" => "globe",
+                "icon" => "earth",
                 "id" => "seo",
                 "fields" => [
                     [
                         "name" => "metadata_title",
                         "label" => "Tytuł",
-                        "icon" => "address-card",
+                        "icon" => "card-account-details",
                     ],
                     [
                         "name" => "metadata_author",
                         "label" => "Autor",
-                        "icon" => "at",
+                        "icon" => "account-edit",
                     ],
                     [
                         "name" => "metadata_description",
                         "label" => "Opis",
-                        "icon" => "align-left",
+                        "icon" => "text",
                     ],
                     [
                         "name" => "metadata_image",
@@ -153,24 +153,24 @@ class AdminController extends Controller
                     [
                         "name" => "metadata_keywords",
                         "label" => "Słowa kluczowe",
-                        "icon" => "tags",
+                        "icon" => "tag-multiple",
                     ],
                     [
                         "name" => "metadata_google_tag_code",
                         "label" => "Kod śledzący Google Analytics",
-                        "icon" => "magnifying-glass",
+                        "icon" => "magnify",
                     ],
                 ],
             ],
             [
                 "title" => "Użytkownicy",
-                "icon" => "user",
+                "icon" => "account-multiple",
                 "id" => "users",
                 "fields" => [
                     [
                         "name" => "users_login_is",
                         "label" => "Loginem jest",
-                        "icon" => "id-card-clip",
+                        "icon" => "badge-account",
                         "hint" => "Pole wykorzystywane do procesu logowania.",
                         "select_data" => [
                             "options" => [
@@ -182,7 +182,7 @@ class AdminController extends Controller
                     [
                         "name" => "users_self_register_enabled",
                         "label" => "Zezwól na rejestrację",
-                        "icon" => "registered",
+                        "icon" => "account-plus",
                         "hint" => "Jeśli ta opcja jest włączona, użytkownicy mogą sami zakładać własne konta. W przeciwnym wypadku tworzenie kont jest możliwe tylko przez administratora.",
                     ],
                 ]

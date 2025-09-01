@@ -32,7 +32,7 @@
     @endif
 
     <x-shipyard.ui.button
-        icon="check"
+        icon="content-save"
         pop="Zapisz zmiany"
         pop-direction="right"
         class="primary"
@@ -41,7 +41,7 @@
     />
     @if ($data)
     <x-shipyard.ui.button
-        icon="trash"
+        icon="delete"
         pop="Usuń"
         pop-direction="right"
         class="danger"

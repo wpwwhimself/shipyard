@@ -38,7 +38,7 @@
     <x-slot:bottom>
         @unless (setting("app_adaptive_dark_mode"))
         <x-shipyard.ui.button
-            icon="circle-half-stroke"
+            icon="theme-light-dark"
             pop="Tryb ciemny"
             action="none"
             onclick="toggleTheme()"

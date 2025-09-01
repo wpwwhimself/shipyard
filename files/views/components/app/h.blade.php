@@ -4,6 +4,6 @@
 ])
 
 <h{{ $lvl }} {{ $attributes }}>
-    @if ($icon) <i class="fas fa-{{ $icon }}"></i> @endif
+    @if ($icon) @svg("mdi-".$icon) @endif
     {{ $slot }}
 </h{{ $lvl }}>

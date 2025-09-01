@@ -65,10 +65,6 @@
         <script defer src="{{ asset("js/app.js") }}"></script>
         {{-- 🚀 standard scripts 🚀 --}}
 
-        {{-- 🙂 icons 🙂 --}}
-        <script src="https://kit.fontawesome.com/97bfe258ce.js" crossorigin="anonymous"></script>
-        {{-- 🙂 icons 🙂 --}}
-
         {{-- ✏️ ckeditor stuff ✏️ --}}
         <script type="importmap">
         {

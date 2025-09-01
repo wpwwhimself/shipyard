@@ -2,6 +2,6 @@
     "role",
 ])
 
-<span role="role">
-    <i class="fa-solid fa-{{ $role->icon }}" {{ Popper::pop("<strong>$role->name</strong>: $role->description") }}></i>
+<span role="role" {{ Popper::pop("<strong>$role->name</strong>: $role->description") }}>
+    @svg("mdi-".$role->icon)
 </span>

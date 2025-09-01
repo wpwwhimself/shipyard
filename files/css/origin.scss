@@ -219,11 +219,11 @@ header {
     }
 
     & label,
-    & i {
+    & .icon {
         @extend .ghost;
     }
 
-    & > i {
+    & > .icon {
         font-size: 1.25em;
     }
 }

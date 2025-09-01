@@ -36,9 +36,9 @@
     {{ Popper::position($popDirection)->pop($pop ?? $label) }}
     @endif
 >
-    @if ($icon && !$iconRight) <i class="fas fa-{{ $icon }}"></i> @endif
+    @if ($icon && !$iconRight) @svg("mdi-".$icon) @endif
     @if ($label && !$hideLabel) <span>{{ $label }}</span> @endif
-    @if ($icon && $iconRight) <i class="fas fa-{{ $icon }}"></i> @endif
+    @if ($icon && $iconRight) @svg("mdi-".$icon) @endif
 
     @if ($badge) <strong class="badge">{{ $badge }}</strong> @endif
 

@@ -16,7 +16,7 @@
     <x-shipyard.app.sidebar-separator />
 
     <x-shipyard.ui.button
-        icon="check"
+        icon="content-save"
         pop="Zapisz zmiany"
         pop-direction="right"
         class="primary"

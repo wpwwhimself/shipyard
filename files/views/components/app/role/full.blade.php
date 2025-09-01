@@ -3,7 +3,7 @@
 ])
 
 <span role="role">
-    <i class="fa-solid fa-{{ $role->icon }}"></i>
+    @svg("mdi-".$role->icon)
     <strong>{{ $role->name }}</strong>:
     {{ $role->description }}
 </span>

@@ -19,9 +19,9 @@ return new class extends Migration
         });
 
         DB::table("roles")->insert([
-            ["name" => "archmage",              "icon" => "hat-wizard",     "description" => "Może wszystko"],
+            ["name" => "archmage",              "icon" => "wizard-hat",     "description" => "Może wszystko"],
             ["name" => "technical",             "icon" => "wrench",         "description" => "Ma dostęp do parametrów systemu"],
-            ["name" => "content-manager",       "icon" => "photo-film",     "description" => "Ma dostęp do repozytorium plików"],
+            ["name" => "content-manager",       "icon" => "multimedia",     "description" => "Ma dostęp do repozytorium plików"],
         ]);
 
         Schema::create('role_user', function (Blueprint $table) {

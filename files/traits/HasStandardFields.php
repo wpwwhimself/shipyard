@@ -19,7 +19,7 @@ trait HasStandardFields
                 "type" => "text",
                 "label" => "Nazwa",
                 "hint" => "Tytuł wpisu, wyświetlany jako pierwszy.",
-                "icon" => "id-card-clip",
+                "icon" => "badge-account",
                 "required" => true,
             ],
             "visible" => (!Schema::hasColumn($table, "visible")) ? null : [

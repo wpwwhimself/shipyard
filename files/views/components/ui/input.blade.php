@@ -31,7 +31,7 @@ $extraButtons = ($type == "url" && $value) || $storageFile;
 
     <span role="label-wrapper">
         @if ($icon)
-        <i class="fas fa-{{ $icon }}"></i>
+        @svg("mdi-".$icon)
         @endif
 
         @if($type != "hidden" && $label)
@@ -39,7 +39,9 @@ $extraButtons = ($type == "url" && $value) || $storageFile;
         @endif
 
         @if ($hint)
-        <i class="fas fa-circle-question" {{ Popper::pop($hint) }}></i>
+        <span role="hint" {{ Popper::pop($hint) }}>
+            <x-mdi-tooltip-question />
+        </span>
         @endif
     </span>
 
