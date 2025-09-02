@@ -4,10 +4,10 @@
     $icons = [
         "success" => "check",
         "warning" => "exclamation",
-        "error" => "times",
+        "error" => "close",
     ];
     @endphp
-    <i class="fas fa-{{ $icons[session("toast")[0]] }}"></i>
+    @svg("mdi-".$icons[session("toast")[0]])
 
     <span role="label">
         {{ session("toast")[1] }}
