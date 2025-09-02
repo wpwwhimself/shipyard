@@ -36,13 +36,13 @@ function setting(string $key, $default = null): ?string
  */
 function model(string $scope): string
 {
-    $scope = Str::of($scope)->singular()->studly()->toString();
+    $model_name = Str::of($scope)->singular()->studly()->toString();
     $shipyard_models = array_map(
         fn ($file) => Str::of(basename($file))->replace(".php", "")->toString(),
         glob(app_path("Models/Shipyard/*.php"))
     );
-    $is_shipyard_model = in_array($scope, $shipyard_models);
-    return "App\\Models\\".($is_shipyard_model ? "Shipyard\\" : "").$scope;
+    $is_shipyard_model = in_array($model_name, $shipyard_models);
+    return "App\\Models\\".($is_shipyard_model ? "Shipyard\\" : "").$model_name;
 }
 
 /**
@@ -58,6 +58,6 @@ function model_icon(string $scope): string
  */
 function scope(string $model): string
 {
-    return Str::of($model)->afterLast("\\")->replace("::class", "")->singular()->kebab()->toString();
+    return Str::of($model)->afterLast("\\")->replace("::class", "")->plural()->kebab()->toString();
 }
 #endregion
