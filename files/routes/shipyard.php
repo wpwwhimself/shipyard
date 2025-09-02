@@ -40,7 +40,7 @@ Route::middleware("auth")->group(function () {
     });
 
     Route::controller(AdminController::class)->prefix("admin")->group(function () {
-        Route::prefix("settings")->middleware(EnsureUserHasRole::class.":technical")->group(function () {
+        Route::prefix("setting")->middleware(EnsureUserHasRole::class.":technical")->group(function () {
             Route::get("", "settings")->name("admin.system-settings");
             Route::post("", "processSettings")->name("admin.system-settings.process");
         });

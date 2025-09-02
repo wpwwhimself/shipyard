@@ -190,9 +190,19 @@ class AdminController extends Controller
         ];
         $settings = Setting::all();
 
+        $models = collect(glob(app_path("Models/Shipyard/*.php")))
+            ->map(fn ($file) => scope(Str::of(basename($file))->replace(".php", "")))
+            ->map(fn ($scope) => [
+                "icon" => model_icon($scope),
+                "label" => model($scope)::META["label"],
+                "scope" => $scope,
+            ])
+        ;
+
         return view("pages.shipyard.admin.settings", compact(
             "fields",
             "settings",
+            "models",
         ));
     }
 

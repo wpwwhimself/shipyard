@@ -58,6 +58,6 @@ function model_icon(string $scope): string
  */
 function scope(string $model): string
 {
-    return Str::of($model)->afterLast("\\")->replace("::class", "")->singular()->lower()->toString();
+    return Str::of($model)->afterLast("\\")->replace("::class", "")->singular()->kebab()->toString();
 }
 #endregion

@@ -15,6 +15,17 @@
 
     <x-shipyard.app.sidebar-separator />
 
+    @foreach ($models as $model)
+    <x-shipyard.ui.button
+        :icon="$model['icon'] ?? null"
+        :pop="$model['label']"
+        pop-direction="right"
+        :action="route('admin.model.list', ['model' => $model['scope']])"
+    />
+    @endforeach
+
+    <x-shipyard.app.sidebar-separator />
+
     <x-shipyard.ui.button
         icon="content-save"
         pop="Zapisz zmiany"
