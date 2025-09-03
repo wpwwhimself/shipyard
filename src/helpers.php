@@ -69,11 +69,15 @@ function scope(string $model): string
     return Str::of($model)->afterLast("\\")->replace("::class", "")->plural()->kebab()->toString();
 }
 
-function similar_models(string $scope): array
+/**
+ * list similar models to the one given in scope
+ * if scope is null, returns all local models
+ */
+function similar_models(?string $scope = null): array
 {
     $model_dir = app_path(implode("/", array_filter([
         "Models",
-        is_shipyard_model(model($scope)) ? "Shipyard" : null,
+        ($scope ? is_shipyard_model(model($scope)) : false) ? "Shipyard" : null,
         "*.php",
     ])));
     return collect(glob($model_dir))

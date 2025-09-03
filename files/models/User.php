@@ -93,7 +93,7 @@ class User extends Authenticatable
         return Attribute::make(
             get: fn () => collect($this->roles)
                 ->map(fn ($r) => [
-                    "label" => $r->name,
+                    "label" => "$r->name: $r->description",
                     "icon" => $r->icon,
                 ]),
         );

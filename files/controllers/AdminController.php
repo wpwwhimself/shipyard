@@ -10,6 +10,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
@@ -241,7 +242,7 @@ class AdminController extends Controller
                 "icon" => model_icon($con_scope),
                 "title" => model($con_scope)::META['label'],
                 "id" => "connections_$con_scope",
-                "show" => User::hasRole($con["role"]),
+                "show" => User::hasRole($con["role"] ?? null),
             ])
                 ->filter(fn ($con) => $con["show"])
                 ->toArray(),
@@ -262,7 +263,7 @@ class AdminController extends Controller
             && !($scope == "users" && Auth::id() == $rq->id) // user can edit themself
         ) abort(403);
 
-        $fields = $this->getFields($scope);
+        $fields = model($scope)::fields();
         $data = $rq->except("_token", "_connections", "method");
         foreach ($fields as $name => $fdata) {
             switch ($fdata["type"]) {
@@ -273,14 +274,15 @@ class AdminController extends Controller
             if (($fdata["required"] ?? false) && !$data[$name]) return back()->with("error", "Pole $fdata[label] jest wymagane");
         }
 
-        if ($scope == "courses" && User::hasRole("course-manager")) {
-            $data["trainer_organization"] ??= Auth::user()->company_data["Nazwa firmy"];
-            $data["visibility"] ??= 2;
+        if ($scope == "users") {
+            $data["password"] = Hash::make(Str::random(16));
         }
 
         if ($rq->input("method") == "save") {
+            $model_name = model($scope);
+            $keyName = (new $model_name())->getKeyName();
             $model = model($scope)::updateOrCreate(
-                ["id" => $rq->id],
+                [$keyName => $rq->id],
                 $data,
             );
 
@@ -294,22 +296,7 @@ class AdminController extends Controller
                 }
             }
 
-            collect(Role::MANAGER_NOTIFICATIONS)
-                ->filter(fn ($an) =>
-                    User::hasRole($an["role"], true)
-                    && in_array($scope, explode("|", $an["scope"]))
-                )
-                ->each(fn ($an) =>
-                    User::mailableAdmins($an["message"]["admins-with-role"] ?? null)
-                        ->each(fn ($u) => $u->notify(
-                            new ("App\\Notifications\\" . $an["message"]["notification"])([
-                                "model_name" => $scope,
-                                "id" => $model->id,
-                            ])
-                        ))
-                );
-
-            return redirect()->route("admin.model.edit", ["model" => $scope, "id" => $model->id])
+            return redirect()->route("admin.model.edit", ["model" => $scope, "id" => $model->getKey()])
                 ->with("toast", ["success", "Zapisano"]);
         } else if ($rq->input("method") == "delete") {
             model($scope)::destroy($rq->id);

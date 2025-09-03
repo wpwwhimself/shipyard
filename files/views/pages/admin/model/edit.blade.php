@@ -65,7 +65,7 @@
 @section("content")
 
 <x-shipyard.app.form :action="route('admin.model.edit.process', ['model' => $scope])" method="POST">
-    <input type="hidden" name="id" value="{{ $data?->id ?? "" }}">
+    <input type="hidden" name="id" value="{{ $data?->getKey() ?? "" }}">
 
     <x-shipyard.app.card
         title="Dane podstawowe"
@@ -79,14 +79,14 @@
                 <span>
                     <span @popper(Twórca)>@svg("mdi-account-plus")</span>
                     {{ $data->creator->name }},
-                    <span {{ Popper::pop($data->created_at) }}>{{ $data->created_at->diffForHumans() }}</span>
+                    <span {{ Popper::pop($data->created_at ?? "") }}>{{ $data->created_at?->diffForHumans() }}</span>
                 </span>
 
                 @if ($data->created_at != $data->updated_at)
                 <span>
                     <span @popper(Ostatnia edycja)>@svg("mdi-account-edit")</span>
                     {{ $data->editor->name }},
-                    <span {{ Popper::pop($data->updated_at) }}>{{ $data->updated_at->diffForHumans() }}</span>
+                    <span {{ Popper::pop($data->updated_at ?? "") }}>{{ $data->updated_at?->diffForHumans() }}</span>
                 </span>
                 @endif
             </div>
@@ -130,7 +130,10 @@
                 :icon="$rdata['model']::META['icon']"
                 :value="$data?->{Str::studly($relation)} ? $data?->{Str::studly($relation)}->id : null"
                 :select-data="[
-                    'options' => $rdata['model']::all()->pluck('name', 'id')->toArray(),
+                    'options' => $rdata['model']::all()->map(fn ($i) => [
+                        'label' => $i->name,
+                        'value' => $i->id,
+                    ]),
                     'emptyOption' => true,
                 ]"
             />
