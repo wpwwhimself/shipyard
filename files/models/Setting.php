@@ -4,10 +4,11 @@ namespace App\Models\Shipyard;
 
 use App\Traits\Shipyard\CanBeStringified;
 use Illuminate\Database\Eloquent\Model;
+use Mattiverse\Userstamps\Traits\Userstamps;
 
 class Setting extends Model
 {
-    use CanBeStringified;
+    use CanBeStringified, Userstamps;
 
     public $incrementing = false;
     protected $primaryKey = "name";

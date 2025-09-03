@@ -4,8 +4,6 @@ namespace {{ namespace }};
 
 {{ factoryImport }}
 use Illuminate\Database\Eloquent\Model;
-use App\Traits\Shipyard\HasStandardFields;
-use Wildside\Userstamps;
 
 class {{ class }} extends Model
 {
@@ -18,7 +16,7 @@ class {{ class }} extends Model
         "role" => "",
     ];
 
-    use Userstamps;
+    // use SoftDeletes, Userstamps;
 
     protected $fillable = [
         "name",
@@ -92,6 +90,15 @@ class {{ class }} extends Model
     #endregion
 
     #region attributes
+    protected function casts(): array
+    {
+        return [
+            //
+        ];
+    }
+
+    use HasStandardAttributes;
+
     // public function badges(): Attribute
     // {
     //     return Attribute::make(
@@ -105,20 +112,11 @@ class {{ class }} extends Model
     //         ],
     //     );
     // }
-
-    protected function casts(): array
-    {
-        return [
-            //
-        ];
-    }
-
-    public function canBeSeen(): bool
-    {
-        return $this->visible > 1 - Auth::check();
-    }
     #endregion
 
     #region relations
+    #endregion
+
+    #region helpers
     #endregion
 }

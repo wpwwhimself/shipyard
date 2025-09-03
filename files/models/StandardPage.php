@@ -3,6 +3,8 @@
 namespace App\Models\Shipyard;
 
 use App\Traits\Shipyard\CanBeStringified;
+use App\Traits\Shipyard\HasStandardAttributes;
+use App\Traits\Shipyard\HasStandardFields;
 use App\Traits\Shipyard\HasStandardScopes;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
@@ -13,7 +15,7 @@ use Mattiverse\Userstamps\Traits\Userstamps;
 
 class StandardPage extends Model
 {
-    use CanBeStringified, SoftDeletes;
+    use CanBeStringified;
 
     public const META = [
         "label" => "Strony standardowe",
@@ -21,12 +23,15 @@ class StandardPage extends Model
         "description" => "Podstrony aplikacji, stanowiące dodatkową treść portalu. Ich pełna lista wyświetla się w stopce strony.",
     ];
 
-    use Userstamps;
+    use SoftDeletes, Userstamps;
 
     protected $fillable = [
         "name", "content",
         "visible", "order",
     ];
+
+    #region fields
+    use HasStandardFields;
 
     public const FIELDS = [
         "content" => [
@@ -36,18 +41,31 @@ class StandardPage extends Model
         ],
     ];
 
+    public const CONNECTIONS = [
+        // "<name>" => [
+        //     "model" => ,
+        //     "mode" => "<one|many>",
+        // ],
+    ];
+
+    public const ACTIONS = [
+        // [
+        //     "icon" => "",
+        //     "label" => "",
+        //     "show-on" => "<list|edit>",
+        //     "route" => "",
+        //     "role" => "",
+        //     "dangerous" => true,
+        // ],
+    ];
+    #endregion
+
     #region scopes
     use HasStandardScopes;
     #endregion
 
     #region attributes
-    /**
-     * checks if current user can see this page
-     */
-    public function canBeSeen(): bool
-    {
-        return $this->visible > 1 - Auth::check();
-    }
+    use HasStandardAttributes;
 
     public function slug(): Attribute
     {
@@ -55,5 +73,11 @@ class StandardPage extends Model
             get: fn () => Str::slug($this->name),
         );
     }
+    #endregion
+
+    #region relations
+    #endregion
+
+    #region helpers
     #endregion
 }

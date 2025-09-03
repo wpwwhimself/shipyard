@@ -46,6 +46,14 @@ function model(string $scope): string
 }
 
 /**
+ * checks if model is shipyard model
+ */
+function is_shipyard_model(string $model): bool
+{
+    return Str::of($model)->contains("Shipyard");
+}
+
+/**
  * returns model icon from scope
  */
 function model_icon(string $scope): string
@@ -59,5 +67,22 @@ function model_icon(string $scope): string
 function scope(string $model): string
 {
     return Str::of($model)->afterLast("\\")->replace("::class", "")->plural()->kebab()->toString();
+}
+
+function similar_models(string $scope): array
+{
+    $model_dir = app_path(implode("/", array_filter([
+        "Models",
+        is_shipyard_model(model($scope)) ? "Shipyard" : null,
+        "*.php",
+    ])));
+    return collect(glob($model_dir))
+        ->map(fn ($file) => scope(Str::of(basename($file))->replace(".php", "")))
+        ->map(fn ($scope) => [
+            "icon" => model_icon($scope),
+            "label" => model($scope)::META["label"],
+            "scope" => $scope,
+        ])
+        ->toArray();
 }
 #endregion

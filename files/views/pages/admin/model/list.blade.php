@@ -29,13 +29,24 @@
     @endif
 
     <x-shipyard.app.sidebar-separator />
-
+    
     <x-shipyard.ui.button
         icon="eye"
         pop="Przegląd danych"
         pop-direction="right"
         :action="route('admin.entmgr.list', ['model' => $scope])"
     />
+    
+    <x-shipyard.app.sidebar-separator />
+
+    @foreach (similar_models($scope) as $model)
+    <x-shipyard.ui.button
+        :icon="$model['icon'] ?? null"
+        :pop="$model['label']"
+        pop-direction="right"
+        :action="route('admin.model.list', ['model' => $model['scope']])"
+    />
+    @endforeach
 </div>
 
 @endsection
@@ -46,13 +57,15 @@
     <p>{{ $meta['description'] }}</p>
 
     @forelse ($data as $item)
-    <x-shipyard.app.model.card :model="$item">
+    <x-shipyard.app.model.card :model="$item" class="{{ $item->is_uneditable ? 'ghost' : null }}">
         <x-slot:actions>
+            @unless ($item->is_uneditable)
             <x-shipyard.ui.button
                 icon="pencil"
                 label="Edytuj"
-                :action="route('admin.model.edit', ['model' => $scope, 'id' => $item->id])"
+                :action="route('admin.model.edit', ['model' => $scope, 'id' => $item->getKey()])"
             />
+            @endunless
         </x-slot:actions>
     </x-shipyard.app.model.card>
     @empty

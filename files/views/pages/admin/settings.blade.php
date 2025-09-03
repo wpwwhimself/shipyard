@@ -9,13 +9,14 @@
         :icon="$section['icon'] ?? null"
         :pop="$section['title']"
         pop-direction="right"
+        class="tertiary"
         action="#{{ $section['id'] }}"
     />
     @endforeach
 
     <x-shipyard.app.sidebar-separator />
 
-    @foreach ($models as $model)
+    @foreach (similar_models("settings") as $model)
     <x-shipyard.ui.button
         :icon="$model['icon'] ?? null"
         :pop="$model['label']"

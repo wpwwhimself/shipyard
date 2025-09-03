@@ -1,9 +1,9 @@
-@extends("layouts.shipyard.base")
+@extends("layouts.shipyard.admin")
 
 @section("content")
 
-<section style="text-align: center;">
-    <h1 style="font-size: 3em;">
+<div class="card" style="text-align: center;">
+    <h1 style="font-size: 3em; color: var(--error);">
         {{ $exception->getStatusCode() }} | @yield("title")
     </h1>
 
@@ -11,9 +11,7 @@
         @yield("description")
     </p>
 
-    <p class="ghost">
-        {{ $exception->getMessage() }}
-    </p>
-</section>
+    <script>console.error("⚠️", "{{ $exception->getMessage() }}");</script>
+</card>
 
 @endsection

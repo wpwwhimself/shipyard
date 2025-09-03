@@ -7,6 +7,7 @@ namespace App\Models\Shipyard;
 use App\Traits\Shipyard\CanBeStringified;
 use App\Traits\Shipyard\HasStandardScopes;
 use App\Notifications\ResetPasswordNotification;
+use App\Traits\Shipyard\HasStandardAttributes;
 use App\Traits\Shipyard\HasStandardFields;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -15,24 +16,23 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Sanctum\HasApiTokens;
+use Mattiverse\Userstamps\Traits\Userstamps;
 
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable, CanBeStringified, HasApiTokens, SoftDeletes;
+    use HasFactory, Notifiable, CanBeStringified, HasApiTokens, SoftDeletes, Userstamps;
 
     public const META = [
         "label" => "Użytkownicy",
         "icon" => "account",
         "description" => "Lista użytkowników systemu. Każdy z wymienionych może otrzymać role, które nadają mu uprawnienia do korzystania z konkretnych funkcjonalności.",
         "role" => "technical",
+        "uneditable" => [
+            1,
+        ],
     ];
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var list<string>
-     */
     protected $fillable = [
         'name',
         'email',
@@ -68,21 +68,16 @@ class User extends Authenticatable
     ];
     #endregion
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var list<string>
-     */
     protected $hidden = [
         'password',
         'remember_token',
     ];
 
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
+    #region scopes
+    use HasStandardScopes;
+    #endregion
+
+    #region attributes
     protected function casts(): array
     {
         return [
@@ -91,22 +86,8 @@ class User extends Authenticatable
         ];
     }
 
-    #region scopes
-    use HasStandardScopes;
+    use HasStandardAttributes;
 
-    public function scopeMailableAdmins($query, ?string $role = null)
-    {
-        $query = $query->whereHas("roles", fn ($q) => $q->where("name", "technical"));
-        if ($role) {
-            $query = $query->whereHas("roles", fn ($q) => $q->where("name", $role));
-        }
-        $query = $query->where("email", "NOT REGEXP", "\.test$");
-
-        return $query;
-    }
-    #endregion
-
-    #region attributes\
     public function badges(): Attribute
     {
         return Attribute::make(

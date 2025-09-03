@@ -10,13 +10,14 @@
         :icon="$section['icon'] ?? null"
         :pop="$section['title']"
         pop-direction="right"
+        class="tertiary"
         action="#{{ $section['id'] }}"
     />
     @endforeach
 
     <x-shipyard.app.sidebar-separator />
 
-    @if ($data)
+    @if ($data && count($actions))
     @foreach ($actions as $action)
     @if (isset($action["role"]) && !auth()->user()->hasRole($action["role"])) @continue @endif
     <x-shipyard.ui.button
@@ -76,14 +77,14 @@
             <div class="flex right ghost">
                 {{-- todo przerobić to i podobne na komponenty --}}
                 <span>
-                    <i class="fas fa-user-plus" @popper(Twórca)></i>
+                    <span @popper(Twórca)>@svg("mdi-account-plus")</span>
                     {{ $data->creator->name }},
                     <span {{ Popper::pop($data->created_at) }}>{{ $data->created_at->diffForHumans() }}</span>
                 </span>
 
                 @if ($data->created_at != $data->updated_at)
                 <span>
-                    <i class="fas fa-user-pen" @popper(Ostatnia edycja)></i>
+                    <span @popper(Ostatnia edycja)>@svg("mdi-account-edit")</span>
                     {{ $data->editor->name }},
                     <span {{ Popper::pop($data->updated_at) }}>{{ $data->updated_at->diffForHumans() }}</span>
                 </span>

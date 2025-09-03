@@ -190,19 +190,9 @@ class AdminController extends Controller
         ];
         $settings = Setting::all();
 
-        $models = collect(glob(app_path("Models/Shipyard/*.php")))
-            ->map(fn ($file) => scope(Str::of(basename($file))->replace(".php", "")))
-            ->map(fn ($scope) => [
-                "icon" => model_icon($scope),
-                "label" => model($scope)::META["label"],
-                "scope" => $scope,
-            ])
-        ;
-
         return view("pages.shipyard.admin.settings", compact(
             "fields",
             "settings",
-            "models",
         ));
     }
 
@@ -224,7 +214,7 @@ class AdminController extends Controller
     #region automatic model editors
     public function listModel(string $scope): View
     {
-        if (!User::hasRole(model($scope)::META["role"])) abort(403);
+        if (!User::hasRole(model($scope)::META["role"] ?? null)) abort(403);
 
         $meta = model($scope)::META;
         $data = model($scope)::forAdminList()
@@ -234,10 +224,10 @@ class AdminController extends Controller
         return view("pages.shipyard.admin.model.list", compact("data", "meta", "scope", "actions"));
     }
 
-    public function editModel(string $scope, ?int $id = null): View
+    public function editModel(string $scope, int|string|null $id = null): View|RedirectResponse
     {
         if (
-            !User::hasRole(model($scope)::META["role"])
+            !User::hasRole(model($scope)::META["role"] ?? null)
             && !($scope == "users" && Auth::id() == $id) // user can edit themself
         ) abort(403);
 
@@ -258,13 +248,17 @@ class AdminController extends Controller
         );
         $actions = model($scope)::actions("edit");
 
+        if ($data?->is_uneditable) {
+            return redirect()->route("admin.model.list", ["model" => $scope])->with("toast", ["error", "Tego modelu nie można edytować"]);
+        }
+
         return view("pages.shipyard.admin.model.edit", compact("data", "meta", "scope", "fields", "connections", "sections", "actions"));
     }
 
     public function processEditModel(Request $rq, string $scope): RedirectResponse
     {
         if (
-            !User::hasRole(model($scope)::META["role"])
+            !User::hasRole(model($scope)::META["role"] ?? null)
             && !($scope == "users" && Auth::id() == $rq->id) // user can edit themself
         ) abort(403);
 
@@ -390,7 +384,7 @@ class AdminController extends Controller
 
     public function apiGetModel(string $scope, ?int $id = null)
     {
-        if (!User::hasRole(model($scope)::META["role"])) abort(403);
+        if (!User::hasRole(model($scope)::META["role"] ?? null)) abort(403);
 
         $data = ($id)
             ? model($scope)::find($id)

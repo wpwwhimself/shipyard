@@ -34,6 +34,9 @@
     --primary: light-dark({{ setting("app_accent_color_1_light") }}, {{ setting("app_accent_color_1_dark") }});
     --secondary: light-dark({{ setting("app_accent_color_2_light") }}, {{ setting("app_accent_color_2_dark") }});
     --tertiary: light-dark({{ setting("app_accent_color_3_light") }}, {{ setting("app_accent_color_3_dark") }});
+    --primary-ghost: light-dark({{ setting("app_accent_color_1_light") }}77, {{ setting("app_accent_color_1_dark") }}77);
+    --secondary-ghost: light-dark({{ setting("app_accent_color_2_light") }}77, {{ setting("app_accent_color_2_dark") }}77);
+    --tertiary-ghost: light-dark({{ setting("app_accent_color_3_light") }}77, {{ setting("app_accent_color_3_dark") }}77);
 }
 {!! file_get_contents(public_path("css/Shipyard/_base.scss")) !!}
 {!! file_get_contents(public_path("css/Shipyard/".setting("app_theme").".scss")) !!}

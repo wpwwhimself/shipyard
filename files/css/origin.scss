@@ -43,6 +43,10 @@
     background: var(--bg);
 }
 
+.highlightable:hover {
+    background: var(--tertiary-ghost);
+}
+
 /******************* theme *******************/
 
 /** common **/
@@ -247,6 +251,7 @@ main {
 
 [role="model-card"] {
     @extend .rounded, .backdropped;
+    @extend .animatable, .highlightable;
 }
 
 [role="actions"] {
