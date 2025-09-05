@@ -335,11 +335,22 @@ hr {
 }
 
 .icon {
-    height: 1.5em;
+    --icon-size: 1.5em;
+    width: var(--icon-size);
+    height: var(--icon-size);
     vertical-align: -25%;
 
     &.large {
         height: 3em;
+    }
+
+    body.dark &.invert-when-dark {
+        filter: invert(1);
+    }
+    @media (prefers-color-scheme: dark) {
+        &.invert-when-dark {
+            filter: invert(1);
+        }
     }
 }
 
