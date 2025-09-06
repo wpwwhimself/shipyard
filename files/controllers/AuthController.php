@@ -25,7 +25,7 @@ class AuthController extends Controller
     {
         $credentials = $rq->only(["name", "password"]);
 
-        if (Auth::attempt($credentials, $rq->has("remember_token"))) {
+        if (Auth::attempt($credentials, $rq->has("remember"))) {
             $rq->session()->regenerate();
             return redirect()->intended(route("profile"))->with("toast", ["success", "Zalogowano"]);
         }
