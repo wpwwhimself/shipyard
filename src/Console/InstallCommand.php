@@ -115,7 +115,7 @@ class InstallCommand extends Command
 
         #region installing
         $this->info("📭 Installing...");
-        $this->call("migrate");
+        $this->call("migrate", ["--force" => true]);
         #endregion
 
         $this->info("✅ Shipyard is ready!");
