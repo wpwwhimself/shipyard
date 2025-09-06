@@ -7,10 +7,8 @@ use App\Models\Shipyard\StandardPage;
 use App\Models\Shipyard\User;
 use App\Notifications\ContactFormMsgNotification;
 use App\Notifications\ContactFormSentNotification;
-use App\Notifications\ErrorReportNotification;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\View\View;
 use Illuminate\Support\Str;
@@ -28,7 +26,7 @@ class FrontController extends Controller
             ->firstWhere(fn ($page) => $page->slug == $slug);
         if (!$page) abort(404);
 
-        return view("standard-page", compact("page"));
+        return view("pages.shipyard.standard-page", compact("page"));
     }
 
     #region contact form

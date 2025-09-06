@@ -78,8 +78,15 @@
             }
         }
         </script>
-        {{-- <script type="module" src="{{ asset("js/ckeditor.js") }}?{{ time() }}"></script> --}}
+        <link rel="stylesheet" href="https://cdn.ckeditor.com/ckeditor5/43.0.0/ckeditor5.css">
+        <link rel="stylesheet" href="{{ asset("css/Shipyard/ckeditor.css") }}?{{ time() }}">
+        <script type="module" src="{{ asset("js/Shipyard/ckeditor.js") }}?{{ time() }}"></script>
         {{-- ✏️ ckeditor stuff ✏️ --}}
+
+        {{-- ✅ choices stuff ✅ --}}
+        {{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css" /> --}}
+        {{-- <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script> --}}
+        {{-- ✅ choices stuff ✅ --}}
 
         @csrf
     </head>

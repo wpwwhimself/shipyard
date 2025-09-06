@@ -26,9 +26,9 @@ trait HasStandardFields
                 "type" => "select",
                 "select-data" => [
                     "options" => [
-                        0 => "nikt",
-                        1 => "zalogowani",
-                        2 => "wszyscy",
+                        ["value" => 0, "label" => "nikt"],
+                        ["value" => 1, "label" => "zalogowani"],
+                        ["value" => 2, "label" => "wszyscy"],
                     ],
                 ],
                 "label" => "Widoczny dla",

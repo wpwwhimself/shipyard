@@ -52,6 +52,12 @@
 
 /** common **/
 
+footer,
+header,
+[role$="card"] {
+    @extend .card;
+}
+
 aside,
 main {
     @extend .flex;
@@ -68,6 +74,11 @@ main {
 }
 
 /** specific **/
+[role="actions"],
+.actions,
+.actions > .card {
+    @extend .flex, .right, .center, .middle;
+}
 
 #app-badge {
     @extend .flex, .right, .middle;
@@ -134,6 +145,10 @@ body {
     }
 }
 
+[role$="card"] {
+    box-shadow: none;
+}
+
 [role="files-breadcrumbs"] {
     @extend .flex, .right, .middle;
     @extend .with-bottom-separator;
@@ -160,8 +175,7 @@ body {
 
 footer,
 header,
-[role$="card"] {
-    @extend .card;
+[role="model-card"] {
     @extend .spread, .middle;
 
     flex-direction: row;
@@ -197,11 +211,6 @@ form {
     &.tight {
         max-width: 25em;
         margin-inline: auto;
-    }
-
-    & .actions,
-    & .actions .card {
-        @extend .flex, .right, .center, .middle;
     }
 }
 
@@ -277,12 +286,11 @@ main {
 }
 
 [role="model-card"] {
-    @extend .rounded, .backdropped;
     @extend .animatable, .highlightable;
 }
 
-[role="actions"] {
-    @extend .flex, .right, .middle, .spread;
+[role="nav"] {
+    @extend .flex, .right, .middle;
 }
 
 #page-title {
