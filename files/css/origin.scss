@@ -148,15 +148,15 @@ header,
     }
 
     & > [role="top-part"] {
-        @extend .flex, .right;
+        @extend .flex, .right, .middle;
         text-align: left;
     }
     & > [role="middle-part"] {
-        @extend .flex, .right, .center;
+        @extend .flex, .right, .center, .middle;
         text-align: center;
     }
     & > [role="bottom-part"] {
-        @extend .flex, .right;
+        @extend .flex, .right, .middle;
         justify-content: right;
         text-align: right;
     }
