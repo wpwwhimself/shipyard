@@ -17,6 +17,7 @@
 
 .with-bottom-separator {
     border-bottom: 1px solid var(--fg-lite);
+    padding-bottom: 0.5em;
 }
 
 .marginned {
@@ -50,12 +51,6 @@
 /******************* theme *******************/
 
 /** common **/
-
-header,
-footer,
-.card {
-    @extend .bordered, .padded, .rounded, .shaded, .backdropped;
-}
 
 aside,
 main {
@@ -117,13 +112,14 @@ body {
 
 .card {
     @extend .flex, .down;
-    @extend .padded, .rounded, .backdropped;
+    @extend .padded, .rounded, .backdropped, .bordered, .shaded;
+
+    margin: 0;
 
     & > [role="top-bar"] {
         @extend .flex, .right, .middle, .spread;
         @extend .with-bottom-separator;
 
-        padding-bottom: 0.5em;
         flex-wrap: nowrap;
     }
 
@@ -138,10 +134,37 @@ body {
     }
 }
 
+[role="files-breadcrumbs"] {
+    @extend .flex, .right, .middle;
+    @extend .with-bottom-separator;
+
+    & > [role="current-directory"] {
+        @extend .accent, .primary;
+    }
+}
+
+[role="files-list"] {
+    @extend .flex, .right;
+
+    & [role="file-card"] {
+        @extend .flex, .down;
+        @extend .bordered, .padded, .rounded;
+
+        & > .actions {
+            @extend .grid;
+
+            --col-count: 2;
+        }
+    }
+}
+
 footer,
 header,
 [role$="card"] {
-    @extend .flex, .right, .spread, .middle;
+    @extend .card;
+    @extend .spread, .middle;
+
+    flex-direction: row;
 
     & > * {
         flex-grow: 1;

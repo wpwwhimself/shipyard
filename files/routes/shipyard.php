@@ -46,18 +46,18 @@ Route::middleware("auth")->group(function () {
             Route::post("", "processSettings")->name("admin.system-settings.process");
         });
 
-        Route::prefix("files")->group(function () {
-            Route::get("", "files")->name("files.list");
+        Route::prefix("files")->middleware(EnsureUserHasRole::class.":content-manager")->group(function () {
+            Route::get("", "files")->name("files");
             Route::get("download", "filesDownload")->name("files.download");
-            Route::middleware(EnsureUserHasRole::class.":blogger")->group(function () {
-                Route::post("upload", "filesUpload")->name("files.upload");
-                Route::get("delete", "filesDelete")->name("files.delete");
-            });
+            Route::post("upload", "filesUpload")->name("files.upload");
+            Route::get("delete", "filesDelete")->name("files.delete");
+
+            Route::get("search", "filesSearch")->name("files.search");
 
             Route::prefix("folder")->group(function () {
-                Route::get("new", "folderNew")->name("folder.new");
-                Route::post("create", "folderCreate")->name("folder.create");
-                Route::get("delete", "folderDelete")->name("folder.delete");
+                Route::get("new", "folderNew")->name("files.folder.new");
+                Route::post("create", "folderCreate")->name("files.folder.create");
+                Route::get("delete", "folderDelete")->name("files.folder.delete");
             });
         });
 

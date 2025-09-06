@@ -30,6 +30,18 @@ function setting(string $key, $default = null): ?string
     return Setting::get($key, $default);
 }
 
+#region files
+/**
+ * Is it a picture?
+ */
+function isPicture(string $path): bool
+{
+    return Str::of($path)
+        ->beforeLast("?")
+        ->endsWith([".jpg", ".jpeg", ".png", ".gif", ".svg"]);
+}
+#endregion
+
 #region model info
 /**
  * returns model class from scope
