@@ -176,7 +176,8 @@ form {
         margin-inline: auto;
     }
 
-    & .actions {
+    & .actions,
+    & .actions .card {
         @extend .flex, .right, .center, .middle;
     }
 }

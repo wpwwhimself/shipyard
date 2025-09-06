@@ -28,36 +28,7 @@
         class="{{ ($action['dangerous'] ?? false) ? 'danger' : '' }}"
     />
     @endforeach
-
-    <x-shipyard.app.sidebar-separator />
     @endif
-
-    <x-shipyard.ui.button
-        icon="content-save"
-        pop="Zapisz zmiany"
-        pop-direction="right"
-        class="primary"
-        action="none"
-        onclick="submitShipyardForm()"
-    />
-    @if ($data)
-    <x-shipyard.ui.button
-        icon="delete"
-        pop="Usuń"
-        pop-direction="right"
-        class="danger"
-        action="none"
-        onclick="submitShipyardForm('delete')"
-    />
-    @endif
-    <x-shipyard.ui.button
-        icon="arrow-left"
-        pop="Wróć"
-        pop-direction="right"
-        :action="Auth::user()->hasRole('technical')
-            ? route('admin.model.list', ['model' => $scope])
-            : route('profile')"
-    />
 </div>
 
 @endsection
@@ -140,6 +111,7 @@
             @break
 
             @case ("many")
+            <div class="grid" style="--col-count: 3;">
             @foreach ($rdata['model']::all() as $item)
             @if ($relation == "roles" && $item->name == "super" && !auth()->user()->hasRole("super")) @continue @endif
             <x-shipyard.ui.input type="checkbox"
@@ -151,10 +123,41 @@
                 :checked="$data?->{$relation}->contains($item)"
             />
             @endforeach
+            </div>
             @break
         @endswitch
     </x-shipyard.app.card>
     @endforeach
+
+    <x-slot:actions>
+        <div class="card">
+            <x-shipyard.ui.button
+                icon="content-save"
+                label="Zapisz zmiany"
+                class="primary"
+                action="submit"
+                name="method"
+                value="save"
+            />
+            @if ($data)
+            <x-shipyard.ui.button
+                icon="delete"
+                label="Usuń"
+                class="danger"
+                action="submit"
+                name="method"
+                value="delete"
+            />
+            @endif
+            <x-shipyard.ui.button
+                icon="arrow-left"
+                label="Wróć"
+                :action="Auth::user()->hasRole('technical')
+                    ? route('admin.model.list', ['model' => $scope])
+                    : route('profile')"
+            />
+        </div>
+    </x-slot:actions>
 </x-shipyard.app.form>
 
 @endsection
