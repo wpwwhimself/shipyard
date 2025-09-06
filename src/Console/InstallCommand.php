@@ -43,6 +43,9 @@ class InstallCommand extends Command
         $this->comment("- traits...");
         $this->tryLink(__DIR__.'/../../files/traits', base_path("app/Traits/Shipyard"));
 
+        $this->comment("- mails...");
+        $this->tryLink(__DIR__.'/../../files/mails', base_path("app/Mail/Shipyard"));
+
         $this->comment("- models...");
         $this->tryLink(__DIR__.'/../../files/models', base_path("app/Models/Shipyard"));
 
@@ -68,6 +71,7 @@ class InstallCommand extends Command
         $this->comment("- views...");
         $this->tryLink(__DIR__.'/../../files/views/layouts', base_path("resources/views/layouts/shipyard"));
         $this->tryLink(__DIR__.'/../../files/views/components', base_path("resources/views/components/shipyard"));
+        $this->tryLink(__DIR__.'/../../files/views/mail', base_path("resources/views/mail/shipyard"));
         $this->tryLink(__DIR__.'/../../files/views/pages', base_path("resources/views/pages/shipyard"));
         $this->tryCopyDirectory(__DIR__.'/../../files/views/errors', base_path("resources/views/errors"));
         $this->tryCopy(__DIR__.'/../../files/views/welcome_to_shipyard.blade.php', base_path("resources/views/welcome_to_shipyard.blade.php"));
@@ -118,6 +122,7 @@ class InstallCommand extends Command
 
         $this->comment("Things to do now:");
         $this->comment("> in your `routes/web.php` add the following: \n\t require __DIR__.'/Shipyard/shipyard.php';");
+        $this->comment("> in your `routes/console.php` add the following: \n\t require __DIR__.'/Shipyard/schedule.php';");
         $this->comment("> clear your `resources/css/app.css` file - it may overwrite themes");
 
         return Command::SUCCESS;

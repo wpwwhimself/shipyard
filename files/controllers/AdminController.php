@@ -249,7 +249,7 @@ class AdminController extends Controller
         );
         $actions = model($scope)::actions("edit");
 
-        if ($data?->is_uneditable) {
+        if ($data?->is_uneditable && !User::hasRole("archmage")) {
             return redirect()->route("admin.model.list", ["model" => $scope])->with("toast", ["error", "Tego modelu nie można edytować"]);
         }
 

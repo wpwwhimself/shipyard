@@ -4,9 +4,9 @@ namespace App\Models\Shipyard;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
+use App\Mail\Shipyard\ResetPasswordLink;
 use App\Traits\Shipyard\CanBeStringified;
 use App\Traits\Shipyard\HasStandardScopes;
-use App\Notifications\ResetPasswordNotification;
 use App\Traits\Shipyard\HasStandardAttributes;
 use App\Traits\Shipyard\HasStandardFields;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Laravel\Sanctum\HasApiTokens;
 use Mattiverse\Userstamps\Traits\Userstamps;
 
@@ -61,9 +62,9 @@ class User extends Authenticatable
     public const ACTIONS = [
         [
             "icon" => "key-change",
-            "label" => "Zarządzaj hasłem",
+            "label" => "Zmień hasło",
             "show-on" => "edit",
-            "route" => "change-password",
+            "route" => "password.set",
         ],
     ];
     #endregion
@@ -122,6 +123,10 @@ class User extends Authenticatable
     #endregion
 
     #region password reset
-
+    public function sendPasswordResetNotification($token): void
+    {
+        $url = route("password.reset", ["token" => $token]);
+        Mail::to($this->email)->send(new ResetPasswordLink($url));
+    }
     #endregion
 }

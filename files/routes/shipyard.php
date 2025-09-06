@@ -26,10 +26,12 @@ Route::controller(AuthController::class)->prefix("auth")->group(function () {
         Route::get("/logout", "logout")->name("logout");
     });
 
-    Route::get("/forgot-password", "forgotPassword")->name("forgot-password");
-    Route::post("/forgot-password", "processForgotPassword")->name("forgot-password.process");
-    Route::get("/reset-password/{token}", "resetPassword")->name("password.reset");
-    Route::post("/reset-password", "processResetPassword")->name("password.reset.process");
+    Route::prefix("password")->group(function () {
+        Route::get("/set", "setPassword")->name("password.set");
+        Route::post("/set", "processSetPassword")->name("password.set.process");
+        Route::get("/reset/{token?}", "resetPassword")->name("password.reset");
+        Route::post("/reset", "processResetPassword")->name("password.reset.process");
+    });
 });
 #endregion
 

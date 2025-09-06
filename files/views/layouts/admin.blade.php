@@ -28,7 +28,7 @@
         @yield("content")
     </main>
     @endif
-</div id="middle-wrapper">
+</div>
 
 <x-shipyard.app.big.footer>
     <x-slot:top>

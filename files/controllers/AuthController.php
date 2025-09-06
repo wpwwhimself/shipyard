@@ -3,9 +3,7 @@
 namespace App\Http\Controllers\Shipyard;
 
 use App\Http\Controllers\Controller;
-use App\Models\NewsletterSubscriber;
-use App\Models\User;
-use App\Notifications\NewsletterSubscribedNotification;
+use App\Models\Shipyard\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -65,15 +63,6 @@ class AuthController extends Controller
 
         Auth::login($user);
 
-        if ($rq->has("add_to_newsletter")) {
-            NewsletterSubscriber::updateOrCreate([
-                "email" => $rq->email,
-            ], [
-                "user_id" => $user->id,
-            ]);
-            $user->notify(new NewsletterSubscribedNotification());
-        }
-
         return redirect(route("profile"))->with("success", "Konto zostało utworzone");
     }
     #endregion
@@ -103,65 +92,79 @@ class AuthController extends Controller
     #endregion
 
     #region password manipulation
-    public function changePassword()
+    public function setPassword(Request $rq)
     {
-        return view("auth.change-password");
+        if ($rq->has("id") && Auth::id() != $rq->id) {
+            return redirect()->route("password.reset", ["id" => $rq->id]);
+        }
+
+        return view("pages.shipyard.auth.password.set");
     }
 
-    public function processChangePassword(Request $rq)
+    public function processSetPassword(Request $rq)
     {
+        // reset hasła z linku
+        if ($rq->has("token")) {
+            $validator = Validator::make($rq->all(), [
+                'token' => 'required',
+                'email' => 'required|email',
+                'password' => 'required|confirmed',
+            ]);
+            if ($validator->fails()) return back()->with("toast", ["error", "Coś jest nie tak z dostarczonymi danymi"]);
+
+            $status = Password::reset(
+                $rq->only('email', 'password', 'password_confirmation', 'token'),
+                function (User $user, string $password) {
+                    $user->forceFill([
+                        'password' => Hash::make($password)
+                    ]);
+                    $user->save();
+                }
+            );
+
+            return $status === Password::PasswordReset
+                ? redirect()->route('login')->with("toast", ['success', "Hasło zostało zmienione"])
+                : back()->with("toast", ['error', "Coś poszło nie tak podczas resetowania hasła"]);
+        }
+
+        if ($rq->has("user_id")) {
+            $user = User::find($rq->user_id);
+            if (!Hash::check($rq->current_password, $user->password)) {
+                return back()->with("toast", ["error", "Obecne hasło nie jest poprawne"]);
+            }
+        }
+
         $validator = Validator::make($rq->all(), [
             'password' => ['required', 'confirmed'],
         ]);
-        if ($validator->fails()) return view("auth.change-password")->with("error", "Coś jest nie tak z hasłem");
+        if ($validator->fails()) return back()->with("toast", ["error", "Coś jest nie tak z hasłem"]);
 
         User::findOrFail(Auth::id())->update([
             "password" => Hash::make($rq->password),
         ]);
-        return redirect(route("profile"))->with("success", "Hasło zostało zmienione");
+        return redirect(route("profile"))->with("toast", ["success", "Hasło zostało zmienione"]);
     }
 
-    public function forgotPassword()
+    public function resetPassword(Request $rq, ?string $token = null)
     {
-        return view("auth.forgot-password");
-    }
+        if ($token) {
+            return view("pages.shipyard.auth.password.set", compact("token"));
+        }
 
-    public function processForgotPassword(Request $rq)
-    {
-        $status = Password::sendResetLink($rq->only('email'));
+        $user = User::find($rq->id);
 
-        return $status === Password::ResetLinkSent
-            ? back()->with("success", "Link do resetowania hasła został wysłany")
-            : back()->with("error", "Coś poszło nie tak podczas resetowania hasła");
-    }
-
-    public function resetPassword($token)
-    {
-        return view("auth.change-password", compact("token"));
+        return view("pages.shipyard.auth.password.reset", compact("user"));
     }
 
     public function processResetPassword(Request $rq)
     {
-        $validator = Validator::make($rq->all(), [
-            'token' => 'required',
-            'email' => 'required|email',
-            'password' => 'required|confirmed',
-        ]);
-        if ($validator->fails()) return back()->with("error", "Coś jest nie tak z hasłem");
+        $status = Password::sendResetLink($rq->only('email'));
+        $success = $status == Password::RESET_LINK_SENT;
 
-        $status = Password::reset(
-            $rq->only('email', 'password', 'password_confirmation', 'token'),
-            function (User $user, string $password) {
-                $user->forceFill([
-                    'password' => Hash::make($password)
-                ]);
-                $user->save();
-            }
+        return back()->with("toast", $success
+            ? ["success", "Link do resetowania hasła został wysłany"]
+            : ["error", "Coś poszło nie tak podczas resetowania hasła"]
         );
-
-        return $status === Password::PasswordReset
-            ? redirect()->route('login')->with('success', "Hasło zostało zmienione")
-            : back()->with('error', "Coś poszło nie tak podczas resetowania hasła");
     }
     #endregion
 

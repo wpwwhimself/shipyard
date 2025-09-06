@@ -31,6 +31,11 @@
                 action="submit"
                 class="primary"
             />
+            <x-shipyard.ui.button
+                icon="lock-question"
+                label="Nie pamiętam hasła"
+                :action="route('password.reset')"
+            />
             @if (setting("users_self_register_enabled"))
             <x-shipyard.ui.button
                 icon="account-plus"
