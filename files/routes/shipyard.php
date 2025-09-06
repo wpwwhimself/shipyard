@@ -3,7 +3,6 @@
 use App\Http\Controllers\Shipyard\AdminController;
 use App\Http\Controllers\Shipyard\AuthController;
 use App\Http\Controllers\Shipyard\DocsController;
-use App\Http\Controllers\Shipyard\EntityManagementController;
 use App\Http\Controllers\Shipyard\FrontController;
 use App\Http\Controllers\Shipyard\ProfileController;
 use App\Http\Controllers\Shipyard\SpellbookController;
@@ -62,16 +61,14 @@ Route::middleware("auth")->group(function () {
             });
         });
 
-        Route::prefix("{model}")->group(function () {
-            Route::get("", "listModel")->name("admin.model.list");
-            Route::get("edit/{id?}", "editModel")->name("admin.model.edit");
-            Route::post("edit", "processEditModel")->name("admin.model.edit.process");
-        });
-    });
-
-    Route::controller(EntityManagementController::class)->prefix("admin/entmgr")->group(function () {
-        Route::prefix("{model}")->group(function () {
-            Route::get("", "listModel")->name("admin.entmgr.list");
+        Route::prefix("models")->group(function () {
+            Route::get("", "models")->name("admin.models");
+            Route::redirect("settings", "/admin/settings"); // settings model is not editable
+            Route::prefix("{model}")->group(function () {
+                Route::get("", "listModel")->name("admin.model.list");
+                Route::get("edit/{id?}", "editModel")->name("admin.model.edit");
+                Route::post("edit", "processEditModel")->name("admin.model.edit.process");
+            });
         });
     });
 });

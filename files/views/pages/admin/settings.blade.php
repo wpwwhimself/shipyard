@@ -1,5 +1,6 @@
 @extends("layouts.shipyard.admin")
 @section("title", "Ustawienia systemu")
+@section("subtitle", "Administracja")
 
 @section("sidebar")
 

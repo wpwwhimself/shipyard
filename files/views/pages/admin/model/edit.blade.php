@@ -15,9 +15,9 @@
     />
     @endforeach
 
+    @if ($data && count($actions))
     <x-shipyard.app.sidebar-separator />
 
-    @if ($data && count($actions))
     @foreach ($actions as $action)
     @if (isset($action["role"]) && !auth()->user()->hasRole($action["role"])) @continue @endif
     <x-shipyard.ui.button

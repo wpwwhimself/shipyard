@@ -12,7 +12,7 @@
         class="primary"
         :action="route('admin.model.edit', ['model' => $scope])"
     />
-    
+
     @if ($actions)
     <x-shipyard.app.sidebar-separator />
 
@@ -28,15 +28,6 @@
     @endforeach
     @endif
 
-    <x-shipyard.app.sidebar-separator />
-    
-    <x-shipyard.ui.button
-        icon="eye"
-        pop="Przegląd danych"
-        pop-direction="right"
-        :action="route('admin.entmgr.list', ['model' => $scope])"
-    />
-    
     <x-shipyard.app.sidebar-separator />
 
     @foreach (similar_models($scope) as $model)

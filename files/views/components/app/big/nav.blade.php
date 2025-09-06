@@ -1,12 +1,9 @@
 <nav role="nav">
-    @auth
-    @foreach (similar_models() as $model)
-    @if (!auth()->user()->hasRole($model["role"] ?? null)) @continue @endif
+    @if (Auth::user()->hasRole("technical"))
     <x-shipyard.ui.button
-        :icon="$model['icon'] ?? null"
-        :label="$model['label']"
-        :action="route('admin.model.list', ['model' => $model['scope']])"
+        icon="database"
+        label="Zarządzanie modelami"
+        :action="route('admin.models')"
     />
-    @endforeach
-    @endauth
+    @endif
 </nav>

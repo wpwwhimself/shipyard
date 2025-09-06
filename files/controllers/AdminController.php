@@ -213,6 +213,26 @@ class AdminController extends Controller
     #endregion
 
     #region automatic model editors
+    public function models(): View
+    {
+        $model_groups = [
+            [
+                "id" => "local",
+                "label" => "Modele aplikacji",
+                "icon" => "database",
+                "models" => similar_models(),
+            ],
+            [
+                "id" => "system",
+                "label" => "Modele systemowe",
+                "icon" => "anchor",
+                "models" => similar_models("users"),
+            ],
+        ];
+
+        return view("pages.shipyard.admin.model.index", compact("model_groups"));
+    }
+
     public function listModel(string $scope): View
     {
         if (!User::hasRole(model($scope)::META["role"] ?? null)) abort(403);

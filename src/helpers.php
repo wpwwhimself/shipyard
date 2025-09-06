@@ -82,6 +82,8 @@ function similar_models(?string $scope = null): array
     ])));
     return collect(glob($model_dir))
         ->map(fn ($file) => scope(Str::of(basename($file))->replace(".php", "")))
+        ->filter(fn ($scope) => $scope != "settings")
+        ->sortBy(fn ($scope) => model($scope)::META["ordering"] ?? 999)
         ->map(fn ($scope) => [
             "icon" => model_icon($scope),
             "label" => model($scope)::META["label"],

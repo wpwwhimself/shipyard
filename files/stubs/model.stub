@@ -19,6 +19,7 @@ class {{ class }} extends Model
         "icon" => "",
         "description" => "",
         "role" => "",
+        "ordering" => ,
     ];
 
     use SoftDeletes, Userstamps;
@@ -27,7 +28,7 @@ class {{ class }} extends Model
         "name",
         "visible",
     ];
-    
+
     #region fields
     use HasStandardFields;
 
