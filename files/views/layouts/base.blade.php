@@ -11,6 +11,7 @@
             @endif
             | {{ setting("app_name") }}
         </title>
+        <link rel="icon" href="{{ setting("app_favicon_path") ?? setting("app_logo_path") }}">
 
         {{-- 💄 styles 💄 --}}
         <link rel="stylesheet" href="{{ asset("css/identity.css") }}">
