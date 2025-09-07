@@ -1,9 +1,9 @@
 <nav role="nav">
-    @foreach (\App\Models\Shipyard\StandardPage::visible()->get() as $page)
+    @foreach (\App\Models\Shipyard\NavItem::visible()->get() as $page)
     <x-shipyard.ui.button
-        :icon="$page::META['icon']"
+        :icon="$page->icon"
         :label="$page->name"
-        :action="route('standard-page', ['slug' => $page->slug])"
+        :action="$page->action"
     />
     @endforeach
 

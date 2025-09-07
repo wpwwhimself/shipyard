@@ -1,0 +1,164 @@
+<?php
+
+namespace App\Models\Shipyard;
+
+use App\Traits\Shipyard\HasStandardAttributes;
+use App\Traits\Shipyard\HasStandardFields;
+use App\Traits\Shipyard\HasStandardScopes;
+use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Str;
+use Mattiverse\Userstamps\Traits\Userstamps;
+
+class NavItem extends Model
+{
+    //
+
+    public const META = [
+        "label" => "Pozycje menu",
+        "icon" => "navigation",
+        "description" => "Przyciski wyświetlane na pasku nawigacji. Mogą prowadzić do stron standardowych lub innych ścieżek.",
+        "role" => "technical",
+    ];
+
+    use SoftDeletes, Userstamps;
+
+    protected $fillable = [
+        "name",
+        "visible",
+        "icon",
+        "target_type",
+        "target_name",
+        "target_params",
+    ];
+
+    #region fields
+    use HasStandardFields;
+
+    public const FIELDS = [
+        "icon" => [
+            "type" => "string",
+            "label" => "Ikona",
+            "icon" => "image",
+        ],
+        "target_type" => [
+            "type" => "select",
+            "select-data" => [
+                "options" => [
+                    ["value" => 0, "label" => "Strona standardowa"],
+                    ["value" => 1, "label" => "Link wewnętrzny"],
+                    ["value" => 2, "label" => "Link zewnętrzny"],
+                ],
+            ],
+            "label" => "Cel",
+            "icon" => "target",
+            "required" => true,
+        ],
+        "target_name" => [
+            "type" => "text",
+            "label" => "Nazwa celu",
+            "icon" => "label",
+            "required" => true,
+        ],
+        "target_params" => [
+            "type" => "JSON",
+            "column-types" => [
+                "Nazwa" => "string",
+                "Wartość" => "string",
+            ],
+            "label" => "Parametry celu",
+            "icon" => "abacus",
+        ],
+    ];
+
+    public const CONNECTIONS = [
+        // "<name>" => [
+        //     "model" => ,
+        //     "mode" => "<one|many>",
+        // ],
+    ];
+
+    public const ACTIONS = [
+        // [
+        //     "icon" => "",
+        //     "label" => "",
+        //     "show-on" => "<list|edit>",
+        //     "route" => "",
+        //     "role" => "",
+        //     "dangerous" => true,
+        // ],
+    ];
+    #endregion
+
+    // use CanBeSorted;
+    public const SORTS = [
+        // "<name>" => [
+        //     "label" => "",
+        //     "compare-using" => "function|field",
+        //     "discr" => "<function_name|field_name>",
+        // ],
+    ];
+
+    public const FILTERS = [
+        // "<name>" => [
+        //     "label" => "",
+        //     "icon" => "",
+        //     "compare-using" => "function|field",
+        //     "discr" => "<function_name|field_name>",
+        //     "mode" => "<one|many>",
+        //     "operator" => "",
+        //     "options" => [
+        //         "<label>" => <value>,
+        //     ],
+        // ],
+    ];
+
+    #region scopes
+    use HasStandardScopes;
+    #endregion
+
+    #region attributes
+    protected function casts(): array
+    {
+        return [
+            //
+        ];
+    }
+
+    use HasStandardAttributes;
+
+    // public function badges(): Attribute
+    // {
+    //     return Attribute::make(
+    //         get: fn () => [
+    //             [
+    //                 "label" => "",
+    //                 "icon" => "",
+    //                 "class" => "",
+    //                 "condition" => "",
+    //             ],
+    //         ],
+    //     );
+    // }
+
+    public function action(): Attribute
+    {
+        return Attribute::make(
+            get: function () {
+                switch ($this->target_type) {
+                    case 0: return route("standard-page", ["slug" => Str::slug($this->target_name)]);
+                    case 1: return route($this->target_name, $this->target_params);
+                    case 2: return $this->target_name;
+                }
+            },
+        );
+    }
+    #endregion
+
+    #region relations
+    #endregion
+
+    #region helpers
+    #endregion
+}
