@@ -38,7 +38,7 @@ class NavItem extends Model
 
     public const FIELDS = [
         "icon" => [
-            "type" => "string",
+            "type" => "icon",
             "label" => "Ikona",
             "icon" => "image",
         ],

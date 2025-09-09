@@ -6,7 +6,7 @@
     @foreach ($badges as $badge)
     @if ($badge["condition"] ?? false) @continue @endif
     <span class="{{ $badge["class"] ?? null }}" {{ Popper::pop($badge["label"]) }}>
-        @svg("mdi-".$badge["icon"])
+        <x-shipyard.app.icon :name="$badge['icon']" />
     </span>
     @endforeach
 </div>

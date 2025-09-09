@@ -3,5 +3,5 @@
 ])
 
 <span role="role" {{ Popper::pop("<strong>$role->name</strong>: $role->description") }}>
-    @svg("mdi-".$role->icon)
+    <x-shipyard.app.icon :name="$role->icon" />
 </span>

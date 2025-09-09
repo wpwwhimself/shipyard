@@ -7,7 +7,7 @@
         "error" => "close",
     ];
     @endphp
-    @svg("mdi-".$icons[session("toast")[0]])
+    <x-shipyard.app.icon :name="$icons[session('toast')[0]]" />
 
     <span role="label">
         {{ session("toast")[1] }}

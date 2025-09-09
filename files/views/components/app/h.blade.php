@@ -4,6 +4,6 @@
 ])
 
 <h{{ $lvl }} {{ $attributes }}>
-    @if ($icon) @svg("mdi-".$icon) @endif
+    @if ($icon) <x-shipyard.app.icon :name="$icon" /> @endif
     {{ $slot }}
 </h{{ $lvl }}>

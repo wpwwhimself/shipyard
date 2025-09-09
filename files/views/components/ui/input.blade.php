@@ -20,7 +20,7 @@ $autofillRoute = $autofillFrom
     ? route($autofillFrom[0], ['model_name' => $autofillFrom[1]])
     : null;
 
-$extraButtons = ($type == "url" && $value) || $storageFile;
+$extraButtons = ($type == "url" && $value) || $storageFile || ($type == "icon" && $value);
 @endphp
 
 <div {{
@@ -32,7 +32,7 @@ $extraButtons = ($type == "url" && $value) || $storageFile;
 
     <span role="label-wrapper">
         @if ($icon)
-        @svg("mdi-".$icon)
+        <x-shipyard.app.icon :name="$icon" />
         @endif
 
         @if($type != "hidden" && $label)
@@ -192,13 +192,17 @@ $extraButtons = ($type == "url" && $value) || $storageFile;
         />
         @endif
 
-        @if ($value)
+        @if ($type == "url" && $value)
         <x-shipyard.ui.button
             :action="$value"
             icon="open-in-new"
             class="accent background secondary"
             target="_blank"
         />
+        @endif
+
+        @if ($type == "icon" && $value)
+        <x-shipyard.app.icon :name="$value" />
         @endif
     </div>
     @endif

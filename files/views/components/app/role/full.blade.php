@@ -3,7 +3,7 @@
 ])
 
 <span role="role">
-    @svg("mdi-".$role->icon)
+    <x-shipyard.app.icon :name="$role->icon" />
     <strong>{{ $role->name }}</strong>:
     {{ $role->description }}
 </span>
