@@ -124,6 +124,7 @@ class InstallCommand extends Command
         $this->comment("> in your `routes/web.php` add the following: \n\t if (file_exists(__DIR__.'/Shipyard/shipyard.php')) require __DIR__.'/Shipyard/shipyard.php';");
         $this->comment("> in your `routes/console.php` add the following: \n\t if (file_exists(__DIR__.'/Shipyard/shipyard_schedule.php')) require __DIR__.'/Shipyard/shipyard_schedule.php';");
         $this->comment("> clear your `resources/css/app.css` file - it may overwrite themes");
+        $this->comment("> ensure public/css is writable by the app (to create theme cache file)");
 
         return Command::SUCCESS;
     }
