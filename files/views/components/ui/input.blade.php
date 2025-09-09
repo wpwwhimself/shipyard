@@ -9,6 +9,7 @@
     "columnTypes" => [],
     "autofillFrom" => null,
     "characterLimit" => null,
+    "disabled" => false,
 ])
 
 @php

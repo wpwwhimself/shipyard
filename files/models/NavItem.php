@@ -59,6 +59,7 @@ class NavItem extends Model
             "type" => "text",
             "label" => "Nazwa celu",
             "icon" => "label",
+            "hint" => "Strona standardowa: nazwa strony<br>Link wewnętrzny: nazwa route'a<br>Link zewnętrzny: URL",
             "required" => true,
         ],
         "target_params" => [
@@ -68,15 +69,16 @@ class NavItem extends Model
                 "Wartość" => "string",
             ],
             "label" => "Parametry celu",
+            "hint" => "Link wewnętrzny: parametry route'a.",
             "icon" => "abacus",
         ],
     ];
 
     public const CONNECTIONS = [
-        // "<name>" => [
-        //     "model" => ,
-        //     "mode" => "<one|many>",
-        // ],
+        "roles" => [
+            "model" => Role::class,
+            "mode" => "many",
+        ],
     ];
 
     public const ACTIONS = [
@@ -122,7 +124,7 @@ class NavItem extends Model
     protected function casts(): array
     {
         return [
-            //
+            "target_params" => "json",
         ];
     }
 
@@ -157,6 +159,10 @@ class NavItem extends Model
     #endregion
 
     #region relations
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class);
+    }
     #endregion
 
     #region helpers

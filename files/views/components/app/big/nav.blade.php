@@ -1,5 +1,6 @@
 <nav role="nav">
     @foreach (\App\Models\Shipyard\NavItem::visible()->get() as $page)
+    @if (!Auth::user()?->hasRole($page->roles->pluck("name")->join("|") ?: null)) @continue @endif
     <x-shipyard.ui.button
         :icon="$page->icon"
         :label="$page->name"
