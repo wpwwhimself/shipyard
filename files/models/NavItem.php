@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
 use Mattiverse\Userstamps\Traits\Userstamps;
+use Throwable;
 
 class NavItem extends Model
 {
@@ -148,10 +149,14 @@ class NavItem extends Model
     {
         return Attribute::make(
             get: function () {
-                switch ($this->target_type) {
-                    case 0: return route("standard-page", ["slug" => Str::slug($this->target_name)]);
-                    case 1: return route($this->target_name, $this->target_params);
-                    case 2: return $this->target_name;
+                try {
+                    switch ($this->target_type) {
+                        case 0: return route("standard-page", ["slug" => Str::slug($this->target_name)]);
+                        case 1: return route($this->target_name, $this->target_params);
+                        case 2: return $this->target_name;
+                    }
+                } catch (Throwable $e) {
+                    return null;
                 }
             },
         );
