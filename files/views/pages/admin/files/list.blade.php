@@ -108,12 +108,14 @@
                     action="submit"
                     class="primary"
                 />
+                @if (request('path'))
                 <x-shipyard.ui.button
                     icon="folder-remove"
                     label="Usuń obecny folder i jego zawartość"
                     :action="route('files.folder.delete', ['path' => request('path')])"
                     class="danger phantom"
                 />
+                @endif
             </x-slot:actions>
         </x-shipyard.app.form>
     </x-shipyard.app.card>
