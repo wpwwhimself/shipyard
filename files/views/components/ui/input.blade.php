@@ -41,7 +41,7 @@ $extraButtons = ($type == "url" && $value) || $storageFile || ($type == "icon" &
 
         @if ($hint)
         <span role="hint" {{ Popper::pop($hint) }}>
-            <x-mdi-tooltip-question />
+            <x-shipyard.app.icon name="tooltip-question" />
         </span>
         @endif
     </span>
@@ -79,7 +79,7 @@ $extraButtons = ($type == "url" && $value) || $storageFile || ($type == "icon" &
                         @case (2)
                         {{-- key-value array --}}
                         @foreach ($columnTypes as $t)
-                        <td class="rounded">
+                        <td>
                             <input type="{{ $t }}" value="{{ ($i++ == 0) ? $key : $val }}" onchange="JSONInputUpdate('{{ $name }}')" {{ $disabled ? "disabled" : "" }} />
                         </td>
                         @endforeach
@@ -87,7 +87,7 @@ $extraButtons = ($type == "url" && $value) || $storageFile || ($type == "icon" &
 
                         @case (1)
                         {{-- simple array --}}
-                        <td class="rounded">
+                        <td>
                             <input type="{{ current($columnTypes) }}" value="{{ $val }}" onchange="JSONInputUpdate('{{ $name }}')" {{ $disabled ? "disabled" : "" }} />
                         </td>
                         @break
@@ -95,14 +95,14 @@ $extraButtons = ($type == "url" && $value) || $storageFile || ($type == "icon" &
                         @default
                         {{-- array of arrays --}}
                         @foreach ($columnTypes as $t)
-                        <td class="rounded">
+                        <td>
                             <input type="{{ $t }}" {{ $t == "checkbox" && $val[$i] ? "checked" : "" }} value="{{ $val[$i++] }}" onchange="JSONInputUpdate('{{ $name }}')" {{ $disabled ? "disabled" : "" }} />
                         </td>
                         @endforeach
                     @endswitch
 
                     @if (!$disabled)
-                    <td><span icon="delete" class="button phantom interactive" onclick="JSONInputDeleteRow('{{ $name }}', this)">Usuń</span></td>
+                    <td><span icon="delete" class="button tertiary" onclick="JSONInputDeleteRow('{{ $name }}', this)">Usuń</span></td>
                     @endif
                 </tr>
                 @endforeach
@@ -112,7 +112,7 @@ $extraButtons = ($type == "url" && $value) || $storageFile || ($type == "icon" &
             <tfoot>
                 <tr role="new-row">
                     @foreach ($columnTypes as $t)
-                    <td class="rounded">
+                    <td>
                         <input type="{{ $t }}" onchange="JSONInputUpdate('{{ $name }}')"
                             onkeydown="JSONInputWatchForConfirm('{{ $name }}', event);"
                             onblur="JSONInputAddRow('{{ $name }}', )"
@@ -122,8 +122,8 @@ $extraButtons = ($type == "url" && $value) || $storageFile || ($type == "icon" &
                     @endforeach
 
                     <td>
-                        <span icon="plus" class="button accent background secondary interactive" onclick="JSONInputAddRow('{{ $name }}')">Dodaj</span>
-                        <span icon="delete" class="button phantom interactive hidden" onclick="JSONInputDeleteRow('{{ $name }}', this)">Usuń</span>
+                        <span title="Dodaj" class="button secondary" onclick="JSONInputAddRow('{{ $name }}')"><x-shipyard.app.icon name="plus" /></span>
+                        <span title="Usuń" class="button tertiary hidden" onclick="JSONInputDeleteRow('{{ $name }}', this)"><x-shipyard.app.icon name="delete" /></span>
                     </td>
                 </tr>
             </tfoot>
@@ -187,7 +187,6 @@ $extraButtons = ($type == "url" && $value) || $storageFile || ($type == "icon" &
         @if ($storageFile)
         <x-shipyard.ui.button
             icon="folder-open"
-            class="phantom interactive"
             onclick="browseFiles('{{ route('files-list', ['select' => $name]) }}')"
         />
         @endif
