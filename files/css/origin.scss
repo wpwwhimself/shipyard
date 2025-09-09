@@ -97,6 +97,10 @@ main {
     }
 }
 
+aside > .card {
+    @extend .but-mobile-right;
+}
+
 body {
     @extend .full-width;
 

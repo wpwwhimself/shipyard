@@ -531,6 +531,12 @@ table {
         }
     }
 
+    .flex.down {
+        &.but-mobile-right {
+            flex-direction: row;
+        }
+    }
+
     .banner.full-width {
         height: auto;
 
