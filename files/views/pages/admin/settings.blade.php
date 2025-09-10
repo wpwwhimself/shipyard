@@ -17,17 +17,6 @@
 
     <x-shipyard.app.sidebar-separator />
 
-    @foreach (similar_models("settings") as $model)
-    <x-shipyard.ui.button
-        :icon="$model['icon'] ?? null"
-        :pop="$model['label']"
-        pop-direction="right"
-        :action="route('admin.model.list', ['model' => $model['scope']])"
-    />
-    @endforeach
-
-    <x-shipyard.app.sidebar-separator />
-
     <x-shipyard.ui.button
         icon="content-save"
         pop="Zapisz zmiany"
@@ -36,6 +25,17 @@
         action="none"
         onclick="submitShipyardForm()"
     />
+
+    <x-shipyard.app.sidebar-separator />
+
+    @foreach (similar_models("settings") as $model)
+    <x-shipyard.ui.button
+        :icon="$model['icon'] ?? null"
+        :pop="$model['label']"
+        pop-direction="right"
+        :action="route('admin.model.list', ['model' => $model['scope']])"
+    />
+    @endforeach
 </div>
 
 @endsection
