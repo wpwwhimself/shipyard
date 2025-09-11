@@ -153,6 +153,10 @@ body {
     box-shadow: none;
 }
 
+.field-value {
+    @extend .flex, .right, .middle;
+}
+
 [role="files-breadcrumbs"] {
     @extend .flex, .right, .middle;
     @extend .with-bottom-separator;
