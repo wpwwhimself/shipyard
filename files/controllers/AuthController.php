@@ -41,8 +41,8 @@ class AuthController extends Controller
 
     public function processRegister(Request $rq)
     {
-        if ($rq->proof != 4) return back()->with("error", "Nie wierzymy, że nie jesteś robotem");
-        if (!$rq->has("confirmed")) return back()->with("error", "Zgoda na regulamin jest wymagana");
+        if ($rq->proof != 4) return back()->with("toast", ["error", "Nie wierzymy, że nie jesteś robotem"]);
+        if (!$rq->has("confirmed")) return back()->with("toast", ["error", "Zgoda na regulamin jest wymagana"]);
 
         $validator = Validator::make($rq->all(), [
             'name' => ['required', 'unique:users'],
@@ -50,7 +50,7 @@ class AuthController extends Controller
             'password' => ['required', 'confirmed'],
             'phone' => ['required'],
         ]);
-        if ($validator->fails()) return view("auth.shipyard.register")->with("error", "Coś poszło nie tak z Twoimi danymi");
+        if ($validator->fails()) return view("auth.shipyard.register")->with("toast", ["error", "Coś poszło nie tak z Twoimi danymi"]);
 
         $user = User::create([
             "name" => $rq->name,
@@ -63,7 +63,7 @@ class AuthController extends Controller
 
         Auth::login($user);
 
-        return redirect(route("profile"))->with("success", "Konto zostało utworzone");
+        return redirect(route("profile"))->with("toast", ["success", "Konto zostało utworzone"]);
     }
     #endregion
 
@@ -173,6 +173,6 @@ class AuthController extends Controller
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect("/")->with("success", "Wylogowano");
+        return redirect("/")->with("toast", ["success", "Wylogowano"]);
     }
 }

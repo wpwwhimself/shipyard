@@ -28,26 +28,4 @@ class FrontController extends Controller
 
         return view("pages.shipyard.standard-page", compact("page"));
     }
-
-    #region contact form
-    public function contactForm(): View
-    {
-        return view("pages.contact.form");
-    }
-
-    public function processContactForm(Request $rq): RedirectResponse
-    {
-        if ($rq->proof != 3) return back()->with("error", "Nie wierzymy, że nie jesteś robotem");
-
-        // send message to eligible admins
-        User::mailableAdmins()
-            ->each(fn ($u) => $u->notify(new ContactFormMsgNotification($rq->except(["_token"]))));
-
-        // send backfire to sender
-        Notification::route("mail", $rq->email)
-            ->notify(new ContactFormSentNotification($rq->except(["_token"])));
-
-        return redirect()->route("main")->with("success", "Dziękujemy za wiadomość, odpowiemy wkrótce");
-    }
-    #endregion
 }

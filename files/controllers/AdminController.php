@@ -208,7 +208,7 @@ class AdminController extends Controller
 
         ThemeController::_reset();
 
-        return redirect()->route("admin.system-settings")->with("success", "Zapisano");
+        return redirect()->route("admin.system-settings")->with("toast", ["success", "Zapisano"]);
     }
     #endregion
 
@@ -291,7 +291,7 @@ class AdminController extends Controller
                 case "JSON": $data[$name] = json_decode($data[$name], count($fdata["column-types"]) == 2); break;
             }
             if ($fdata["type"] == "checkbox") $data[$name] ??= false;
-            if (($fdata["required"] ?? false) && !$data[$name]) return back()->with("error", "Pole $fdata[label] jest wymagane");
+            if (($fdata["required"] ?? false) && !$data[$name]) return back()->with("toast", ["error", "Pole $fdata[label] jest wymagane"]);
         }
 
         if ($scope == "users") {
@@ -371,7 +371,7 @@ class AdminController extends Controller
             );
         }
 
-        return back()->with("success", "Dodano");
+        return back()->with("toast", ["success", "Dodano"]);
     }
 
     public function filesDownload(Request $rq)
@@ -382,7 +382,7 @@ class AdminController extends Controller
     public function filesDelete(Request $rq)
     {
         Storage::disk("public")->delete($rq->file);
-        return back()->with("success", "Usunięto");
+        return back()->with("toast", ["success", "Usunięto"]);
     }
 
     public function filesSearch()
@@ -399,14 +399,14 @@ class AdminController extends Controller
     {
         $path = request("path") ?? "";
         Storage::disk("public")->makeDirectory($path . "/" . $rq->name);
-        return redirect()->route("files", ["path" => $path])->with("success", "Folder utworzony");
+        return redirect()->route("files", ["path" => $path])->with("toast", ["success", "Folder utworzony"]);
     }
 
     public function folderDelete(Request $rq)
     {
         $path = request("path") ?? "";
         Storage::disk("public")->deleteDirectory($path);
-        return redirect()->route("files", ["path" => Str::contains($path, '/') ? Str::beforeLast($path, '/') : null])->with("success", "Folder usunięty");
+        return redirect()->route("files", ["path" => Str::contains($path, '/') ? Str::beforeLast($path, '/') : null])->with("toast", ["success", "Folder usunięty"]);
     }
     #endregion
 
