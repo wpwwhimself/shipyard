@@ -5,7 +5,7 @@
     "titleLvl" => 2,
 ])
 
-<div class="card" {{ $attributes }}>
+<div {{ $attributes->class("card") }}>
     @if ($title || $subtitle || $icon)
     <div role="top-bar">
         <div class="title-wrapper">

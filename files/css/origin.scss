@@ -213,7 +213,7 @@ footer {
     }
 }
 
-form {
+form, form > [role="fields"] {
     @extend .flex, .down;
 
     &.tight {

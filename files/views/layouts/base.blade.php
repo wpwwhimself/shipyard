@@ -102,6 +102,7 @@
         </div>
 
         <x-shipyard.app.toast />
+        <x-shipyard.app.modal />
 
         @include("popper::assets")
     </body>

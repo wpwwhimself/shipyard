@@ -4,6 +4,7 @@ use App\Http\Controllers\Shipyard\AdminController;
 use App\Http\Controllers\Shipyard\AuthController;
 use App\Http\Controllers\Shipyard\DocsController;
 use App\Http\Controllers\Shipyard\FrontController;
+use App\Http\Controllers\Shipyard\ModalController;
 use App\Http\Controllers\Shipyard\ProfileController;
 use App\Http\Controllers\Shipyard\SpellbookController;
 use App\Http\Controllers\Shipyard\ThemeController;
@@ -81,6 +82,12 @@ Route::controller(FrontController::class)->group(function () {
 
     Route::get("contact", "contactForm")->name("contact-form");
     Route::post("contact", "processContactForm")->name("contact-form.process");
+});
+#endregion
+
+#region modals
+Route::controller(ModalController::class)->prefix("api/modals")->group(function () {
+    Route::get("{name?}", "data")->name("modals.data");
 });
 #endregion
 
