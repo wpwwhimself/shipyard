@@ -51,7 +51,8 @@ $extraButtons = ($type == "url" && $value) || $storageFile || ($type == "icon" &
         <textarea name="{{ $name }}"
             id="{{ $name }}"
             placeholder="Zacznij pisać..."
-            {{ $attributes->only(["required", "autofocus", "disabled"]) }}
+            {{ $disabled ? "disabled" : "" }}
+            {{ $attributes }}
         >{{ $value }}</textarea>
         @break
 
@@ -139,7 +140,8 @@ $extraButtons = ($type == "url" && $value) || $storageFile || ($type == "icon" &
                     <input type="radio"
                         name="{{ $name }}"
                         value="{{ $option["value"] }}"
-                        {{ $attributes->only(["required", "autofocus", "disabled", "checked"]) }}
+                        {{ $disabled ? "disabled" : "" }}
+                        {{ $attributes }}
                     />
                     {{ $option["label"] }}
                 </label>
@@ -149,7 +151,8 @@ $extraButtons = ($type == "url" && $value) || $storageFile || ($type == "icon" &
             @else
             <select name="{{ $name }}"
                 id="{{ $name }}"
-                {{ $attributes->only(["required", "autofocus", "disabled"]) }}
+                {{ $disabled ? "disabled" : "" }}
+                {{ $attributes }}
             >
                 @isset ($selectData["emptyOption"]) <option value="">— brak —</option> @endisset
                 @foreach ($selectData["options"] ?? [] as ["value" => $opt_val, "label" => $opt_label])
@@ -168,7 +171,8 @@ $extraButtons = ($type == "url" && $value) || $storageFile || ($type == "icon" &
             id="{{ $name }}"
             name="{{ $name }}"
             value="{{ $value ?? 1 }}"
-            {{ $attributes->only(["required", "autofocus", "disabled", "checked"]) }}
+            {{ $disabled ? "disabled" : "" }}
+            {{ $attributes }}
         />
         @break
 
@@ -178,7 +182,8 @@ $extraButtons = ($type == "url" && $value) || $storageFile || ($type == "icon" &
             name="{{ $name }}"
             value="{{ $value }}"
             placeholder="{{ $attributes->get("placeholder", "— brak —") }}"
-            {{ $attributes->only(["required", "autofocus", "disabled", "autocomplete"]) }}
+            {{ $disabled ? "disabled" : "" }}
+            {{ $attributes }}
         />
     @endswitch
 

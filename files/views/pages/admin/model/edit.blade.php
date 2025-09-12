@@ -80,6 +80,10 @@
             :column-types="$fdata['column-types'] ?? null"
             :autofill-from="$fdata['autofill-from'] ?? null"
             :character-limit="$fdata['character-limit'] ?? null"
+            :disabled="$fdata['disabled'] ?? false"
+            :min="$fdata['min'] ?? null"
+            :max="$fdata['max'] ?? null"
+            :step="$fdata['step'] ?? null"
         />
         @endforeach
     </x-shipyard.app.card>
