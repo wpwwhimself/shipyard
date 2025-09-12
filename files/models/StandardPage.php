@@ -2,7 +2,6 @@
 
 namespace App\Models\Shipyard;
 
-use App\Traits\Shipyard\CanBeStringified;
 use App\Traits\Shipyard\HasStandardAttributes;
 use App\Traits\Shipyard\HasStandardFields;
 use App\Traits\Shipyard\HasStandardScopes;
@@ -15,8 +14,6 @@ use Mattiverse\Userstamps\Traits\Userstamps;
 
 class StandardPage extends Model
 {
-    use CanBeStringified;
-
     public const META = [
         "label" => "Strony standardowe",
         "icon" => "script-text",
@@ -29,6 +26,18 @@ class StandardPage extends Model
         "name", "content",
         "visible", "order",
     ];
+
+    public function __toString(): string
+    {
+        return $this->name;
+    }
+
+    public function optionLabel(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => $this->name,
+        );
+    }
 
     #region fields
     use HasStandardFields;

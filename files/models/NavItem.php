@@ -34,6 +34,18 @@ class NavItem extends Model
         "target_params",
     ];
 
+    public function __toString(): string
+    {
+        return $this->name;
+    }
+
+    public function optionLabel(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => $this->name,
+        );
+    }
+
     #region fields
     use HasStandardFields;
 

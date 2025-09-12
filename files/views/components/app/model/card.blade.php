@@ -23,6 +23,14 @@
     </div>
 
     <div role="middle-part">
+        @foreach ($model::connections() as $connection_name => $data)
+        <span>
+            <span {{ Popper::pop(model($connection_name)::META['label']) }}>
+                <x-shipyard.app.icon :name="model_icon($connection_name)" />
+            </span>
+            <span>{!! $model->{$connection_name} !!}</span>
+        </span>
+        @endforeach
     </div>
 
     <div role="bottom-part">

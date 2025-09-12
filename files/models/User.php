@@ -5,7 +5,6 @@ namespace App\Models\Shipyard;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
 use App\Mail\Shipyard\ResetPasswordLink;
-use App\Traits\Shipyard\CanBeStringified;
 use App\Traits\Shipyard\HasStandardScopes;
 use App\Traits\Shipyard\HasStandardAttributes;
 use App\Traits\Shipyard\HasStandardFields;
@@ -22,7 +21,7 @@ use Mattiverse\Userstamps\Traits\Userstamps;
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable, CanBeStringified, HasApiTokens, SoftDeletes, Userstamps;
+    use HasFactory, Notifiable, HasApiTokens, SoftDeletes, Userstamps;
 
     public const META = [
         "label" => "Użytkownicy",
@@ -39,6 +38,18 @@ class User extends Authenticatable
         'email',
         'password',
     ];
+
+    public function __toString(): string
+    {
+        return $this->name;
+    }
+
+    public function optionLabel(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => $this->name,
+        );
+    }
 
     #region fields
     use HasStandardFields;

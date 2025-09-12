@@ -2,13 +2,13 @@
 
 namespace App\Models\Shipyard;
 
-use App\Traits\Shipyard\CanBeStringified;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Mattiverse\Userstamps\Traits\Userstamps;
 
 class Setting extends Model
 {
-    use CanBeStringified, Userstamps;
+    use Userstamps;
 
     public $incrementing = false;
     protected $primaryKey = "name";
@@ -26,6 +26,18 @@ class Setting extends Model
         "type",
         "value",
     ];
+
+    public function __toString(): string
+    {
+        return $this->name;
+    }
+
+    public function optionLabel(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => $this->name,
+        );
+    }
 
     #region helpers
     public static function get(string $key, $default = null): ?string

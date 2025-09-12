@@ -102,7 +102,7 @@
                 :value="$data?->{Str::studly($relation)} ? $data?->{Str::studly($relation)}->id : null"
                 :select-data="[
                     'options' => $rdata['model']::all()->map(fn ($i) => [
-                        'label' => $i->name,
+                        'label' => $i->option_label,
                         'value' => $i->id,
                     ]),
                     'emptyOption' => true,
