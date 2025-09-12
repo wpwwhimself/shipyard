@@ -291,7 +291,7 @@ class AdminController extends Controller
                 case "JSON": $data[$name] = json_decode($data[$name], count($fdata["column-types"]) == 2); break;
             }
             if ($fdata["type"] == "checkbox") $data[$name] ??= false;
-            if (($fdata["required"] ?? false) && !$data[$name]) return back()->with("toast", ["error", "Pole $fdata[label] jest wymagane"]);
+            if (($fdata["required"] ?? false) && ($data[$name] == "" || $data[$name] == null)) return back()->with("toast", ["error", "Pole $fdata[label] jest wymagane"]);
         }
 
         if ($scope == "users") {
