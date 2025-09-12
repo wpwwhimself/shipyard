@@ -66,6 +66,8 @@ class {{ class }} extends Model
         // "<name>" => [
         //     "model" => ,
         //     "mode" => "<one|many>",
+        //     // "field_name" => "",
+        //     // "field_label" => "",
         // ],
     ];
 

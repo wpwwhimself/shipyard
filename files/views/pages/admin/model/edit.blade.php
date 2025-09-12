@@ -96,10 +96,10 @@
         @switch ($rdata['mode'])
             @case ("one")
             <x-shipyard.ui.input type="select"
-                name="{{ Str::snake($relation) }}_id"
-                label="Wybierz"
+                :name="$rdata['field_name'] ?? Str::snake($relation).'_id'"
+                :label="$rdata['field_label'] ?? 'Wybierz'"
                 :icon="$rdata['model']::META['icon']"
-                :value="$data?->{Str::studly($relation)} ? $data?->{Str::studly($relation)}->id : null"
+                :value="$data?->{$rdata['field_name'] ?? Str::snake($relation).'_id'}"
                 :select-data="[
                     'options' => $rdata['model']::all()->map(fn ($i) => [
                         'label' => $i->option_label,
