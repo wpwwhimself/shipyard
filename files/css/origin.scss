@@ -146,6 +146,10 @@ body {
 
     & > .contents {
         @extend .flex, .down;
+
+        & > .card {
+            box-shadow: none;
+        }
     }
 }
 
