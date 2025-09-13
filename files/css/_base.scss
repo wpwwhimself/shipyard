@@ -550,6 +550,12 @@ table {
                 align-items: initial;
             }
         }
+
+        &.nowrap {
+            &.but-mobile-wrap {
+                flex-wrap: wrap;
+            }
+        }
     }
 
     .flex.down {

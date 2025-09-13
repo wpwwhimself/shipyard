@@ -290,7 +290,7 @@ main {
 }
 
 #middle-wrapper {
-    @extend .flex, .right, .spread;
+    @extend .flex, .right, .spread, .nowrap, .but-mobile-wrap;
 }
 
 [role="model-card"] {
