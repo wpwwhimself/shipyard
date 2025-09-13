@@ -44,24 +44,7 @@
         id="basic"
     >
         <x-slot:actions>
-            @if ($data && isset($data->created_by))
-            <div class="flex right ghost">
-                {{-- todo przerobić to i podobne na komponenty --}}
-                <span>
-                    <span @popper(Twórca)>@svg("mdi-account-plus")</span>
-                    {{ $data->creator->name }},
-                    <span {{ Popper::pop($data->created_at ?? "") }}>{{ $data->created_at?->diffForHumans() }}</span>
-                </span>
-
-                @if ($data->created_at != $data->updated_at)
-                <span>
-                    <span @popper(Ostatnia edycja)>@svg("mdi-account-edit")</span>
-                    {{ $data->editor->name }},
-                    <span {{ Popper::pop($data->updated_at ?? "") }}>{{ $data->updated_at?->diffForHumans() }}</span>
-                </span>
-                @endif
-            </div>
-            @endif
+            <x-shipyard.app.model.timestamps :model="$data" />
         </x-slot:actions>
 
 
