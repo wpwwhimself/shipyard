@@ -49,6 +49,7 @@ class Modal extends Model
                 "Etykieta" => "text",
                 "Ikona" => "icon",
                 "Wymagane" => "checkbox",
+                "Pozostałe (jako JSON)" => "TEXT",
             ],
             "label" => "Pola",
             "icon" => "pencil",
@@ -154,6 +155,7 @@ class Modal extends Model
                     "label" => $f[2],
                     "icon" => $f[3],
                     "required" => $f[4],
+                    ...(json_decode($f[5], true) ?? []),
                 ])->render())
                 ->join(""),
         );
