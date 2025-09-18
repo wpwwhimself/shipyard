@@ -56,7 +56,7 @@ class UninstallCommand extends Command
             //run down migration
             // $migration_local_path = Str::replace(base_path(), '', $migration);
             // $this->call('migrate:rollback', ['--path' => $migration_local_path]);
-            (new Filesystem)->delete($migration);
+            $this->tryDelete($migration);
         }
 
         $this->comment("- controllers...");
@@ -101,9 +101,17 @@ class UninstallCommand extends Command
     }
 
     private function tryDelete($path) {
-        if (!file_exists($path)) {
+        // broken links
+        if (!realpath($path)) {
+            unlink($path);
             return;
         }
-        (new Filesystem)->delete($path);
+
+        if (is_dir($path)) {
+            (new Filesystem())->deleteDirectory($path);
+            return;
+        }
+
+        (new Filesystem())->delete($path);
     }
 }
