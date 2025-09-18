@@ -12,6 +12,11 @@
 />
 @endif
 <x-shipyard.ui.button
+    icon="book-information-variant"
+    pop="Dokumentacja"
+    :action="route('docs.index')"
+/>
+<x-shipyard.ui.button
     icon="logout"
     pop="Wyloguj"
     :action="route('logout')"

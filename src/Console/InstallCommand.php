@@ -83,6 +83,9 @@ class InstallCommand extends Command
         $this->tryCopy(__DIR__.'/../../files/configs/popper.php', base_path("config/popper.php"), true);
         $this->tryCopy(__DIR__.'/../../files/configs/blade-icons.php', base_path("config/blade-icons.php"), true);
 
+        $this->comment("- docs...");
+        $this->tryLink(__DIR__.'/../../files/docs', base_path("docs/Shipyard"));
+
         $this->comment("- .gitignore files...");
         foreach ([
             base_path("stubs/.gitignore"),
