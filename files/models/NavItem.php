@@ -28,6 +28,7 @@ class NavItem extends Model
     protected $fillable = [
         "name",
         "visible",
+        "order",
         "icon",
         "target_type",
         "target_name",
