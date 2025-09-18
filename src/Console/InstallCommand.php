@@ -104,6 +104,7 @@ class InstallCommand extends Command
         foreach ([
             base_path("database/migrations/.gitignore"),
             base_path("resources/views/.gitignore"),
+            base_path("docs/.gitignore"),
         ] as $path) {
             $this->tryCopy(__DIR__.'/../../files/.gitignore.nametagged.example', $path);
         }
