@@ -17,7 +17,11 @@
 
 .with-bottom-separator {
     border-bottom: 1px solid var(--fg-lite);
-    padding-bottom: 0.5em;
+    padding-bottom: 1em;
+
+    &.small {
+        padding-bottom: 0.5em;
+    }
 }
 
 .marginned {

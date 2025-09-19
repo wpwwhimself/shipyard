@@ -171,16 +171,6 @@ span.large {
     font-size: 1.5em;
 }
 
-.line-separated {
-    padding-bottom: 0.5em;
-    border-bottom: 2px solid var(--bg-lite);
-    border-bottom-left-radius: 0 !important; border-bottom-right-radius: 0 !important;
-
-    &:last-of-type {
-        border-bottom: none;
-    }
-}
-
 .placeholder {
     background: repeating-linear-gradient(-45deg, var(--bg-lite), var(--bg-lite) 10px, var(--tertiary) 10px, var(--tertiary) 20px);
 }
