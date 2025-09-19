@@ -8,6 +8,7 @@ use App\Traits\Shipyard\HasStandardScopes;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\View\ComponentAttributeBag;
 use Mattiverse\Userstamps\Traits\Userstamps;
 
 class Modal extends Model
@@ -155,7 +156,7 @@ class Modal extends Model
                     "label" => $f[2],
                     "icon" => $f[3],
                     "required" => $f[4],
-                    ...(json_decode($f[5], true) ?? []),
+                    "attributes" => new ComponentAttributeBag([...(json_decode($f[5], true) ?? [])]),
                 ])->render())
                 ->join(""),
         );

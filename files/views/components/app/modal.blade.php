@@ -30,7 +30,7 @@ const loader = modal.querySelector(".loader");
 const card = modal.querySelector(".card");
 const form = card.querySelector("form");
 
-const openModal = (name, defaults) => {
+const openModal = (name, defaults = {}) => {
     loader.classList.remove("hidden");
     modal.classList.remove("hidden");
 
@@ -41,7 +41,7 @@ const openModal = (name, defaults) => {
             card.querySelector("[role='card-title']").textContent = data.heading;
             form.querySelector("[role='fields']").innerHTML = data.rendered_fields;
 
-            Object.entries(defaults ?? {}).forEach(([name, value]) => {
+            Object.entries(defaults).forEach(([name, value]) => {
                 if (form.querySelector(`[role='fields'] [name="${name}"]`))
                     form.querySelector(`[role='fields'] [name="${name}"]`).value = value;
                 else
