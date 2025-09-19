@@ -103,7 +103,7 @@ $extraButtons = ($type == "url" && $value) || $storageFile || ($type == "icon" &
                     @endswitch
 
                     @if (!$disabled)
-                    <td><span icon="delete" class="button tertiary" onclick="JSONInputDeleteRow('{{ $name }}', this)">Usuń</span></td>
+                    <td><span icon="delete" class="button tertiary" onclick="JSONInputDeleteRow('{{ $name }}', this)"><x-shipyard.app.icon name="delete" /></span></td>
                     @endif
                 </tr>
                 @endforeach
