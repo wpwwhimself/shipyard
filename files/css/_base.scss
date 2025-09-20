@@ -500,6 +500,11 @@ table {
     }
 }
 
+#theme-loader {
+    /* this has to be hidden if styles are loaded -- see base view */
+    display: none !important;
+}
+
 .thumbnail {
     max-width: 12em;
 }
