@@ -419,6 +419,14 @@ main {
     z-index: 1000;
 }
 
+[role="pagination"] {
+    @extend .flex, .right, .center, .middle;
+
+    & [role="pages-description"] {
+        text-align: center;
+    }
+}
+
 search {
     flex-grow: 1;
 

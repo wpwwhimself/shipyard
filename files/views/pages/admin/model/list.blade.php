@@ -63,7 +63,7 @@
     <div role="empty">Brak danych do wyświetlenia</div>
     @endforelse
 
-    {{ $data->links() }}
+    {{ $data->links("components.shipyard.pagination.default") }}
 </x-shipyard.app.card>
 
 @endsection
