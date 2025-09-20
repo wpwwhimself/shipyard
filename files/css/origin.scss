@@ -52,22 +52,62 @@
     background: var(--tertiary-ghost);
 }
 
+/*******/
+
+.card {
+    @extend .padded, .rounded, .backdropped, .bordered, .shaded;
+
+    margin: 0;
+
+    & > [role="top-bar"] {
+        @extend .flex, .right, .middle, .spread;
+        @extend .with-bottom-separator;
+
+        flex-wrap: nowrap;
+    }
+
+    & .title-wrapper {
+        @extend .flex, .right, .spread;
+
+        align-items: baseline;
+    }
+
+    & > .contents {
+        @extend .flex, .down;
+
+        & > .card {
+            box-shadow: none;
+        }
+    }
+}
+
+.tile {
+    @extend .padded, .rounded, .backdropped, .bordered, .shaded;
+
+    & > * {
+        flex-grow: 1;
+    }
+
+    & > [role="top-part"] {
+        @extend .flex, .right, .middle;
+        text-align: left;
+    }
+    & > [role="middle-part"] {
+        @extend .flex, .right, .center, .middle;
+        text-align: center;
+    }
+    & > [role="bottom-part"] {
+        @extend .flex, .right, .middle;
+        justify-content: right;
+        text-align: right;
+    }
+
+    .card & {
+        box-shadow: none;
+    }
+}
+
 /******************* theme *******************/
-
-/** common **/
-
-footer,
-header,
-[role$="card"] {
-    @extend .card;
-}
-
-aside,
-main {
-    @extend .flex;
-
-    flex-direction: column;
-}
 
 [role*="title"] {
     margin: 0;
@@ -101,8 +141,12 @@ main {
     }
 }
 
-aside > .card {
-    @extend .but-mobile-right;
+aside {
+    @extend .flex, .down;
+
+    & > .card {
+        @extend .but-mobile-right;
+    }
 }
 
 body {
@@ -131,34 +175,6 @@ body {
 
 .card {
     @extend .flex, .down;
-    @extend .padded, .rounded, .backdropped, .bordered, .shaded;
-
-    margin: 0;
-
-    & > [role="top-bar"] {
-        @extend .flex, .right, .middle, .spread;
-        @extend .with-bottom-separator;
-
-        flex-wrap: nowrap;
-    }
-
-    & .title-wrapper {
-        @extend .flex, .right, .spread;
-
-        align-items: baseline;
-    }
-
-    & > .contents {
-        @extend .flex, .down;
-
-        & > .card {
-            box-shadow: none;
-        }
-    }
-}
-
-[role$="card"] {
-    box-shadow: none;
 }
 
 .chart {
@@ -195,32 +211,6 @@ body {
     }
 }
 
-footer,
-header,
-[role="model-card"] {
-    @extend .spread, .middle;
-
-    flex-direction: row;
-
-    & > * {
-        flex-grow: 1;
-    }
-
-    & > [role="top-part"] {
-        @extend .flex, .right, .middle;
-        text-align: left;
-    }
-    & > [role="middle-part"] {
-        @extend .flex, .right, .center, .middle;
-        text-align: center;
-    }
-    & > [role="bottom-part"] {
-        @extend .flex, .right, .middle;
-        justify-content: right;
-        text-align: right;
-    }
-}
-
 footer {
     & [role="details"] a {
         text-decoration: none;
@@ -236,10 +226,12 @@ form, form > [role="fields"] {
     }
 }
 
+footer,
 header {
-    & > [role="top-part"] {
-        @extend .flex, .right, .middle;
-    }
+    @extend .card, .tile;
+    @extend .flex, .spread, .middle;
+
+    flex-direction: row;
 }
 
 .input-container {
@@ -295,11 +287,11 @@ header {
 }
 
 main {
-
+    @extend .flex, .down;
 }
 
 #main-wrapper {
-    @extend .contents, .marginned, .padded;
+    @extend .marginned, .padded;
     @extend .flex, .down;
 }
 
@@ -308,11 +300,9 @@ main {
 }
 
 [role="model-card"] {
+    @extend .tile;
+    @extend .flex, .right, .but-mobile-down, .spread, .middle;
     @extend .animatable, .highlightable;
-}
-
-[role="nav"] {
-    @extend .flex, .right, .middle;
 }
 
 #page-title {
@@ -348,5 +338,47 @@ main {
 
     & .content {
         font-weight: bold;
+    }
+}
+
+/*********** mobile **********/
+
+@media screen and (max-width: 550px) {
+    #app-badge {
+        flex-direction: column-reverse;
+    }
+
+    aside {
+        width: 100%;
+        position: sticky;
+        top: 1em;
+        z-index: 99;
+
+        & > .card {
+            justify-content: center;
+        }
+    }
+
+    footer,
+    header {
+        flex-direction: column;
+
+        & > [role="top-part"],
+        & > [role="middle-part"],
+        & > [role="bottom-part"] {
+            width: 100%;
+            justify-content: center;
+        }
+    }
+
+    header [role="top-part"],
+    footer [role="bottom-part"] {
+        @extend .but-mobile-down;
+
+        text-align: center;
+    }
+
+    #page-title {
+        text-align: center;
     }
 }

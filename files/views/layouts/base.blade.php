@@ -36,15 +36,15 @@
             top: 0; left: 0; right: 0; bottom: 0;
             z-index: 9999;
 
-            background-color: #000000cc;
+            background: black;
             color: white;
-            font-size: 3em;
             font-family: var(--heading-font);
 
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
+            text-align: center;
 
             & > img {
                 height: 5em;
