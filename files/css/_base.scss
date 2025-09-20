@@ -240,6 +240,40 @@ a.button, a:has(> .tile), a:has(> .full-width) {
     }
 }
 
+.chart {
+    width: 100%;
+
+    & > .title {
+        @extend .flex, .right, .middle, .spread;
+
+        & > [role="title-container"] {
+            @extend .flex, .right, .middle;
+        }
+    }
+
+    & > .data {
+        &.column {
+            @extend .grid;
+
+            grid-auto-flow: column !important;
+            grid-template-columns: unset !important;
+            grid-template-rows: 1fr 2em;
+
+            & > .label {
+                text-align: center;
+            }
+            & > .value-wrapper {
+                height: 10em;
+                align-content: end;
+
+                & > .value {
+                    @extend .accent, .background, .tertiary;
+                }
+            }
+        }
+    }
+}
+
 code, pre {
     font-family: 'Courier New', Courier, monospace;
     background-color: var(--bg-lite);

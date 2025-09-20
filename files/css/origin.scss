@@ -161,6 +161,12 @@ body {
     box-shadow: none;
 }
 
+.chart {
+    & .value {
+        @extend .rounded;
+    }
+}
+
 .field-value {
     @extend .flex, .right, .middle;
 }
