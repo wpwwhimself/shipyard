@@ -293,6 +293,10 @@ main {
 #main-wrapper {
     @extend .marginned, .padded;
     @extend .flex, .down;
+
+    margin-inline: auto;
+    width: 1280px;
+    max-width: calc(100vw - 4em);
 }
 
 #middle-wrapper {
