@@ -156,7 +156,7 @@ body {
 }
 
 .button {
-    @extend .flex, .right, .center, .middle;
+    @extend .flex, .right, .nowrap, .center, .middle;
     @extend .padded, .small, .rounded, .interactive;
     @extend .accent, .bordered, .secondary;
 

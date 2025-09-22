@@ -55,4 +55,16 @@ class DocsController extends Controller
             "doc",
         ));
     }
+
+    public function spellbook()
+    {
+        $docs = $this->prepareDocs();
+
+        $spells = SpellbookController::SPELLS;
+
+        return view("pages.shipyard.docs.spellbook", compact(
+            "docs",
+            "spells",
+        ));
+    }
 }
