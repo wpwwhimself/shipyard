@@ -50,6 +50,10 @@ const openModal = (name, defaults = {}) => {
 
             card.classList.remove("hidden");
         })
+        .error(err => {
+            console.error(err);
+            closeModal();
+        })
         .finally(() => {
             loader.classList.add("hidden");
         });
