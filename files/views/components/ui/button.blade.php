@@ -8,7 +8,10 @@
     "popDirection" => "top",
     "badge" => null,
     "download" => null,
+    "showFor" => null,
 ])
+
+@if (auth()->user()?->hasRole($showFor) ?? true)
 
 @if ($action == null)
 <button disabled
@@ -52,4 +55,6 @@
 
 @else
 </a>
+@endif
+
 @endif

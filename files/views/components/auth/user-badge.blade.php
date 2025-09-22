@@ -4,13 +4,12 @@
     label="Profil"
     :action="route('profile')"
 />
-@if (Auth::user()->hasRole("technical"))
 <x-shipyard.ui.button
     icon="cog"
     pop="Ustawienia systemu"
     :action="route('admin.system-settings')"
+    show-for="technical"
 />
-@endif
 <x-shipyard.ui.button
     icon="book-information-variant"
     pop="Dokumentacja"

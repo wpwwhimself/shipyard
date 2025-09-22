@@ -19,13 +19,13 @@
     <x-shipyard.app.sidebar-separator />
 
     @foreach ($actions as $action)
-    @if (isset($action["role"]) && !auth()->user()->hasRole($action["role"])) @continue @endif
     <x-shipyard.ui.button
         :icon="$action['icon']"
         :pop="$action['label']"
         pop-direction="right"
         :action="route($action['route'], ['id' => $data->id])"
         class="{{ ($action['dangerous'] ?? false) ? 'danger' : '' }}"
+        :show-for="isset($action['role']) ? $action['role'] : null"
     />
     @endforeach
     @endif

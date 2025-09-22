@@ -3,13 +3,12 @@
 @section("sidebar")
 
 <div class="card stick-top">
-    @if (auth()->user()->hasRole("archmage"))
     <x-shipyard.ui.button
         icon="wizard-hat"
         label="Zaklęcia"
         :action="route('docs.view', ['slug' => 'spells'])"
+        show-for="archmage"
     />
-    @endif
 
     @foreach ($docs ?? [] as $doc_data)
     <x-shipyard.ui.button

@@ -28,11 +28,11 @@
 >
     <div class="grid" style="--col-count: 3;">
         @foreach ($group["models"] as $model)
-        @if (!auth()->user()->hasRole($model["role"] ?? null)) @continue @endif
         <x-shipyard.ui.button
             :icon="$model['icon'] ?? null"
             :label="$model['label']"
             :action="route('admin.model.list', ['model' => $model['scope']])"
+            :show-for="$model['role'] ?? null"
         />
         @endforeach
     </div>
