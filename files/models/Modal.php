@@ -156,7 +156,7 @@ class Modal extends Model
                     "label" => $f[2],
                     "icon" => $f[3],
                     "required" => $f[4],
-                    "attributes" => new ComponentAttributeBag([...(json_decode($f[5], true) ?? [])]),
+                    "attributes" => new ComponentAttributeBag([...(json_decode($f[5] ?? "[]", true))]),
                 ])->render())
                 ->join(""),
         );
