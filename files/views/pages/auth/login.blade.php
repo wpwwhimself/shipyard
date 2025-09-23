@@ -9,11 +9,13 @@
         method="post"
         class="tight"
     >
+        @if (setting("users_login_is") != "none")
         <x-shipyard.ui.input type="text"
-            :name="setting('users_login_is')" label="Login"
+            :name="setting('users_login_is')" :label="setting('users_login_is') == 'email' ? 'Adres email' : 'Login'"
             icon="badge-account"
             required
         />
+        @endif
         <x-shipyard.ui.input type="password"
             name="password" label="Hasło"
             icon="key"

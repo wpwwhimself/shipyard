@@ -177,6 +177,7 @@ class AdminController extends Controller
                             "options" => [
                                 ["label" => "Nazwa użytkownika", "value" => "name",],
                                 ["label" => "Adres email", "value" => "email",],
+                                ["label" => "Nic (logowanie tylko hasłem)", "value" => "none",],
                             ],
                         ],
                     ],

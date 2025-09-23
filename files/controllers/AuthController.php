@@ -21,7 +21,15 @@ class AuthController extends Controller
 
     public function processLogin(Request $rq)
     {
-        $credentials = $rq->only(["name", "password"]);
+        $credentials = $rq->only(["name", "email", "password"]);
+
+        if (setting("users_login_is") == "none") {
+            $user = User::all()->firstWhere(fn ($u) => Hash::check($rq->password, $u->password));
+            
+            if ($user) {
+                $credentials = ["name" => $user->name, "email" => $user->email, "password" => $rq->password];
+            }
+        }
 
         if (Auth::attempt($credentials, $rq->has("remember"))) {
             $rq->session()->regenerate();
@@ -112,6 +120,13 @@ class AuthController extends Controller
             ]);
             if ($validator->fails()) return back()->with("toast", ["error", "Coś jest nie tak z dostarczonymi danymi"]);
 
+            if (setting("users_login_is") == "none") {
+                $user_with_this_password = User::all()->firstWhere(fn ($u) => Hash::check($rq->password, $u->password));
+                if ($user_with_this_password) {
+                    return back()->with("toast", ["error", "Hasło nie spełnia wymogów bezpieczeństwa"]);
+                }
+            }
+
             $status = Password::reset(
                 $rq->only('email', 'password', 'password_confirmation', 'token'),
                 function (User $user, string $password) {
@@ -138,6 +153,13 @@ class AuthController extends Controller
             'password' => ['required', 'confirmed'],
         ]);
         if ($validator->fails()) return back()->with("toast", ["error", "Coś jest nie tak z hasłem"]);
+
+        if (setting("users_login_is") == "none") {
+            $user_with_this_password = User::all()->firstWhere(fn ($u) => Hash::check($rq->password, $u->password));
+            if ($user_with_this_password) {
+                return back()->with("toast", ["error", "Hasło nie spełnia wymogów bezpieczeństwa"]);
+            }
+        }
 
         User::findOrFail(Auth::id())->update([
             "password" => Hash::make($rq->password),
