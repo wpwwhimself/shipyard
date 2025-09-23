@@ -3,7 +3,7 @@
 ])
 
 @if ($model && isset($model->created_by))
-<div class="flex right ghost">
+<div class="ghost">
     {{-- todo przerobić to i podobne na komponenty --}}
     <x-shipyard.app.icon-label-value
         icon="account-plus"

@@ -48,7 +48,7 @@
     <p>{{ $meta['description'] }}</p>
 
     @forelse ($data as $item)
-    <x-shipyard.app.model.card :model="$item" class="{{ $item->is_uneditable ? 'ghost' : null }}">
+    <x-shipyard.app.model.tile :model="$item" class="{{ $item->is_uneditable ? 'ghost' : null }}">
         <x-slot:actions>
             @unless ($item->is_uneditable)
             <x-shipyard.ui.button
@@ -58,7 +58,7 @@
             />
             @endunless
         </x-slot:actions>
-    </x-shipyard.app.model.card>
+    </x-shipyard.app.model.tile>
     @empty
     <div role="empty">Brak danych do wyświetlenia</div>
     @endforelse

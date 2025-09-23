@@ -164,7 +164,11 @@ class {{ class }} extends Model
     //                 "label" => "",
     //                 "icon" => "",
     //                 "class" => "",
+    //                 "style" => "",
     //                 "condition" => "",
+    //             ],
+    //             [
+    //                 "html" => "",
     //             ],
     //         ],
     //     );

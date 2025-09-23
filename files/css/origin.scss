@@ -115,8 +115,7 @@
 [role*="title"] {
     margin: 0;
 }
-[role*="subtitle"],
-[role="model-badges"] {
+[role*="subtitle"] {
     @extend .ghost;
 }
 
@@ -301,7 +300,7 @@ main {
 
 [role="model-card"] {
     @extend .tile;
-    @extend .flex, .right, .but-mobile-down, .spread, .middle;
+    @extend .flex, .right, .but-mobile-down, .nowrap, .spread, .middle;
     @extend .animatable, .highlightable;
 }
 
