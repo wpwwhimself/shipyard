@@ -5,40 +5,18 @@
 <div role="model-card" {{ $attributes }}>
     <div role="top-part">
         <div role="model-intro">
-            <x-shipyard.app.h :lvl="3"
-                role="card-title"
-                :icon="$model->icon ?? $model::META['icon']"
-            >
-                {{ $model->name }}
-            </x-shipyard.app.h>
-
-            @isset ($model->description)
-            <span>{{ $model->description }}</span>
-            @endisset
-
-            @isset ($model->badges)
-            <x-shipyard.app.model.badges :badges="$model->badges" />
-            @endisset
+            {!! $model->display_title !!}
+            {!! $model->display_subtitle !!}
         </div>
     </div>
 
     <div role="middle-part">
-        @foreach ($model::connections() as $connection_name => $data)
-        <span>
-            <span {{ Popper::pop($data['field_label'] ?? model($connection_name)::META['label']) }}>
-                <x-shipyard.app.icon :name="model_icon($connection_name)" />
-            </span>
-            <span>{!! $data["mode"] === "many"
-                ? $model->{$connection_name}->map(fn ($i) => $i->__toString())->join(", ")
-                : $model->{$connection_name} !!}
-            </span>
-        </span>
-        @endforeach
+        {!! $model->display_middle_part !!}
     </div>
 
     <div role="bottom-part">
         <div role="timestamps">
-            {{-- todo timestamps --}}
+            <x-shipyard.app.model.timestamps :model="$model" />
         </div>
 
         @isset ($actions)

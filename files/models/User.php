@@ -15,6 +15,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\View\ComponentAttributeBag;
 use Laravel\Sanctum\HasApiTokens;
 use Mattiverse\Userstamps\Traits\Userstamps;
 
@@ -39,6 +40,7 @@ class User extends Authenticatable
         'password',
     ];
 
+    #region presentation
     public function __toString(): string
     {
         return $this->name;
@@ -50,6 +52,37 @@ class User extends Authenticatable
             get: fn () => $this->name,
         );
     }
+
+    public function displayTitle(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => view("components.shipyard.app.h", [
+                "lvl" => 3,
+                "icon" => $this->icon ?? self::META["icon"],
+                "attributes" => new ComponentAttributeBag([
+                    "role" => "card-title",
+                ]),
+                "slot" => $this->name,
+            ])->render(),
+        );
+    }
+
+    public function displaySubtitle(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => $this->email,
+        );
+    }
+
+    public function displayMiddlePart(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => view("components.shipyard.app.model.badges", [
+                "badges" => $this->badges,
+            ])->render(),
+        );
+    }
+    #endregion
 
     #region fields
     use HasStandardFields;
