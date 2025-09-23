@@ -28,6 +28,7 @@ class Role extends Model
             "archmage",
             "technical",
             "content-manager",
+            "spellcaster",
         ],
     ];
 

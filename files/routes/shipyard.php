@@ -93,14 +93,14 @@ Route::controller(ModalController::class)->prefix("api/modals")->group(function 
 
 #region docs
 Route::controller(DocsController::class)->prefix("docs")->group(function () {
-    Route::get("spells", "spellbook")->middleware(EnsureUserHasRole::class.":archmage")->name("docs.spellbook");
+    Route::get("spells", "spellbook")->middleware(EnsureUserHasRole::class.":spellcaster")->name("docs.spellbook");
     Route::get("{slug}", "view")->where("slug", "[a-zA-Z0-9-/]+")->name("docs.view");
     Route::get("", "index")->name("docs.index");
 });
 #endregion
 
 #region spellbook
-Route::controller(SpellbookController::class)->middleware(EnsureUserHasRole::class.":archmage")->group(function () {
+Route::controller(SpellbookController::class)->middleware(EnsureUserHasRole::class.":spellcaster")->group(function () {
     foreach (SpellbookController::SPELLS as $name => $params) {
         Route::get($params["route"], $name);
     }

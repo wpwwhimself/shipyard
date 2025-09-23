@@ -7,7 +7,7 @@
         icon="wizard-hat"
         label="Zaklęcia"
         :action="route('docs.view', ['slug' => 'spells'])"
-        show-for="archmage"
+        show-for="spellcaster"
     />
 
     @foreach ($docs ?? [] as $doc_data)
