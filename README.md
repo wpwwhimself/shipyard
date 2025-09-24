@@ -19,6 +19,13 @@ Shipyard requires _Laravel_ installation.
     ...
     // appends Shipyard repository
     "repositories": {
+        "shipyard-local": {
+            "type": "path",
+            "url": "../shipyard",
+            "options": {
+                "symlink": true
+            }
+        },
         "shipyard": {
             "type": "vcs",
             "url": "https://github.com/wpwwhimself/shipyard.git"
@@ -42,28 +49,12 @@ Shipyard requires _Laravel_ installation.
 
 2. Install package:
 ```
-composer require wpwwhimself/shipyard
+composer require wpwwhimself/shipyard:dev-main
 ```
 
 ## Dev mode - load Shipyard from a directory next door
 
 1. In a joint folder, clone this repository into `shipyard` subfolder
 2. Install Laravel app in a `app` subfolder
-3. Add Composer settings:
-```json
-{
-    ...
-    // appends Shipyard repository
-    "repositories": {
-        "shipyard": {
-            "type": "path",
-            "url": "../shipyard"
-        }
-    },
-    ...
-}
-```
-4. Install package in dev mode:
-```
-composer require wpwwhimself/shipyard:dev-main
-```
+3. Add Composer settings
+4. Install package
