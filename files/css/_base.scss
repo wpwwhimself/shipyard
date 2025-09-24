@@ -145,24 +145,6 @@ body {
     cursor: not-allowed !important;
 }
 
-.full-width {
-    max-width: 100vw;
-
-    &.bordered {
-        border-inline: none;
-
-        &.padded {
-            margin: 1em 0;
-        }
-    }
-
-    & > .contents {
-        width: calc(100vw - (var(--margin-size) * 4));
-        max-width: 1280px;
-        margin: 0 auto;
-    }
-}
-
 .hidden {
     display: none !important;
 }

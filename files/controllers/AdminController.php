@@ -66,6 +66,7 @@ class AdminController extends Controller
                         "select_data" => [
                             "options" => [
                                 ["label" => "Origin", "value" => "origin",],
+                                ["label" => "Austerity", "value" => "austerity",],
                             ],
                         ],
                     ],
