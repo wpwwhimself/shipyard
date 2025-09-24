@@ -109,6 +109,10 @@
         {{-- <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script> --}}
         {{-- ✅ choices stuff ✅ --}}
 
+        @hasSection("prepends")
+        @yield("prepends")
+        @endif
+
         @csrf
     </head>
     <body>
@@ -128,6 +132,10 @@
         <div id="main-wrapper">
             @yield("body")
         </div>
+
+        @hasSection("appends")
+        @yield("appends")
+        @endif
 
         <x-shipyard.app.toast />
         <x-shipyard.app.modal />
