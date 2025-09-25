@@ -83,7 +83,7 @@
             box-shadow: none;
         }
 
-        & > .input-container {
+        & > .bordered {
             margin-block: 0.5em;
         }
     }
@@ -247,7 +247,7 @@ header {
     @extend .flex, .right, .but-mobile-down, .spread, .middle;
     @extend .tile-like, .padded;
 
-    background: var(--bg-lite);
+    background: var(--bg-lite2);
 }
 
 .input-container {
