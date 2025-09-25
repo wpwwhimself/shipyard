@@ -50,7 +50,7 @@ const openModal = (name, defaults = {}) => {
 
             card.classList.remove("hidden");
         })
-        .error(err => {
+        .catch(err => {
             console.error(err);
             closeModal();
         })
