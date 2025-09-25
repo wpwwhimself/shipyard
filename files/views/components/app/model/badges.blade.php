@@ -4,7 +4,7 @@
 
 <div role="model-badges">
     @foreach ($badges as $badge)
-    @if ($badge["condition"] ?? false) @continue @endif
+    @unless ($badge["condition"] ?? true) @continue @endunless
 
     @isset ($badge["html"])
     {{ $badge["html"] }}
