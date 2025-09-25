@@ -53,7 +53,9 @@ function model(string $scope): string
         fn ($file) => Str::of(basename($file))->replace(".php", "")->toString(),
         glob(app_path("Models/Shipyard/*.php"))
     );
-    $is_shipyard_model = in_array($model_name, $shipyard_models);
+    $is_shipyard_model = ($model_name == "User" && file_exists(app_path("Models/User.php")))
+        ? false
+        : in_array($model_name, $shipyard_models);
     return "App\\Models\\".($is_shipyard_model ? "Shipyard\\" : "").$model_name;
 }
 
