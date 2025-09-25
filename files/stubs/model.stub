@@ -153,6 +153,10 @@ class {{ class }} extends Model
             //
         ];
     }
+    
+    protected $appends = [
+
+    ];
 
     use HasStandardAttributes;
 
