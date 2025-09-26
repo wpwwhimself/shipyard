@@ -152,3 +152,12 @@ function JSONInputWatchForConfirm(input_name, ev) {
     }
 }
 // #endregion
+
+// #region navigation
+function jumpTo(selector) {
+    document.querySelector(selector).scrollIntoView({
+        behavior: "smooth",
+        block: "center"
+    });
+}
+// #endregion

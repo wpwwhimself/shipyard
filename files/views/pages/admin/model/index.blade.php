@@ -10,7 +10,8 @@
         :icon="$group['icon']"
         :pop="$group['label']"
         pop-direction="right"
-        action="#{{ $group['id'] }}"
+        action="none"
+        onclick="jumpTo('#{{ $group['id'] }}')"
         class="tertiary"
     />
     @endforeach

@@ -11,7 +11,8 @@
         :pop="$section['title']"
         pop-direction="right"
         class="tertiary"
-        action="#{{ $section['id'] }}"
+        action="none"
+        onclick="jumpTo('#{{ $section['id'] }}')"
     />
     @endforeach
 
