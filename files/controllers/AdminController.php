@@ -3,8 +3,7 @@
 namespace App\Http\Controllers\Shipyard;
 
 use App\Http\Controllers\Controller;
-use App\Models\LocalSetting as LocalLocalSetting;
-use App\Models\Shipyard\LocalSetting;
+use App\Models\Setting as LocalSetting;
 use App\Models\Shipyard\Role;
 use App\Models\Shipyard\Setting;
 use App\Models\Shipyard\User;
@@ -20,19 +19,6 @@ use Illuminate\Support\Str;
 
 class AdminController extends Controller
 {
-    #region local settings
-    public function localSettings(): View
-    {
-        $fields = LocalLocalSetting::fields();
-        $settings = LocalSetting::all();
-
-        return view("pages.shipyard.admin.local-settings", compact(
-            "fields",
-            "settings",
-        ));
-    }
-    #endregion
-
     #region system settings
     public function settings(): View
     {
@@ -206,6 +192,7 @@ class AdminController extends Controller
                 ]
             ],
         ];
+        $fields = array_merge($fields, LocalSetting::fields());
         $settings = Setting::all();
 
         return view("pages.shipyard.admin.settings", compact(

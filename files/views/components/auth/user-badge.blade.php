@@ -5,12 +5,6 @@
     :action="route('profile')"
 />
 <x-shipyard.ui.button
-    :icon="model_icon('local-settings')"
-    :pop="model('local-settings')::META['label']"
-    :action="route('admin.local-settings')"
-    show-for="technical"
-/>
-<x-shipyard.ui.button
     :icon="model_icon('settings')"
     :pop="model('settings')::META['label']"
     :action="route('admin.system-settings')"

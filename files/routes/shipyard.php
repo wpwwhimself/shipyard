@@ -42,10 +42,6 @@ Route::middleware("auth")->group(function () {
     });
 
     Route::controller(AdminController::class)->prefix("admin")->group(function () {
-        Route::prefix("local-settings")->middleware(EnsureUserHasRole::class.":technical")->group(function () {
-            Route::get("", "localSettings")->name("admin.local-settings");
-            Route::post("", "processLocalSettings")->name("admin.local-settings.process");
-        });
         Route::prefix("settings")->middleware(EnsureUserHasRole::class.":technical")->group(function () {
             Route::get("", "settings")->name("admin.system-settings");
             Route::post("", "processSettings")->name("admin.system-settings.process");
