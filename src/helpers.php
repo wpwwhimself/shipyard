@@ -73,7 +73,8 @@ function model(string $scope): string
  */
 function is_shipyard_model(string $model): bool
 {
-    return Str::of($model)->contains("Shipyard");
+    return Str::of($model)->contains("Shipyard")
+        || defined($model."::FROM_SHIPYARD");
 }
 
 /**
