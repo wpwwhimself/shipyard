@@ -127,7 +127,10 @@ class InstallCommand extends Command
         $this->comment("Things to do now:");
         $this->comment("> in your `routes/web.php` add the following: \n\t if (file_exists(__DIR__.'/Shipyard/shipyard.php')) require __DIR__.'/Shipyard/shipyard.php';");
         $this->comment("> in your `routes/console.php` add the following: \n\t if (file_exists(__DIR__.'/Shipyard/shipyard_schedule.php')) require __DIR__.'/Shipyard/shipyard_schedule.php';");
-        $this->comment("> prepare extended class of User model to add new properties: \n\t <?php \n\n\t namespace App\Models; \n\n\t use App\Models\Shipyard\User as ShipyardUser; \n\n\t class User extends ShipyardUser \n\t { \n\n\t }");
+        $this->comment("> prepare extended class of User and LocalSetting model to add new properties:
+            \n\t <?php \n\n\t namespace App\Models; \n\n\t use App\Models\Shipyard\User as ShipyardUser; \n\n\t class User extends ShipyardUser \n\t { \n\n\t }
+            \n\n\t <?php \n\n\t namespace App\Models; \n\n\t use App\Models\Shipyard\LocalSetting as ShipyardLocalSetting; \n\n\t class LocalSetting extends ShipyardLocalSetting \n\t { \n\t\t public static function fields(): array \n\t\t { \n\t\t\t /** \n\t\t\t * * hierarchical structure of the page * \n\t\t\t * grouped by sections (title, subtitle, icon, identifier) \n\t\t\t * each section contains fields (name, label, hint, icon) \n\t\t\t */ \n\t\t\t return [ \n\n\t\t\t ]; \n\t\t } \n\n\t }"
+        );
         $this->comment("> clear your `resources/css/app.css` file - it may overwrite themes");
         $this->comment("> ensure public/css is writable by the app (to create theme cache file)");
 

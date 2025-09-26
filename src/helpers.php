@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Shipyard\LocalSetting;
 use App\Models\Shipyard\Setting;
 use Illuminate\Support\Str;
 
@@ -20,6 +21,14 @@ function app_lifetime(): string
 function nullif(string $value, bool $condition): string|null
 {
     return $condition ? $value : null;
+}
+
+/**
+ * retrieve local setting
+ */
+function local_setting(string $key, $default = null): ?string
+{
+    return LocalSetting::get($key, $default);
 }
 
 /**
@@ -96,7 +105,7 @@ function similar_models(?string $scope = null): array
     ])));
     return collect(glob($model_dir))
         ->map(fn ($file) => scope(Str::of(basename($file))->replace(".php", "")))
-        ->filter(fn ($scope) => $scope != "settings")
+        ->filter(fn ($scope) => !Str::of($scope)->contains("settings"))
         ->sortBy(fn ($scope) => model($scope)::META["ordering"] ?? 999)
         ->map(fn ($scope) => [
             "icon" => model_icon($scope),
