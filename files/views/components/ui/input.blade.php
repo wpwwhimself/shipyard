@@ -96,6 +96,13 @@ $extraButtons = ($type == "url" && $value) || $storageFile || ($type == "icon" &
                         @default
                         {{-- array of arrays --}}
                         @foreach ($columnTypes as $t)
+                        @php
+                        if (!isset($val[$i])) $val[$i] = null;
+                        if ($t == "JSON") {
+                            $t = "text";
+                            $val[$i] = json_encode($val[$i]);
+                        }
+                        @endphp
                         <td>
                             <input type="{{ $t }}" {{ $t == "checkbox" && $val[$i] ? "checked" : "" }} value="{{ $val[$i++] }}" onchange="JSONInputUpdate('{{ $name }}')" {{ $disabled ? "disabled" : "" }} />
                         </td>
@@ -133,6 +140,16 @@ $extraButtons = ($type == "url" && $value) || $storageFile || ($type == "icon" &
         @break
 
         @case ("select")
+            @php
+            if (isset($selectData["optionsFromScope"])) {
+                [$model, $scope, $label, $value] = $selectData["optionsFromScope"];
+                $selectData["options"] = $model::$scope()->get()->map(fn ($i) => [
+                    "label" => $i->{$label},
+                    "value" => $i->{$value},
+                ])->toArray();
+            }
+            @endphp
+
             @if ($selectData["radio"] ?? false)
             <div role="radio-group">
                 @foreach ($selectData["options"] ?? [] as $option)
@@ -154,7 +171,7 @@ $extraButtons = ($type == "url" && $value) || $storageFile || ($type == "icon" &
                 {{ $disabled ? "disabled" : "" }}
                 {{ $attributes }}
             >
-                @isset ($selectData["emptyOption"]) <option value="">— brak —</option> @endisset
+                @isset ($selectData["emptyOption"]) <option value="">– {{ ($selectData["emptyOption"] === true) ? "brak" : $selectData["emptyOption"] }} –</option> @endisset
                 @foreach ($selectData["options"] ?? [] as ["value" => $opt_val, "label" => $opt_label])
                 <option value="{{ $opt_val }}"
                     @if ($opt_val == $value) selected @endif

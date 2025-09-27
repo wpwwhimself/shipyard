@@ -95,7 +95,7 @@ class Modal extends Model
                 "Etykieta" => "text",
                 "Ikona" => "icon",
                 "Wymagane" => "checkbox",
-                "Pozostałe (jako JSON)" => "TEXT",
+                "Pozostałe (jako JSON)" => "JSON",
             ],
             "label" => "Pola",
             "icon" => "pencil",
@@ -159,7 +159,7 @@ class Modal extends Model
     protected function casts(): array
     {
         return [
-            "fields" => "json",
+            //
         ];
     }
 
@@ -184,6 +184,17 @@ class Modal extends Model
     //     );
     // }
 
+    protected function fields(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value) => collect(json_decode($value, true))
+                ->map(fn ($fld) => collect($fld)->map(fn ($f, $i) =>
+                    ($i == 5 && gettype($f) == "string") ? json_decode($f, true) : $f)->toArray()
+                ),
+            set: fn ($value) => json_encode($value),
+        );
+    }
+
     public function fullTargetRoute(): Attribute
     {
         return Attribute::make(
@@ -201,7 +212,7 @@ class Modal extends Model
                     "label" => $f[2],
                     "icon" => $f[3],
                     "required" => $f[4],
-                    "attributes" => new ComponentAttributeBag([...(json_decode($f[5] ?? "[]", true))]),
+                    "attributes" => new ComponentAttributeBag([...($f[5] ?? [])]),
                 ])->render())
                 ->join(""),
         );
