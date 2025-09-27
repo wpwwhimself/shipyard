@@ -161,3 +161,13 @@ function jumpTo(selector) {
     });
 }
 // #endregion
+
+// #region cleanup
+function reapplyPopper() {
+    document.querySelectorAll(`[data-tippy]`).forEach(el => {
+        tippy(el, {
+            content: el.dataset.tippy,
+        });
+    });
+}
+// #endregion

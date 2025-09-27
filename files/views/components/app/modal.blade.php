@@ -49,6 +49,7 @@ const openModal = (name, defaults = {}) => {
             });
 
             card.classList.remove("hidden");
+            reapplyPopper();
         })
         .catch(err => {
             console.error(err);
