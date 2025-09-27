@@ -4,8 +4,8 @@
 ])
 
 <span class="field-value">
-    <span role="icon" {{ Popper::pop($model::fields()[$field]['label']) }}>
-        <x-shipyard.app.icon :name="$model::fields()[$field]['icon']" />
+    <span role="icon" {{ Popper::pop($model::getFields()[$field]['label']) }}>
+        <x-shipyard.app.icon :name="$model::getFields()[$field]['icon']" />
     </span>
     <span role="value">
         {{ $slot }}

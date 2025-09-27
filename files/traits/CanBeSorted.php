@@ -6,31 +6,6 @@ use App\Http\Controllers\Shipyard\AdminController;
 
 trait CanBeSorted
 {
-    public static function getFields(): array
-    {
-        return array_merge(
-            [
-                "name" => [
-                    "type" => "text",
-                    "label" => "Nazwa",
-                    "icon" => "card-text",
-                    "required" => true,
-                ],
-                "visible" => [
-                    "type" => "select", "options" => AdminController::VISIBILITIES,
-                    "label" => "Widoczny dla",
-                    "icon" => "eye",
-                ],
-                "order" => [
-                    "type" => "number",
-                    "label" => "Wymuś kolejność",
-                    "icon" => "order-numeric-ascending",
-                ],
-            ],
-            defined(static::class."::FIELDS") ? self::FIELDS : [],
-        );
-    }
-
     public static function getSorts(): array
     {
         return array_filter(array_merge(

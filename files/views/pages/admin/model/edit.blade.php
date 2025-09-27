@@ -48,7 +48,6 @@
             <x-shipyard.app.model.timestamps :model="$data" />
         </x-slot:actions>
 
-
         @foreach ($fields as $name => $fdata)
         @if (isset($fdata["role"]) && !auth()->user()->hasRole($fdata["role"])) @continue @endif
         <x-shipyard.ui.input :type="$fdata['type']"

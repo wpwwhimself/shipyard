@@ -244,7 +244,7 @@ class AdminController extends Controller
         $meta = model($scope)::META;
         $data = model($scope)::forAdminList()
             ->paginate(25);
-        $actions = model($scope)::actions("list");
+        $actions = model($scope)::getActions("list");
 
         return view("pages.shipyard.admin.model.list", compact("data", "meta", "scope", "actions"));
     }
@@ -258,8 +258,8 @@ class AdminController extends Controller
 
         $meta = model($scope)::META;
         $data = model($scope)::find($id);
-        $fields = model($scope)::fields();
-        $connections = model($scope)::connections();
+        $fields = model($scope)::getFields();
+        $connections = model($scope)::getConnections();
         $sections = array_merge(
             [["icon" => $meta["icon"], "title" => "Dane podstawowe", "id" => "basic"]],
             collect($connections)->map(fn ($con, $con_scope) => [
@@ -271,7 +271,7 @@ class AdminController extends Controller
                 ->filter(fn ($con) => $con["show"])
                 ->toArray(),
         );
-        $actions = model($scope)::actions("edit");
+        $actions = model($scope)::getActions("edit");
 
         if ($data?->is_uneditable && !User::hasRole("archmage")) {
             return redirect()->route("admin.model.list", ["model" => $scope])->with("toast", ["error", "Tego modelu nie można edytować"]);
@@ -287,7 +287,7 @@ class AdminController extends Controller
             && !($scope == "users" && Auth::id() == $rq->id) // user can edit themself
         ) abort(403);
 
-        $fields = model($scope)::fields();
+        $fields = model($scope)::getFields();
         $data = $rq->except("_token", "_connections", "method");
         foreach ($fields as $name => $fdata) {
             switch ($fdata["type"]) {

@@ -10,7 +10,7 @@ trait HasStandardFields
     /**
      * Get all fields from the model: those default ones (if they exist) and the custom ones from FIELDS constant.
      */
-    public static function fields(): array
+    public static function getFields(): array
     {
         $table = (new self())->getTable();
 
@@ -47,7 +47,7 @@ trait HasStandardFields
     /**
      * Get all connections from the model from CONNECTIONS constant.
      */
-    public static function connections(): array
+    public static function getConnections(): array
     {
         return array_filter(array_merge(
             defined(self::class."::CONNECTIONS")
@@ -60,7 +60,7 @@ trait HasStandardFields
      * Get all actions from the model from ACTIONS constant.
      * @param string $showOn Name of the action (e.g. "list") for which all actions should be limited to
      */
-    public static function actions(string $showOn): array
+    public static function getActions(string $showOn): array
     {
         return array_filter(array_merge(
             defined(self::class."::ACTIONS")
