@@ -283,6 +283,12 @@ header {
 
 main {
     @extend .flex, .down;
+
+    width: calc(100% - 300px);
+
+    & > * {
+        width: 100%;
+    }
 }
 
 #main-wrapper {
@@ -296,6 +302,8 @@ main {
 
 #middle-wrapper {
     @extend .flex, .right, .spread, .nowrap, .but-mobile-wrap;
+
+    width: 100%;
 }
 
 [role="model-card"] {
@@ -319,6 +327,10 @@ main {
 }
 [role="subtitle"] {
     font-size: 1em;
+}
+
+.stat-tile {
+    @extend .tile;
 }
 
 #toast {

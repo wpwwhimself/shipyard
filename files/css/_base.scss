@@ -223,7 +223,7 @@ a.button, a:has(> .tile), a:has(> .full-width) {
 }
 
 .chart {
-    width: 100%;
+    overflow-x: auto;
 
     & > .title {
         @extend .flex, .right, .middle, .spread;
@@ -450,6 +450,18 @@ search {
     @starting-style {
         opacity: 0;
         translate: 0 2em;
+    }
+}
+
+.stat-tile {
+    @extend .flex, .down, .center, .middle, .no-gap;
+
+    flex-direction: column-reverse;
+
+    & > [role="value"] {
+        font-family: var(--heading-font);
+        font-size: 1.75em;
+        font-weight: bold;
     }
 }
 
