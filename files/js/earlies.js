@@ -91,7 +91,8 @@ function JSONInputUpdate(input_name) {
         }
     })
 
-    input.value = JSON.stringify(newValue)
+    input.value = JSON.stringify(newValue);
+    reapplyPopper();
 }
 
 function JSONInputAddRow(input_name) {
@@ -104,13 +105,27 @@ function JSONInputAddRow(input_name) {
         let clonedRow = newRow.cloneNode(true)
         clonedRow.removeAttribute("role")
         clonedRow.querySelector("td:last-child .button:first-child").remove()
-        clonedRow.querySelector("td:last-child .button:last-child").classList.remove("hidden")
+        clonedRow.querySelectorAll("td:last-child .button.hidden").forEach(b => b.classList.remove("hidden"))
         clonedRow.querySelector("input").value = v
         table.querySelector("tbody").appendChild(clonedRow)
     })
 
     newRow.querySelectorAll("input").forEach(input => input.value = (input.type == "checkbox" ? "1" : ""))
     JSONInputUpdate(input_name)
+}
+
+function JSONInputPrependRow(input_name, btn) {
+    const table = document.querySelector(`table[data-name="${input_name}"]`);
+    const newRow = table.querySelector(`tr[role="new-row"]`)
+
+    newRow.querySelector("input").value.split(/,\s*/).forEach((v, i) => {
+        let clonedRow = newRow.cloneNode(true);
+        clonedRow.removeAttribute("role");
+        clonedRow.querySelector("td:last-child .button:first-child").remove();
+        clonedRow.querySelectorAll("td:last-child .button.hidden").forEach(b => b.classList.remove("hidden"));
+        clonedRow.querySelector("input").value = v;
+        table.querySelector("tbody").insertBefore(clonedRow, btn.closest("tr"));
+    });
 }
 
 function JSONInputDeleteRow(input_name, btn) {

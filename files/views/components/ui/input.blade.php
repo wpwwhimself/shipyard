@@ -110,7 +110,10 @@ $extraButtons = ($type == "url" && $value) || $storageFile || ($type == "icon" &
                     @endswitch
 
                     @if (!$disabled)
-                    <td><span icon="delete" class="button tertiary" onclick="JSONInputDeleteRow('{{ $name }}', this)"><x-shipyard.app.icon name="delete" /></span></td>
+                    <td>
+                        <span class="button tertiary" onclick="JSONInputPrependRow('{{ $name }}', this)" @popper(Dodaj wiersz przed)><x-shipyard.app.icon name="table-row-plus-before" /></span>
+                        <span class="button tertiary" onclick="JSONInputDeleteRow('{{ $name }}', this)" @popper(Usuń wiersz)><x-shipyard.app.icon name="table-row-remove" /></span>
+                    </td>
                     @endif
                 </tr>
                 @endforeach
@@ -130,8 +133,9 @@ $extraButtons = ($type == "url" && $value) || $storageFile || ($type == "icon" &
                     @endforeach
 
                     <td>
-                        <span title="Dodaj" class="button secondary" onclick="JSONInputAddRow('{{ $name }}')"><x-shipyard.app.icon name="plus" /></span>
-                        <span title="Usuń" class="button tertiary hidden" onclick="JSONInputDeleteRow('{{ $name }}', this)"><x-shipyard.app.icon name="delete" /></span>
+                        <span class="button secondary" onclick="JSONInputAddRow('{{ $name }}')" @popper(Dodaj)><x-shipyard.app.icon name="plus" /></span>
+                        <span class="button tertiary hidden" onclick="JSONInputPrependRow('{{ $name }}', this)" @popper(Dodaj wiersz przed)><x-shipyard.app.icon name="table-row-plus-before" /></span>
+                        <span class="button tertiary hidden" onclick="JSONInputDeleteRow('{{ $name }}', this)" @popper(Usuń)><x-shipyard.app.icon name="table-row-remove" /></span>
                     </td>
                 </tr>
             </tfoot>
@@ -253,5 +257,7 @@ window.autofill = window.autofill ?? {}
 fetch("{{ $autofillRoute }}").then(res => res.json()).then(data => {
     window.autofill['{{ $name }}'] = data
 })
+
+reapplyPopper();
 </script>
 @endif
