@@ -99,6 +99,7 @@ class Modal extends Model
             ],
             "label" => "Pola",
             "icon" => "pencil",
+            "hint" => "Pola formularza. Korzystają z tych samych ustawień, co zwykłe pola (inputy). Użyj typu **heading**, żeby zamiast inputa utworzyć nagłówek.",
         ],
         "target_route" => [
             "type" => "text",
@@ -206,14 +207,26 @@ class Modal extends Model
     {
         return Attribute::make(
             get: fn () => collect($this->fields)
-                ->map(fn ($f) => view("components.shipyard.ui.input", [
-                    "type" => $f[1],
-                    "name" => $f[0],
-                    "label" => $f[2],
-                    "icon" => $f[3],
-                    "required" => $f[4],
-                    "attributes" => new ComponentAttributeBag([...($f[5] ?? [])]),
-                ])->render())
+                ->map(function ($f) {
+                    switch ($f[1]) {
+                        case "heading":
+                            return view("components.shipyard.app.h", [
+                                "lvl" => 3,
+                                "icon" => $f[3],
+                                "slot" => $f[2],
+                            ])->render();
+
+                        default:
+                            return view("components.shipyard.ui.input", [
+                                "type" => $f[1],
+                                "name" => $f[0],
+                                "label" => $f[2],
+                                "icon" => $f[3],
+                                "required" => $f[4],
+                                "attributes" => new ComponentAttributeBag([...($f[5] ?? [])]),
+                            ])->render();
+                    }
+                })
                 ->join(""),
         );
     }
