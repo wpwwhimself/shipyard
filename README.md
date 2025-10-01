@@ -41,7 +41,7 @@ Shipyard requires _Laravel_ installation.
 
 2. Install package:
 ```
-composer require wpwwhimself/shipyard:dev-main
+composer require wpwwhimself/shipyard
 ```
 
 ## Dev mode - load Shipyard from a directory next door
