@@ -541,6 +541,7 @@ table {
 
 #toast {
     opacity: 0;
+    border-color: currentColor;
 
     &.success {
         color: var(--success);
