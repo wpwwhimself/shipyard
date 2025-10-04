@@ -333,6 +333,15 @@ main {
     @extend .tile;
 }
 
+.tag {
+    @extend .rounded;
+
+    background: var(--bg-lite);
+    color: var(--black);
+    font-weight: bold;
+    padding: 0.25em 0.5em;
+}
+
 #toast {
     @extend .card;
     @extend .animatable;
