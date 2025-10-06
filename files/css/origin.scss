@@ -296,7 +296,7 @@ main {
     @extend .flex, .down;
 
     margin-inline: auto;
-    width: 1280px;
+    width: calc(100vw - 6em);
     max-width: calc(100vw - 4em);
 }
 
