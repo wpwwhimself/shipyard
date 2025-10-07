@@ -351,6 +351,7 @@ main {
     top: 1em;
     left: 50%;
     transform: translate(-50%, -5em);
+    border-color: currentColor;
     z-index: 99;
 
     &.visible {
