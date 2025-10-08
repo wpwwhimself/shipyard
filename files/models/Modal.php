@@ -222,8 +222,10 @@ class Modal extends Model
                                 "name" => $f[0],
                                 "label" => $f[2],
                                 "icon" => $f[3],
-                                "required" => $f[4],
-                                "attributes" => new ComponentAttributeBag([...($f[5] ?? [])]),
+                                "attributes" => new ComponentAttributeBag([
+                                    "required" => $f[4],
+                                    ...($f[5] ?? []),
+                                ]),
                             ])->render();
                     }
                 })
