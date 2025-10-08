@@ -8,7 +8,6 @@
     <x-shipyard.ui.button
         icon="plus"
         pop="Dodaj"
-        pop-direction="right"
         class="primary"
         :action="route('admin.model.edit', ['model' => $scope])"
     />
@@ -20,7 +19,6 @@
     <x-shipyard.ui.button
         :icon="$action['icon']"
         :pop="$action['label']"
-        pop-direction="right"
         :action="route($action['route'], ['id' => $data->id])"
         class="{{ ($action['dangerous'] ?? false) ? 'danger' : '' }}"
         :show-for="$action['role'] ?? null"
@@ -34,7 +32,6 @@
     <x-shipyard.ui.button
         :icon="$model['icon'] ?? null"
         :pop="$model['label']"
-        pop-direction="right"
         :action="route('admin.model.list', ['model' => $model['scope']])"
     />
     @endforeach

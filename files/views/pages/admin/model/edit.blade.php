@@ -9,7 +9,6 @@
     <x-shipyard.ui.button
         :icon="$section['icon'] ?? null"
         :pop="$section['title']"
-        pop-direction="right"
         class="tertiary"
         action="none"
         onclick="jumpTo('#{{ $section['id'] }}')"
@@ -23,7 +22,6 @@
     <x-shipyard.ui.button
         :icon="$action['icon']"
         :pop="$action['label']"
-        pop-direction="right"
         :action="route($action['route'], ['id' => $data->id])"
         class="{{ ($action['dangerous'] ?? false) ? 'danger' : '' }}"
         :show-for="isset($action['role']) ? $action['role'] : null"

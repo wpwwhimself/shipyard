@@ -123,6 +123,6 @@ return [
         /*
          * Enable the user to interact with the tooltip, to copy, or click elements.
          */
-        'interactive' => true,
+        'interactive' => false,
     ],
 ];

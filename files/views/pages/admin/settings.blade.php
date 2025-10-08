@@ -9,7 +9,6 @@
     <x-shipyard.ui.button
         :icon="$section['icon'] ?? null"
         :pop="$section['title']"
-        pop-direction="right"
         class="tertiary"
         action="none"
         onclick="jumpTo('#{{ $section['id'] }}')"
@@ -21,7 +20,6 @@
     <x-shipyard.ui.button
         icon="content-save"
         pop="Zapisz zmiany"
-        pop-direction="right"
         class="primary"
         action="none"
         onclick="submitShipyardForm()"
@@ -33,7 +31,6 @@
     <x-shipyard.ui.button
         :icon="$model['icon'] ?? null"
         :pop="$model['label']"
-        pop-direction="right"
         :action="route('admin.model.list', ['model' => $model['scope']])"
     />
     @endforeach

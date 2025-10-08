@@ -9,7 +9,6 @@
     <x-shipyard.ui.button
         :icon="$item['icon'] ?? null"
         :pop="$item['label']"
-        pop-direction="right"
         action="none"
         onclick="jumpTo('#{{ $id }}')"
         class="tertiary"

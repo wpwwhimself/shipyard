@@ -80,8 +80,8 @@ class InstallCommand extends Command
         $this->tryLink(__DIR__.'/../../files/media', base_path("public/media/Shipyard"));
 
         $this->comment("- configs...");
-        $this->tryCopy(__DIR__.'/../../files/configs/popper.php', base_path("config/popper.php"), true);
-        $this->tryCopy(__DIR__.'/../../files/configs/blade-icons.php', base_path("config/blade-icons.php"), true);
+        $this->tryCopy(__DIR__.'/../../files/configs/popper.php', base_path("config/popper.php"));
+        $this->tryCopy(__DIR__.'/../../files/configs/blade-icons.php', base_path("config/blade-icons.php"));
 
         $this->comment("- docs...");
         $this->tryLink(__DIR__.'/../../files/docs', base_path("docs/Shipyard"));
