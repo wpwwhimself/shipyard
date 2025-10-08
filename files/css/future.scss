@@ -223,13 +223,13 @@ header {
 
 .input-container {
     @extend .grid, .middle;
-    @extend .padded, .cut-corners, .animatable;
+    @extend .padded, .animatable;
 
     grid-template-columns: auto 1fr;
     flex-grow: 1;
     margin: 0;
-
-    border: 2px solid transparent;
+    padding: 0.5em 0;
+    border-block: 2px solid transparent;
 
     &:has(:focus) {
         border-color: var(--primary);

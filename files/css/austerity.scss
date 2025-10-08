@@ -261,7 +261,7 @@ header {
     grid-template-columns: auto 1fr;
     flex-grow: 1;
     margin: 0;
-    padding-inline: 0;
+    padding: 0.5em 0;
     border-block: 2px solid transparent;
 
     &:has(:focus) {
