@@ -68,21 +68,6 @@
         <link rel="stylesheet" href="{{ asset("css/app.css") }}?{{ time() }}">
         {{-- 💄 styles 💄 --}}
 
-        {{-- 🌳 environment distinguishing elements 🌳 --}}
-        @env (["local", "stage"])
-        <style>
-        :root {
-            @env ("local")
-            --test-color: #0f0;
-            @endenv
-            @env ("stage")
-            --test-color: #ff0;
-            @endenv
-        }
-        </style>
-        @endenv
-        {{-- 🌳 environment distinguishing elements 🌳 --}}
-
         {{-- 🚀 standard scripts 🚀 --}}
         <script src="{{ asset("js/Shipyard/earlies.js") }}?{{ time() }}"></script>
         <script src="{{ asset("js/earlies.js") }}?{{ time() }}"></script>

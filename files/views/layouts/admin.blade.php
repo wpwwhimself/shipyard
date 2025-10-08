@@ -12,6 +12,8 @@
     </x-slot:top>
 
     <x-slot:bottom>
+        @env("local") <span @popper(Środowisko lokalne) class="accent danger"><x-shipyard.app.icon name="shovel" /></span> @endenv
+        @env("stage") <span @popper(Środowisko testowe (stage)) class="accent success"><x-shipyard.app.icon name="test-tube" /></span> @endenv
         <x-shipyard.app.big.nav />
     </x-slot:bottom>
 </x-shipyard.app.big.header>
