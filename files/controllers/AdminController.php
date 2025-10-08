@@ -68,6 +68,7 @@ class AdminController extends Controller
                             "options" => [
                                 ["label" => "Origin", "value" => "origin",],
                                 ["label" => "Austerity", "value" => "austerity",],
+                                ["label" => "Future", "value" => "future",],
                             ],
                         ],
                     ],

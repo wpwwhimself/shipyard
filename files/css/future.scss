@@ -2,19 +2,6 @@
 
 /******************* attributes *******************/
 
-.bordered {
-    border: 2px solid var(--bg-lite);
-    box-sizing: border-box;
-
-    &.active {
-        border-color: currentColor;
-
-        &:hover {
-            border-color: var(--bg-lite);
-        }
-    }
-}
-
 .with-bottom-separator {
     border-bottom: 1px solid var(--fg-lite);
     padding-bottom: 1em;
@@ -37,16 +24,22 @@
     }
 }
 
-.rounded {
-    border-radius: 0.75em;
-}
-
-.shaded {
-    box-shadow: 0 0.5em 0.75em var(--shadow);
+.cut-corners {
+    --tip-size: 2em;
+    --path: polygon(
+        0 100%,
+        calc(100% - var(--tip-size)) 100%,
+        100% calc(100% - var(--tip-size)),
+        100% 0,
+        var(--tip-size) 0,
+        0 var(--tip-size)
+    );
+    clip-path: var(--path);
 }
 
 .backdropped {
-    background: var(--bg);
+    background: linear-gradient(-45deg, var(--bg), var(--bg-ghost));
+    backdrop-filter: blur(1em);
 }
 
 .highlightable:hover {
@@ -56,7 +49,7 @@
 /*******/
 
 .card {
-    @extend .padded, .rounded, .backdropped, .bordered, .shaded;
+    @extend .padded, .cut-corners, .backdropped;
 
     margin: 0;
 
@@ -78,17 +71,14 @@
         & [role$="tile"],
         & .card,
         & [role$="card"] {
-            box-shadow: none;
-        }
-
-        & > .bordered {
             margin-block: 0.5em;
+            background: none;
         }
     }
 }
 
 .tile {
-    @extend .padded, .rounded, .backdropped, .bordered, .shaded;
+    @extend .padded, .cut-corners, .backdropped;
 
     & > * {
         flex-grow: 1;
@@ -106,10 +96,6 @@
         @extend .flex, .right, .middle;
         justify-content: right;
         text-align: right;
-    }
-
-    .card & {
-        box-shadow: none;
     }
 }
 
@@ -162,11 +148,13 @@ body {
 
 .button {
     @extend .flex, .right, .nowrap, .center, .middle;
-    @extend .padded, .small, .rounded, .interactive;
-    @extend .accent, .bordered, .secondary;
+    @extend .padded, .small, .cut-corners, .interactive;
+    @extend .accent, .secondary;
+
+    --tip-size: 1em;
 
     display: inline-flex;
-    background: var(--bg);
+    background: var(--bg-ghost);
     margin: 0;
 
     & a {
@@ -180,7 +168,7 @@ body {
 
 .chart {
     & .value {
-        @extend .rounded;
+        @extend .cut-corners;
     }
 }
 
@@ -202,7 +190,7 @@ body {
 
     & [role="file-card"] {
         @extend .flex, .down;
-        @extend .bordered, .padded, .rounded;
+        @extend .padded, .cut-corners;
 
         & > .actions {
             @extend .grid;
@@ -235,11 +223,13 @@ header {
 
 .input-container {
     @extend .grid, .middle;
-    @extend .padded, .rounded, .animatable, .bordered;
+    @extend .padded, .cut-corners, .animatable;
 
     grid-template-columns: auto 1fr;
     flex-grow: 1;
     margin: 0;
+
+    border: 2px solid transparent;
 
     &:has(:focus) {
         border-color: var(--primary);
@@ -340,7 +330,7 @@ main {
 }
 
 .tag {
-    @extend .rounded;
+    @extend .cut-corners;
 
     background: var(--bg-lite);
     color: var(--black);

@@ -100,8 +100,8 @@
         }
         </script>
         <link rel="stylesheet" href="https://cdn.ckeditor.com/ckeditor5/43.0.0/ckeditor5.css">
-        <link rel="stylesheet" href="{{ asset("css/Shipyard/ckeditor.css") }}?{{ time() }}">
-        <script type="module" src="{{ asset("js/Shipyard/ckeditor.js") }}?{{ time() }}"></script>
+        <link rel="stylesheet" href="{{ asset("css/Shipyard/ckeditor.css") }}">
+        <script type="module" src="{{ asset("js/Shipyard/ckeditor.js") }}"></script>
         {{-- ✏️ ckeditor stuff ✏️ --}}
 
         {{-- ✅ choices stuff ✅ --}}

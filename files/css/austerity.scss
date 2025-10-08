@@ -79,8 +79,12 @@
     }
 
     & > .contents {
-        & > .card {
+        & .tile,
+        & [role$="tile"],
+        & .card,
+        & [role$="card"] {
             box-shadow: none;
+            padding-inline: 0;
         }
 
         & > .bordered {
@@ -252,17 +256,25 @@ header {
 
 .input-container {
     @extend .grid, .middle;
-    @extend .padded, .rounded, .animatable, .bordered;
+    @extend .padded, .animatable;
 
     grid-template-columns: auto 1fr;
     flex-grow: 1;
     margin: 0;
+    padding-inline: 0;
+    border-block: 2px solid transparent;
 
     &:has(:focus) {
         border-color: var(--primary);
     }
     &:has([role="extra-buttons"]) {
         grid-template-columns: auto 1fr auto;
+    }
+
+    & [role="label-wrapper"] {
+        @extend .flex, .right, .middle, .nowrap;
+        
+        gap: 0.25em;
     }
 
     & input, & textarea, & select {
