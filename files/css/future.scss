@@ -332,6 +332,7 @@ main {
 .tag {
     @extend .cut-corners;
 
+    --tip-size: 0.5em;
     background: var(--bg-lite);
     color: var(--black);
     font-weight: bold;
