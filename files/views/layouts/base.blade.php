@@ -28,7 +28,7 @@
         }
         </style>
         @if (file_exists(public_path("css/shipyard_theme_cache.css")))
-        <link rel="stylesheet" href="{{ asset("css/shipyard_theme_cache.css") }}?{{ time() }}">
+        <link rel="stylesheet" href="{{ asset("css/shipyard_theme_cache.css") }}">
         @else
         <style>
         #theme-loader {
@@ -65,14 +65,14 @@
         </style>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/sass.js/0.11.1/sass.sync.min.js"></script>
         @endif
-        <link rel="stylesheet" href="{{ asset("css/app.css") }}?{{ time() }}">
+        <link rel="stylesheet" href="{{ asset("css/app.css") }}">
         {{-- 💄 styles 💄 --}}
 
         {{-- 🚀 standard scripts 🚀 --}}
-        <script src="{{ asset("js/Shipyard/earlies.js") }}?{{ time() }}"></script>
-        <script src="{{ asset("js/earlies.js") }}?{{ time() }}"></script>
-        <script defer src="{{ asset("js/Shipyard/app.js") }}?{{ time() }}"></script>
-        <script defer src="{{ asset("js/app.js") }}?{{ time() }}"></script>
+        <script src="{{ asset("js/Shipyard/earlies.js") }}"></script>
+        <script src="{{ asset("js/earlies.js") }}"></script>
+        <script defer src="{{ asset("js/Shipyard/app.js") }}"></script>
+        <script defer src="{{ asset("js/app.js") }}"></script>
         {{-- 🚀 standard scripts 🚀 --}}
 
         {{-- ✏️ ckeditor stuff ✏️ --}}
