@@ -20,6 +20,9 @@ $autofillRoute = $autofillFrom
     ? route($autofillFrom[0], ['model_name' => $autofillFrom[1]])
     : null;
 
+$dummy = Str::startsWith($type, "dummy-");
+if ($dummy) $type = Str::after($type, "dummy-");
+
 $extraButtons = ($type == "url" && $value) || $storageFile || ($type == "icon" && $value);
 @endphp
 
@@ -46,6 +49,10 @@ $extraButtons = ($type == "url" && $value) || $storageFile || ($type == "icon" &
         @endif
     </span>
 
+    @if ($dummy)
+    <span role="dummy">{{ $value }}</span>
+
+    @else
     @switch ($type)
         @case ("TEXT")
         <textarea name="{{ $name }}"
@@ -207,6 +214,7 @@ $extraButtons = ($type == "url" && $value) || $storageFile || ($type == "icon" &
             {{ $attributes }}
         />
     @endswitch
+    @endif
 
     @if ($extraButtons)
     <div role="extra-buttons">
