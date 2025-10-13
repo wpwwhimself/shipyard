@@ -11,7 +11,7 @@
     "showFor" => null,
 ])
 
-@if (auth()->user()?->hasRole($showFor) ?? true)
+@if ($showFor == null ? true : (auth()->user()?->hasRole($showFor) ?? false))
 
 @if ($action == null)
 <button disabled
