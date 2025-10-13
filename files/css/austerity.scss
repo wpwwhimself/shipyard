@@ -84,7 +84,6 @@
         & .card,
         & [role$="card"] {
             box-shadow: none;
-            padding-inline: 0;
         }
 
         & > .bordered {
@@ -273,7 +272,7 @@ header {
 
     & [role="label-wrapper"] {
         @extend .flex, .right, .middle, .nowrap;
-        
+
         gap: 0.25em;
     }
 
