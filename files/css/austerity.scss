@@ -86,6 +86,10 @@
             box-shadow: none;
         }
 
+        & .card {
+            padding-inline: 0;
+        }
+
         & > .bordered {
             margin-block: 0.5em;
         }
