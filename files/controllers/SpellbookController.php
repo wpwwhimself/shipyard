@@ -27,6 +27,12 @@ class SpellbookController extends Controller
                 Pobiera aktualną bazę danych SQLite. Przydatne do testów.
             DESC,
         ],
+        "obliterate" => [
+            "route" => "obliterate/{scope}/{id}",
+            "description" => <<<DESC
+                Usuwa model o podanym ID z systemu.
+            DESC,
+        ],
         "obliviate" => [
             "route" => "obliviate/{scope?}",
             "description" => <<<DESC
@@ -51,6 +57,11 @@ class SpellbookController extends Controller
 
         $db = base_path("database/database.sqlite");
         return response()->download($db);
+    }
+
+    public function obliterate(string $scope, mixed $id) {
+        model($scope)::find($id)->delete();
+        return back()->with("toast", ["success", "Model usunięty"]);
     }
 
     public function obliviate(?string $scope = null) {
