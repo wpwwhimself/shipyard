@@ -363,7 +363,13 @@ hr {
 
 .loader {
     font-size: 7.5em;
+    text-align: center;
     animation: rotate 1s ease-in-out infinite;
+
+    #lookup-container & {
+        position: absolute;
+        left: 0; right: 0;
+    }
 }
 @keyframes rotate {
     to {
@@ -374,6 +380,22 @@ hr {
 .logo {
     height: 4em;
     vertical-align: middle;
+}
+
+#lookup-container {
+    position: relative;
+
+    & table {
+        text-align: left;
+    }
+
+    & .input-container {
+        padding: 0;
+    }
+
+    & input[type="radio"] {
+        margin: 0;
+    }
 }
 
 .line-banner {
@@ -484,14 +506,6 @@ table {
         & > tr > * {
             font-weight: bold;
             text-align: left;
-        }
-    }
-
-    & td:has(input) {
-        border: 1px solid var(--bg-lite);
-
-        &:hover {
-            background-color: var(--bg-lite);
         }
     }
 

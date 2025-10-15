@@ -269,7 +269,10 @@ $extraButtons = ($type == "url" && $value) || $storageFile || ($type == "icon" &
 </div>
 
 @if ($lookup)
-<div id="lookup-container" for="{{ $selectData["dataRoute"] ?? null }}"></div>
+<div id="lookup-container" for="{{ $selectData["dataRoute"] ?? null }}">
+    <x-shipyard.app.loader />
+    <div role="results"></div>
+</div>
 @endif
 
 @if ($autofillFrom)

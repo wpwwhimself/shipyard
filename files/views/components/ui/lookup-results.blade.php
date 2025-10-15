@@ -14,19 +14,36 @@
         </tr>
     </thead>
     <tbody>
-        @foreach ($data as $d)
+        @forelse ($data as $i => $d)
+        @if ($i > 20)
         <tr>
+            <td colspan="{{ $headings->count() }}">...</td>
+        </tr>
+        @break
+        @endif
+
+        <tr class="interactive"
+            onclick="lookupSelect('{{ $fieldName }}', '{{ $d['id'] }}')"
+        >
             @foreach ($d as $col)
             <td>{{ $col }}</td>
             @endforeach
             <td>
-                <x-shipyard.ui.input
-                    type="radio"
-                    :name="fieldName"
-                    :value="$d->id"
-                />
+                <div class="input-container">
+                    <input
+                        type="radio"
+                        name="{{ $fieldName }}"
+                        value="{{ $d['id'] }}"
+                    >
+                </div>
             </td>
         </tr>
-        @endforeach
+        @empty
+        <tr>
+            <td colspan="{{ $headings->count() }}">
+                <span class="ghost">Brak wyników</span>
+            </td>
+        </tr>
+        @endforelse
     </tbody>
 </table>

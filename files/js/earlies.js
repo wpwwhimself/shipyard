@@ -172,15 +172,29 @@ function JSONInputWatchForConfirm(input_name, ev) {
 let debounce_timer;
 
 function lookup(lookupUrl, lookupRoute, query = "") {
+    const loader = document.querySelector(`#lookup-container[for="${lookupRoute}"] .loader`);
+    const results = document.querySelector(`#lookup-container[for="${lookupRoute}"] [role="results"]`);
+
     clearTimeout(debounce_timer);
     debounce_timer = setTimeout(() => {
+        loader.classList.remove("hidden");
+
         // actual query
         fetch(lookupUrl + `?query=${query}`)
-            .then(res => res.text())
+            .then(res => {
+                if (!res.ok) throw new Error(res.statusText);
+                return res.text();
+            })
             .then(html => {
-                document.querySelector(`#lookup-container[for="${lookupRoute}"]`).innerHTML = html;
-            });
+                results.innerHTML = html;
+            })
+            .catch(err => console.error(err))
+            .finally(() => loader.classList.add("hidden"));
     }, 0.3e3);
+}
+
+function lookupSelect(fieldName, value) {
+    document.querySelector(`input[name="${fieldName}"][value="${value}"]`).checked = true;
 }
 // #endregion
 
