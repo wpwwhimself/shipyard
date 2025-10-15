@@ -23,6 +23,9 @@ $autofillRoute = $autofillFrom
 $dummy = Str::startsWith($type, "dummy-");
 if ($dummy) $type = Str::after($type, "dummy-");
 
+$lookup = $type == "lookup";
+if ($lookup) $type = "text";
+
 $extraButtons = ($type == "url" && $value) || $storageFile || ($type == "icon" && $value);
 @endphp
 
@@ -211,7 +214,13 @@ $extraButtons = ($type == "url" && $value) || $storageFile || ($type == "icon" &
             value="{{ $value }}"
             placeholder="{{ $attributes->get("placeholder", "— brak —") }}"
             {{ $disabled ? "disabled" : "" }}
-            {{ $attributes }}
+            {{ $attributes->merge([
+                "onkeyup" => $lookup ? "lookup(
+                    '".($selectData['dataRoute'] ? route($selectData['dataRoute']) : null)."',
+                    '".$selectData['dataRoute']."',
+                    this.value
+                );" : null,
+            ]) }}
         />
     @endswitch
     @endif
@@ -258,6 +267,10 @@ $extraButtons = ($type == "url" && $value) || $storageFile || ($type == "icon" &
     </script>
     @endif
 </div>
+
+@if ($lookup)
+<div id="lookup-container" for="{{ $selectData["dataRoute"] ?? null }}"></div>
+@endif
 
 @if ($autofillFrom)
 <script>

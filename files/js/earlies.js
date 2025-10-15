@@ -168,6 +168,22 @@ function JSONInputWatchForConfirm(input_name, ev) {
 }
 // #endregion
 
+// #region lookup
+let debounce_timer;
+
+function lookup(lookupUrl, lookupRoute, query = "") {
+    clearTimeout(debounce_timer);
+    debounce_timer = setTimeout(() => {
+        // actual query
+        fetch(lookupUrl + `?query=${query}`)
+            .then(res => res.text())
+            .then(html => {
+                document.querySelector(`#lookup-container[for="${lookupRoute}"]`).innerHTML = html;
+            });
+    }, 0.3e3);
+}
+// #endregion
+
 // #region navigation
 function jumpTo(selector) {
     document.querySelector(selector).scrollIntoView({
