@@ -150,6 +150,10 @@ aside {
 
     & > .card {
         @extend .flex, .down, .but-mobile-right;
+
+        max-height: calc(100vh - 4em);
+        flex-wrap: nowrap;
+        overflow: auto;
     }
 }
 
@@ -384,6 +388,7 @@ main {
 
         & > .card {
             justify-content: center;
+            flex-wrap: wrap;
         }
     }
 
