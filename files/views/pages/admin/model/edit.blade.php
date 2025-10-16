@@ -48,71 +48,24 @@
 
         @foreach ($fields as $name => $fdata)
         @if (isset($fdata["role"]) && !auth()->user()->hasRole($fdata["role"])) @continue @endif
-        <x-shipyard.ui.input :type="$fdata['type']"
-            :name="$name"
-            :label="$fdata['label']"
-            :icon="$fdata['icon']"
-            :value="$fdata['type'] == 'checkbox' ? 1 : $data?->{$name}"
-            :checked="$fdata['type'] == 'checkbox' && $data?->{$name}"
-            :select-data="$fdata['select-data'] ?? null"
-            :required="$fdata['required'] ?? false"
-            :placeholder="$fdata['placeholder'] ?? null"
-            :hint="$fdata['hint'] ?? null"
-            :column-types="$fdata['column-types'] ?? null"
-            :autofill-from="$fdata['autofill-from'] ?? null"
-            :character-limit="$fdata['character-limit'] ?? null"
-            :disabled="$fdata['disabled'] ?? false"
-            :min="$fdata['min'] ?? null"
-            :max="$fdata['max'] ?? null"
-            :step="$fdata['step'] ?? null"
-        />
+        <x-shipyard.ui.field-input :model="$data" :field-name="$name" />
         @endforeach
     </x-shipyard.app.card>
 
-    @foreach ($connections as $relation => $rdata)
-    @if (isset($rdata["role"]) && !auth()->user()->hasRole($rdata["role"])) @continue @endif
+    <div class="grid but-mobile down" style="--col-count: 2;">
+        @foreach ($connections as $relation => $rdata)
+        @if (isset($rdata["role"]) && !auth()->user()->hasRole($rdata["role"])) @continue @endif
 
-    <x-shipyard.app.card
-        :title="$rdata['model']::META['label']"
-        :icon="$rdata['model']::META['icon']"
-        id="connections_{{ $relation }}"
-    >
-        <input type="hidden" name="_connections[]" value="{{ $relation }}">
-        @switch ($rdata['mode'])
-            @case ("one")
-            <x-shipyard.ui.input type="select"
-                :name="$rdata['field_name'] ?? Str::snake($relation).'_id'"
-                :label="$rdata['field_label'] ?? 'Wybierz'"
-                :icon="$rdata['model']::META['icon']"
-                :value="$data?->{$rdata['field_name'] ?? Str::snake($relation).'_id'}"
-                :select-data="[
-                    'options' => $rdata['model']::all()->map(fn ($i) => [
-                        'label' => $i->option_label,
-                        'value' => $i->id,
-                    ]),
-                    'emptyOption' => true,
-                ]"
-            />
-            @break
-
-            @case ("many")
-            <div class="grid" style="--col-count: 3;">
-            @foreach ($rdata['model']::all() as $item)
-            @if ($relation == "roles" && $item->name == "super" && !auth()->user()->hasRole("super")) @continue @endif
-            <x-shipyard.ui.input type="checkbox"
-                name="{{ $relation }}[]"
-                :label="$item->name"
-                :icon="$item->icon ?? null"
-                :hint="$item->description"
-                :value="$item->id ?? $item->name"
-                :checked="$data?->{$relation}->contains($item)"
-            />
-            @endforeach
-            </div>
-            @break
-        @endswitch
-    </x-shipyard.app.card>
-    @endforeach
+        <x-shipyard.app.card
+            :title="$rdata['model']::META['label']"
+            :icon="$rdata['model']::META['icon']"
+            id="connections_{{ $relation }}"
+        >
+            <input type="hidden" name="_connections[]" value="{{ $relation }}">
+            <x-shipyard.ui.connection-input :model="$data" :connection-name="$relation" />
+        </x-shipyard.app.card>
+        @endforeach
+    </div>
 
     <x-slot:actions>
         <div class="card">
