@@ -42,10 +42,12 @@ const openModal = (name, defaults = {}) => {
             form.querySelector("[role='fields']").innerHTML = data.rendered_fields;
 
             Object.entries(defaults).forEach(([name, value]) => {
-                if (form.querySelector(`[role='fields'] [name="${name}"]`))
+                if (form.querySelector(`[role='fields'] [name="${name}"]`)) {
                     form.querySelector(`[role='fields'] [name="${name}"]`).value = value;
-                else
+                    form.querySelector(`[role='fields'] [name="${name}"]`).dispatchEvent(new Event("input"));
+                } else {
                     form.querySelector("[role='fields']").append(fromHTML(`<input type="hidden" name="${name}" value="${value}">`));
+                }
             });
 
             card.classList.remove("hidden");

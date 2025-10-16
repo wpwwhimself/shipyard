@@ -215,7 +215,7 @@ $extraButtons = ($type == "url" && $value) || $storageFile || ($type == "icon" &
             placeholder="{{ $attributes->get("placeholder", "— brak —") }}"
             {{ $disabled ? "disabled" : "" }}
             {{ $attributes->merge([
-                "onkeyup" => $lookup ? "lookup(
+                "oninput" => $lookup ? "lookup(
                     '".($selectData['dataRoute'] ? route($selectData['dataRoute']) : null)."',
                     '".$selectData['dataRoute']."',
                     this.value
