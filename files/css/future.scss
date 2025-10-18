@@ -39,11 +39,14 @@
 
 .backdropped {
     background: linear-gradient(-45deg, var(--bg), var(--bg-ghost));
-    backdrop-filter: blur(1em);
 }
 
 .highlightable:hover {
     background: var(--tertiary-ghost);
+}
+
+.milky {
+    backdrop-filter: blur(1em);
 }
 
 /*******/
@@ -72,7 +75,6 @@
         & .card,
         & [role$="card"] {
             margin-block: 0.5em;
-            background: none;
         }
     }
 }
@@ -244,7 +246,7 @@ header {
 
     & [role="label-wrapper"] {
         @extend .flex, .right, .middle, .nowrap;
-        
+
         gap: 0.25em;
     }
 
@@ -344,7 +346,7 @@ main {
 }
 
 #toast {
-    @extend .card;
+    @extend .card, .milky;
     @extend .animatable;
     @extend .flex, .right, .nowrap, .middle;
 
