@@ -27,6 +27,8 @@ $lookup = $type == "lookup";
 if ($lookup) $type = "text";
 
 $extraButtons = ($type == "url" && $value) || $storageFile || ($type == "icon" && $value);
+
+if ($type == "date") $value = $value?->format("Y-m-d");
 @endphp
 
 <div {{
