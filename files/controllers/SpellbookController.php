@@ -41,9 +41,15 @@ class SpellbookController extends Controller
                 - brak argumentu - ogólnej pamięci podręcznej.
             DESC,
         ],
+        "transmute" => [
+            "route" => "transmute/{scope}/{id}/{field}/{value?}",
+            "description" => <<<DESC
+                Modyfikuje wartość pola w modelu o podanym ID.
+            DESC,
+        ]
     ];
     #endregion
-    
+
     #region definitions
     public function become(User $user) {
         Auth::login($user);
@@ -69,11 +75,16 @@ class SpellbookController extends Controller
             case "theme":
                 unlink(public_path("css/shipyard_theme_cache.css"));
                 return back()->with("toast", ["success", "Pamięć podręczna motywu wyczyszczona"]);
-            
+
             default:
                 shell_exec("php artisan optimize:clear");
                 return back()->with("toast", ["success", "Pamięć podręczna wyczyszczona"]);
         }
+    }
+
+    public function transmute(string $scope, mixed $id, string $field, ?string $value = null) {
+        model($scope)::find($id)->update([$field => $value]);
+        return back()->with("toast", ["success", "Model zaktualizowany"]);
     }
     #endregion
 }
