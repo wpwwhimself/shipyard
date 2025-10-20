@@ -1,15 +1,14 @@
 @props([
     "model",
     "fieldName",
-    "value" => null,
-    "checked" => null,
+    "dummy" => false,
 ])
 
 @php
 $fdata = $model::getFields()[$fieldName];
 @endphp
 
-<x-shipyard.ui.input :type="$fdata['type']"
+<x-shipyard.ui.input :type="($dummy ? 'dummy-' : '') . $fdata['type']"
     :name="$fieldName"
     :label="$fdata['label']"
     :icon="$fdata['icon']"

@@ -1,7 +1,6 @@
 @props([
     "model",
     "connectionName",
-    "value",
 ])
 
 @php
