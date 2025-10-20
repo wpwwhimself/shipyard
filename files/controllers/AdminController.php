@@ -240,7 +240,7 @@ class AdminController extends Controller
 
     public function listModel(string $scope): View
     {
-        if (!User::hasRole(model($scope)::META["role"] ?? null)) abort(403);
+        if (!Auth::user()?->hasRole(model($scope)::META["role"] ?? null)) abort(403);
 
         $meta = model($scope)::META;
         $data = model($scope)::forAdminList()
@@ -253,7 +253,7 @@ class AdminController extends Controller
     public function editModel(string $scope, int|string|null $id = null): View|RedirectResponse
     {
         if (
-            !User::hasRole(model($scope)::META["role"] ?? null)
+            !Auth::user()?->hasRole(model($scope)::META["role"] ?? null)
             && !($scope == "users" && Auth::id() == $id) // user can edit themself
         ) abort(403);
 
@@ -267,14 +267,14 @@ class AdminController extends Controller
                 "icon" => model_icon($con_scope),
                 "title" => model($con_scope)::META['label'],
                 "id" => "connections_$con_scope",
-                "show" => User::hasRole($con["role"] ?? null),
+                "show" => Auth::user()?->hasRole($con["role"] ?? null),
             ])
                 ->filter(fn ($con) => $con["show"])
                 ->toArray(),
         );
         $actions = model($scope)::getActions("edit");
 
-        if ($data?->is_uneditable && !User::hasRole("archmage")) {
+        if ($data?->is_uneditable && !Auth::user()?->hasRole("archmage")) {
             return redirect()->route("admin.model.list", ["model" => $scope])->with("toast", ["error", "Tego modelu nie można edytować"]);
         }
 
@@ -284,7 +284,7 @@ class AdminController extends Controller
     public function processEditModel(Request $rq, string $scope): RedirectResponse
     {
         if (
-            !User::hasRole(model($scope)::META["role"] ?? null)
+            !Auth::user()?->hasRole(model($scope)::META["role"] ?? null)
             && !($scope == "users" && Auth::id() == $rq->id) // user can edit themself
         ) abort(403);
 
@@ -422,7 +422,7 @@ class AdminController extends Controller
 
     public function apiGetModel(string $scope, ?int $id = null)
     {
-        if (!User::hasRole(model($scope)::META["role"] ?? null)) abort(403);
+        if (!Auth::user()?->hasRole(model($scope)::META["role"] ?? null)) abort(403);
 
         $data = ($id)
             ? model($scope)::find($id)

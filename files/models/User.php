@@ -153,16 +153,16 @@ class User extends Authenticatable
     #endregion
 
     #region helpers
-    public static function hasRole(?string $role, bool $and_is_not_archmage = false): bool
+    public function hasRole(?string $role, bool $and_is_not_archmage = false): bool
     {
         if (empty($role)) return true;
 
         $ret = false;
         foreach (explode("|", $role) as $r) {
-            $ret = $ret || Auth::user()->roles->contains(Role::find($r));
+            $ret = $ret || $this->roles->contains(Role::find($r));
         }
 
-        return $ret || (!$and_is_not_archmage && Auth::user()->roles->contains(Role::find("archmage")));
+        return $ret || (!$and_is_not_archmage && $this->roles->contains(Role::find("archmage")));
     }
     #endregion
 

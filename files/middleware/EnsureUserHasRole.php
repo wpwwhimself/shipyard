@@ -5,6 +5,7 @@ namespace App\Http\Middleware\Shipyard;
 use App\Models\Shipyard\User;
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
 class EnsureUserHasRole
@@ -17,7 +18,7 @@ class EnsureUserHasRole
     public function handle(Request $request, Closure $next, string $role): Response
     {
         if (empty($role)) $next($request);
-        if (!User::hasRole($role) && !User::hasRole("super")) {
+        if (!Auth::user()?->hasRole($role) && !Auth::user()?->hasRole("super")) {
             abort(403);
         }
 
