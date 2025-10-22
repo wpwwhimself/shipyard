@@ -69,7 +69,7 @@
                         :label="$sub_field['label']"
                         :hint="$sub_field['hint'] ?? null"
                         :icon="$sub_field['icon'] ?? null"
-                        :select-data="$sub_field['select_data'] ?? null"
+                        :select-data="$sub_field['selectData'] ?? null"
                         :value="$settings->find($sub_field['name'])->type == 'checkbox' ? null : setting($sub_field['name'])"
                         :checked="$settings->find($sub_field['name'])->type == 'checkbox' && setting($sub_field['name'])"
                     />
@@ -86,7 +86,7 @@
             :label="$field['label']"
             :hint="$field['hint'] ?? null"
             :icon="$field['icon'] ?? null"
-            :select-data="$field['select_data'] ?? null"
+            :select-data="$field['selectData'] ?? null"
             :value="$settings->find($field['name'])->type == 'checkbox' ? null : setting($field['name'])"
             :checked="$settings->find($field['name'])->type == 'checkbox' && setting($field['name'])"
         />

@@ -64,7 +64,7 @@ class AdminController extends Controller
                         "name" => "app_theme",
                         "label" => "Motyw",
                         "icon" => "palette-swatch",
-                        "select_data" => [
+                        "selectData" => [
                             "options" => [
                                 ["label" => "Origin", "value" => "origin",],
                                 ["label" => "Austerity", "value" => "austerity",],
@@ -176,7 +176,7 @@ class AdminController extends Controller
                         "label" => "Loginem jest",
                         "icon" => "badge-account",
                         "hint" => "Pole wykorzystywane do procesu logowania.",
-                        "select_data" => [
+                        "selectData" => [
                             "options" => [
                                 ["label" => "Nazwa użytkownika", "value" => "name",],
                                 ["label" => "Adres email", "value" => "email",],
@@ -293,7 +293,7 @@ class AdminController extends Controller
         foreach ($fields as $name => $fdata) {
             switch ($fdata["type"]) {
                 case "checkbox": $data[$name] ??= false; break;
-                case "JSON": $data[$name] = json_decode($data[$name], count($fdata["column-types"]) == 2); break;
+                case "JSON": $data[$name] = json_decode($data[$name], count($fdata["columnTypes"]) == 2); break;
             }
             if ($fdata["type"] == "checkbox") $data[$name] ??= false;
             if (($fdata["required"] ?? false) && ($data[$name] == "" || $data[$name] == null)) return back()->with("toast", ["error", "Pole $fdata[label] jest wymagane"]);

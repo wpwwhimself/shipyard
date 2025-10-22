@@ -24,7 +24,7 @@ trait HasStandardFields
             ],
             "visible" => (!Schema::hasColumn($table, "visible")) ? null : [
                 "type" => "select",
-                "select-data" => [
+                "selectData" => [
                     "options" => [
                         ["value" => 0, "label" => "nikt"],
                         ["value" => 1, "label" => "zalogowani"],

@@ -41,7 +41,7 @@ trait CanBeSorted
     {
         return array_keys(array_filter(self::getFields(), fn ($f) =>
             in_array($f["type"], ["text", "TEXT", "HTML"])
-            || $f["type"] == "JSON" && count($f["column-types"]) == 1 && current($f["column-types"]) == "text"
+            || $f["type"] == "JSON" && count($f["columnTypes"]) == 1 && current($f["columnTypes"]) == "text"
         ));
     }
 }

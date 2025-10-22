@@ -89,7 +89,7 @@ class Modal extends Model
         ],
         "fields" => [
             "type" => "JSON",
-            "column-types" => [ // for JSON
+            "columnTypes" => [ // for JSON
                 "Nazwa" => "text",
                 "Typ" => "select",
                 "Etykieta" => "text",

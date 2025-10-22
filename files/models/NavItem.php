@@ -92,7 +92,7 @@ class NavItem extends Model
         ],
         "target_type" => [
             "type" => "select",
-            "select-data" => [
+            "selectData" => [
                 "options" => [
                     ["value" => 0, "label" => "Strona standardowa"],
                     ["value" => 1, "label" => "Link wewnętrzny"],
@@ -112,7 +112,7 @@ class NavItem extends Model
         ],
         "target_params" => [
             "type" => "JSON",
-            "column-types" => [
+            "columnTypes" => [
                 "Nazwa" => "string",
                 "Wartość" => "string",
             ],
