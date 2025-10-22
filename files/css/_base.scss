@@ -345,7 +345,7 @@ hr {
     --icon-size: 1.5em;
     width: var(--icon-size);
     height: var(--icon-size);
-    vertical-align: middle;
+    vertical-align: -0.4em;
 
     &.large {
         height: 3em;
