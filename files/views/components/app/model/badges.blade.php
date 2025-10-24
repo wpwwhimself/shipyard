@@ -2,7 +2,7 @@
     "badges" => [],
 ])
 
-<div role="model-badges">
+<span role="model-badges">
     @foreach ($badges as $badge)
     @unless ($badge["condition"] ?? true) @continue @endunless
 
@@ -16,4 +16,4 @@
     
     @endisset
     @endforeach
-</div>
+</span>
