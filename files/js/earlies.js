@@ -168,6 +168,24 @@ function JSONInputWatchForConfirm(input_name, ev) {
 }
 // #endregion
 
+// #region select inputs
+function initSelect(name) {
+    const input = document.querySelector(`[name='${name}']`);
+    const dropdown = new Choices(input, {
+        itemSelectText: null,
+        noResultsText: "Brak wyników",
+        shouldSort: false,
+        removeItemButton: true,
+        searchFields: ["label"],
+        searchResultLimit: -1,
+        fuseOptions: {
+            ignoreLocation: true,
+            treshold: 0,
+        },
+    });
+}
+// #endregion
+
 // #region lookup
 let debounce_timer;
 

@@ -13,6 +13,7 @@
     --error: rgb(215, 61, 61);
     --danger: rgb(255, 107, 8);
 
+    --font-size: 12px;
     --margin-size: 1em;
 }
 
@@ -51,6 +52,42 @@ h1, h2, h3, h4, h5, h6, p {
     margin: 0.75em 0 0.5em;
 }
 
+.choices {
+    margin-bottom: 0 !important;
+    font-size: var(--font-size) !important;
+
+    & .choices__inner {
+        background: none !important;
+        border: none !important;
+        min-height: unset !important;
+        padding: 0 !important;
+        font-size: inherit !important;
+    }
+
+    & .choices__list,
+    & .choices__input {
+        background-color: var(--bg) !important;
+        font-size: inherit !important;
+    }
+
+    & .choices__list {
+        border: none !important;
+    }
+
+    &[data-type="select-one"] .choices__input {
+        border-color: var(--tertiary) !important;
+    }
+
+    & .is-highlighted {
+        background-color: var(--tertiary-ghost) !important;
+    }
+
+    & .choices__button,
+    & .choices__list--multiple .choices__item {
+        background-color: var(--tertiary) !important;
+    }
+}
+
 /******************** layout *******************/
 
 body, #app {
@@ -65,7 +102,7 @@ body, #app {
 
 body {
     font-family: var(--base-font);
-    font-size: 12px;
+    font-size: var(--font-size);
 
     & h1, & h2, & h3, & h4, & h5, & h6 {
         font-family: var(--heading-font), sans-serif;

@@ -158,10 +158,10 @@ if ($type == "date") $value = $value?->format("Y-m-d");
         @case ("select")
             @php
             if (isset($selectData["optionsFromScope"])) {
-                [$model, $scope, $label, $value] = $selectData["optionsFromScope"];
+                [$model, $scope, $option_label, $option_value] = $selectData["optionsFromScope"];
                 $selectData["options"] = $model::$scope()->get()->map(fn ($i) => [
-                    "label" => $i->{$label},
-                    "value" => $i->{$value},
+                    "label" => $i->{$option_label},
+                    "value" => $i->{$option_value},
                 ])->toArray();
             }
             @endphp
@@ -190,12 +190,18 @@ if ($type == "date") $value = $value?->format("Y-m-d");
                 @isset ($selectData["emptyOption"]) <option value="">– {{ ($selectData["emptyOption"] === true) ? "brak" : $selectData["emptyOption"] }} –</option> @endisset
                 @foreach ($selectData["options"] ?? [] as ["value" => $opt_val, "label" => $opt_label])
                 <option value="{{ $opt_val }}"
-                    @if ($opt_val == $value) selected @endif
+                    @if (is_array($value)
+                        ? collect($value)->contains($opt_val)
+                        : $opt_val == $value
+                    ) selected @endif
                 >
                     {{ $opt_label }}
                 </option>
                 @endforeach
             </select>
+            <script>
+            initSelect("{{ $name }}");
+            </script>
             @endif
         @break
 
