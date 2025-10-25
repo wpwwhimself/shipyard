@@ -26,7 +26,7 @@
             onclick="lookupSelect('{{ $fieldName }}', '{{ $d['id'] }}')"
         >
             @foreach ($d as $col)
-            <td>{{ $col }}</td>
+            <td>{!! $col !!}</td>
             @endforeach
             <td>
                 <div class="input-container">

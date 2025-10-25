@@ -207,7 +207,10 @@ function lookup(lookupUrl, lookupRoute, query = "") {
                 results.innerHTML = html;
             })
             .catch(err => console.error(err))
-            .finally(() => loader.classList.add("hidden"));
+            .finally(() => {
+                loader.classList.add("hidden");
+                reapplyPopper();
+            });
     }, 0.3e3);
 }
 
