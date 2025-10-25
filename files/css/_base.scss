@@ -64,14 +64,9 @@ h1, h2, h3, h4, h5, h6, p {
         font-size: inherit !important;
     }
 
-    & .choices__list,
     & .choices__input {
         background-color: var(--bg) !important;
         font-size: inherit !important;
-    }
-
-    & .choices__list {
-        border: none !important;
     }
 
     &[data-type="select-one"] .choices__input {
