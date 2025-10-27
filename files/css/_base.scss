@@ -64,7 +64,8 @@ h1, h2, h3, h4, h5, h6, p {
         font-size: inherit !important;
     }
 
-    & .choices__input {
+    & .choices__input,
+    & .choices__list--dropdown {
         background-color: var(--bg) !important;
         font-size: inherit !important;
     }
