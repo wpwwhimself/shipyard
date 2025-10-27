@@ -224,7 +224,7 @@ form, form > [role="fields"] {
 footer,
 header {
     @extend .card, .tile;
-    @extend .flex, .right, .but-mobile-down,.spread, .middle;
+    @extend .flex, .right, .but-mobile-down, .spread, .middle;
 }
 
 .input-container {

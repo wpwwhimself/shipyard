@@ -1,7 +1,11 @@
-@foreach (\App\Models\Shipyard\NavItem::visible()->get() as $page)
+@php
+$pages = \App\Models\Shipyard\NavItem::visible()->get();
+@endphp
+
+@foreach ($pages as $page)
 <x-shipyard.ui.button
     :icon="$page->icon"
-    :label="$page->name"
+    :pop="$page->name"
     :action="$page->action"
     :show-for="$page->roles->pluck('name')->join('|') ?: null"
 />
