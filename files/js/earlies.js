@@ -184,6 +184,15 @@ function initSelect(name) {
         },
     });
 }
+
+function reinitSelect() {
+    document.querySelectorAll(`.input-container select`).forEach(input => {
+        if (input.classList.contains("choices__input")) {
+            return;
+        }
+        initSelect(input.name);
+    });
+}
 // #endregion
 
 // #region lookup
@@ -210,6 +219,7 @@ function lookup(lookupUrl, lookupRoute, query = "") {
             .finally(() => {
                 loader.classList.add("hidden");
                 reapplyPopper();
+                reinitSelect();
             });
     }, 0.3e3);
 }

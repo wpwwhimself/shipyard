@@ -59,3 +59,7 @@ if (styleElement) {
     });
 }
 //#endregion
+
+// #region initialize choices
+reinitSelect();
+// #endregion

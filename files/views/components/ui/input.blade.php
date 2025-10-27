@@ -199,9 +199,6 @@ if ($type == "date") $value = $value?->format("Y-m-d");
                 </option>
                 @endforeach
             </select>
-            <script>
-            initSelect("{{ $name }}");
-            </script>
             @endif
         @break
 
