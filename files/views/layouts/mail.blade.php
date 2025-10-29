@@ -1,4 +1,4 @@
-@extends("layouts.shipyard.base")
+@extends("layouts.shipyard.simple")
 
 @section("body")
 
@@ -18,7 +18,7 @@
 
 <x-shipyard.app.big.footer>
     <x-slot:bottom>
-        <x-shipyard.app.app-badge />
+        <x-shipyard.mail.app-badge />
     </x-slot:bottom>
 </x-shipyard.app.big.footer>
 
