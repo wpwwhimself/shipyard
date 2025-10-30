@@ -48,9 +48,23 @@ composer require wpwwhimself/shipyard
 
 1. In a joint folder, clone this repository into `shipyard` subfolder
 2. Install Laravel app in a `app` subfolder
-3. Add Composer settings
+3. Add Composer settings:
+```json
+{
+    ...
+    "repositories": {
+        "shipyard": {
+            "type": "path",
+            "url": "../shipyard",
+            "options": {
+                "symlink": true
+            }
+        }
+    },
+    ...
+}
+```
 4. Add Composer env variables to load shipyard locally and install package:
 ```
-composer config repositories.shipyard path ../shipyard
 composer require wpwwhimself/shipyard:dev-main
 ```
