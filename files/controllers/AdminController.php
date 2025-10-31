@@ -61,70 +61,10 @@ class AdminController extends Controller
                 "id" => "theme",
                 "fields" => [
                     [
-                        "name" => "app_theme",
-                        "label" => "Motyw",
-                        "icon" => "palette-swatch",
-                        "selectData" => [
-                            "options" => [
-                                ["label" => "Origin", "value" => "origin",],
-                                ["label" => "Austerity", "value" => "austerity",],
-                                ["label" => "Future", "value" => "future",],
-                            ],
-                        ],
-                    ],
-                    [
                         "name" => "app_adaptive_dark_mode",
                         "label" => "Automatyczny tryb ciemny",
                         "icon" => "theme-light-dark",
                         "hint" => "Automatycznie ustawia tryb ciemny aplikacji w zależności od ustawień przeglądarki/systemu. Jeśli opcja jest wyłączona, tryb ciemny może zostać włączony ręcznie za pomocą odpowiedniego przycisku na dole strony.",
-                    ],
-                    [
-                        "subsection_title" => "Kolory akcentu",
-                        "subsection_icon" => "format-paint",
-                        "columns" => [
-                            [
-                                "subsection_title" => "Tryb jasny",
-                                "subsection_icon" => "white-balance-sunny",
-                                "fields" => [
-                                    [
-                                        "name" => "app_accent_color_1_light",
-                                        "label" => "Podstawowy",
-                                        "icon" => "numeric-1",
-                                    ],
-                                    [
-                                        "name" => "app_accent_color_2_light",
-                                        "label" => "Drugorzędny",
-                                        "icon" => "numeric-2",
-                                    ],
-                                    [
-                                        "name" => "app_accent_color_3_light",
-                                        "label" => "Trzeciorzędny",
-                                        "icon" => "numeric-3",
-                                    ],
-                                ],
-                            ],
-                            [
-                                "subsection_title" => "Tryb ciemny",
-                                "subsection_icon" => "moon-waning-crescent",
-                                "fields" => [
-                                    [
-                                        "name" => "app_accent_color_1_dark",
-                                        "label" => "Podstawowy",
-                                        "icon" => "numeric-1",
-                                    ],
-                                    [
-                                        "name" => "app_accent_color_2_dark",
-                                        "label" => "Drugorzędny",
-                                        "icon" => "numeric-2",
-                                    ],
-                                    [
-                                        "name" => "app_accent_color_3_dark",
-                                        "label" => "Trzeciorzędny",
-                                        "icon" => "numeric-3",
-                                    ],
-                                ],
-                            ],
-                        ],
                     ],
                 ],
             ],

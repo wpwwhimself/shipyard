@@ -14,8 +14,22 @@
         <link rel="icon" href="{{ setting("app_favicon_path") ?? setting("app_logo_path") }}">
 
         {{-- 💄 styles 💄 --}}
-        <link rel="stylesheet" href="{{ asset("css/identity.css") }}">
         <style>
+        @import url("{{ \App\ShipyardTheme::FONT_IMPORT_URL }}");
+
+        :root {
+            @foreach (\App\ShipyardTheme::FONTS as $type => $fonts)
+            --{{ $type }}-font: {!! implode(", ", array_map(fn ($f) => "\"$f\"", $fonts)) !!};
+            @endforeach
+
+            @foreach (\App\ShipyardTheme::getColors() as $name => $color)
+            --{{ $name }}: {!! $color !!};
+            @endforeach
+            @foreach (\App\ShipyardTheme::getGhostColors() as $name => $color)
+            --{{ $name }}-ghost: {!! $color !!};
+            @endforeach
+        }
+
         body {
             @if (setting("app_adaptive_dark_mode"))
             color-scheme: light dark;
@@ -52,16 +66,8 @@
         }
         </style>
         <style id="shipyard-styles" type="text/x-scss">
-:root {
-    --primary: light-dark({{ setting("app_accent_color_1_light") }}, {{ setting("app_accent_color_1_dark") }});
-    --secondary: light-dark({{ setting("app_accent_color_2_light") }}, {{ setting("app_accent_color_2_dark") }});
-    --tertiary: light-dark({{ setting("app_accent_color_3_light") }}, {{ setting("app_accent_color_3_dark") }});
-    --primary-ghost: light-dark({{ setting("app_accent_color_1_light") }}77, {{ setting("app_accent_color_1_dark") }}77);
-    --secondary-ghost: light-dark({{ setting("app_accent_color_2_light") }}77, {{ setting("app_accent_color_2_dark") }}77);
-    --tertiary-ghost: light-dark({{ setting("app_accent_color_3_light") }}77, {{ setting("app_accent_color_3_dark") }}77);
-}
 {!! file_get_contents(public_path("css/Shipyard/_base.scss")) !!}
-{!! file_get_contents(public_path("css/Shipyard/".setting("app_theme").".scss")) !!}
+{!! file_get_contents(public_path("css/Shipyard/".\App\ShipyardTheme::THEME.".scss")) !!}
         </style>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/sass.js/0.11.1/sass.sync.min.js"></script>
         @endif
