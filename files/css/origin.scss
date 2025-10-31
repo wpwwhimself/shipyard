@@ -254,7 +254,7 @@ header {
 
     & [role="label-wrapper"] {
         @extend .flex, .right, .middle, .nowrap;
-        
+
         gap: 0.25em;
     }
 
@@ -337,6 +337,18 @@ main {
 }
 [role="subtitle"] {
     font-size: 1em;
+}
+
+.section {
+    @extend .card, .tile;
+
+    & > .header {
+        @extend .flex, .right, .middle, .spread;
+
+        & > .titles {
+            @extend .flex, .right, .middle;
+        }
+    }
 }
 
 .stat-tile {

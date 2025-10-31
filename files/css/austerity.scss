@@ -361,6 +361,18 @@ main {
     font-size: 1em;
 }
 
+.section {
+    @extend .tile;
+
+    & > .header {
+        @extend .flex, .right, .middle, .spread;
+
+        & > .titles {
+            @extend .flex, .right, .middle;
+        }
+    }
+}
+
 .tag {
     @extend .rounded;
 

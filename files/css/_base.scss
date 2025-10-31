@@ -486,6 +486,50 @@ search {
     }
 }
 
+.section {
+    --eb-space: 0.5em;
+    --eb-border: 1px solid var(--bg-lite);
+
+    .grid > & {
+        align-self: baseline;
+    }
+
+    & .hidden{
+        display: none;
+    }
+
+    & .header{
+        align-items: center;
+        flex-wrap: nowrap;
+
+        & .titles{
+            align-items: baseline;
+            text-align: left;
+        }
+        & .right-side{
+            align-self: flex-start;
+        }
+    }
+    & .body{
+        justify-content: space-evenly;
+        align-items: center;
+        border-radius: 0;
+        gap: 1em;
+
+        &:not(:first-child){
+            padding-top: var(--eb-space);
+            margin-top: var(--eb-space);
+            border-top: var(--eb-border);
+        }
+    }
+}
+
+@media screen and (max-width: 550px){
+    .grid > .extendo-block {
+        align-self: auto;
+    }
+}
+
 .stagger {
     --stagger-index: 0;
     transition:

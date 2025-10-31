@@ -331,6 +331,18 @@ main {
     font-size: 1em;
 }
 
+.section {
+    @extend .card, .tile;
+
+    & > .header {
+        @extend .flex, .right, .middle, .spread;
+
+        & > .titles {
+            @extend .flex, .right, .middle;
+        }
+    }
+}
+
 .stat-tile {
     @extend .tile;
 }
