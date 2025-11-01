@@ -14,15 +14,21 @@
 
         {{-- 💄 styles 💄 --}}
         <style>
-        {!! file_get_contents(public_path("css/identity.css")) !!}
+        @import url("{{ \App\ShipyardTheme::FONT_IMPORT_URL }}");
+
         :root {
-            --primary: light-dark({{ setting("app_accent_color_1_light") }}, {{ setting("app_accent_color_1_dark") }});
-            --secondary: light-dark({{ setting("app_accent_color_2_light") }}, {{ setting("app_accent_color_2_dark") }});
-            --tertiary: light-dark({{ setting("app_accent_color_3_light") }}, {{ setting("app_accent_color_3_dark") }});
-            --primary-ghost: light-dark({{ setting("app_accent_color_1_light") }}77, {{ setting("app_accent_color_1_dark") }}77);
-            --secondary-ghost: light-dark({{ setting("app_accent_color_2_light") }}77, {{ setting("app_accent_color_2_dark") }}77);
-            --tertiary-ghost: light-dark({{ setting("app_accent_color_3_light") }}77, {{ setting("app_accent_color_3_dark") }}77);
+            @foreach (\App\ShipyardTheme::FONTS as $type => $fonts)
+            --{{ $type }}-font: {!! implode(", ", array_map(fn ($f) => "\"$f\"", $fonts)) !!};
+            @endforeach
+
+            @foreach (\App\ShipyardTheme::getColors() as $name => $color)
+            --{{ $name }}: {!! $color !!};
+            @endforeach
+            @foreach (\App\ShipyardTheme::getGhostColors() as $name => $color)
+            --{{ $name }}-ghost: {!! $color !!};
+            @endforeach
         }
+
         #app-badge {
             & h2 {
                 margin: 0;
