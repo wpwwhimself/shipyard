@@ -15,7 +15,7 @@
 
         {{-- 💄 styles 💄 --}}
         <style>
-        @import url("{{ \App\ShipyardTheme::FONT_IMPORT_URL }}");
+        @import url("{!! \App\ShipyardTheme::FONT_IMPORT_URL !!}");
 
         :root {
             @foreach (\App\ShipyardTheme::FONTS as $type => $fonts)
