@@ -14,19 +14,12 @@
 
         {{-- 💄 styles 💄 --}}
         <style>
-        @import url("{{ \App\ShipyardTheme::FONT_IMPORT_URL }}");
+        {!! \App\ShipyardTheme::getFontImportUrl() !!}
 
         :root {
-            @foreach (\App\ShipyardTheme::FONTS as $type => $fonts)
-            --{{ $type }}-font: {!! implode(", ", array_map(fn ($f) => "\"$f\"", $fonts)) !!};
-            @endforeach
-
-            @foreach (\App\ShipyardTheme::getColors() as $name => $color)
-            --{{ $name }}: {!! $color !!};
-            @endforeach
-            @foreach (\App\ShipyardTheme::getGhostColors() as $name => $color)
-            --{{ $name }}-ghost: {!! $color !!};
-            @endforeach
+            {!! \App\ShipyardTheme::getColors() !!}
+            {!! \App\ShipyardTheme::getGhostColors() !!}
+            {!! \App\ShipyardTheme::getFonts() !!}
         }
 
         #app-badge {

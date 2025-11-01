@@ -15,19 +15,12 @@
 
         {{-- 💄 styles 💄 --}}
         <style>
-        @import url("{!! \App\ShipyardTheme::FONT_IMPORT_URL !!}");
+        {!! \App\ShipyardTheme::getFontImportUrl() !!}
 
         :root {
-            @foreach (\App\ShipyardTheme::FONTS as $type => $fonts)
-            --{{ $type }}-font: {!! implode(", ", array_map(fn ($f) => "\"$f\"", $fonts)) !!};
-            @endforeach
-
-            @foreach (\App\ShipyardTheme::getColors() as $name => $color)
-            --{{ $name }}: {!! $color !!};
-            @endforeach
-            @foreach (\App\ShipyardTheme::getGhostColors() as $name => $color)
-            --{{ $name }}-ghost: {!! $color !!};
-            @endforeach
+            {!! \App\ShipyardTheme::getColors() !!}
+            {!! \App\ShipyardTheme::getGhostColors() !!}
+            {!! \App\ShipyardTheme::getFonts() !!}
         }
 
         :root {
@@ -67,7 +60,7 @@
         </style>
         <style id="shipyard-styles" type="text/x-scss">
 {!! file_get_contents(public_path("css/Shipyard/_base.scss")) !!}
-{!! file_get_contents(public_path("css/Shipyard/".\App\ShipyardTheme::THEME.".scss")) !!}
+{!! file_get_contents(public_path("css/Shipyard/".\App\ShipyardTheme::getTheme().".scss")) !!}
         </style>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/sass.js/0.11.1/sass.sync.min.js"></script>
         @endif

@@ -61,6 +61,9 @@ class InstallCommand extends Command
         $this->comment("- styles...");
         $this->tryLink(__DIR__.'/../../files/css', base_path("public/css/Shipyard"));
         $this->tryCreateEmptyFile(base_path("public/css/app.css"));
+
+        $this->comment("- theme...");
+        $this->tryLink(__DIR__.'/../../files/theme', base_path("app/Theme/Shipyard"));
         $this->tryCopy(__DIR__.'/../../files/ShipyardTheme.php', base_path("app/ShipyardTheme.php"), true);
 
         $this->comment("- scripts...");

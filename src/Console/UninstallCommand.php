@@ -67,6 +67,9 @@ class UninstallCommand extends Command
 
         $this->comment("- styles...");
         $this->tryDelete(base_path("public/css/Shipyard"));
+
+        $this->comment("- theme...");
+        $this->tryDelete(base_path("app/Theme/Shipyard"));
         $this->tryDelete(base_path("app/ShipyardTheme.php"));
 
         $this->comment("- scripts...");
