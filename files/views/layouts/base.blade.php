@@ -30,12 +30,12 @@
             @endforeach
         }
 
-        body {
+        :root {
             @if (setting("app_adaptive_dark_mode"))
             color-scheme: light dark;
             @else
             color-scheme: light;
-            &.dark {
+            &:has(body.dark) {
                 color-scheme: dark;
             }
             @endif
