@@ -1,7 +1,6 @@
 <?php
 
-use App\Models\Shipyard\LocalSetting;
-use App\Models\Shipyard\Setting;
+use App\Models\Setting;
 use Illuminate\Support\Str;
 
 /**
@@ -21,14 +20,6 @@ function app_lifetime(): string
 function nullif(string $value, bool $condition): string|null
 {
     return $condition ? $value : null;
-}
-
-/**
- * retrieve local setting
- */
-function local_setting(string $key, $default = null): ?string
-{
-    return LocalSetting::get($key, $default);
 }
 
 /**
