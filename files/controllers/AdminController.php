@@ -151,8 +151,6 @@ class AdminController extends Controller
             $setting->update(["value" => $value]);
         }
 
-        ThemeController::_reset();
-
         return redirect()->route("admin.system-settings")->with("toast", ["success", "Zapisano"]);
     }
     #endregion
