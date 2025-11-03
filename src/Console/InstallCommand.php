@@ -8,12 +8,14 @@ use Illuminate\Support\Str;
 
 class InstallCommand extends Command
 {
+    private const PACKAGE_INFO_PATH = "storage/framework/cache/shipyard.json";
+
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'shipyard:install';
+    protected $signature = 'shipyard:install {--force}';
 
     /**
      * The console command description.
@@ -29,7 +31,29 @@ class InstallCommand extends Command
      */
     public function handle()
     {
+        $old_package_info = json_decode(
+            @file_get_contents(base_path(self::PACKAGE_INFO_PATH)),
+            true
+        ) ?? [];
+        $old_version = $old_package_info["version"] ?? null;
+        $new_package_info = json_decode(shell_exec("composer show wpwwhimself/shipyard --format=json"), true);
+        $new_version = current($new_package_info["versions"]);
+
+        if ($old_version == $new_version && $this->option("force") === false) {
+            $this->info("⚓ Shipyard is already installed and up to date. \n Use --force to force an update.");
+            return Command::SUCCESS;
+        }
+
         $this->info("⚓ Shipyard will now be installed. Hang tight...");
+
+        #region version cache
+        file_put_contents(
+            base_path(self::PACKAGE_INFO_PATH),
+            json_encode([
+                "version" => $new_version,
+            ])
+        );
+        #endregion
 
         #region copying
         $this->info("📨 Copying...");
@@ -65,6 +89,7 @@ class InstallCommand extends Command
         $this->comment("- theme...");
         $this->tryLink(__DIR__.'/../../files/theme', base_path("app/Theme/Shipyard"));
         $this->tryCopy(__DIR__.'/../../files/ShipyardTheme.php', base_path("app/ShipyardTheme.php"), true);
+        @unlink(base_path("public/css/shipyard_theme_cache.css"));
 
         $this->comment("- scripts...");
         $this->tryLink(__DIR__.'/../../files/js', base_path("public/js/Shipyard"));
