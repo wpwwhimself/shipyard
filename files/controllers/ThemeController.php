@@ -44,4 +44,10 @@ class ThemeController extends Controller
     public static function _reset() {
         unlink(public_path("css/shipyard_theme_cache.css"));
     }
+
+    #region test pages
+    public function testTheme() {
+        return view("pages.shipyard.test.theme");
+    }
+    #endregion
 }

@@ -108,8 +108,14 @@ Route::controller(SpellbookController::class)->middleware(EnsureUserHasRole::cla
 #endregion
 
 #region styles
-Route::controller(ThemeController::class)->prefix("api/theme")->group(function () {
-    Route::post("cache", "cache");
-    Route::post("reset", "reset");
+Route::controller(ThemeController::class)->group(function () {
+    Route::prefix("theme")->middleware(EnsureUserHasRole::class.":spellcaster")->group(function () {
+        Route::get("test", "testTheme");
+    });
+    
+    Route::prefix("api/theme")->group(function () {
+        Route::post("cache", "cache");
+        Route::post("reset", "reset");
+    });
 });
 #endregion
