@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
+    public const NOLOGIN_LOGIN_PART_LENGTH = 4;
+
     #region login
     public function login()
     {
@@ -24,8 +26,9 @@ class AuthController extends Controller
         $credentials = $rq->only(["name", "email", "password"]);
 
         if (setting("users_login_is") == "none") {
-            $user = User::all()->firstWhere(fn ($u) => Hash::check($rq->password, $u->password));
-            
+            // this form uses one string as both login and password - login is extracted from part of the password
+            $user = User::where("name", substr($credentials["password"], 0, self::NOLOGIN_LOGIN_PART_LENGTH))->first();
+                        
             if ($user) {
                 $credentials = ["name" => $user->name, "email" => $user->email, "password" => $rq->password];
             }

@@ -7,7 +7,7 @@
     title="Dane użytkownika"
     :icon="model_icon('users')"
 >
-    <p>Zalogowano jako {{ Auth::user()->name }}</p>
+    <p>Zalogowano jako {{ Auth::user() }}</p>
 
     <x-shipyard.app.h lvl="3" :icon="model_icon('roles')">Role w systemie</x-shipyard.app.h>
     <ul>
