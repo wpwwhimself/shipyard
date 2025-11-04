@@ -300,6 +300,12 @@ code, pre {
     border-radius: 0.5em;
 }
 
+#corner-logo {
+    position: fixed;
+    left: 1em; top: 1em;
+    z-index: 1000;
+}
+
 .flex {
     display: flex;
     flex-wrap: wrap;
@@ -450,6 +456,10 @@ hr {
 
 main {
     flex-grow: 1;
+}
+
+#middle-wrapper {
+    padding-block: 1em;
 }
 
 #modal {
