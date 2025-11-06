@@ -37,8 +37,13 @@ class InstallCommand extends Command
             true
         ) ?? [];
         $old_version = $old_package_info["version"] ?? null;
-        $new_package_info = json_decode(shell_exec("composer show wpwwhimself/shipyard --format=json"), true);
-        $new_version = current($new_package_info["versions"]);
+        try {
+            $new_package_info = json_decode(shell_exec(env("COMPOSER_PATH", "composer")." show wpwwhimself/shipyard --format=json"), true);
+            $new_version = current($new_package_info["versions"]);
+        } catch (\Throwable $th) {
+            $this->error("🚨 Cannot establish incoming Shipyard version. Check env: COMPOSER_PATH");
+            $new_version = null;
+        }
 
         if ($old_version == $new_version && $this->option("force") === false) {
             $this->info("⚓ Shipyard is already installed and up to date. \n Use --force to force an update.");
