@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Shipyard;
 
 use App\Http\Controllers\Controller;
+use App\ShipyardTheme;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 
 class ThemeController extends Controller
@@ -19,7 +21,7 @@ class ThemeController extends Controller
             ], 409);
         }
 
-        file_put_contents(public_path("css/shipyard_theme_cache.css"), $rq->get("css"));
+        self::_cache();
 
         return response()->json([
             "message" => "Cache file created",
@@ -33,7 +35,7 @@ class ThemeController extends Controller
                 "message" => "Cache file not found",
             ], 404);
         }
-        
+
         self::_reset();
 
         return response()->json([
@@ -41,9 +43,31 @@ class ThemeController extends Controller
         ]);
     }
 
-    public static function _reset() {
-        unlink(public_path("css/shipyard_theme_cache.css"));
+    #region helpers
+    public static function _cache()
+    {
+        $styles = implode("\n", [
+            file_get_contents(public_path("css/Shipyard/_base.scss")),
+            file_get_contents(public_path("css/Shipyard/".\App\ShipyardTheme::getTheme().".scss")),
+        ]);
+
+        $ready_css = Http::timeout(120)
+            ->post("https://sasscompiler.wpww.pl/compile-scss", [
+                "scss" => $styles,
+            ])
+            ->throwUnlessStatus(200)
+            ->body();
+
+        file_put_contents(public_path("css/shipyard_theme_cache.css"), $ready_css);
+
+        return 0;
     }
+
+    public static function _reset() {
+        @unlink(public_path("css/shipyard_theme_cache.css"));
+        self::_cache();
+    }
+    #endregion
 
     #region test pages
     public function testTheme() {

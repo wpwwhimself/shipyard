@@ -53,7 +53,7 @@ class SpellbookController extends Controller
     #region definitions
     public function become(User $user) {
         Auth::login($user);
-        return back()->with("toast", ["success", "Jesteś teraz: $user->name"]);
+        return redirect("/")->with("toast", ["success", "Jesteś teraz: $user->name"]);
     }
 
     public function invokeBook() {
@@ -67,24 +67,24 @@ class SpellbookController extends Controller
 
     public function obliterate(string $scope, mixed $id) {
         model($scope)::find($id)->delete();
-        return back()->with("toast", ["success", "Model usunięty"]);
+        return redirect()->route("admin.model.list", ["model" => $scope])->with("toast", ["success", "Model usunięty"]);
     }
 
     public function obliviate(?string $scope = null) {
         switch ($scope) {
             case "theme":
-                unlink(public_path("css/shipyard_theme_cache.css"));
-                return back()->with("toast", ["success", "Pamięć podręczna motywu wyczyszczona"]);
+                ThemeController::_reset();
+                return redirect("/")->with("toast", ["success", "Pamięć podręczna motywu wyczyszczona"]);
 
             default:
                 shell_exec("php artisan optimize:clear");
-                return back()->with("toast", ["success", "Pamięć podręczna wyczyszczona"]);
+                return redirect("/")->with("toast", ["success", "Pamięć podręczna wyczyszczona"]);
         }
     }
 
     public function transmute(string $scope, mixed $id, string $field, ?string $value = null) {
         model($scope)::find($id)->update([$field => $value]);
-        return back()->with("toast", ["success", "Model zaktualizowany"]);
+        return redirect()->route("admin.model.edit", ["model" => $scope, "id" => $id])->with("toast", ["success", "Model zaktualizowany"]);
     }
     #endregion
 }

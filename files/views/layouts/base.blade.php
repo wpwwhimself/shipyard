@@ -36,33 +36,6 @@
         </style>
         @if (file_exists(public_path("css/shipyard_theme_cache.css")))
         <link rel="stylesheet" href="{{ asset("css/shipyard_theme_cache.css") }}">
-        @else
-        <style>
-        #theme-loader {
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            z-index: 9999;
-
-            background: black;
-            color: white;
-            font-family: var(--heading-font);
-
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-
-            & > img {
-                height: 5em;
-            }
-        }
-        </style>
-        <style id="shipyard-styles" type="text/x-scss">
-{!! file_get_contents(public_path("css/Shipyard/_base.scss")) !!}
-{!! file_get_contents(public_path("css/Shipyard/".\App\ShipyardTheme::getTheme().".scss")) !!}
-        </style>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/sass.js/0.11.1/sass.sync.min.js"></script>
         @endif
         <link rel="stylesheet" href="{{ asset("css/app.css") }}">
         {{-- 💄 styles 💄 --}}
@@ -98,13 +71,6 @@
         @endif
     </head>
     <body>
-        <div id="theme-loader">
-            @if (setting("app_logo_path"))
-            <img src="{{ asset(setting("app_logo_path")) }}" alt="{{ setting("app_name") }}">
-            @endif
-            Poczekaj, wczytujemy wygląd strony...
-        </div>
-
         @if (!setting("app_adaptive_dark_mode"))
         <script>
         if (localStorage.getItem("theme") == "dark") toggleTheme()

@@ -2,6 +2,7 @@
 
 namespace Wpwwhimself\Shipyard\Console;
 
+use App\Http\Controllers\Shipyard\ThemeController;
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Str;
@@ -89,7 +90,6 @@ class InstallCommand extends Command
         $this->comment("- theme...");
         $this->tryLink(__DIR__.'/../../files/theme', base_path("app/Theme/Shipyard"));
         $this->tryCopy(__DIR__.'/../../files/ShipyardTheme.php', base_path("app/ShipyardTheme.php"), true);
-        @unlink(base_path("public/css/shipyard_theme_cache.css"));
 
         $this->comment("- scripts...");
         $this->tryLink(__DIR__.'/../../files/js', base_path("public/js/Shipyard"));
@@ -149,6 +149,9 @@ class InstallCommand extends Command
         #region installing
         $this->info("📭 Installing...");
         $this->call("migrate", ["--force" => true]);
+
+        $this->info("💄 Caching theme...");
+        ThemeController::_reset();
         #endregion
 
         $this->info("✅ Shipyard is ready!");
