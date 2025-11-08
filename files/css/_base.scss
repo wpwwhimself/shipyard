@@ -515,6 +515,10 @@ search {
         & .titles{
             align-items: baseline;
             text-align: left;
+
+            & > * {
+                margin: 0;
+            }
         }
         & .right-side{
             align-self: flex-start;
