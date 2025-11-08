@@ -28,7 +28,9 @@ if ($lookup) $type = "text";
 
 $extraButtons = ($type == "url" && $value) || $storageFile || ($type == "icon" && $value);
 
-if ($type == "date") $value = $value?->format("Y-m-d");
+if ($type == "date") $value = ($value)
+    ? Carbon\Carbon::parse($value)->format("Y-m-d")
+    : null;
 @endphp
 
 <div {{
