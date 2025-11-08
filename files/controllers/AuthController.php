@@ -28,7 +28,7 @@ class AuthController extends Controller
         if (setting("users_login_is") == "none") {
             // this form uses one string as both login and password - login is extracted from part of the password
             $user = User::where("name", substr($credentials["password"], 0, self::NOLOGIN_LOGIN_PART_LENGTH))->first();
-                        
+
             if ($user) {
                 $credentials = ["name" => $user->name, "email" => $user->email, "password" => $rq->password];
             }
@@ -134,6 +134,7 @@ class AuthController extends Controller
                 $rq->only('email', 'password', 'password_confirmation', 'token'),
                 function (User $user, string $password) {
                     $user->forceFill([
+                        'name' => (setting("users_login_is") == "none") ? $user->name : substr($password, 0, self::NOLOGIN_LOGIN_PART_LENGTH),
                         'password' => Hash::make($password)
                     ]);
                     $user->save();
@@ -145,6 +146,7 @@ class AuthController extends Controller
                 : back()->with("toast", ['error', "Coś poszło nie tak podczas resetowania hasła"]);
         }
 
+        // zmiana hasła z formularza
         if ($rq->has("user_id")) {
             $user = User::find($rq->user_id);
             if (!Hash::check($rq->current_password, $user->password)) {
@@ -158,13 +160,17 @@ class AuthController extends Controller
         if ($validator->fails()) return back()->with("toast", ["error", "Coś jest nie tak z hasłem"]);
 
         if (setting("users_login_is") == "none") {
-            $user_with_this_password = User::all()->firstWhere(fn ($u) => Hash::check($rq->password, $u->password));
-            if ($user_with_this_password) {
+            $user_with_similar_password = User::where("name", substr($rq->password, 0, self::NOLOGIN_LOGIN_PART_LENGTH))
+                ->where("id", "!=", $user->id)
+                ->exists();
+
+            if ($user_with_similar_password) {
                 return back()->with("toast", ["error", "Hasło nie spełnia wymogów bezpieczeństwa"]);
             }
         }
 
         User::findOrFail(Auth::id())->update([
+            "name" => (setting("users_login_is") == "none") ? substr($rq->password, 0, self::NOLOGIN_LOGIN_PART_LENGTH) : $user->name,
             "password" => Hash::make($rq->password),
         ]);
         return redirect(route("profile"))->with("toast", ["success", "Hasło zostało zmienione"]);
