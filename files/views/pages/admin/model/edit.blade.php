@@ -48,7 +48,7 @@
 
         @foreach ($fields as $name => $fdata)
         @if (isset($fdata["role"]) && !auth()->user()->hasRole($fdata["role"])) @continue @endif
-        <x-shipyard.ui.field-input :model="$data" :field-name="$name" />
+        <x-shipyard.ui.field-input :model="$data ?? new (model($scope))()" :field-name="$name" />
         @endforeach
     </x-shipyard.app.card>
 
@@ -62,7 +62,7 @@
             id="connections_{{ $relation }}"
         >
             <input type="hidden" name="_connections[]" value="{{ $relation }}">
-            <x-shipyard.ui.connection-input :model="$data" :connection-name="$relation" />
+            <x-shipyard.ui.connection-input :model="$data ?? new (model($scope))()" :connection-name="$relation" />
         </x-shipyard.app.card>
         @endforeach
     </div>
