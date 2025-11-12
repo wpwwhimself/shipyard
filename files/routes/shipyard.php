@@ -67,6 +67,7 @@ Route::middleware("auth")->group(function () {
             Route::redirect("settings", "/admin/settings"); // settings model is not editable
             Route::prefix("{model}")->group(function () {
                 Route::get("", "listModel")->name("admin.model.list");
+                Route::post("filter", "filterListModel")->name("admin.model.list.filter");
                 Route::get("edit/{id?}", "editModel")->name("admin.model.edit");
                 Route::post("edit", "processEditModel")->name("admin.model.edit.process");
             });

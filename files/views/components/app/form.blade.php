@@ -5,7 +5,9 @@
 <form {{ $attributes->merge([
 
 ]) }}>
+    @if (strtolower($attributes->get("method")) == "post")
     @csrf
+    @endif
 
     {{ $slot }}
 

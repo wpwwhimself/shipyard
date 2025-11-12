@@ -1,5 +1,5 @@
 @extends("layouts.shipyard.admin")
-@section("title", ($data?->name ?: "Nowy wpis"))
+@section("title", ($data ?: "Nowy wpis"))
 @section("subtitle", "Administracja | ".$meta["label"])
 
 @section("sidebar")

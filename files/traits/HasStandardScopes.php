@@ -2,16 +2,51 @@
 
 namespace App\Traits\Shipyard;
 
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Str;
 
 trait HasStandardScopes
 {
-    public function scopeForAdminList($query)
+    public function scopeForAdminList($query, $sort = null, $filters = [])
     {
+        // setup
+        $perPage = request("per_page", 25);
+        $sortData = !empty($sort)
+            ? self::getSorts()[Str::after($sort, "-")]
+            : null;
+
         if (Schema::hasColumn($this->getTable(), "order")) $query = $query->orderBy("order");
         if (Schema::hasColumn($this->getTable(), "name")) $query = $query->orderBy("name");
-        return $query;
+
+        // pre-get sort for db sorting
+        if ($sortData && $sortData["compare-using"] == "field") {
+            $query = $query->orderBy(
+                $sortData["discr"],
+                $sort[0] == "-" ? "desc" : "asc",
+            );
+        }
+
+        $data = $query->get();
+
+        // post-get sort for model sorting
+        if ($sortData && $sortData["compare-using"] == "function") {
+            $data = $data->{$sort[0] == "-" ? "sortByDesc" : "sortBy"}(fn ($i) => $i->{$sortData["discr"]});
+        }
+
+        $data = new LengthAwarePaginator(
+            $data->slice($perPage * (request("page", 1) - 1), $perPage),
+            $data->count(),
+            $perPage,
+            request("page", 1),
+            [
+                "path" => request()->url(),
+                "query" => request()->query(),
+            ],
+        );
+
+        return $data;
     }
 
     public function scopeVisible($query, bool $sort = true)

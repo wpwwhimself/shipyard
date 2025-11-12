@@ -181,11 +181,23 @@ class AdminController extends Controller
         if (!Auth::user()?->hasRole(model($scope)::META["role"] ?? null)) abort(403);
 
         $meta = model($scope)::META;
-        $data = model($scope)::forAdminList()
-            ->paginate(25);
+        $data = model($scope)::forAdminList(request("sort"), request("filter"));
         $actions = model($scope)::getActions("list");
+        $sorts = model($scope)::getSorts();
+        $filters = model($scope)::getFilters();
 
-        return view("pages.shipyard.admin.model.list", compact("data", "meta", "scope", "actions"));
+        return view("pages.shipyard.admin.model.list", compact("data", "meta", "scope", "actions", "sorts", "filters"));
+    }
+
+    public function filterListModel(Request $rq, string $scope): RedirectResponse
+    {
+        $filters = collect($rq->except("_token"))
+            ->filter(fn ($v, $k) => !empty($v));
+
+        return redirect()->route("admin.model.list", [
+            "model" => $scope,
+            ...$filters,
+        ]);
     }
 
     public function editModel(string $scope, int|string|null $id = null): View|RedirectResponse
@@ -202,8 +214,8 @@ class AdminController extends Controller
         $sections = array_merge(
             [["icon" => $meta["icon"], "title" => "Dane podstawowe", "id" => "basic"]],
             collect($connections)->map(fn ($con, $con_scope) => [
-                "icon" => model_icon($con_scope),
-                "title" => model($con_scope)::META['label'],
+                "icon" => $con["model"]::META['icon'],
+                "title" => $con["model"]::META['label'],
                 "id" => "connections_$con_scope",
                 "show" => Auth::user()?->hasRole($con["role"] ?? null),
             ])

@@ -68,4 +68,34 @@ trait HasStandardFields
                 : [],
         ));
     }
+
+    /**
+     * Get all sorts from the model from SORTS constant.
+     */
+    public static function getSorts(): array
+    {
+        return array_filter(array_merge(
+            [
+                null => [
+                    "label" => "domyślnie",
+                    "direction" => "asc",
+                ],
+            ],
+            defined(self::class."::SORTS")
+                ? self::SORTS
+                : [],
+        ));
+    }
+
+    /**
+     * Get all filters from the model from FILTERS constant.
+     */
+    public static function getFilters(): array
+    {
+        return array_filter(array_merge(
+            defined(self::class."::FILTERS")
+                ? self::FILTERS
+                : [],
+        ));
+    }
 }

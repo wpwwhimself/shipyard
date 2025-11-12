@@ -44,6 +44,48 @@
 <x-shipyard.app.card>
     <p>{{ $meta['description'] }}</p>
 
+    @if ($sorts || $filters)
+    <x-shipyard.app.section
+        title="Filtry i sortowanie"
+        icon="filter"
+        :extended="false"
+    >
+        <x-shipyard.app.form method="post" :action="route('admin.model.list.filter', ['model' => $scope])">
+            <input type="hidden" name="page" value="{{ request('page') }}">
+
+            @if ($sorts)
+            <x-shipyard.ui.input type="select"
+                name="sort"
+                label="Sortuj"
+                icon="sort"
+                :select-data="[
+                    'options' => collect($sorts)
+                        ->flatMap(fn ($sdata, $sname) => isset($sdata['direction'])
+                            ? [
+                                [
+                                    'label' => $sdata['label'],
+                                    'value' => $sname,
+                                ],
+                            ] 
+                            : [
+                                [
+                                    'label' => $sdata['label'] . ' (rosnąco)',
+                                    'value' => $sname,
+                                ],
+                                [
+                                    'label' => $sdata['label'] . ' (malejąco)',
+                                    'value' => '-' . $sname,
+                                ],
+                            ]),
+                ]"
+                :value="request('sort')"
+                onchange="this.form.submit()"
+            />
+            @endif
+        </x-shipyard.app.form>
+    </x-shipyard.app.section>
+    @endif
+
     @forelse ($data as $item)
     <x-shipyard.app.model.tile :model="$item" class="{{ $item->is_uneditable ? 'ghost' : null }}">
         <x-slot:actions>
