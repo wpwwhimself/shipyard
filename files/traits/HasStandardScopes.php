@@ -83,7 +83,7 @@ trait HasStandardScopes
 
     public function scopeRecent($query, ?string $except_id = null)
     {
-        return $query->where("visible", ">", 1 - Auth::check())
+        return $query->visible()
             ->orderByDesc("updated_at")
             ->where("id", "!=", $except_id)
             ->limit(3);
