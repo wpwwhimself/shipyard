@@ -69,6 +69,21 @@
         <x-shipyard.app.form method="post" :action="route('admin.model.list.filter', ['model' => $scope])">
             <input type="hidden" name="page" value="{{ request('page') }}">
 
+            @foreach ($filters as $fname => $fdata)
+            <x-shipyard.ui.input :type="$fdata['type']"
+                :name="'fltr['.$fname.']'"
+                :label="$fdata['label']"
+                :icon="isset($fdata['icon'])
+                    ? $fdata['icon']
+                    : ($fdata['compare-using'] == 'field'
+                        ? model_field_icon($scope, $fname)
+                        : null
+                    )"
+                :value="request('fltr.' . $fname)"
+                onchange="this.form.submit()"
+            />
+            @endforeach
+
             @if ($sorts)
             <x-shipyard.ui.input type="select"
                 name="sort"

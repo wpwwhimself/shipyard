@@ -14,12 +14,24 @@ trait HasStandardScopes
         // setup
         $page = request("page", 1);
         $perPage = request("prpg", 25);
+        $filterData = self::getFilters();
         $sortData = !empty($sort)
             ? self::getSorts()[Str::after($sort, "-")]
             : null;
 
         if (Schema::hasColumn($this->getTable(), "order")) $query = $query->orderBy("order");
         if (Schema::hasColumn($this->getTable(), "name")) $query = $query->orderBy("name");
+
+        // pre-get filters for db filtering
+        foreach ($filters as $filter_name => $filter_value) {
+            if ($filterData[$filter_name]["compare-using"] != "field") continue;
+
+            $query = $query->where(
+                $filterData[$filter_name]["discr"],
+                $filterData[$filter_name]["operator"] ?? "=",
+                $filter_value
+            );
+        }
 
         // pre-get sort for db sorting
         if ($sortData && $sortData["compare-using"] == "field") {
@@ -30,6 +42,16 @@ trait HasStandardScopes
         }
 
         $data = $query->get();
+
+        // post-get filters for model filtering
+        //todo obsłużyć filtrowanie po funkcji z różnymi operatorami
+        foreach ($filters as $filter_name => $filter_value) {
+            if ($filterData[$filter_name]["compare-using"] != "function") continue;
+
+            $data = $data->filter(
+                fn ($i) => $i->{$filterData[$filter_name]["discr"]} == $filter_value,
+            );
+        }
 
         // post-get sort for model sorting
         if ($sortData && $sortData["compare-using"] == "function") {

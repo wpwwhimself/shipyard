@@ -181,7 +181,7 @@ class AdminController extends Controller
         if (!Auth::user()?->hasRole(model($scope)::META["role"] ?? null)) abort(403);
 
         $meta = model($scope)::META;
-        $data = model($scope)::forAdminList(request("sort"), request("filter"));
+        $data = model($scope)::forAdminList(request("sort"), request("fltr"));
         $actions = model($scope)::getActions("list");
         $sorts = model($scope)::getSorts();
         $filters = model($scope)::getFilters();

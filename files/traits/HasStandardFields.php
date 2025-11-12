@@ -15,6 +15,12 @@ trait HasStandardFields
         $table = (new self())->getTable();
 
         return array_merge(array_filter([
+            "id" => (!Schema::hasColumn($table, "id")) ? null : [
+                "type" => "text",
+                "label" => "ID",
+                "icon" => "database",
+                "disabled" => true,
+            ],
             "name" => (!Schema::hasColumn($table, "name")) ? null : [
                 "type" => "text",
                 "label" => "Nazwa",

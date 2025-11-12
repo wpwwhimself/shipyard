@@ -138,8 +138,7 @@ class {{ class }} extends Model
         //     "icon" => "",
         //     "compare-using" => "function|field",
         //     "discr" => "<function_name|field_name>",
-        //     "mode" => "<one|many>",
-        //     "operator" => "",
+        //     "type" => "<input type>",
         //     "options" => [
         //         "<label>" => <value>,
         //     ],
