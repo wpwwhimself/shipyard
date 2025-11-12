@@ -23,6 +23,19 @@
             label="Do strony głównej"
             action="/"
         />
+
+        @if (in_array($exception->getStatusCode(), [500, 400]))
+        <x-shipyard.ui.button
+            icon="bug"
+            label="Zgłoś błąd"
+            action="none"
+            onclick="openModal('report-error', {
+                user_email: '{{ Auth::user()?->email }}',
+                url: '{{ url()->current() }}',
+            })"
+            class="tertiary"
+        />
+        @endif
     </div>
 
     <script>console.error("⚠️", "{{ $exception->getMessage() }}");</script>

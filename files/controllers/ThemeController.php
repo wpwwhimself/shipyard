@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Shipyard;
 
 use App\Http\Controllers\Controller;
-use App\ShipyardTheme;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;

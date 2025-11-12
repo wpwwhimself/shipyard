@@ -3,6 +3,7 @@
 use App\Http\Controllers\Shipyard\AdminController;
 use App\Http\Controllers\Shipyard\AuthController;
 use App\Http\Controllers\Shipyard\DocsController;
+use App\Http\Controllers\Shipyard\ErrorController;
 use App\Http\Controllers\Shipyard\FrontController;
 use App\Http\Controllers\Shipyard\ModalController;
 use App\Http\Controllers\Shipyard\ProfileController;
@@ -113,10 +114,16 @@ Route::controller(ThemeController::class)->group(function () {
     Route::prefix("theme")->middleware(EnsureUserHasRole::class.":spellcaster")->group(function () {
         Route::get("test", "testTheme");
     });
-    
+
     Route::prefix("api/theme")->group(function () {
         Route::post("cache", "cache");
         Route::post("reset", "reset");
     });
+});
+#endregion
+
+#region errors
+Route::controller(ErrorController::class)->prefix("errors")->group(function () {
+    Route::post("report", "report")->name("error.report");
 });
 #endregion
