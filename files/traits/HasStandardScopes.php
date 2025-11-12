@@ -12,7 +12,8 @@ trait HasStandardScopes
     public function scopeForAdminList($query, $sort = null, $filters = [])
     {
         // setup
-        $perPage = request("per_page", 25);
+        $page = request("page", 1);
+        $perPage = request("prpg", 25);
         $sortData = !empty($sort)
             ? self::getSorts()[Str::after($sort, "-")]
             : null;
@@ -36,10 +37,10 @@ trait HasStandardScopes
         }
 
         $data = new LengthAwarePaginator(
-            $data->slice($perPage * (request("page", 1) - 1), $perPage),
+            $data->slice($perPage * ($page - 1), $perPage),
             $data->count(),
             $perPage,
-            request("page", 1),
+            $page,
             [
                 "path" => request()->url(),
                 "query" => request()->query(),

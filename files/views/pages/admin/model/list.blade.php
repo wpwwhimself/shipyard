@@ -47,9 +47,25 @@
     @if ($sorts || $filters)
     <x-shipyard.app.section
         title="Filtry i sortowanie"
+        :subtitle="request('sort') || request('fltr')
+            ? implode(', ', array_filter([
+                request('fltr') ? 'Filtry: ' . count(request('fltr')) : null,
+                request('sort') ? 'Sortowanie: ' . model($scope)::getSorts()[Str::after(request('sort'), '-')]['label'] : null,
+            ]))
+            : null"
         icon="filter"
         :extended="false"
     >
+        <x-slot:actions>
+            @if (request('sort') || request('fltr'))
+            <x-shipyard.ui.button
+                :action="route('admin.model.list', ['model' => $scope])"
+                icon="undo-variant"
+                pop="Wyczyść filtry"
+            />
+            @endif
+        </x-slot:actions> 
+
         <x-shipyard.app.form method="post" :action="route('admin.model.list.filter', ['model' => $scope])">
             <input type="hidden" name="page" value="{{ request('page') }}">
 
