@@ -9,7 +9,7 @@ use Illuminate\Support\Str;
 
 trait HasStandardScopes
 {
-    public function scopeForAdminList($query, $sort = null, $filters = [])
+    public function scopeForAdminList($query, $sort = null, $filters = null)
     {
         // setup
         $page = request("page", 1);
@@ -23,7 +23,7 @@ trait HasStandardScopes
         if (Schema::hasColumn($this->getTable(), "name")) $query = $query->orderBy("name");
 
         // pre-get filters for db filtering
-        foreach ($filters as $filter_name => $filter_value) {
+        foreach ($filters ?? [] as $filter_name => $filter_value) {
             if ($filterData[$filter_name]["compare-using"] != "field") continue;
 
             $query = $query->where(
@@ -45,7 +45,7 @@ trait HasStandardScopes
 
         // post-get filters for model filtering
         //todo obsłużyć filtrowanie po funkcji z różnymi operatorami
-        foreach ($filters as $filter_name => $filter_value) {
+        foreach ($filters ?? [] as $filter_name => $filter_value) {
             if ($filterData[$filter_name]["compare-using"] != "function") continue;
 
             $data = $data->filter(
