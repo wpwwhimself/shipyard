@@ -53,7 +53,7 @@ class SpellbookController extends Controller
     #region definitions
     public function become(User $user) {
         Auth::login($user);
-        return redirect("/")->with("toast", ["success", "Jesteś teraz: $user->name"]);
+        return back()->with("toast", ["success", "Jesteś teraz: $user->name"]);
     }
 
     public function invokeBook() {
@@ -74,17 +74,17 @@ class SpellbookController extends Controller
         switch ($scope) {
             case "theme":
                 ThemeController::_reset();
-                return redirect("/")->with("toast", ["success", "Pamięć podręczna motywu wyczyszczona"]);
+                return back()->with("toast", ["success", "Pamięć podręczna motywu wyczyszczona"]);
 
             default:
                 shell_exec("php artisan optimize:clear");
-                return redirect("/")->with("toast", ["success", "Pamięć podręczna wyczyszczona"]);
+                return back()->with("toast", ["success", "Pamięć podręczna wyczyszczona"]);
         }
     }
 
     public function transmute(string $scope, mixed $id, string $field, ?string $value = null) {
         model($scope)::find($id)->update([$field => $value]);
-        return redirect()->route("admin.model.edit", ["model" => $scope, "id" => $id])->with("toast", ["success", "Model zaktualizowany"]);
+        return back()->with("toast", ["success", "Model zaktualizowany"]);
     }
     #endregion
 }
