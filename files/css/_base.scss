@@ -397,11 +397,6 @@ hr {
     body.dark &.invert-when-dark {
         filter: invert(1);
     }
-    @media (prefers-color-scheme: dark) {
-        &.invert-when-dark {
-            filter: invert(1);
-        }
-    }
 }
 
 .loader {

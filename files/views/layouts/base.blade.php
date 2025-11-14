@@ -33,6 +33,14 @@
             }
             @endif
         }
+
+        @if (setting("app_adaptive_dark_mode"))
+        @media (prefers-color-scheme: dark) {
+            .icon.invert-when-dark {
+                filter: invert(1);
+            }
+        }
+        @endif
         </style>
         @if (file_exists(public_path("css/shipyard_theme_cache.css")))
         <link rel="stylesheet" href="{{ asset("css/shipyard_theme_cache.css") }}">
