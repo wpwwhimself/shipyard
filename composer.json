@@ -50,6 +50,6 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "require-dev": {
-        "barryvdh/laravel-debugbar": "*"
+        "barryvdh/laravel-debugbar": "^3.16"
     }
 }
