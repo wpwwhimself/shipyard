@@ -74,7 +74,7 @@ class SpellbookController extends Controller
         switch ($scope) {
             case "theme":
                 ThemeController::_reset();
-                return back()->with("toast", ["success", "Pamięć podręczna motywu wyczyszczona"]);
+                return back()->with("toast", ["success", "Pamięć podręczna motywu odświeżona"]);
 
             default:
                 shell_exec("php artisan optimize:clear");

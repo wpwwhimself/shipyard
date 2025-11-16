@@ -380,7 +380,7 @@ main {
 }
 
 #toast {
-    @extend .card;
+    @extend .card, .bordered;
     @extend .animatable;
     @extend .flex, .right, .nowrap, .middle;
 
@@ -389,6 +389,7 @@ main {
     left: 50%;
     transform: translate(-50%, -5em);
     z-index: 99;
+    border-color: currentColor;
 
     &.visible {
         transform: translate(-50%, 0);
