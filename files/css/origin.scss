@@ -261,7 +261,7 @@ header {
     }
 
     & textarea {
-        font-family: monospace;
+        font-family: var(--mono-font);
         min-height: 3.5em;
     }
 
@@ -328,6 +328,10 @@ main {
     & > * {
         margin: 0;
     }
+}
+
+.progress-bar {
+    @extend .rounded;
 }
 
 [role="title"] {

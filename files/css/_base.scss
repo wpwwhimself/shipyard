@@ -118,7 +118,7 @@ h3 {
 }
 
 .mono {
-    font-family: monospace;
+    font-family: var(--mono-font);
 }
 
 /******************** colors *******************/
@@ -295,7 +295,7 @@ a.button, a:has(> .tile), a:has(> .full-width) {
 }
 
 code, pre {
-    font-family: 'Courier New', Courier, monospace;
+    font-family: var(--mono-font);
     background-color: var(--bg-lite);
     border-radius: 0.5em;
 }
@@ -474,6 +474,14 @@ main {
     & [role="pages-description"] {
         text-align: center;
     }
+}
+
+.progress-bar {
+    @extend .animatable;
+
+    width: 100%;
+    background: linear-gradient(to right, var(--primary) var(--progress), var(--bg-lite) var(--progress));
+    text-align: center;
 }
 
 search {
