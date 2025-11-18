@@ -10,7 +10,7 @@
         label="Utworzono"
     >
         @isset ($model->created_by)
-        {{ $model->creator->name }},
+        {{ $model->creator }},
         @endisset
         <span {{ Popper::pop($model->created_at ?? "") }}>{{ $model->created_at?->diffForHumans() }}</span>
     </x-shipyard.app.icon-label-value>
@@ -21,7 +21,7 @@
         label="Ostatnia edycja"
     >
         @isset ($model->updated_by)
-        {{ $model->editor->name }},
+        {{ $model->editor }},
         @endisset
         <span {{ Popper::pop($model->updated_at ?? "") }}>{{ $model->updated_at?->diffForHumans() }}</span>
     </x-shipyard.app.icon-label-value>
