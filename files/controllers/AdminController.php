@@ -214,8 +214,8 @@ class AdminController extends Controller
         $sections = array_merge(
             [["icon" => $meta["icon"], "title" => "Dane podstawowe", "id" => "basic"]],
             collect($connections)->map(fn ($con, $con_scope) => [
-                "icon" => $con["model"]::META['icon'],
-                "title" => $con["model"]::META['label'],
+                "icon" => $con["field_icon"] ?? (collect($con["model"])->count() > 1 ? "link" : collect($con["model"])->first()::META['icon']),
+                "title" => $con["field_label"] ?? collect($con["model"])->map(fn ($m) => $m::META['label'])->join("/"),
                 "id" => "connections_$con_scope",
                 "show" => Auth::user()?->hasRole($con["role"] ?? null),
             ])
@@ -249,6 +249,15 @@ class AdminController extends Controller
             if (($fdata["required"] ?? false) && ($data[$name] == "" || $data[$name] == null)) return back()->with("toast", ["error", "Pole $fdata[label] jest wymagane"]);
         }
 
+        // update morphing connections
+        foreach ($rq->get("_connections") ?? [] as $connection_name) {
+            $connection_value = $data[$connection_name."_id"];
+            if (Str::contains($connection_value, ":")) {
+                $data[$connection_name."_type"] = Str::before($connection_value, ":");
+                $data[$connection_name."_id"] = Str::after($connection_value, ":");
+            }
+        }
+
         if ($scope == "users") {
             $data["password"] = Hash::make(Str::random(16));
         }
@@ -262,8 +271,10 @@ class AdminController extends Controller
             );
 
             if ($rq->has("_connections")) {
+                $available_connections = model($scope)::getConnections();
+
                 foreach ($rq->get("_connections") as $connection) {
-                    switch (model($scope)::CONNECTIONS[$connection]["mode"]) {
+                    switch ($available_connections[$connection]["mode"]) {
                         case "many":
                             $model->{$connection}()->sync($rq->get($connection));
                             break;

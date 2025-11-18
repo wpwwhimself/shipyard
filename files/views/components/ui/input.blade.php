@@ -190,16 +190,38 @@ if ($type == "date") $value = ($value)
                 {{ $attributes }}
             >
                 @isset ($selectData["emptyOption"]) <option value="">– {{ ($selectData["emptyOption"] === true) ? "brak" : $selectData["emptyOption"] }} –</option> @endisset
-                @foreach ($selectData["options"] ?? [] as ["value" => $opt_val, "label" => $opt_label])
-                <option value="{{ $opt_val }}"
+
+                @foreach ($selectData["options"] ?? [] as $label => $defined_options)
+                @php
+                if (isset($defined_options["value"])) {
+                    // one dimensional array - everything is contained in one group
+                    $hasGroups = false;
+                    $presented_options = [$defined_options];
+                } else {
+                    // two dimensional array - labels represent groups, options are nested
+                    $hasGroups = true;
+                    $presented_options = $defined_options;
+                }
+                @endphp
+
+                @if ($hasGroups) <optgroup label="{{ $label }}"> @endif
+                @foreach ($presented_options ?? [] as $opt)
+                <option value="{{ $opt["value"] }}"
                     @if (is_array($value)
-                        ? collect($value)->contains($opt_val)
-                        : $opt_val == $value
+                        ? collect($value)->contains($opt["value"])
+                        : ($hasGroups
+                            ? implode(":", [$opt["type"], $opt["value"]]) == $value
+                            : $opt["value"] == $value && (!$hasGroups )
+                        )
                     ) selected @endif
                 >
-                    {{ $opt_label }}
+                    {{ $opt["label"] }}
                 </option>
                 @endforeach
+
+                @if ($hasGroups) </optgroup> @endif
+                @endforeach
+
             </select>
             @endif
         @break

@@ -5,6 +5,21 @@
 
 @php
 $rdata = $model::getConnections()[$connectionName];
+$models = collect($rdata["model"]);
+$pop_label = $rdata["field_label"]
+    ?? $models->map(fn ($i) => $i::META["label"])->join("/");
+$icon = $rdata["field_icon"]
+    ?? ($models->count() > 1
+        ? "link"
+        : $models->first()::META["icon"]
+    );
+$options = $models->flatMap(fn ($m) => $m::all()->map(fn ($i) => [
+        'label' => $i->option_label,
+        'value' => $i->id,
+        'group' => $i::META["label"],
+        'type' => $i::class,
+    ]))
+    ->groupBy("group");
 @endphp
 
 @switch ($rdata['mode'])
@@ -12,13 +27,13 @@ $rdata = $model::getConnections()[$connectionName];
     <x-shipyard.ui.input type="select"
         :name="$rdata['field_name'] ?? Str::snake($connectionName).'_id'"
         :label="$rdata['field_label'] ?? 'Wybierz'"
-        :icon="$rdata['model']::META['icon']"
-        :value="$model?->{$rdata['field_name'] ?? Str::snake($connectionName).'_id'}"
+        :icon="$icon"
+        :value="$models->count() > 1
+            ? implode(':', [$model?->{Str::snake($connectionName).'_type'}, $model?->{$rdata['field_name'] ?? Str::snake($connectionName).'_id'}])
+            : $model?->{$rdata['field_name'] ?? Str::snake($connectionName).'_id'}
+        "
         :select-data="[
-            'options' => $rdata['model']::all()->map(fn ($i) => [
-                'label' => $i->option_label,
-                'value' => $i->id,
-            ]),
+            'options' => $options,
             'emptyOption' => true,
         ]"
     />

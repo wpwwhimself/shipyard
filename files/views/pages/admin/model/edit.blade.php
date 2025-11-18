@@ -56,9 +56,19 @@
         @foreach ($connections as $relation => $rdata)
         @if (isset($rdata["role"]) && !auth()->user()->hasRole($rdata["role"])) @continue @endif
 
+        @php
+        $models = collect($rdata["model"]);
+        $pop_label = $rdata["field_label"]
+            ?? $models->map(fn ($i) => $i::META["label"])->join("/");
+        $icon = $rdata["field_icon"]
+            ?? ($models->count() > 1
+                ? "link"
+                : $models->first()::META["icon"]
+            );
+        @endphp
         <x-shipyard.app.card
-            :title="$rdata['model']::META['label']"
-            :icon="$rdata['model']::META['icon']"
+            :title="$pop_label"
+            :icon="$icon"
             id="connections_{{ $relation }}"
         >
             <input type="hidden" name="_connections[]" value="{{ $relation }}">
