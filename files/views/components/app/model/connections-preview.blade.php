@@ -5,6 +5,7 @@
 
 <div>
     @foreach ($connections as $connection_name => $data)
+    @continue (!$model->{$connection_name})
     <div>
         @php
         $models = collect($data["model"]);
