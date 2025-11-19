@@ -80,6 +80,7 @@
                         : null
                     )"
                 :value="request('fltr.' . $fname)"
+                :select-data="$fdata['selectData'] ?? null"
                 onchange="this.form.submit()"
             />
             @endforeach
