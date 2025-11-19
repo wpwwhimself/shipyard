@@ -14,12 +14,14 @@ $icon = $rdata["field_icon"]
         : $models->first()::META["icon"]
     );
 $options = $models->flatMap(fn ($m) => $m::all()->map(fn ($i) => [
-        'label' => $i->option_label,
-        'value' => $i->id,
-        'group' => $i::META["label"],
-        'type' => $i::class,
-    ]))
-    ->groupBy("group");
+    'label' => $i->option_label,
+    'value' => $i->id,
+    'group' => $i::META["label"],
+    'type' => $i::class,
+]));
+if ($models->count() > 1) {
+    $options = $options->groupBy("group");
+}
 @endphp
 
 @switch ($rdata['mode'])

@@ -250,8 +250,9 @@ class AdminController extends Controller
         }
 
         // update morphing connections
+        $available_connections = model($scope)::getConnections();
         foreach ($rq->get("_connections") ?? [] as $connection_name) {
-            $connection_value = $data[$connection_name."_id"];
+            $connection_value = $data[$available_connections[$connection_name]["field_name"] ?? $connection_name."_id"];
             if (Str::contains($connection_value, ":")) {
                 $data[$connection_name."_type"] = Str::before($connection_value, ":");
                 $data[$connection_name."_id"] = Str::after($connection_value, ":");
@@ -271,8 +272,6 @@ class AdminController extends Controller
             );
 
             if ($rq->has("_connections")) {
-                $available_connections = model($scope)::getConnections();
-
                 foreach ($rq->get("_connections") as $connection) {
                     switch ($available_connections[$connection]["mode"]) {
                         case "many":
