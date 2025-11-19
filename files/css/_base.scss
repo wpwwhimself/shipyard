@@ -13,6 +13,9 @@
     --error: rgb(215, 61, 61);
     --danger: rgb(255, 107, 8);
 
+    --hot: rgb(255, 107, 8);
+    --cold: rgb(8, 107, 255);
+
     --font-size: 12px;
     --margin-size: 1em;
 }
@@ -164,6 +167,12 @@ body {
     }
     &.error {
         --accent-color: var(--error);
+    }
+    &.hot {
+        --accent-color: var(--hot);
+    }
+    &.cold {
+        --accent-color: var(--cold);
     }
 }
 
@@ -627,6 +636,10 @@ search {
         font-family: var(--heading-font);
         font-size: 1.75em;
         font-weight: bold;
+
+        & > small {
+            @extend .ghost;
+        }
     }
 }
 

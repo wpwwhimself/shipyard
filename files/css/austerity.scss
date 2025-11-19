@@ -374,6 +374,10 @@ main {
     }
 }
 
+.stat-tile {
+    @extend .tile;
+}
+
 .tag {
     @extend .rounded;
 
