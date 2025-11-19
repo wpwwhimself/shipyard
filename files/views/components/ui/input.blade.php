@@ -206,12 +206,12 @@ if ($type == "date") $value = ($value)
 
                 @if ($hasGroups) <optgroup label="{{ $label }}"> @endif
                 @foreach ($presented_options ?? [] as $opt)
-                <option value="{{ $opt["value"] }}"
+                <option value="{{ $hasGroups ? implode(":", [$opt["type"], $opt["value"]]) : $opt["value"] }}"
                     @if (is_array($value)
                         ? collect($value)->contains($opt["value"])
                         : ($hasGroups
                             ? implode(":", [$opt["type"], $opt["value"]]) == $value
-                            : $opt["value"] == $value && (!$hasGroups )
+                            : $opt["value"] == $value
                         )
                     ) selected @endif
                 >
