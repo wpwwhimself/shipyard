@@ -32,11 +32,17 @@ class {{ class }} extends Model
     ];
 
     #region presentation
+    /**
+     * Pretty display of a model - can use components and stuff
+     */
     public function __toString(): string
     {
         return $this->name;
     }
 
+    /**
+     * Display for select options - text only
+     */
     public function optionLabel(): Attribute
     {
         return Attribute::make(
@@ -44,6 +50,9 @@ class {{ class }} extends Model
         );
     }
 
+    /**
+     * Pretty display for model tiles
+     */
     public function displayTitle(): Attribute
     {
         return Attribute::make(
@@ -53,7 +62,7 @@ class {{ class }} extends Model
                 "attributes" => new ComponentAttributeBag([
                     "role" => "card-title",
                 ]),
-                "slot" => $this->name,
+                "slot" => $this,
             ])->render(),
         );
     }
