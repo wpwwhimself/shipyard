@@ -241,6 +241,10 @@ footer {
     & [role="details"] a {
         text-decoration: none;
     }
+
+    & .icon.invert-when-dark {
+        filter: invert(1) !important;
+    }
 }
 
 form, form > [role="fields"] {
