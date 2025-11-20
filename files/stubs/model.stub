@@ -117,6 +117,7 @@ class {{ class }} extends Model
         //     "mode" => "<one|many>",
         //     // "field_name" => "",
         //     // "field_label" => "",
+        //     // "readonly" => true,
         // ],
     ];
 

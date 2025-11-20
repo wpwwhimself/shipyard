@@ -42,18 +42,15 @@ if ($models->count() > 1) {
     @break
 
     @case ("many")
-    <div class="grid" style="--col-count: 3;">
-    @foreach ($rdata['model']::all() as $item)
-    @if ($connectionName == "roles" && $item->name == "super" && !auth()->user()->hasRole("super")) @continue @endif
-    <x-shipyard.ui.input type="checkbox"
-        name="{{ $connectionName }}[]"
-        :label="$item->name"
-        :icon="$item->icon ?? null"
-        :hint="$item->description"
-        :value="$item->id ?? $item->name"
-        :checked="$model?->{$connectionName}->contains($item)"
+    <x-shipyard.ui.input :type="($rdata['readonly'] ?? false) ? 'dummy-text' : 'select'"
+        :name="$rdata['field_name'] ?? Str::snake($connectionName).'_id'"
+        :label="$rdata['field_label'] ?? 'Wybierz'"
+        :icon="$icon"
+        :value="$model?->{$connectionName}->map(fn ($i) => $i->id)->join(', ')"
+        :select-data="[
+            'options' => $options,
+        ]"
+        multiple
     />
-    @endforeach
-    </div>
     @break
 @endswitch
