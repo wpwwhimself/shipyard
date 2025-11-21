@@ -160,8 +160,8 @@ if ($type == "date") $value = ($value)
         @case ("select")
             @php
             if (isset($selectData["optionsFromScope"])) {
-                [$model, $scope, $option_label, $option_value] = $selectData["optionsFromScope"];
-                $selectData["options"] = $model::$scope()->get()->map(fn ($i) => [
+                [$model, $scope, $option_label, $option_value, $scope_args] = $selectData["optionsFromScope"] + array_fill(0, 5, null);
+                $selectData["options"] = $model::$scope($scope_args)->get()->map(fn ($i) => [
                     "label" => $i->{$option_label},
                     "value" => $i->{$option_value},
                 ])->toArray();
