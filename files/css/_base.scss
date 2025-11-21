@@ -331,8 +331,6 @@ code, pre {
     }
 
     &.spread {
-        justify-content: space-between;
-
         &.and-cover > * {
             flex-grow: 1;
         }
