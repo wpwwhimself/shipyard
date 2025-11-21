@@ -350,13 +350,7 @@ code, pre {
     display: grid;
     grid-auto-flow: row;
     grid-template-columns: repeat(var(--col-count), 1fr);
-
-    &.col2 {
-        --col-count: 2;
-    }
-    &.col3 {
-        --col-count: 3;
-    }
+    align-items: flex-start;
 
     &.right {
         grid-auto-flow: column;
