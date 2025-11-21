@@ -25,5 +25,6 @@ $fdata = $model::getFields()[$fieldName];
     :min="$fdata['min'] ?? null"
     :max="$fdata['max'] ?? null"
     :step="$fdata['step'] ?? null"
+    :multiple="$fdata['multiple'] ?? false"
     {{ $attributes }}
 />
