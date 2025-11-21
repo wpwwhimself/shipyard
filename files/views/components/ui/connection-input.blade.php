@@ -15,7 +15,7 @@ $icon = $rdata["field_icon"]
     );
 $options = $models->flatMap(fn ($m) => $m::all()->map(fn ($i) => [
     'label' => $i->option_label,
-    'value' => $i->id,
+    'value' => $i->getKey(),
     'group' => $i::META["label"],
     'type' => $i::class,
 ]));
@@ -46,7 +46,7 @@ if ($models->count() > 1) {
         :name="$rdata['field_name'] ?? Str::snake($connectionName).'_id'"
         :label="$rdata['field_label'] ?? 'Wybierz'"
         :icon="$icon"
-        :value="$model?->{$connectionName}->map(fn ($i) => $i->id)->join(', ')"
+        :value="$model?->{$connectionName}->map(fn ($i) => $i->getKey())->join(', ')"
         :select-data="[
             'options' => $options,
         ]"
