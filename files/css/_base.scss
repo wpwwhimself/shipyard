@@ -1,7 +1,7 @@
 :root {
     --fg: light-dark(black, white);
     --fg-lite: light-dark(#777, #aaa);
-    --bg: light-dark(white, #222);
+    --bg: light-dark(#f4f4f4, #222);
     --bg-lite: light-dark(#bbb, #666);
     --bg-ghost: light-dark(#ffffff55, #00000055);
 
@@ -142,11 +142,10 @@ body {
         border-color: var(--accent-color);
     }
     &.button {
-        &:not(.background) {
-            color: var(--accent-color) !important;
-        }
+        color: var(--accent-color);
+
         &.background {
-            color: var(--white) !important;
+            color: var(--white);
         }
     }
 
