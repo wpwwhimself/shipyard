@@ -141,7 +141,6 @@ class NavItem extends Model
     ];
     #endregion
 
-    // use CanBeSorted;
     public const SORTS = [
         // "<name>" => [
         //     "label" => "",

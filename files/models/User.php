@@ -118,6 +118,38 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+    public const SORTS = [
+        "name" => [
+            "label" => "nazwa użytkownika",
+            "compare-using" => "field",
+            "discr" => "name",
+        ],
+        "registration" => [
+            "label" => "data rejestracji",
+            "compare-using" => "field",
+            "discr" => "created_at",
+        ],
+    ];
+
+    public const FILTERS = [
+        "name" => [
+            "label" => "Nazwa użytkownika",
+            "icon" => "badge-account",
+            "compare-using" => "field",
+            "discr" => "name",
+            "type" => "text",
+            "operator" => "regexp",
+        ],
+        "email" => [
+            "label" => "Email",
+            "icon" => "at",
+            "compare-using" => "field",
+            "discr" => "email",
+            "type" => "email",
+            "operator" => "regexp",
+        ],
+    ];
+
     #region scopes
     use HasStandardScopes;
     #endregion

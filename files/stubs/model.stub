@@ -133,7 +133,6 @@ class {{ class }} extends Model
     ];
     #endregion
 
-    // use CanBeSorted;
     public const SORTS = [
         // "<name>" => [
         //     "label" => "",
@@ -149,6 +148,7 @@ class {{ class }} extends Model
         //     "compare-using" => "function|field",
         //     "discr" => "<function_name|field_name>",
         //     "type" => "<input type>",
+        //     "operator" => "regexp",
         //     "options" => [
         //         "<label>" => <value>,
         //     ],
