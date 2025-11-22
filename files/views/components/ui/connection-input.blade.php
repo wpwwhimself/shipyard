@@ -46,7 +46,7 @@ if ($models->count() > 1) {
         :name="$rdata['field_name'] ?? Str::snake($connectionName).'_id'"
         :label="$rdata['field_label'] ?? 'Wybierz'"
         :icon="$icon"
-        :value="$model?->{$connectionName}->map(fn ($i) => $i->getKey())->join(', ')"
+        :value="$model?->{$connectionName}->map(fn ($i) => $i->getKey())->toArray()"
         :select-data="[
             'options' => $options,
         ]"
