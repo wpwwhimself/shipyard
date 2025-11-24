@@ -22,6 +22,7 @@ $options = $models->flatMap(fn ($m) => $m::all()->map(fn ($i) => [
 if ($models->count() > 1) {
     $options = $options->groupBy("group");
 }
+// dd($model?->{$connectionName}->map(fn ($i) => $i->getKey())->toArray());
 @endphp
 
 @switch ($rdata['mode'])
@@ -43,10 +44,13 @@ if ($models->count() > 1) {
 
     @case ("many")
     <x-shipyard.ui.input :type="($rdata['readonly'] ?? false) ? 'dummy-text' : 'select'"
-        :name="$rdata['field_name'] ?? Str::snake($connectionName).'_id'"
+        :name="($rdata['field_name'] ?? Str::snake($connectionName)).'[]'"
         :label="$rdata['field_label'] ?? 'Wybierz'"
         :icon="$icon"
-        :value="$model?->{$connectionName}->map(fn ($i) => $i->getKey())->toArray()"
+        :value="($rdata['readonly'] ?? false)
+            ? $model?->{$connectionName}->map(fn ($i) => $i->option_label)->join(', ')
+            : $model?->{$connectionName}->map(fn ($i) => $i->getKey())->toArray()
+        "
         :select-data="[
             'options' => $options,
         ]"

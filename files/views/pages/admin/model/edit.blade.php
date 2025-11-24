@@ -71,6 +71,14 @@
             :icon="$icon"
             id="connections_{{ $relation }}"
         >
+            <x-slot:actions>
+                @if ($rdata["readonly"] ?? false)
+                <span @popper(Relacja tylko do odczytu)>
+                    <x-shipyard.app.icon name="lock" />
+                </span>
+                @endif
+            </x-slot:actions>
+
             <input type="hidden" name="_connections[]" value="{{ $relation }}">
             <x-shipyard.ui.connection-input :model="$data ?? new (model($scope))()" :connection-name="$relation" />
         </x-shipyard.app.card>
