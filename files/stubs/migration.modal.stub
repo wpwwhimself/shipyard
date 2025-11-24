@@ -1,0 +1,39 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Modal::updateOrCreate([
+            "name" => ,
+        ], [
+            "name" => ,
+            "visible" => 2,
+            "heading" => ,
+            "target_route" => ,
+            "fields" => [
+                [
+                    , // name,
+                    , // type,
+                    , // label,
+                    , // icon,
+                    , // required
+                    , // others
+                ],
+            ],
+        ]);
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Modal::where("name", "quest-quote-update")->delete();
+    }
+};
