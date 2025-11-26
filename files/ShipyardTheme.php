@@ -23,6 +23,8 @@ class ShipyardTheme
      * - primary - for background, primary (disruptive) actions and important text
      * - secondary - for default buttons and links
      * - tertiary - for non-disruptive interactive elements
+     *
+     * If value is an array, 2 different colors may be used for light/dark mode
      */
     public const COLORS = [
         "primary" => "#0099ff",

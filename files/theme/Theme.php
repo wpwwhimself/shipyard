@@ -15,15 +15,24 @@ trait Theme
     public static function getColors(): string
     {
         return collect(self::COLORS)
-            ->map(fn ($color, $name) => "--$name: $color;")
+            ->map(fn ($color, $name) => is_array($color)
+                ? "--$name: light-dark($color[0], $color[1]);"
+                : "--$name: $color;"
+            )
             ->join("\n");
     }
 
     public static function getGhostColors(): string
     {
         return collect(self::COLORS)
-            ->map(fn ($color) => $color . "77")
-            ->map(fn ($color, $name) => "--$name-ghost: $color;")
+            ->map(fn ($color) => is_array($color)
+                ? array_map(fn ($clr) => $clr . "77", $color)
+                : ($color . "77")
+            )
+            ->map(fn ($color, $name) => is_array($color)
+                ? "--$name-ghost: light-dark($color[0], $color[1]);"
+                : "--$name-ghost: $color;"
+            )
             ->join("\n");
     }
     #endregion
