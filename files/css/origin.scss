@@ -236,7 +236,7 @@ header {
 }
 
 .input-container {
-    @extend .grid, .middle;
+    @extend .grid, .but-mobile-down, .middle;
     @extend .padded, .rounded, .animatable, .bordered;
 
     grid-template-columns: auto 1fr;
