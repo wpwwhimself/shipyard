@@ -1,12 +1,13 @@
 @props([
     "model",
     "connectionName",
+    "dummy" => false,
 ])
 
 @php
 $rdata = $model::getConnections()[$connectionName];
 $models = collect($rdata["model"]);
-$pop_label = $rdata["field_label"]
+$field_label = $rdata["field_label"]
     ?? $models->map(fn ($i) => $i::META["label"])->join("/");
 $icon = $rdata["field_icon"]
     ?? ($models->count() > 1
@@ -29,7 +30,7 @@ if ($models->count() > 1) {
     @case ("one")
     <x-shipyard.ui.input type="select"
         :name="$rdata['field_name'] ?? Str::snake($connectionName).'_id'"
-        :label="$rdata['field_label'] ?? 'Wybierz'"
+        :label="$field_label"
         :icon="$icon"
         :value="$models->count() > 1
             ? implode(':', [$model?->{Str::snake($connectionName).'_type'}, $model?->{$rdata['field_name'] ?? Str::snake($connectionName).'_id'}])
@@ -43,11 +44,11 @@ if ($models->count() > 1) {
     @break
 
     @case ("many")
-    <x-shipyard.ui.input :type="($rdata['readonly'] ?? false) ? 'dummy-text' : 'select'"
+    <x-shipyard.ui.input :type="$dummy ||($rdata['readonly'] ?? false) ? 'dummy-text' : 'select'"
         :name="($rdata['field_name'] ?? Str::snake($connectionName)).'[]'"
-        :label="$rdata['field_label'] ?? 'Wybierz'"
+        :label="$field_label"
         :icon="$icon"
-        :value="($rdata['readonly'] ?? false)
+        :value="$dummy || ($rdata['readonly'] ?? false)
             ? $model?->{$connectionName}->map(fn ($i) => $i->option_label)->join(', ')
             : $model?->{$connectionName}->map(fn ($i) => $i->getKey())->toArray()
         "
