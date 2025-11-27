@@ -81,6 +81,20 @@
 
             <input type="hidden" name="_connections[]" value="{{ $relation }}">
             <x-shipyard.ui.connection-input :model="$data ?? new (model($scope))()" :connection-name="$relation" />
+            @if ($data && $data->{$relation})
+            <div class="flex right">
+                @foreach (($rdata["mode"] == "many"
+                    ? $data->{$relation}
+                    : [$data->{$relation}]
+                ) as $item)
+                <x-shipyard.ui.button
+                    :icon="$item::META['icon']"
+                    :pop="$item"
+                    :action="route('admin.model.edit', ['model' => scope($item::class), 'id' => $item->getKey()])"
+                />
+                @endforeach
+            </div>
+            @endif
         </x-shipyard.app.card>
         @endforeach
     </div>
