@@ -69,8 +69,13 @@ h1, h2, h3, h4, h5, h6, p {
 
     & .choices__input,
     & .choices__list--dropdown {
-        background-color: var(--bg) !important;
         font-size: inherit !important;
+    }
+    & .choices__input {
+        background-color: transparent !important;
+    }
+    & .choices__list--dropdown {
+        background-color: var(--bg) !important;
     }
 
     &[data-type="select-one"] .choices__input {
