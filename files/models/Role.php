@@ -102,6 +102,11 @@ class Role extends Model
 
     #region scopes
     use HasStandardScopes;
+
+    public function scopeForConnection($query)
+    {
+        return $query->orderBy("name");
+    }
     #endregion
 
     #region attributes

@@ -80,7 +80,7 @@ trait HasStandardScopes
                 !Schema::hasColumn($query->getModel()->getTable(), "name")
                 || !Schema::hasColumn($query->getModel()->getTable(), "order")
             )
-        ) throw new \Error("⚓ Model cannot retrieve visible list due to missing column `visible`, `name` or `order`. Redeclare `scopeVisible`.");
+        ) throw new \Error("⚓ Model ".$query->getModel()." cannot retrieve visible list due to missing column `visible`, `name` or `order`. Redeclare `scopeVisible`.");
 
         $query = $query->where("visible", ">", 1 - Auth::check());
         if ($sort) $query = $query
@@ -94,7 +94,7 @@ trait HasStandardScopes
         if (
             !Schema::hasColumn($query->getModel()->getTable(), "id")
             || !Schema::hasColumn($query->getModel()->getTable(), "updated_at")
-        ) throw new \Error("⚓ Model cannot retrieve recent list due to missing column `id` or `updated_at`. Redeclare `scopeRecent`.");
+        ) throw new \Error("⚓ Model ".$query->getModel()." cannot retrieve recent list due to missing column `id` or `updated_at`. Redeclare `scopeRecent`.");
 
         return $query->visible()
             ->orderByDesc("updated_at")
@@ -107,7 +107,7 @@ trait HasStandardScopes
         if (
             !Schema::hasColumn($query->getModel()->getTable(), "name")
             || !Schema::hasColumn($query->getModel()->getTable(), "visible")
-        ) throw new \Error("⚓ Model's connection cannot retrieve options list due to missing column `name` or `visible. Redeclare `scopeForConnection`.");
+        ) throw new \Error("⚓ ".$query->getModel()::class."'s connection cannot retrieve options list due to missing column `name` or `visible`. Redeclare `scopeForConnection`.");
 
         return $query->visible()
             ->orderBy("name");
