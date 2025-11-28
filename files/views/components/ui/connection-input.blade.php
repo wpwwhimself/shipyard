@@ -14,7 +14,7 @@ $icon = $rdata["field_icon"]
         ? "link"
         : $models->first()::META["icon"]
     );
-$options = $models->flatMap(fn ($m) => $m::all()->map(fn ($i) => [
+$options = $models->flatMap(fn ($m) => $m::forConnection()->get()->map(fn ($i) => [
     'label' => $i->option_label,
     'value' => $i->getKey(),
     'group' => $i::META["label"],

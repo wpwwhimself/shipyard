@@ -390,7 +390,7 @@ class AdminController extends Controller
 
         $data = ($id)
             ? model($scope)::find($id)
-            : model($scope)::all();
+            : model($scope)::visible();
 
         if (!$data) return self::apiResponse(404, Str::of($scope)->singular() . " not found");
 
