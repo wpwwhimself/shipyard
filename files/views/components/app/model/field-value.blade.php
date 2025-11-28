@@ -8,6 +8,6 @@
         <x-shipyard.app.icon :name="$model::getFields()[$field]['icon']" />
     </span>
     <span role="value">
-        {{ $slot }}
+        {{ $slot ?? $model->{$field} }}
     </span>
 </span>
