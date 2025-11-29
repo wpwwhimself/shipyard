@@ -239,6 +239,7 @@ header {
     @extend .grid, .but-mobile-down, .middle;
     @extend .padded, .rounded, .animatable, .bordered;
 
+    width: 100%;
     grid-template-columns: auto 1fr;
     flex-grow: 1;
     margin: 0;
