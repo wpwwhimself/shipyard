@@ -21,10 +21,7 @@
 <button type="submit"
 
 @elseif ($action == "none")
-<span {{ $attributes->class([
-    "button",
-    "active" => URL::current() == $action,
-]) }}
+<span
 
 @else
 <a href="{{ $download ? route("file-download", ["path" => urlencode($action)]) : $action }}"
