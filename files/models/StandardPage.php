@@ -19,6 +19,7 @@ class StandardPage extends Model
         "label" => "Strony standardowe",
         "icon" => "script-text",
         "description" => "Podstrony aplikacji, stanowiące dodatkową treść portalu. Ich pełna lista wyświetla się w stopce strony.",
+        "role" => "content-manager",
     ];
 
     use SoftDeletes, Userstamps;

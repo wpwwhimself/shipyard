@@ -39,13 +39,11 @@ trait HasStandardFields
                 ],
                 "label" => "Widoczny dla",
                 "icon" => "eye",
-                "role" => "technical",
             ],
             "order" => (!Schema::hasColumn($table, "order")) ? null : [
                 "type" => "number",
                 "label" => "Wymuś kolejność",
                 "icon" => "sort",
-                "role" => "technical",
             ],
         ]), self::FIELDS);
     }
