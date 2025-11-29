@@ -96,6 +96,13 @@
         @extend .flex, .right, .middle;
         justify-content: right;
         text-align: right;
+
+        &:not(
+            header [role="bottom-part"],
+            footer [role="bottom-part"]
+        ) {
+            @extend .but-mobile-down;
+        }
     }
 }
 
