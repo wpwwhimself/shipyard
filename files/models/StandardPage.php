@@ -90,14 +90,15 @@ class StandardPage extends Model
     ];
 
     public const ACTIONS = [
-        // [
-        //     "icon" => "",
-        //     "label" => "",
-        //     "show-on" => "<list|edit>",
-        //     "route" => "",
-        //     "role" => "",
-        //     "dangerous" => true,
-        // ],
+        [
+            "icon" => "eye",
+            "label" => "Przejdź do strony",
+            "show-on" => "edit",
+            "route" => "standard-page",
+            "params" => ["slug" => "slug"],
+            // "role" => "",
+            // "dangerous" => true,
+        ],
     ];
     #endregion
 
