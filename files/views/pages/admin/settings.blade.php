@@ -52,6 +52,9 @@
     @foreach ($section["fields"] as $field)
         @isset ($field["subsection_title"])
         <x-shipyard.app.h lvl="3" :icon="$field['subsection_icon'] ?? null">{{ $field["subsection_title"] }}</x-shipyard.app.h>
+        @isset ($field["subsection_subtitle"])
+        <p class="ghost">{{ $field["subsection_subtitle"] }}</p>
+        @endisset
 
             @isset ($field["columns"])
             <div class="grid" style="--col-count: {{ count($field["columns"]) }};">
@@ -77,6 +80,21 @@
                 </x-shipyard.app.card>
                 @endforeach
             </div>
+
+            @else
+            @foreach ($field["fields"] as $sub_field)
+            <x-shipyard.ui.input
+                :type="$settings->find($sub_field['name'])->type ?? null"
+                :name="$sub_field['name']"
+                :label="$sub_field['label']"
+                :hint="$sub_field['hint'] ?? null"
+                :icon="$sub_field['icon'] ?? null"
+                :select-data="$sub_field['selectData'] ?? null"
+                :value="$settings->find($sub_field['name'])->type == 'checkbox' ? null : setting($sub_field['name'])"
+                :checked="$settings->find($sub_field['name'])->type == 'checkbox' && setting($sub_field['name'])"
+            />
+            @endforeach
+
             @endisset
 
         @else
