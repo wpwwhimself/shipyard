@@ -149,8 +149,7 @@ class {{ class }} extends Model
         //     "discr" => "<function_name|field_name>",
         //     "type" => "<input type>",
         //     "operator" => "regexp",
-        //     "options" => [
-        //         "<label>" => <value>,
+        //     "selectData" => [
         //     ],
         // ],
     ];
