@@ -210,8 +210,8 @@ if ($type == "date") $value = ($value)
                     @if (is_array($value)
                         ? collect($value)->contains($opt["value"])
                         : ($hasGroups
-                            ? implode(":", [$opt["type"], $opt["value"]]) == $value
-                            : $opt["value"] == $value
+                            ? implode(":", [$opt["type"], $opt["value"]]) === $value
+                            : $opt["value"] === $value
                         )
                     ) selected @endif
                 >
