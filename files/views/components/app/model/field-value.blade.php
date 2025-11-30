@@ -3,7 +3,7 @@
     "field",
 ])
 
-<span class="field-value">
+<span {{ $attributes->class("field-value") }}>
     <span role="icon" {{ Popper::pop($model::getFields()[$field]['label']) }}>
         <x-shipyard.app.icon :name="$model::getFields()[$field]['icon']" />
     </span>
