@@ -53,9 +53,11 @@ trait Theme
 
     public static function getFontImportUrl(): string
     {
-        if (self::FONT_IMPORT_URL) {
-            return "@import url(\"" . self::FONT_IMPORT_URL . "\");";
-        }
+        if (!self::FONT_IMPORT_URL) return "";
+
+        return collect(self::FONT_IMPORT_URL)
+            ->map(fn ($url) => "@import url(\"$url\");")
+            ->join("\n");
     }
     #endregion
 }
