@@ -64,7 +64,6 @@ if ($type == "date") $value = ($value)
         @case ("TEXT")
         <textarea name="{{ $name }}"
             id="{{ $name }}"
-            placeholder="Zacznij pisać..."
             {{ $disabled ? "disabled" : "" }}
             {{ $attributes }}
         >{{ $value }}</textarea>
