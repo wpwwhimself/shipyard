@@ -7,6 +7,12 @@ use Illuminate\Support\Str;
 
 trait HasStandardFields
 {
+    public const VISIBLE_LEVELS = [
+        0 => "Nikt",
+        1 => "Zalogowani",
+        2 => "Wszyscy",
+    ];
+
     /**
      * Get all fields from the model: those default ones (if they exist) and the custom ones from FIELDS constant.
      */
