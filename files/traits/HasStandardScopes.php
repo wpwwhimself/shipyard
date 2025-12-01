@@ -19,9 +19,6 @@ trait HasStandardScopes
             ? self::getSorts()[Str::after($sort, "-")]
             : null;
 
-        if (Schema::hasColumn($this->getTable(), "order")) $query = $query->orderBy("order");
-        if (Schema::hasColumn($this->getTable(), "name")) $query = $query->orderBy("name");
-
         // pre-get filters for db filtering
         foreach ($filters ?? [] as $filter_name => $filter_value) {
             if ($filterData[$filter_name]["compare-using"] != "field") continue;
@@ -34,6 +31,11 @@ trait HasStandardScopes
         }
 
         // pre-get sort for db sorting
+        if (!$sort) {
+            if (Schema::hasColumn($this->getTable(), "order")) $query = $query->orderBy("order");
+            if (Schema::hasColumn($this->getTable(), "name")) $query = $query->orderBy("name");
+        }
+
         if ($sortData && $sortData["compare-using"] == "field") {
             $query = $query->orderBy(
                 $sortData["discr"],
