@@ -19,7 +19,12 @@
     <x-shipyard.ui.button
         :icon="$action['icon']"
         :pop="$action['label']"
-        :action="route($action['route'], ['id' => $data->id])"
+        :action="route(
+            $action['route'],
+            collect($action['params'] ?? [])
+                ->mapWithKeys(fn ($prop, $key) => [$key => $data->{$prop}])
+                ->toArray()
+        )"
         class="{{ ($action['dangerous'] ?? false) ? 'danger' : '' }}"
         :show-for="$action['role'] ?? null"
     />
@@ -64,7 +69,7 @@
                 pop="Wyczyść filtry"
             />
             @endif
-        </x-slot:actions> 
+        </x-slot:actions>
 
         <x-shipyard.app.form method="post" :action="route('admin.model.list.filter', ['model' => $scope])">
             <input type="hidden" name="page" value="{{ request('page') }}">
@@ -98,7 +103,7 @@
                                     'label' => $sdata['label'],
                                     'value' => $sname,
                                 ],
-                            ] 
+                            ]
                             : [
                                 [
                                     'label' => $sdata['label'] . ' (rosnąco)',
