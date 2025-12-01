@@ -29,6 +29,13 @@ trait HasStandardScopes
                 $filter_value
             );
         }
+        // pre-get filters for allowNulls
+        collect($filterData)->filter(fn ($fd, $filter_name) =>
+            $fd["compare-using"] == "field"
+            && ($fd["allowNulls"] ?? false) == true
+            && !in_array($filter_name, array_keys($filters ?? []))
+        )
+            ->each(fn ($fd) => $query = $query->whereNull($fd["discr"]));
 
         // pre-get sort for db sorting
         if (!$sort) {
