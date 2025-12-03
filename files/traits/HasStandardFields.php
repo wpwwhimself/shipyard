@@ -7,10 +7,10 @@ use Illuminate\Support\Str;
 
 trait HasStandardFields
 {
-    public const VISIBLE_LEVELS = [
-        0 => "Nikt",
-        1 => "Zalogowani",
-        2 => "Wszyscy",
+    public const VISIBILITIES = [
+        ["label" => "Nikt nie widzi", "value" => 0],
+        ["label" => "Tylko dla zalogowanych", "value" => 1],
+        ["label" => "Wszyscy widzą", "value" => 2],
     ];
 
     /**

@@ -165,6 +165,13 @@ if ($type == "date") $value = ($value)
                     "value" => $i->{$option_value},
                 ])->toArray();
             }
+            if (isset($selectData["optionsFromConst"])) {
+                [$model, $const, $option_label, $option_value] = $selectData["optionsFromConst"] + array_fill(0, 4, null);
+                $selectData["options"] = collect(constant($model."::".$const))->map(fn ($i) => [
+                    "label" => $i[$option_label ?? "label"],
+                    "value" => $i[$option_value ?? "value"],
+                ])->toArray();
+            }
             @endphp
 
             @if ($selectData["radio"] ?? false)
