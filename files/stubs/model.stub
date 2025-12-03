@@ -141,6 +141,22 @@ class {{ class }} extends Model
         //     "dangerous" => true,
         // ],
     ];
+
+    /**
+     * extended form validation on model save
+     * set result to true if everything is ok, false with message to force back with toast
+     */
+    // public static function validateOnSave($data): array
+    // {
+    //     $res = [
+    //         "result" => true/false,
+    //         "message" => "",
+    //     ];
+    //
+    //     // validation...
+    //
+    //     return $res;
+    // }
     #endregion
 
     public const SORTS = [

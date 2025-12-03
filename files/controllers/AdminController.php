@@ -280,6 +280,14 @@ class AdminController extends Controller
         if ($rq->input("method") == "save") {
             $model_name = model($scope);
             $keyName = (new $model_name())->getKeyName();
+
+            if (method_exists($model_name, "validateOnSave")) {
+                $validation = $model_name::validateOnSave($data);
+                if ($validation["result"] === false) {
+                    return back()->with("toast", ["error", $validation["message"]]);
+                }
+            }
+
             $model = model($scope)::updateOrCreate(
                 [$keyName => $rq->id],
                 $data,
