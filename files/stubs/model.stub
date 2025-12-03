@@ -157,6 +157,15 @@ class {{ class }} extends Model
         // ],
     ];
 
+    public const EXTRA_SECTIONS = [
+        // "<id>" => [
+        //     "title" => "",
+        //     "icon" => "",
+        //     "component" => "<component_name>",
+        //     "role" => "",
+        // ],
+    ];
+
     #region scopes
     use HasStandardScopes;
     #endregion

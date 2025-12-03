@@ -214,6 +214,9 @@ class AdminController extends Controller
         $data = model($scope)::find($id);
         $fields = model($scope)::getFields();
         $connections = model($scope)::getConnections();
+        $actions = model($scope)::getActions("edit");
+        $extraSections = model($scope)::getExtraSections();
+
         $sections = array_merge(
             [["icon" => $meta["icon"], "title" => "Dane podstawowe", "id" => "basic"]],
             collect($connections)->map(fn ($con, $con_scope) => [
@@ -224,14 +227,20 @@ class AdminController extends Controller
             ])
                 ->filter(fn ($con) => $con["show"])
                 ->toArray(),
+            collect($extraSections)->map(fn ($esData, $esId) => [
+                ...$esData,
+                "id" => $esId,
+                "show" => Auth::user()?->hasRole($esData["role"] ?? null),
+            ])
+                ->filter(fn ($es) => $es["show"])
+                ->toArray(),
         );
-        $actions = model($scope)::getActions("edit");
 
         if ($data?->is_uneditable && !Auth::user()?->hasRole("archmage")) {
             return redirect()->route("admin.model.list", ["model" => $scope])->with("toast", ["error", "Tego modelu nie można edytować"]);
         }
 
-        return view("pages.shipyard.admin.model.edit", compact("data", "meta", "scope", "fields", "connections", "sections", "actions"));
+        return view("pages.shipyard.admin.model.edit", compact("data", "meta", "scope", "fields", "connections", "extraSections", "sections", "actions"));
     }
 
     public function processEditModel(Request $rq, string $scope): RedirectResponse

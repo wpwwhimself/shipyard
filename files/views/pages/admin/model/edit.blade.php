@@ -102,6 +102,23 @@
             @endif
         </x-shipyard.app.card>
         @endforeach
+
+        @foreach ($extraSections as $esid => $esdata)
+        @php
+        $sdata = $sections[$esid];
+        @endphp
+
+        <x-shipyard.app.card
+            :title="$sdata['title']"
+            :icon="$sdata['icon']"
+            :id="$sdata['id']"
+        >
+            <x-dynamic-component
+                :component="$sdata['component']"
+                :data="$data ?? new (model($scope))()"
+            />
+        </x-shipyard.app.card>
+        @endforeach
     </div>
 
     <x-slot:actions>

@@ -124,4 +124,16 @@ trait HasStandardFields
                 : [],
         ));
     }
+
+    /**
+     * Get all extra sections from the model from EXTRA_SECTIONS constant.
+     */
+    public static function getExtraSections(): array
+    {
+        return array_filter(array_merge(
+            defined(self::class."::EXTRA_SECTIONS")
+                ? self::EXTRA_SECTIONS
+                : [],
+        ));
+    }
 }
