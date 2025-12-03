@@ -82,25 +82,41 @@ trait HasStandardFields
     /**
      * Get all sorts from the model from SORTS constant.
      */
-    public static function getSorts(): array
+    public static function getSorts($defaultSort = null): array
     {
+        if (!defined(self::class."::SORTS")) return [];
+
+        $sortData = self::SORTS;
+        $defaultSortData = [
+            "label" => "domyślnie",
+            "direction" => "asc",
+        ];
+
+        if (!empty($defaultSort)) {
+            $direction = $defaultSort[0] == "-" ? "desc" : "asc";
+            $defaultSortData = array_merge(
+                $defaultSortData,
+                $sortData[Str::after($defaultSort, "-")]
+            );
+            $defaultSortData["label"] .= " " . implode(" ", [
+                $direction == "asc" ? "rosnąco" : "malejąco",
+                "(domyślnie)",
+            ]);
+            $defaultSortData["direction"] = $direction;
+        }
+
         return array_filter(array_merge(
             [
-                null => [
-                    "label" => "domyślnie",
-                    "direction" => "asc",
-                ],
+                null => $defaultSortData,
             ],
-            defined(self::class."::SORTS")
-                ? self::SORTS
-                : [],
+            $sortData,
         ));
     }
 
     /**
      * Get all filters from the model from FILTERS constant.
      */
-    public static function getFilters(): array
+    public static function getFilters($defaultFltr = null): array
     {
         return array_filter(array_merge(
             defined(self::class."::FILTERS")

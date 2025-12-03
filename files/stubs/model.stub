@@ -22,6 +22,8 @@ class {{ class }} extends Model
         "description" => "",
         "role" => "",
         "ordering" => ,
+        // "defaultSort" => ,
+        // "defaultFltr" => ,
     ];
 
     use SoftDeletes, Userstamps;

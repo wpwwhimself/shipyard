@@ -181,10 +181,13 @@ class AdminController extends Controller
         if (!Auth::user()?->hasRole(model($scope)::META["role"] ?? null)) abort(403);
 
         $meta = model($scope)::META;
-        $data = model($scope)::forAdminList(request("sort"), request("fltr"));
+        $data = model($scope)::forAdminList(
+            request("sort") ?? $meta["defaultSort"] ?? null,
+            request("fltr") ?? $meta["defaultFltr"] ?? null
+        );
         $actions = model($scope)::getActions("list");
-        $sorts = model($scope)::getSorts();
-        $filters = model($scope)::getFilters();
+        $sorts = model($scope)::getSorts($meta["defaultSort"] ?? null);
+        $filters = model($scope)::getFilters($meta["defaultFltr"] ?? null);
 
         return view("pages.shipyard.admin.model.list", compact("data", "meta", "scope", "actions", "sorts", "filters"));
     }
