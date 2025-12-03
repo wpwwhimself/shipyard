@@ -4,6 +4,7 @@
 
 <div role="model-card" {{ $attributes }}>
     <div role="top-part">
+        {!! $model->display_pre_title !!}
         <div role="model-intro">
             {!! $model->display_title !!}
             {!! $model->display_subtitle !!}

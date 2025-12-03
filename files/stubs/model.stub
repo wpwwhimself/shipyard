@@ -78,6 +78,13 @@ class {{ class }} extends Model
         );
     }
 
+    public function displayPreTitle(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => null,
+        );
+    }
+
     public function displayMiddlePart(): Attribute
     {
         return Attribute::make(
