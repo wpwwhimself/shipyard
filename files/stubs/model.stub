@@ -22,7 +22,7 @@ class {{ class }} extends Model
         "description" => "",
         "role" => "",
         "ordering" => ,
-// "listScope" => "", // default scope to list items in model editor, empty defaults to forAdminList
+        // "listScope" => "", // default scope to list items in model editor, empty defaults to forAdminList
         // "defaultSort" => "", // default sort, as it appears in url
         // "defaultFltr" => "", // default filters //todo expand
     ];
@@ -223,6 +223,18 @@ class {{ class }} extends Model
     //                 "html" => "",
     //             ],
     //         ],
+    //     );
+    // }
+
+    //? override edit button on model list
+    // public function modelEditButton(): Attribute
+    // {
+    //     return Attribute::make(
+    //         get: fn () => view("components.shipyard.ui.button", [
+    //             "icon" => "pencil",
+    //             "label" => "Edytuj",
+    //             "action" => route(...),
+    //         ])->render(),
     //     );
     // }
     #endregion
