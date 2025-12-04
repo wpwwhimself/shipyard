@@ -42,7 +42,7 @@
 
     @if ($badge) <strong class="badge">{{ $badge }}</strong> @endif
 
-    @if ($slot) {{ $slot }} @endif
+    @isset ($slot) {{ $slot }} @endisset
 
 @if (in_array($action, ["submit"]) || $action == null)
 </button>
