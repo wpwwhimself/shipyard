@@ -35,6 +35,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Modal::where("name", "quest-quote-update")->delete();
+        Modal::where("name", )->delete();
     }
 };
