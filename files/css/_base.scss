@@ -407,8 +407,11 @@ hr {
 .loader {
     font-size: 7.5em;
     text-align: center;
-    animation: rotate 1s ease-in-out infinite;
     color: var(--primary);
+    
+    & > .icon {
+        animation: rotate 1s ease-in-out infinite;
+    }
 
     #lookup-container & {
         position: absolute;
