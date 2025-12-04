@@ -161,8 +161,8 @@ if ($type == "date") $value = ($value)
             if (isset($selectData["optionsFromScope"])) {
                 [$model, $scope, $option_label, $option_value, $scope_args] = $selectData["optionsFromScope"] + array_fill(0, 5, null);
                 $selectData["options"] = $model::$scope($scope_args)->get()->map(fn ($i) => [
-                    "label" => $i->{$option_label},
-                    "value" => $i->{$option_value},
+                    "label" => $i->{$option_label ?? "option_label"},
+                    "value" => $i->{$option_value ?? "id"},
                 ])->toArray();
             }
             if (isset($selectData["optionsFromConst"])) {
