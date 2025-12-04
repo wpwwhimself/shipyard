@@ -22,8 +22,9 @@ class {{ class }} extends Model
         "description" => "",
         "role" => "",
         "ordering" => ,
-        // "defaultSort" => ,
-        // "defaultFltr" => ,
+// "listScope" => "", // default scope to list items in model editor, empty defaults to forAdminList
+        // "defaultSort" => "", // default sort, as it appears in url
+        // "defaultFltr" => "", // default filters //todo expand
     ];
 
     use SoftDeletes, Userstamps;
