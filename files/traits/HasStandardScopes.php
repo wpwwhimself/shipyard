@@ -9,11 +9,9 @@ use Illuminate\Support\Str;
 
 trait HasStandardScopes
 {
-    public function scopeForAdminList($query, $sort = null, $filters = null)
+    public function scopeSortAndFilter($query, $sort = null, $filters = null)
     {
         // setup
-        $page = request("page", 1);
-        $perPage = request("prpg", 25);
         $filterData = self::getFilters();
         $sortData = !empty($sort)
             ? self::getSorts()[Str::after($sort, "-")]
@@ -67,6 +65,15 @@ trait HasStandardScopes
             $data = $data->{$sort[0] == "-" ? "sortByDesc" : "sortBy"}(fn ($i) => $i->{$sortData["discr"]});
         }
 
+        return $data;
+    }
+
+    public function scopeForAdminList($query, $sort = null, $filters = null)
+    {
+        $page = request("page", 1);
+        $perPage = request("prpg", 25);
+
+        $data = $query->sortAndFilter($sort, $filters);
         $data = new LengthAwarePaginator(
             $data->slice($perPage * ($page - 1), $perPage),
             $data->count(),
