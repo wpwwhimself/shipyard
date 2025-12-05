@@ -250,7 +250,7 @@ function reapplyPopper() {
 
 // #region sections
 function openSection(btn, key) {
-    document.querySelector(`[data-ebid='${key}'] .body`).classList.toggle("hidden");
+    document.querySelector(`[data-ebid='${key}'] > .contents`).classList.toggle("hidden");
     btn.parentElement.querySelectorAll(`.toggles`).forEach(b => b.classList.toggle("hidden"));
 }
 // #endregion

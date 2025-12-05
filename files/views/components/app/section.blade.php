@@ -16,9 +16,16 @@ $key ??= Str::uuid();
     @if ($title)
     <div class="header">
         <div class="titles">
-            <h2><x-shipyard.app.icon :name="$icon" /></h2>
-            <h2>{{ $title }}</h2>
-            <span class="ghost">{!! $subtitle !!}</span>
+            @if ($icon)
+            <x-shipyard.app.h lvl="2" role="section-icon" :icon="$icon" />
+            @endif
+
+            <div role="texts">
+                <x-shipyard.app.h lvl="2" role="section-title">{{ $title }}</x-shipyard.app.h>
+                @if ($subtitle)
+                {!! $subtitle !!}
+                @endif
+            </div>
         </div>
 
         <div class="actions">
@@ -46,7 +53,9 @@ $key ??= Str::uuid();
     </div>
     @endif
 
-    <div @class(['body', 'hidden' => !$extended])>
+    @isset ($slot)
+    <div @class(['contents', 'hidden' => !$extended])>
         {{ $slot }}
     </div>
+    @endisset
 </div>

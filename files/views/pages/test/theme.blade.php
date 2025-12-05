@@ -49,4 +49,36 @@
     </div>
 </x-shipyard.app.section>
 
+<div class="grid but-mobile-down" style="--col-count: 2;">
+    <x-shipyard.app.section
+        title="Jestem sekcją"
+        subtitle="I robię fajne rzeczy"
+        icon="human-greeting"
+        :extended="true"
+    >
+        <p>
+            Jestem sekcją i jestem głównym elementem rozdzielającym rzeczy na stronie.
+            Mogę być zwinięta, żeby nie zajmować tyle miejsca.
+        </p>
+
+        <x-shipyard.app.card
+            title="Jestem kartą wewnątrz sekcji"
+            icon="human-greeting"
+        >
+            <p>Jestem kartą wewnątrz sekcji - grupuję informacje.</p>
+        </x-shipyard.app.card>
+    </x-shipyard.app.section>
+
+    <x-shipyard.app.card
+        title="Jestem kartą"
+        subtitle="I też robię fajne rzeczy"
+        icon="human-greeting"
+    >
+        <p>
+            Jestem kartą i jestem po to, by grupować informacje.
+            Mogę znajdować się luzem na stronie lub być częścią sekcji.
+        </p>
+    </x-shipyard.app.card>
+</div>
+
 @endsection
