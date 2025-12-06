@@ -42,7 +42,7 @@
 <x-shipyard.app.form :action="route('admin.model.edit.process', ['model' => $scope])" method="POST">
     <input type="hidden" name="id" value="{{ $data?->getKey() ?? "" }}">
 
-    <x-shipyard.app.card
+    <x-shipyard.app.section
         title="Dane podstawowe"
         :icon="model_icon($scope)"
         id="basic"
@@ -55,7 +55,7 @@
         @if (isset($fdata["role"]) && !auth()->user()->hasRole($fdata["role"])) @continue @endif
         <x-shipyard.ui.field-input :model="$data ?? new (model($scope))()" :field-name="$name" />
         @endforeach
-    </x-shipyard.app.card>
+    </x-shipyard.app.section>
 
     <div class="grid but-mobile down" style="--col-count: 2;">
         @foreach ($connections as $relation => $rdata)
@@ -71,7 +71,7 @@
                 : $models->first()::META["icon"]
             );
         @endphp
-        <x-shipyard.app.card
+        <x-shipyard.app.section
             :title="$pop_label"
             :icon="$icon"
             id="connections_{{ $relation }}"
@@ -100,7 +100,7 @@
                 @endforeach
             </div>
             @endif
-        </x-shipyard.app.card>
+        </x-shipyard.app.section>
         @endforeach
 
         @foreach ($extraSections as $esid => $esdata)
@@ -108,7 +108,7 @@
         $sdata = $sections[$esid];
         @endphp
 
-        <x-shipyard.app.card
+        <x-shipyard.app.section
             :title="$sdata['title']"
             :icon="$sdata['icon']"
             :id="$sdata['id']"
@@ -117,7 +117,7 @@
                 :component="$sdata['component']"
                 :data="$data ?? new (model($scope))()"
             />
-        </x-shipyard.app.card>
+        </x-shipyard.app.section>
         @endforeach
     </div>
 

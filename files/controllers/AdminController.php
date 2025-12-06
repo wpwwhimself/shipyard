@@ -108,6 +108,7 @@ class AdminController extends Controller
             ],
             [
                 "title" => "Użytkownicy",
+                "subtitle" => "Logowanie i rejestracja",
                 "icon" => "account-multiple",
                 "id" => "users",
                 "fields" => [

@@ -20,13 +20,13 @@
 
 @section("content")
 
-<p>
+<div class="card">
     Tutaj możesz umieszczać pliki – np. grafiki – które mają pojawić się na podstronach.
     Po wgraniu ich na serwer możesz je umieścić w treściach strony, korzystając z wygenerowanych linków.
-</p>
+</div>
 
 @php $card_id = "files-list"; @endphp
-<x-shipyard.app.card
+<x-shipyard.app.section
     :title="$sections[$card_id]['label']"
     :icon="$sections[$card_id]['icon']"
     :id="$card_id"
@@ -48,11 +48,11 @@
         <p>Brak plików</p>
         @endforelse
     </div>
-</x-shipyard.app.card>
+</x-shipyard.app.section>
 
-<div class="grid" style="--col-count: 2;">
+<div class="grid but-mobile-down" style="--col-count: 2;">
     @php $card_id = "files-upload"; @endphp
-    <x-shipyard.app.card
+    <x-shipyard.app.section
         :title="$sections[$card_id]['label']"
         :icon="$sections[$card_id]['icon']"
         :id="$card_id"
@@ -77,10 +77,10 @@
                 />
             </x-slot:actions>
         </x-shipyard.app.form>
-    </x-shipyard.app.card>
+    </x-shipyard.app.section>
 
     @php $card_id = "folder-mgmt"; @endphp
-    <x-shipyard.app.card
+    <x-shipyard.app.section
         :title="$sections[$card_id]['label']"
         :icon="$sections[$card_id]['icon']"
         :id="$card_id"
@@ -118,7 +118,7 @@
                 @endif
             </x-slot:actions>
         </x-shipyard.app.form>
-    </x-shipyard.app.card>
+    </x-shipyard.app.section>
 </div>
 
 @endsection

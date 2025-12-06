@@ -3,7 +3,7 @@
 
 @section("content")
 
-<x-shipyard.app.card
+<x-shipyard.app.section
     title="Dane użytkownika"
     :icon="model_icon('users')"
 >
@@ -23,6 +23,6 @@
             :action="route('admin.model.edit', ['model' => 'user', 'id' => Auth::user()->id])"
         />
     </x-slot:actions>
-</x-shipyard.app.card>
+</x-shipyard.app.section>
 
 @endsection

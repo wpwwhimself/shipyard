@@ -21,7 +21,7 @@
 @section("content")
 
 @foreach ($model_groups as $group)
-<x-shipyard.app.card
+<x-shipyard.app.section
     :title="$group['label']"
     :icon="$group['icon']"
     id="{{ $group['id'] }}"
@@ -36,7 +36,7 @@
         />
         @endforeach
     </div>
-</x-shipyard.app.card>
+</x-shipyard.app.section>
 @endforeach
 
 @endsection

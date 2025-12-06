@@ -19,7 +19,7 @@
 }
 
 .with-bottom-separator {
-    border-bottom: 1px solid var(--fg-lite);
+    border-bottom: 1px solid var(--bg-lite);
     padding-bottom: 1em;
     margin-bottom: 1em;
 
@@ -70,7 +70,7 @@
 
         & > .titles {
             @extend .flex, .right, .middle;
-    
+
             & > [role$="icon"] {
                 margin: 0;
             }

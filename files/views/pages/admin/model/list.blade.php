@@ -46,83 +46,87 @@
 
 @section("content")
 
+@if ($meta['description'])
 <x-shipyard.app.card>
     <p>{{ $meta['description'] }}</p>
+</x-shipyard.app.card>
+@endif
 
-    @if ($sorts || $filters)
-    <x-shipyard.app.section
-        title="Filtry i sortowanie"
-        :subtitle="request('sort') || request('fltr')
-            ? implode(', ', array_filter([
-                request('fltr') ? 'Filtry: ' . count(request('fltr')) : null,
-                request('sort') ? 'Sortowanie: ' . model($scope)::getSorts()[Str::after(request('sort'), '-')]['label'] : null,
-            ]))
-            : null"
-        icon="filter"
-        :extended="false"
-    >
-        <x-slot:actions>
-            @if (request('sort') || request('fltr'))
-            <x-shipyard.ui.button
-                :action="route('admin.model.list', ['model' => $scope])"
-                icon="undo-variant"
-                pop="Wyczyść filtry"
-            />
-            @endif
-        </x-slot:actions>
+@if ($sorts || $filters)
+<x-shipyard.app.section
+    title="Filtry i sortowanie"
+    :subtitle="request('sort') || request('fltr')
+        ? implode(', ', array_filter([
+            request('fltr') ? 'Filtry: ' . count(request('fltr')) : null,
+            request('sort') ? 'Sortowanie: ' . model($scope)::getSorts()[Str::after(request('sort'), '-')]['label'] : null,
+        ]))
+        : null"
+    icon="filter"
+    :extended="false"
+>
+    <x-slot:actions>
+        @if (request('sort') || request('fltr'))
+        <x-shipyard.ui.button
+            :action="route('admin.model.list', ['model' => $scope])"
+            icon="undo-variant"
+            pop="Wyczyść filtry"
+        />
+        @endif
+    </x-slot:actions>
 
-        <x-shipyard.app.form method="post" :action="route('admin.model.list.filter', ['model' => $scope])">
-            <input type="hidden" name="page" value="{{ request('page') }}">
+    <x-shipyard.app.form method="post" :action="route('admin.model.list.filter', ['model' => $scope])">
+        <input type="hidden" name="page" value="{{ request('page') }}">
 
-            @foreach ($filters as $fname => $fdata)
-            <x-shipyard.ui.input :type="$fdata['type']"
-                :name="'fltr['.$fname.']'"
-                :label="$fdata['label']"
-                :icon="isset($fdata['icon'])
-                    ? $fdata['icon']
-                    : ($fdata['compare-using'] == 'field'
-                        ? model_field_icon($scope, $fname)
-                        : null
-                    )"
-                :value="request('fltr.' . $fname)"
-                :select-data="$fdata['selectData'] ?? null"
-                onchange="this.form.submit()"
-            />
-            @endforeach
+        @foreach ($filters as $fname => $fdata)
+        <x-shipyard.ui.input :type="$fdata['type']"
+            :name="'fltr['.$fname.']'"
+            :label="$fdata['label']"
+            :icon="isset($fdata['icon'])
+                ? $fdata['icon']
+                : ($fdata['compare-using'] == 'field'
+                    ? model_field_icon($scope, $fname)
+                    : null
+                )"
+            :value="request('fltr.' . $fname)"
+            :select-data="$fdata['selectData'] ?? null"
+            onchange="this.form.submit()"
+        />
+        @endforeach
 
-            @if ($sorts)
-            <x-shipyard.ui.input type="select"
-                name="sort"
-                label="Sortuj"
-                icon="sort"
-                :select-data="[
-                    'options' => collect($sorts)
-                        ->flatMap(fn ($sdata, $sname) => isset($sdata['direction'])
-                            ? [
-                                [
-                                    'label' => $sdata['label'],
-                                    'value' => $sname,
-                                ],
-                            ]
-                            : [
-                                [
-                                    'label' => $sdata['label'] . ' (rosnąco)',
-                                    'value' => $sname,
-                                ],
-                                [
-                                    'label' => $sdata['label'] . ' (malejąco)',
-                                    'value' => '-' . $sname,
-                                ],
-                            ]),
-                ]"
-                :value="request('sort')"
-                onchange="this.form.submit()"
-            />
-            @endif
-        </x-shipyard.app.form>
-    </x-shipyard.app.section>
-    @endif
+        @if ($sorts)
+        <x-shipyard.ui.input type="select"
+            name="sort"
+            label="Sortuj"
+            icon="sort"
+            :select-data="[
+                'options' => collect($sorts)
+                    ->flatMap(fn ($sdata, $sname) => isset($sdata['direction'])
+                        ? [
+                            [
+                                'label' => $sdata['label'],
+                                'value' => $sname,
+                            ],
+                        ]
+                        : [
+                            [
+                                'label' => $sdata['label'] . ' (rosnąco)',
+                                'value' => $sname,
+                            ],
+                            [
+                                'label' => $sdata['label'] . ' (malejąco)',
+                                'value' => '-' . $sname,
+                            ],
+                        ]),
+            ]"
+            :value="request('sort')"
+            onchange="this.form.submit()"
+        />
+        @endif
+    </x-shipyard.app.form>
+</x-shipyard.app.section>
+@endif
 
+<x-shipyard.app.card>
     @forelse ($data as $item)
     <x-shipyard.app.model.tile :model="$item" @class(["ghost" => $item->is_uneditable ?? false])>
         <x-slot:actions>

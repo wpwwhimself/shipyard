@@ -43,11 +43,12 @@
 <x-shipyard.app.form :action="route('admin.system-settings.process')" method="post">
 
 @foreach ($fields as $section)
-<x-shipyard.app.card
+<x-shipyard.app.section
     :title="$section['title']"
     :subtitle="$section['subtitle'] ?? null"
     :icon="$section['icon'] ?? null"
     :id="$section['id'] ?? null"
+    :extended="false"
 >
     @foreach ($section["fields"] as $field)
         @isset ($field["subsection_title"])
@@ -110,7 +111,7 @@
         />
         @endisset
     @endforeach
-</x-shipyard.app.card>
+</x-shipyard.app.section>
 @endforeach
 
 </x-shipyard.app.form>
