@@ -20,7 +20,7 @@
         <x-shipyard.ui.button
             icon="pencil"
             label="Edytuj"
-            :action="route('admin.model.edit', ['model' => 'user', 'id' => Auth::user()->id])"
+            :action="route('admin.model.edit', ['model' => 'users', 'id' => Auth::user()->id])"
         />
     </x-slot:actions>
 </x-shipyard.app.section>

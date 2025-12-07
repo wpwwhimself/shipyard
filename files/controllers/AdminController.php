@@ -180,6 +180,7 @@ class AdminController extends Controller
     public function listModel(string $scope): View
     {
         if (!Auth::user()?->hasRole(model($scope)::META["role"] ?? null)) abort(403);
+        if ($scope === "users" && !Auth::user()?->hasRole("technical")) abort(403); // manual user editing permission, as this is a special case
 
         $meta = model($scope)::META;
         $listScope = $meta["listScope"] ?? "forAdminList";
@@ -207,10 +208,8 @@ class AdminController extends Controller
 
     public function editModel(string $scope, int|string|null $id = null): View|RedirectResponse
     {
-        if (
-            !Auth::user()?->hasRole(model($scope)::META["role"] ?? null)
-            && !($scope == "users" && Auth::id() == $id) // user can edit themself
-        ) abort(403);
+        if (!Auth::user()?->hasRole(model($scope)::META["role"] ?? null)) abort(403);
+        if ($scope === "users" && Auth::id() != $id && !Auth::user()?->hasRole("technical")) abort(403); // manual user editing permission, as this is a special case
 
         $meta = model($scope)::META;
         $data = model($scope)::find($id);
