@@ -189,6 +189,27 @@ body {
         text-decoration: none;
     }
 
+    &[target="_blank"] {
+        border-style: double;
+        border-width: 5px;
+    }
+
+    &.toggle {
+        border-style: dashed;
+        color: var(--fg);
+        --accent-color: var(--tertiary);
+
+        &:hover {
+            color: var(--tertiary);
+            background: inherit;
+        }
+
+        &.active {
+            border-style: solid;
+            border-color: var(--accent-color);
+        }
+    }
+
     &:hover {
         @extend .background;
     }

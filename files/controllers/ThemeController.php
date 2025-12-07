@@ -72,5 +72,9 @@ class ThemeController extends Controller
     public function testTheme() {
         return view("pages.shipyard.test.theme");
     }
+
+    public function testThemeToast(string $type) {
+        return redirect()->route("theme.test")->with("toast", [$type, "Jestem tostem!"]);
+    }
     #endregion
 }

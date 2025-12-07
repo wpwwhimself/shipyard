@@ -112,7 +112,8 @@ Route::controller(SpellbookController::class)->middleware(EnsureUserHasRole::cla
 #region styles
 Route::controller(ThemeController::class)->group(function () {
     Route::prefix("theme")->middleware(EnsureUserHasRole::class.":spellcaster")->group(function () {
-        Route::get("test", "testTheme");
+        Route::get("test", "testTheme")->name("theme.test");
+        Route::get("test/toast/{type}", "testThemeToast")->name("theme.test.toast");
     });
 
     Route::prefix("api/theme")->group(function () {
