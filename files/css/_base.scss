@@ -408,7 +408,7 @@ hr {
     font-size: 7.5em;
     text-align: center;
     color: var(--primary);
-    
+
     & > .icon {
         animation: rotate 1s ease-in-out infinite;
     }
@@ -485,6 +485,10 @@ main {
 
 [role="pagination"] {
     @extend .flex, .right, .center, .middle;
+
+    & [role="pages"] {
+        text-align: center;
+    }
 
     & [role="pages-description"] {
         text-align: center;

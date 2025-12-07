@@ -358,7 +358,6 @@ main {
 
 .section {
     @extend .card, .tile;
-    @extend .with-bottom-separator;
 
     & > .header {
         @extend .flex, .right, .middle, .spread;

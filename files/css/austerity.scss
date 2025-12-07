@@ -383,7 +383,6 @@ main {
 
 .section {
     @extend .tile;
-    @extend .with-bottom-separator;
 
     & > .header {
         @extend .flex, .right, .middle, .spread;
