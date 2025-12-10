@@ -34,20 +34,32 @@ $key ??= Str::uuid();
             @endisset
 
             @unless($extended === "perma")
-            <x-shipyard.ui.button
-                icon="unfold-less-horizontal"
-                pop="Zwiń"
-                action="none"
-                onclick="openSection(this, '{{ $key }}')"
-                class="toggles tertiary {{ $extended ? '' : 'hidden' }}"
-            />
-            <x-shipyard.ui.button
-                icon="unfold-more-horizontal"
-                pop="Rozwiń"
-                action="none"
-                onclick="openSection(this, '{{ $key }}')"
-                class="toggles tertiary {{ $extended ? 'hidden' : '' }}"
-            />
+            <div role="section-extender">
+                <span
+                    onclick="openSection(this, '{{ $key }}')"
+                    @class([
+                        "toggles",
+                        "ghost",
+                        "interactive",
+                        "hidden" => $extended,
+                    ])
+                    @popper(Rozwiń)
+                >
+                    <x-shipyard.app.icon name="unfold-more-horizontal" />
+                </span>
+                <span
+                    onclick="openSection(this, '{{ $key }}')"
+                    @class([
+                        "toggles",
+                        "ghost",
+                        "interactive",
+                        "hidden" => !$extended,
+                    ])
+                    @popper(Zwiń)
+                >
+                    <x-shipyard.app.icon name="unfold-less-horizontal" />
+                </span>
+            </div>
             @endunless
         </div>
     </div>
@@ -58,4 +70,33 @@ $key ??= Str::uuid();
         {{ $slot }}
     </div>
     @endisset
+
+    @unless($extended === "perma")
+    <div role="section-extender">
+        <span
+            onclick="openSection(this, '{{ $key }}')"
+            @class([
+                "toggles",
+                "ghost",
+                "interactive",
+                "hidden" => $extended,
+            ])
+        >
+            <x-shipyard.app.icon name="chevron-down" />
+            Rozwiń
+        </span>
+        <span
+            onclick="openSection(this, '{{ $key }}')"
+            @class([
+                "toggles",
+                "ghost",
+                "interactive",
+                "hidden" => !$extended,
+            ])
+        >
+            <x-shipyard.app.icon name="chevron-up" />
+            Zwiń
+        </span>
+    </div>
+    @endunless
 </div>

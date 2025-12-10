@@ -584,14 +584,18 @@ search {
         align-self: baseline;
     }
 
+    & > .header {
+        padding-bottom: var(--eb-space);
+        margin-bottom: var(--eb-space);
+        border-bottom: var(--eb-border);
+    }
+
     & > .contents {
         border-radius: 0;
+    }
 
-        &:not(:first-child){
-            padding-top: var(--eb-space);
-            margin-top: var(--eb-space);
-            border-top: var(--eb-border);
-        }
+    & > [role="section-extender"] {
+        @extend .flex, .right, .center, .middle;
     }
 }
 
