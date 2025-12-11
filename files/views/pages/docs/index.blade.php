@@ -14,6 +14,13 @@
         Każdy plik o rozszerzeniu <code>.md</code> będzie wyświetlony na liście obok (posortowane alfabetycznie).
         Nazwa pliku może zaczynać się od <code>???-</code>, gdzie ? stanowi cyfrę. Ten prefiks nie pokaże się w tytule artykułu.
     </p>
+    <p>
+        Pierwsze linijki pliku mogą tworzyć obiekt JSON, w którym zawarte mogą być dodatkowe informacje, np.:
+    </p>
+    <ul>
+        <li><code>icon</code></li>
+        <li><code>role</code></li>
+    </ul>
     @endif
 </div>
 

@@ -5,14 +5,15 @@
 <div class="card stick-top">
     <x-shipyard.ui.button
         icon="wizard-hat"
-        label="Zaklęcia"
+        pop="Zaklęcia"
         :action="route('docs.view', ['slug' => 'spells'])"
         show-for="spellcaster"
     />
 
     @foreach ($docs ?? [] as $doc_data)
     <x-shipyard.ui.button
-        :label="$doc_data['title']"
+        :pop="$doc_data['title']"
+        :icon="$doc_data['icon'] ?? 'book-outline'"
         :action="route('docs.view', ['slug' => $doc_data['slug']])"
     />
     @endforeach

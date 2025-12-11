@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Shipyard;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
 class DocsController extends Controller
@@ -25,10 +26,38 @@ class DocsController extends Controller
             ->map(fn ($doc) => [
                 ...$doc,
                 "slug" => Str::slug($doc["title"]),
+                ...$this->extractMetaFromDoc($doc["path"]),
             ])
+            ->filter(fn ($doc) => Auth::user()?->hasRole($doc["role"] ?? null))
             ->sortBy("full_basename");
 
         return $docs;
+    }
+
+    private function extractMetaFromDoc(string $path, bool $output_file_instead = false)
+    {
+        $doc = file_get_contents($path);
+        $lines = explode("\n", $doc);
+        $meta = [];
+
+        if (($lines[0][0] ?? "") !== "{") {
+            return $meta;
+        }
+
+        while (($lines[0][0] ?? "") !== "}") {
+            $meta[] = array_shift($lines);
+        }
+        $meta[] = array_shift($lines);
+        $meta = implode("\n", $meta);
+        $meta = json_decode($meta, true);
+
+        if ($meta === null) {
+            throw new \Error("⚓ Invalid meta in $path");
+        }
+
+        return $output_file_instead
+            ? implode("\n", $lines)
+            : $meta;
     }
 
     public function index()
@@ -43,11 +72,11 @@ class DocsController extends Controller
     public function view(string $slug)
     {
         $docs = $this->prepareDocs();
-        
+
         $doc = $docs->firstWhere("slug", $slug);
         if (!$doc) abort(404);
         $title = $doc["title"];
-        $doc = file_get_contents($doc["path"]);
+        $doc = $this->extractMetaFromDoc($doc["path"], true);
 
         return view("pages.shipyard.docs.view", compact(
             "docs",

@@ -1,3 +1,8 @@
+{
+    "icon": "dock-window",
+    "role": "technical"
+}
+
 # 📝 Co to jest modal?
 
 Modal jest wyskakującym okienkiem, pozwalającym **od razu**, bez przechodzenia między stronami, **wykonać pewną czynność**.
