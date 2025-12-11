@@ -122,8 +122,7 @@ trait HasStandardScopes
     {
         if (
             !Schema::hasColumn($query->getModel()->getTable(), "name")
-            || !Schema::hasColumn($query->getModel()->getTable(), "visible")
-        ) throw new \Error("⚓ ".$query->getModel()::class."'s connection cannot retrieve options list due to missing column `name` or `visible`. Redeclare `scopeForConnection`.");
+        ) throw new \Error("⚓ ".$query->getModel()::class."'s connection cannot retrieve options list due to missing column `name`. Redeclare `scopeForConnection`.");
 
         return $query->visible()
             ->orderBy("name");
