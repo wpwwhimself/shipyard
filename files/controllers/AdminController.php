@@ -131,6 +131,18 @@ class AdminController extends Controller
                         "icon" => "account-plus",
                         "hint" => "Jeśli ta opcja jest włączona, użytkownicy mogą sami zakładać własne konta. W przeciwnym wypadku tworzenie kont jest możliwe tylko przez administratora.",
                     ],
+                    [
+                        "name" => "users_password_reset_mode",
+                        "label" => "Proces odzyskiwania hasła",
+                        "icon" => "key-change",
+                        "hint" => "W jaki sposób przebiega resetowanie hasła.",
+                        "selectData" => [
+                            "options" => [
+                                ["label" => "Standardowo (link do resetu wysyłany mailem)", "value" => "email",],
+                                ["label" => "Administrator nadaje hasło", "value" => "manual",],
+                            ],
+                        ],
+                    ],
                 ]
             ],
         ];

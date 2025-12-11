@@ -154,26 +154,7 @@ class AuthController extends Controller
             }
         }
 
-        $validator = Validator::make($rq->all(), [
-            'password' => ['required', 'confirmed'],
-        ]);
-        if ($validator->fails()) return back()->with("toast", ["error", "Coś jest nie tak z hasłem"]);
-
-        if (setting("users_login_is") == "none") {
-            $user_with_similar_password = User::where("name", substr($rq->password, 0, self::NOLOGIN_LOGIN_PART_LENGTH))
-                ->where("id", "!=", $user->id)
-                ->exists();
-
-            if ($user_with_similar_password) {
-                return back()->with("toast", ["error", "Hasło nie spełnia wymogów bezpieczeństwa"]);
-            }
-        }
-
-        User::findOrFail(Auth::id())->update([
-            "name" => (setting("users_login_is") == "none") ? substr($rq->password, 0, self::NOLOGIN_LOGIN_PART_LENGTH) : $user->name,
-            "password" => Hash::make($rq->password),
-        ]);
-        return redirect(route("profile"))->with("toast", ["success", "Hasło zostało zmienione"]);
+        return $this->updateUsersPassword($rq, User::find($rq->user_id) ?? Auth::user());
     }
 
     public function resetPassword(Request $rq, ?string $token = null)
@@ -189,13 +170,19 @@ class AuthController extends Controller
 
     public function processResetPassword(Request $rq)
     {
-        $status = Password::sendResetLink($rq->only('email'));
-        $success = $status == Password::RESET_LINK_SENT;
+        switch (setting("users_password_reset_mode")) {
+            case "email":
+                $status = Password::sendResetLink($rq->only('email'));
+                $success = $status == Password::RESET_LINK_SENT;
 
-        return back()->with("toast", $success
-            ? ["success", "Link do resetowania hasła został wysłany"]
-            : ["error", "Coś poszło nie tak podczas resetowania hasła"]
-        );
+                return back()->with("toast", $success
+                    ? ["success", "Link do resetowania hasła został wysłany"]
+                    : ["error", "Coś poszło nie tak podczas resetowania hasła"]
+                );
+
+            case "manual":
+                return $this->updateUsersPassword($rq, User::find($rq->user_id));
+        }
     }
     #endregion
 
@@ -205,5 +192,30 @@ class AuthController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
         return redirect("/")->with("toast", ["success", "Wylogowano"]);
+    }
+
+    private function updateUsersPassword(Request $rq, User $user)
+    {
+        $validator = Validator::make($rq->all(), [
+            'password' => ['required', 'confirmed'],
+        ]);
+        if ($validator->fails()) return back()->with("toast", ["error", "Coś jest nie tak z hasłem"]);
+
+        if (setting("users_login_is") == "none") {
+            $user_with_similar_password = User::where("name", substr($rq->password, 0, self::NOLOGIN_LOGIN_PART_LENGTH))
+                ->where("id", "!=", $user->user_id)
+                ->exists();
+
+            if ($user_with_similar_password) {
+                return back()->with("toast", ["error", "Hasło nie spełnia wymogów bezpieczeństwa"]);
+            }
+        }
+
+        $user->update([
+            "name" => (setting("users_login_is") == "none") ? substr($rq->password, 0, self::NOLOGIN_LOGIN_PART_LENGTH) : $user->name,
+            "password" => Hash::make($rq->password),
+        ]);
+
+        return redirect(route("profile"))->with("toast", ["success", "Hasło zostało zmienione"]);
     }
 }
