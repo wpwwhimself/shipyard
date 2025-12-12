@@ -17,16 +17,6 @@
 
     <x-shipyard.app.sidebar-separator />
 
-    <x-shipyard.ui.button
-        icon="content-save"
-        pop="Zapisz zmiany"
-        class="primary"
-        action="none"
-        onclick="submitShipyardForm()"
-    />
-
-    <x-shipyard.app.sidebar-separator />
-
     @foreach (similar_models("settings") as $model)
     <x-shipyard.ui.button
         :icon="$model['icon'] ?? null"
@@ -114,6 +104,16 @@
 </x-shipyard.app.section>
 @endforeach
 
+    <x-slot:actions>
+        <x-shipyard.app.card>            
+            <x-shipyard.ui.button
+                icon="content-save"
+                label="Zapisz zmiany"
+                class="primary"
+                action="submit"
+            />
+        </x-shipyard.app.card>
+    </x-slot:actions>
 </x-shipyard.app.form>
 
 @endsection
