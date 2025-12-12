@@ -1,3 +1,3 @@
-<span class="loader hidden">
+<div class="loader hidden">
     <x-shipyard.app.icon name="loading" />
-</span>
+</div>
