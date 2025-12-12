@@ -165,6 +165,13 @@ if ($type == "date") $value = ($value)
                     "value" => $i->{$option_value ?? "id"},
                 ])->toArray();
             }
+            if (isset($selectData["optionsFromStatic"])) {
+                [$model, $function_name, $option_label, $option_value, $function_args] = $selectData["optionsFromStatic"] + array_fill(0, 5, null);
+                $selectData["options"] = $model::$function_name($function_args)->map(fn ($i) => [
+                    "label" => $i[$option_label ?? "label"],
+                    "value" => $i[$option_value ?? "value"],
+                ])->toArray();
+            }
             if (isset($selectData["optionsFromConst"])) {
                 [$model, $const, $option_label, $option_value] = $selectData["optionsFromConst"] + array_fill(0, 4, null);
                 $selectData["options"] = collect(constant($model."::".$const))->map(fn ($i) => [
