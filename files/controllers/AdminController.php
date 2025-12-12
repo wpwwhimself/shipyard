@@ -132,6 +132,24 @@ class AdminController extends Controller
                         "hint" => "Jeśli ta opcja jest włączona, użytkownicy mogą sami zakładać własne konta. W przeciwnym wypadku tworzenie kont jest możliwe tylko przez administratora.",
                     ],
                     [
+                        "name" => "users_terms_and_conditions_page_url",
+                        "label" => "Strona z regulaminem",
+                        "icon" => "script-text",
+                        "hint" => "Link do strony z regulaminem. Możesz ją utworzyć np. jako stronę standardową. Jeśli to pole jest puste, podczas rejestracji nie zostanie wyświetlone pole do zaznaczenia zgody na regulamin. W przeciwnym wypadku pojawi się tam pole oraz link do strony.",
+                    ],
+                    [
+                        "name" => "users_recaptcha_site_key",
+                        "label" => "Klucz reCAPTCHA",
+                        "icon" => "key",
+                        "hint" => "Klucz publiczny do API reCAPTCHA v3. Wykorzystywany do wygenerowania tokenów reCAPTCHA.",
+                    ],
+                    [
+                        "name" => "users_recaptcha_secret_key",
+                        "label" => "Klucz prywatny reCAPTCHA",
+                        "icon" => "shield-key",
+                        "hint" => "Klucz prywatny do API reCAPTCHA v3. Wykorzystywany do sprawdzania odpowiedzi reCAPTCHA.",
+                    ],
+                    [
                         "name" => "users_password_reset_mode",
                         "label" => "Proces odzyskiwania hasła",
                         "icon" => "key-change",

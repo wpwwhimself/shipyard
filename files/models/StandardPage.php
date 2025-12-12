@@ -66,7 +66,14 @@ class StandardPage extends Model
     public function displayMiddlePart(): Attribute
     {
         return Attribute::make(
-            get: fn () => null
+            get: fn () => view("components.shipyard.ui.button", [
+                "action" => route("standard-page", ["slug" => $this->slug]),
+                "icon" => "eye",
+                "pop" => "Przejdź do strony",
+                "attributes" => new ComponentAttributeBag([
+                    "target" => "_blank",
+                ]),
+            ]),
         );
     }
     #endregion

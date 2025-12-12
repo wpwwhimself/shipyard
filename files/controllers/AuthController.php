@@ -7,6 +7,7 @@ use App\Models\Shipyard\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Validator;
 
@@ -52,8 +53,17 @@ class AuthController extends Controller
 
     public function processRegister(Request $rq)
     {
-        if ($rq->proof != 4) return back()->with("toast", ["error", "Nie wierzymy, że nie jesteś robotem"]);
-        if (!$rq->has("confirmed")) return back()->with("toast", ["error", "Zgoda na regulamin jest wymagana"]);
+        if ($rq->has("g-recaptcha-response")) {
+            Http::post("https://www.google.com/recaptcha/api/siteverify", [
+                "secret" => setting("users_recaptcha_secret_key"),
+                "response" => $rq->get("g-recaptcha-response"),
+            ])
+                ->dd();
+        }
+
+        if (setting("users_terms_and_conditions_page_url") && !$rq->has("confirmed")) {
+            return back()->with("toast", ["error", "Zgoda na regulamin jest wymagana"]);
+        }
 
         $validator = Validator::make($rq->all(), [
             'name' => ['required', 'unique:users'],
