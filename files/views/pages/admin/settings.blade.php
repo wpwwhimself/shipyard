@@ -105,7 +105,7 @@
 @endforeach
 
     <x-slot:actions>
-        <x-shipyard.app.card>            
+        <x-shipyard.app.card>
             <x-shipyard.ui.button
                 icon="content-save"
                 label="Zapisz zmiany"
