@@ -26,10 +26,11 @@ Pola składają się z następujących elementów. Podaj je jako zwykły array:
 - typ pola:
   - podaj albo typ inputa
   - albo typ `heading`, wtedy zawartość _Etykiety_ będzie traktowana jako treść nagłówka
+  - albo typ `paragraph`, wtedy zawartość _Etykiety_ będzie traktowana jako treść akapitu
 - etykieta
 - ikona
 - czy wymagane (bool)
-- pozostałe - array pól, wstrzykiwany jako dodatkowe propsy inputa
+- pozostałe - array pól, wstrzykiwany jako dodatkowe propsy komponentu
 
 # 🧑‍💻 Obsługa modali
 

@@ -1,12 +1,14 @@
 @props([
-    "icon",
-    "label",
+    "icon" => null,
+    "label" => null,
 ])
 
 <span {{ $attributes->class("field-value") }}>
-    <span role="icon" {{ Popper::pop($label) }}>
+    @if ($icon)
+    <span role="icon" {{ $label ? Popper::pop($label) : null }}>
         <x-shipyard.app.icon :name="$icon" />
     </span>
+    @endif
     <span role="value">
         {{ $slot }}
     </span>
