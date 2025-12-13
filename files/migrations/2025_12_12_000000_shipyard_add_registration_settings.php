@@ -28,7 +28,7 @@ return new class extends Migration
             "value" => 3,
         ]);
         Setting::create([
-            "name" => "users_default_roles",
+            "name" => "users_default_roles[]",
             "type" => "select-multiple",
             "value" => null,
         ]);
