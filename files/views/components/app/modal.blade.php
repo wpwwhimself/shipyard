@@ -1,7 +1,7 @@
 <div id="modal" class="hidden">
     <x-shipyard.app.loader />
 
-    <x-shipyard.app.card title="..." class="hidden">
+    <x-shipyard.app.card title="..." class="hidden" title-lvl="2">
         <x-shipyard.app.form method="POST">
             <div role="fields"></div>
 
