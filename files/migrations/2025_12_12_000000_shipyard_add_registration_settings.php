@@ -43,7 +43,7 @@ return new class extends Migration
             "users_terms_and_conditions_page_url",
             "users_turing_question",
             "users_turing_answer",
-            "users_default_roles",
+            "users_default_roles[]",
         ])->delete();
     }
 };
