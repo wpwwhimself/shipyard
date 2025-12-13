@@ -17,8 +17,19 @@ W edytorze modala możesz zdefiniować jego podstawowe parametry:
 - Nazwa - po tej nazwie odwołasz się później do niego,
 - Nagłówek - nagłówek na górze okna
 - Pola - lista pól, jakie modal powinien wyświetlać. Tworzona tak jak zwykłe inputy.
-  - zawartość JSONa _Pozostałe_ będzie bezpośrednio przepisywana na propsy inputa
 - Route docelowy - route POST, do którego ma trafić zapytanie.
+
+## ☑️ Pola
+
+Pola składają się z następujących elementów. Podaj je jako zwykły array:
+- nazwa pola - jako atrybut `name`,
+- typ pola:
+  - podaj albo typ inputa
+  - albo typ `heading`, wtedy zawartość _Etykiety_ będzie traktowana jako treść nagłówka
+- etykieta
+- ikona
+- czy wymagane (bool)
+- pozostałe - array pól, wstrzykiwany jako dodatkowe propsy inputa
 
 # 🧑‍💻 Obsługa modali
 
