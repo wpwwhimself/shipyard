@@ -144,7 +144,6 @@ class InstallCommand extends Command
         }
         foreach ([
             [base_path("config/.gitignore"), "popper.php\nblade-icons.php\nbackup.php"],
-            [base_path("public/css/.gitignore"), "shipyard_theme_cache.css"],
         ] as [$path, $file_name]) {
             $contents = "$file_name\n.gitignore";
             file_put_contents($path, $contents);
@@ -154,9 +153,6 @@ class InstallCommand extends Command
         #region installing
         $this->info("📭 Installing...");
         $this->call("migrate", ["--force" => true]);
-
-        $this->info("💄 Caching theme...");
-        ThemeController::_reset();
         #endregion
 
         $this->info("✅ Shipyard is ready!");
@@ -204,7 +200,6 @@ class InstallCommand extends Command
         }"
         );
         $this->comment("> clear your `resources/css/app.css` file - it may overwrite themes");
-        $this->comment("> ensure public/css is writable by the app (to create theme cache file)");
 
         return Command::SUCCESS;
     }

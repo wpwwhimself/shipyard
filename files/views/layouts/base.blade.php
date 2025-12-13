@@ -42,9 +42,7 @@
         }
         @endif
         </style>
-        @if (file_exists(public_path("css/shipyard_theme_cache.css")))
-        <link rel="stylesheet" href="{{ asset("css/shipyard_theme_cache.css") }}">
-        @endif
+        <link rel="stylesheet" href="https://wpww.pl/shipyard/{{ \App\ShipyardTheme::getTheme() }}.css">
         <link rel="stylesheet" href="{{ asset("css/app.css") }}">
         {{-- 💄 styles 💄 --}}
 

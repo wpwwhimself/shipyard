@@ -72,10 +72,6 @@ class SpellbookController extends Controller
 
     public function obliviate(?string $scope = null) {
         switch ($scope) {
-            case "theme":
-                ThemeController::_reset();
-                return back()->with("toast", ["success", "Pamięć podręczna motywu odświeżona"]);
-
             default:
                 shell_exec("php artisan optimize:clear");
                 return back()->with("toast", ["success", "Pamięć podręczna wyczyszczona"]);
