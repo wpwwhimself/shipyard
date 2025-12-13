@@ -126,30 +126,6 @@ class AdminController extends Controller
                         ],
                     ],
                     [
-                        "name" => "users_self_register_enabled",
-                        "label" => "Zezwól na rejestrację",
-                        "icon" => "account-plus",
-                        "hint" => "Jeśli ta opcja jest włączona, użytkownicy mogą sami zakładać własne konta. W przeciwnym wypadku tworzenie kont jest możliwe tylko przez administratora.",
-                    ],
-                    [
-                        "name" => "users_terms_and_conditions_page_url",
-                        "label" => "Strona z regulaminem",
-                        "icon" => "script-text",
-                        "hint" => "Link do strony z regulaminem. Możesz ją utworzyć np. jako stronę standardową. Jeśli to pole jest puste, podczas rejestracji nie zostanie wyświetlone pole do zaznaczenia zgody na regulamin. W przeciwnym wypadku pojawi się tam pole oraz link do strony.",
-                    ],
-                    [
-                        "name" => "users_recaptcha_site_key",
-                        "label" => "Klucz reCAPTCHA",
-                        "icon" => "key",
-                        "hint" => "Klucz publiczny do API reCAPTCHA v3. Wykorzystywany do wygenerowania tokenów reCAPTCHA.",
-                    ],
-                    [
-                        "name" => "users_recaptcha_secret_key",
-                        "label" => "Klucz prywatny reCAPTCHA",
-                        "icon" => "shield-key",
-                        "hint" => "Klucz prywatny do API reCAPTCHA v3. Wykorzystywany do sprawdzania odpowiedzi reCAPTCHA.",
-                    ],
-                    [
                         "name" => "users_password_reset_mode",
                         "label" => "Proces odzyskiwania hasła",
                         "icon" => "key-change",
@@ -161,7 +137,50 @@ class AdminController extends Controller
                             ],
                         ],
                     ],
-                ]
+                    [
+                        "subsection_title" => "Rejestracja",
+                        "subsection_icon" => "account-plus",
+                        "fields" => [
+                            [
+                                "name" => "users_self_register_enabled",
+                                "label" => "Zezwól na rejestrację",
+                                "icon" => "account-plus",
+                                "hint" => "Jeśli ta opcja jest włączona, użytkownicy mogą sami zakładać własne konta. W przeciwnym wypadku tworzenie kont jest możliwe tylko przez administratora.",
+                            ],
+                            [
+                                "name" => "users_terms_and_conditions_page_url",
+                                "label" => "Strona z regulaminem",
+                                "icon" => "script-text",
+                                "hint" => "Link do strony z regulaminem. Możesz ją utworzyć np. jako stronę standardową. Jeśli to pole jest puste, podczas rejestracji nie zostanie wyświetlone pole do zaznaczenia zgody na regulamin. W przeciwnym wypadku pojawi się tam pole oraz link do strony.",
+                            ],
+                            [
+                                "name" => "users_turing_question",
+                                "label" => "Pytanie do testu antyspamowego",
+                                "icon" => "robot-confused",
+                                "hint" => "Treść pytania wyświetlanego podczas rejestracji.",
+                            ],
+                            [
+                                "name" => "users_turing_answer",
+                                "label" => "Odpowiedź do testu antyspamowego",
+                                "icon" => "robot-happy",
+                                "hint" => "Odpowiedź na pytanie antyspamowe.",
+                            ],
+                            [
+                                "name" => "users_default_roles[]",
+                                "label" => "Role dla nowego użytkownika",
+                                "icon" => model_icon('roles'),
+                                "selectData" => [
+                                    "optionsFromScope" => [
+                                        Role::class,
+                                        "withoutArchmage",
+                                        "option_label",
+                                        "name",
+                                    ],
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
             ],
         ];
         $fields = array_merge($fields, LocalSetting::fields());
@@ -176,9 +195,9 @@ class AdminController extends Controller
     public function processSettings(Request $rq): RedirectResponse
     {
         foreach (Setting::all() as $setting) {
-            $value = ($setting->type == "checkbox")
-                ? $rq->has($setting->name)
-                : $rq->get($setting->name);
+            $value = ($setting->type == "checkbox") ? $rq->has($setting->name)
+                : ($setting->type == "select-multiple" ? implode(",", $rq->get(Str::replace("[]", "", $setting->name)))
+                : $rq->get($setting->name));
             $setting->update(["value" => $value]);
         }
 

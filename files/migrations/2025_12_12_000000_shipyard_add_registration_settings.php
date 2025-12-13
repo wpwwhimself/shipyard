@@ -18,13 +18,18 @@ return new class extends Migration
             "value" => null,
         ]);
         Setting::create([
-            "name" => "users_recaptcha_site_key",
+            "name" => "users_turing_question",
             "type" => "text",
-            "value" => null,
+            "value" => "Ile jest sylab w słowie 'dżdżownica'?",
         ]);
         Setting::create([
-            "name" => "users_recaptcha_secret_key",
-            "type" => "text",
+            "name" => "users_turing_answer",
+            "type" => "number",
+            "value" => 3,
+        ]);
+        Setting::create([
+            "name" => "users_default_roles",
+            "type" => "select-multiple",
             "value" => null,
         ]);
     }
@@ -36,8 +41,9 @@ return new class extends Migration
     {
         Setting::whereIn("name", [
             "users_terms_and_conditions_page_url",
-            "users_recaptcha_site_key",
-            "users_recaptcha_secret_key",
+            "users_turing_question",
+            "users_turing_answer",
+            "users_default_roles",
         ])->delete();
     }
 };

@@ -44,7 +44,7 @@ if ($models->count() > 1) {
     @break
 
     @case ("many")
-    <x-shipyard.ui.input :type="$dummy ||($rdata['readonly'] ?? false) ? 'dummy-text' : 'select'"
+    <x-shipyard.ui.input :type="$dummy ||($rdata['readonly'] ?? false) ? 'dummy-text' : 'select-multiple'"
         :name="($rdata['field_name'] ?? Str::snake($connectionName)).'[]'"
         :label="$field_label"
         :icon="$icon"
@@ -55,7 +55,6 @@ if ($models->count() > 1) {
         :select-data="[
             'options' => $options,
         ]"
-        multiple
     />
     @break
 @endswitch

@@ -107,6 +107,12 @@ class Role extends Model
     {
         return $query->orderBy("name");
     }
+
+    public function scopeWithoutArchmage($query)
+    {
+        return $query->forConnection()
+            ->where("name", "<>", "archmage");
+    }
     #endregion
 
     #region attributes

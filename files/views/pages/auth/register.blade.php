@@ -3,14 +3,15 @@
 
 @section("content")
 
-<div class="card">
-    <x-shipyard.app.form
-        :action="route('register.process')"
-        method="post"
-        class="tight"
-        onsubmit="testRecaptcha(event);"
-    >
-        <x-shipyard.app.h lvl="3" :icon="model_icon('users')">Dane użytkownika</x-shipyard.app.h>
+<x-shipyard.app.card>
+    <p>Rozpoczynasz proces rejestracji użytkownika w systemie.</p>
+</x-shipyard.app.card>
+
+<x-shipyard.app.form
+    :action="route('register.process')"
+    method="post"
+>
+    <x-shipyard.app.section title="Dane użytkownika" :icon="model_icon('users')">
         <x-shipyard.ui.input type="text"
             name="name" label="Login"
             icon="badge-account"
@@ -31,9 +32,10 @@
             icon="key-link"
             required
         />
+    </x-shipyard.app.section>
 
+    <x-shipyard.app.section title="Regulamin i warunki użytkowania" icon="script-text">
         @if (setting("users_terms_and_conditions_page_url"))
-        <x-shipyard.app.h lvl="3" icon="script-text">Regulamin</x-shipyard.app.h>
         <x-shipyard.ui.button
             icon="open-in-new"
             label="Regulamin jest dostępny tutaj"
@@ -47,11 +49,15 @@
         />
         @endif
 
-        @if (setting("users_recaptcha_site_key"))
-        <input type="hidden" name="g-recaptcha-response">
-        @endif
+        <x-shipyard.ui.input type="text"
+            name="test" :label="setting('users_turing_question')"
+            icon="robot"
+            hint="To pytanie jest częścią testu antyspamowego. Poprawna odpowiedź jest konieczna do dokończenia procesu."
+        />
+    </x-shipyard.app.section>
 
-        <x-slot:actions>
+    <x-slot:actions>
+        <x-shipyard.app.card>
             <x-shipyard.ui.button
                 icon="account-plus"
                 label="Zarejestruj się"
@@ -63,24 +69,8 @@
                 label="Mam już konto"
                 :action="route('login')"
             />
-        </x-slot:actions>
-    </x-shipyard.app.form>
-</div>
-
-@if (setting("users_recaptcha_site_key"))
-<script src="https://www.google.com/recaptcha/api.js?render={{ setting('users_recaptcha_site_key') }}"></script>
-<script>
-function testRecaptcha(ev) {
-    ev.preventDefault();
-    grecaptcha.ready(function() {
-        grecaptcha.execute('{{ setting('users_recaptcha_site_key') }}', {action: 'submit'})
-            .then(function(token) {
-                document.querySelector('input[name="g-recaptcha-response"]').value = token;
-                ev.target.submit();
-            });
-    });
-}
-</script>
-@endif
+        </x-shipyard.app.card>
+    </x-slot:actions>
+</x-shipyard.app.form>
 
 @endsection

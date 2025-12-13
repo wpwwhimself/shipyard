@@ -53,38 +53,26 @@ class AuthController extends Controller
 
     public function processRegister(Request $rq)
     {
-        if ($rq->has("g-recaptcha-response")) {
-            Http::post("https://www.google.com/recaptcha/api/siteverify", [
-                "secret" => setting("users_recaptcha_secret_key"),
-                "response" => $rq->get("g-recaptcha-response"),
-            ])
-                ->dd();
-        }
-
-        if (setting("users_terms_and_conditions_page_url") && !$rq->has("confirmed")) {
-            return back()->with("toast", ["error", "Zgoda na regulamin jest wymagana"]);
-        }
+        if ($rq->test != setting("users_turing_answer")) return back()->with("toast", ["error", "Nie wierzymy, że nie jesteś robotem"]);
+        if (setting("users_terms_and_conditions_page_url") && !$rq->has("confirmed")) return back()->with("toast", ["error", "Zgoda na regulamin jest wymagana"]);
 
         $validator = Validator::make($rq->all(), [
             'name' => ['required', 'unique:users'],
             'email' => ['required', 'email', 'unique:users'],
             'password' => ['required', 'confirmed'],
-            'phone' => ['required'],
         ]);
-        if ($validator->fails()) return view("auth.shipyard.register")->with("toast", ["error", "Coś poszło nie tak z Twoimi danymi"]);
+        if ($validator->fails()) return back()->with("toast", ["error", "Coś poszło nie tak z Twoimi danymi"]);
 
         $user = User::create([
             "name" => $rq->name,
             "email" => $rq->email,
-            "phone" => $rq->phone,
             "password" => Hash::make($rq->password),
-            "company_data" => $rq->company_data,
         ]);
-        $user->roles()->attach($rq->role);
+        $user->roles()->attach(explode(",", setting("users_default_roles[]")));
 
         Auth::login($user);
 
-        return redirect(route("profile"))->with("toast", ["success", "Konto zostało utworzone"]);
+        return redirect()->route("profile")->with("toast", ["success", "Konto zostało utworzone"]);
     }
     #endregion
 

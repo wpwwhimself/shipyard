@@ -157,6 +157,7 @@ if ($type == "date") $value = ($value)
         @break
 
         @case ("select")
+        @case ("select-multiple")
             @php
             if (isset($selectData["optionsFromScope"])) {
                 [$model, $scope, $option_label, $option_value, $scope_args] = $selectData["optionsFromScope"] + array_fill(0, 5, null);
@@ -200,6 +201,7 @@ if ($type == "date") $value = ($value)
             <select name="{{ $name }}"
                 id="{{ $name }}"
                 {{ $disabled ? "disabled" : "" }}
+                {{ Str::endsWith($type, "multiple") ? "multiple" : "" }}
                 {{ $attributes }}
             >
                 @isset ($selectData["emptyOption"]) <option value="">– {{ ($selectData["emptyOption"] === true) ? "brak" : $selectData["emptyOption"] }} –</option> @endisset
