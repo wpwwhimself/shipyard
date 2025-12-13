@@ -1,7 +1,7 @@
 <div id="modal" class="hidden">
     <x-shipyard.app.loader />
 
-    <x-shipyard.app.card title="..." class="hidden" title-lvl="2">
+    <x-shipyard.app.section title="..." class="hidden">
         <x-shipyard.app.form method="POST">
             <div role="fields"></div>
 
@@ -21,14 +21,14 @@
                 />
             </x-slot:actions>
         </x-shipyard.app.form>
-    </x-shipyard.app.card>
+    </x-shipyard.app.section>
 </div>
 
 <script>
 const modal = document.querySelector("#modal");
 const loader = modal.querySelector(".loader");
-const card = modal.querySelector(".card");
-const form = card.querySelector("form");
+const section = modal.querySelector(".section");
+const form = section.querySelector("form");
 
 const openModal = (name, defaults = {}) => {
     loader.classList.remove("hidden");
@@ -38,7 +38,7 @@ const openModal = (name, defaults = {}) => {
         .then(res => res.json())
         .then(data => {
             form.action = data.full_target_route;
-            card.querySelector("[role='card-title']").textContent = data.heading;
+            section.querySelector("[role='section-title']").textContent = data.heading;
             form.querySelector("[role='fields']").innerHTML = data.rendered_fields;
 
             Object.entries(defaults).forEach(([name, value]) => {
@@ -50,7 +50,7 @@ const openModal = (name, defaults = {}) => {
                 }
             });
 
-            card.classList.remove("hidden");
+            section.classList.remove("hidden");
             reapplyPopper();
             reinitSelect();
         })
@@ -65,7 +65,7 @@ const openModal = (name, defaults = {}) => {
 
 const closeModal = () => {
     form.querySelector("[role='fields']").innerHTML = "";
-    card.classList.add("hidden");
+    section.classList.add("hidden");
     modal.classList.add("hidden");
 }
 </script>
