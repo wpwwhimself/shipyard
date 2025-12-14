@@ -580,10 +580,6 @@ search {
     --eb-space: 0.5em;
     --eb-border: 1px solid var(--bg-lite);
 
-    .grid > & {
-        align-self: baseline;
-    }
-
     & > .header {
         padding-bottom: var(--eb-space);
         margin-bottom: var(--eb-space);
