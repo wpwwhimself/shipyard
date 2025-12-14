@@ -37,7 +37,6 @@ class SpellbookController extends Controller
             "route" => "obliviate/{scope?}",
             "description" => <<<DESC
                 Czyści pamięć podręczną systemu. Argument pozwala na wyczyszczenie:
-                - `theme` - cache motywu,
                 - brak argumentu - ogólnej pamięci podręcznej.
             DESC,
         ],
