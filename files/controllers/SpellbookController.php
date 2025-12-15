@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Shipyard;
 use App\Http\Controllers\Controller;
 use App\Models\Shipyard\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 
 class SpellbookController extends Controller
@@ -37,7 +38,6 @@ class SpellbookController extends Controller
             "route" => "obliviate/{scope?}",
             "description" => <<<DESC
                 Czyści pamięć podręczną systemu. Argument pozwala na wyczyszczenie:
-                - `theme` - motywu (tylko dla dev),
                 - brak argumentu - ogólnej pamięci podręcznej.
             DESC,
         ],
@@ -72,15 +72,8 @@ class SpellbookController extends Controller
 
     public function obliviate(?string $scope = null) {
         switch ($scope) {
-            case "theme":
-                if (env("APP_ENV") !== "local") {
-                    return back()->with("toast", ["error", "System nie korzysta z pamięci podręcznej motywu"]);
-                }
-                shell_exec("php artisan shipyard:cache-theme");
-                return back()->with("toast", ["success", "Pamięć podręczna motywu odświeżona"]);
-
             default:
-                shell_exec("php artisan optimize:clear");
+                Artisan::call("optimize:clear");
                 return back()->with("toast", ["success", "Pamięć podręczna wyczyszczona"]);
         }
     }
