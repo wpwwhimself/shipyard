@@ -292,10 +292,26 @@ form, form > [role="fields"] {
 }
 
 header {
-    @extend .flex, .right, .but-mobile-down, .spread, .middle;
+    @extend .grid, .but-mobile-down, .middle;
     @extend .tile-like, .padded;
 
+    grid-template-columns: auto auto;
     background: var(--bg-lite2);
+
+    & > [role="top-part"] {
+        @extend .nowrap;
+    }
+
+    & > [role="bottom-part"] {
+        display: block;
+        white-space: nowrap;
+        overflow: auto;
+
+        & > * {
+            margin: 0.25em;
+            vertical-align: middle;
+        }
+    }
 }
 
 .input-container {
@@ -491,6 +507,11 @@ main {
             width: 100%;
             justify-content: center;
         }
+    }
+
+    header [role="bottom-part"] {
+        text-align: center;
+        white-space: normal;
     }
 
     header [role="top-part"],

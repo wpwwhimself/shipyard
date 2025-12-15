@@ -626,6 +626,11 @@ search {
         padding-bottom: var(--eb-space);
         margin-bottom: var(--eb-space);
         border-bottom: var(--eb-border);
+
+        & > .actions {
+            justify-content: end;
+            flex-grow: 1;
+        }
     }
 
     & > .contents {
