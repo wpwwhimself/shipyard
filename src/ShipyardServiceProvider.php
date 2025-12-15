@@ -20,6 +20,7 @@ class ShipyardServiceProvider extends ServiceProvider
         $this->commands([
             \Wpwwhimself\Shipyard\Console\InstallCommand::class,
             \Wpwwhimself\Shipyard\Console\UninstallCommand::class,
+            \Wpwwhimself\Shipyard\Console\CacheThemeCommand::class,
         ]);
     }
 
@@ -28,6 +29,7 @@ class ShipyardServiceProvider extends ServiceProvider
         return [
             \Wpwwhimself\Shipyard\Console\InstallCommand::class,
             \Wpwwhimself\Shipyard\Console\UninstallCommand::class,
+            \Wpwwhimself\Shipyard\Console\CacheThemeCommand::class,
         ];
     }
 }
