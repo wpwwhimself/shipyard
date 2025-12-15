@@ -30,6 +30,7 @@ class Modal extends Model
         "heading",
         "fields",
         "target_route",
+        "summary_route",
     ];
 
     #region presentation
@@ -108,6 +109,13 @@ class Modal extends Model
             "icon" => "target",
             "required" => true,
         ],
+        "summary_route" => [
+            "type" => "text",
+            "label" => "Route podsumowania",
+            "hint" => "Jeśli pole jest wypełnione, modal będzie posiadał mechanizm potwierdzenia wprowadzonych danych. Przyjmuje route POST tworzący podsumowanie: powinien odbierać te same dane, co `target_route` i zwracać komponent `card` z treścią podsumowania.",
+            "icon" => "test-tube",
+            "required" => false,
+        ],
     ];
 
     public const CONNECTIONS = [
@@ -165,6 +173,7 @@ class Modal extends Model
 
     protected $appends = [
         "full_target_route",
+        "full_summary_route",
         "rendered_fields",
     ];
 
@@ -199,6 +208,15 @@ class Modal extends Model
     {
         return Attribute::make(
             get: fn () => route($this->target_route),
+        );
+    }
+
+    public function fullSummaryRoute(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => $this->summary_route
+                ? route($this->summary_route)
+                : null,
         );
     }
 

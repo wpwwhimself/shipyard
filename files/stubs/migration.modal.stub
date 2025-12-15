@@ -17,6 +17,7 @@ return new class extends Migration
             "visible" => 2,
             "heading" => ,
             "target_route" => ,
+            "summary_route" => ,
             "fields" => [
                 [
                     , // name,

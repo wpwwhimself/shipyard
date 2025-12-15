@@ -14,10 +14,11 @@ Typowym zastosowaniem modala jest tworzenie nowego bytu, np. użytkownika, bez w
 Przed użyciem modala musisz być pewien, że jego definicja jest zapisana [na liście modali](/admin/models/modals). Jeśli jej nie ma, musisz utworzyć nowy.
 
 W edytorze modala możesz zdefiniować jego podstawowe parametry:
-- Nazwa - po tej nazwie odwołasz się później do niego,
+- Nazwa - po tej nazwie odwołasz się później do niego
 - Nagłówek - nagłówek na górze okna
-- Pola - lista pól, jakie modal powinien wyświetlać. Tworzona tak jak zwykłe inputy.
-- Route docelowy - route POST, do którego ma trafić zapytanie.
+- Pola - lista pól, jakie modal powinien wyświetlać. Tworzona tak jak zwykłe inputy
+- Route docelowy - route POST, do którego ma trafić zapytanie
+- Route podsumowania - route POST do podsumowania, jakie wyświetla się przed zatwierdzeniem formularza
 
 ## ☑️ Pola
 
