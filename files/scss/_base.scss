@@ -482,7 +482,7 @@ main {
     z-index: 1000;
     backdrop-filter: blur(0.5em);
 
-    & > .section {
+    & > #modal-card {
         --margin: 0.5em;
         margin: var(--margin);
         max-height: calc(100vh - 2 * var(--margin));
