@@ -453,6 +453,7 @@ hr {
 @keyframes pulse {
     to {
         transform: scale(1.1);
+        opacity: 1;
     }
 }
 @keyframes zip {
