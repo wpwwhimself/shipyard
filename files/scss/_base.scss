@@ -841,7 +841,7 @@ table {
 #wpww-tag {
     @extend .animatable, .interactive, .zoom;
 
-    --size: 1.5em;
+    --size: 1em;
 
     display: inline-block;
     width: var(--size);
