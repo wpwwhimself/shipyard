@@ -20,6 +20,10 @@ class Modal extends Model
         "icon" => "dock-window",
         "description" => "Formularze w postaci wyskakujących okien. Pozwalają na wykonywanie akcji z określaniem większych ilości danych.",
         "role" => "technical",
+        "uneditable" => [
+            "report-error",
+        ],
+        "uneditableField" => "name",
     ];
 
     use SoftDeletes, Userstamps;

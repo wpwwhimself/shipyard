@@ -30,8 +30,9 @@ class User extends Authenticatable
         "description" => "Lista użytkowników systemu. Każdy z wymienionych może otrzymać role, które nadają mu uprawnienia do korzystania z konkretnych funkcjonalności.",
         "role" => "",
         "uneditable" => [
-            1,
+            "archmage",
         ],
+        "uneditableField" => "name",
     ];
 
     protected $fillable = [

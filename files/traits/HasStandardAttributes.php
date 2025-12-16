@@ -19,7 +19,12 @@ trait HasStandardAttributes
     public function isUneditable(): Attribute
     {
         return Attribute::make(
-            fn () => in_array($this->getKey(), self::META["uneditable"] ?? []),
+            fn () => in_array(
+                self::META["uneditableField"]
+                    ? $this->{self::META["uneditableField"]}
+                    : $this->getKey(),
+                self::META["uneditable"] ?? []
+            ),
         );
     }
 }
