@@ -54,6 +54,12 @@ if ($type == "date") $value = ($value)
             <x-shipyard.app.icon name="tooltip-question" />
         </span>
         @endif
+
+        @if ($attributes->get("required"))
+        <span class="accent error" @popper(Wymagane)>
+            <x-shipyard.app.icon name="asterisk" />
+        </span>
+        @endif
     </span>
 
     @if ($dummy)
@@ -206,7 +212,7 @@ if ($type == "date") $value = ($value)
             >
                 @isset ($selectData["emptyOption"]) <option value="">– {{ ($selectData["emptyOption"] === true) ? "brak" : $selectData["emptyOption"] }} –</option> @endisset
 
-                @foreach ($selectData["options"] ?? [] as $label => $defined_options)
+                @foreach ($selectData["options"] ?? [] as $optlabel => $defined_options)
                 @php
                 if (isset($defined_options["value"])) {
                     // one dimensional array - everything is contained in one group
@@ -219,7 +225,7 @@ if ($type == "date") $value = ($value)
                 }
                 @endphp
 
-                @if ($hasGroups) <optgroup label="{{ $label }}"> @endif
+                @if ($hasGroups) <optgroup label="{{ $optlabel }}"> @endif
                 @foreach ($presented_options ?? [] as $opt)
                 <option value="{{ $hasGroups ? implode(":", [$opt["type"], $opt["value"]]) : $opt["value"] }}"
                     @if (is_array($value)

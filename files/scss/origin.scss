@@ -340,7 +340,7 @@ header {
     }
 
     & label,
-    & .icon {
+    & .icon:not(.error .icon) {
         @extend .ghost;
     }
 
