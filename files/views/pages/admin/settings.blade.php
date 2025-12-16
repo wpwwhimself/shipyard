@@ -38,7 +38,6 @@
     :subtitle="$section['subtitle'] ?? null"
     :icon="$section['icon'] ?? null"
     :id="$section['id'] ?? null"
-    :extended="false"
 >
     @foreach ($section["fields"] as $field)
         @isset ($field["subsection_title"])
