@@ -20,7 +20,7 @@ trait HasStandardAttributes
     {
         return Attribute::make(
             fn () => in_array(
-                self::META["uneditableField"]
+                (self::META["uneditableField"] ?? false)
                     ? $this->{self::META["uneditableField"]}
                     : $this->getKey(),
                 self::META["uneditable"] ?? []
