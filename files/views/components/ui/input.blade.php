@@ -314,7 +314,7 @@ if ($type == "date") $value = ($value)
 
 @if ($lookup)
 <div id="lookup-container" for="{{ $selectData["dataRoute"] ?? null }}">
-    <x-shipyard.app.loader />
+    <x-shipyard.app.loader horizontal />
     <div role="results"></div>
 </div>
 @endif
