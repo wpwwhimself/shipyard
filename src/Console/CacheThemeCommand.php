@@ -76,6 +76,6 @@ class CacheThemeCommand extends Command
             throw $th;
         }
 
-        echo "💄 Theme cached.";
+        $this->info("💄 Theme cached");
     }
 }

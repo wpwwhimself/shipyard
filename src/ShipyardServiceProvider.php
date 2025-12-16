@@ -21,6 +21,7 @@ class ShipyardServiceProvider extends ServiceProvider
             \Wpwwhimself\Shipyard\Console\InstallCommand::class,
             \Wpwwhimself\Shipyard\Console\UninstallCommand::class,
             \Wpwwhimself\Shipyard\Console\CacheThemeCommand::class,
+            \Wpwwhimself\Shipyard\Console\WhatNowCommand::class
         ]);
     }
 
@@ -30,6 +31,7 @@ class ShipyardServiceProvider extends ServiceProvider
             \Wpwwhimself\Shipyard\Console\InstallCommand::class,
             \Wpwwhimself\Shipyard\Console\UninstallCommand::class,
             \Wpwwhimself\Shipyard\Console\CacheThemeCommand::class,
+            \Wpwwhimself\Shipyard\Console\WhatNowCommand::class
         ];
     }
 }
