@@ -500,7 +500,7 @@ window.CKEditorInit = function (field_name = undefined) {
     };
 
     Array.from(document.querySelectorAll(".ckeditor" + (field_name ? `[name^="${field_name}"]` : '')))
-        .filter(element => element.checkVisibility())
+        .filter(element => element.style.display !== 'none')
         .forEach(element =>
             ClassicEditor.create(element, editorConfig)
                 .then(editor => {

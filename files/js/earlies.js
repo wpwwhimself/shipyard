@@ -193,6 +193,10 @@ function reinitSelect() {
         initSelect(input.name);
     });
 }
+
+function reinitHTML() {
+    window.CKEditorInit();
+}
 // #endregion
 
 // #region lookup
@@ -239,6 +243,12 @@ function jumpTo(selector) {
 // #endregion
 
 // #region cleanup
+function reinitAll() {
+    reapplyPopper();
+    reinitSelect();
+    reinitHTML();
+}
+
 function reapplyPopper() {
     document.querySelectorAll(`[data-tippy]`).forEach(el => {
         tippy(el, {
