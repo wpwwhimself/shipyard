@@ -2,6 +2,7 @@
 
 use App\Models\Setting;
 use Illuminate\Support\Str;
+use Wpwwhimself\Shipyard\Console\InstallCommand;
 
 /**
  * returns app lifetime dates for footer
@@ -32,8 +33,11 @@ function setting(string $key, $default = null): ?string
 
 function shipyard_version(): string
 {
-    $packages = collect(json_decode(file_get_contents(base_path("composer.lock")), true)["packages"]);
-    return $packages->firstWhere("name", "wpwwhimself/shipyard")["version"];
+    $data = json_decode(
+        @file_get_contents(base_path(InstallCommand::PACKAGE_INFO_PATH)),
+        true
+    ) ?? [];
+    return $data["version"];
 }
 
 #region files

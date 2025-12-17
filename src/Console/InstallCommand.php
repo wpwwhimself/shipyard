@@ -9,7 +9,7 @@ use Illuminate\Support\Str;
 
 class InstallCommand extends Command
 {
-    private const PACKAGE_INFO_PATH = "storage/framework/cache/shipyard.json";
+    public const PACKAGE_INFO_PATH = "storage/framework/cache/shipyard.json";
 
     /**
      * The name and signature of the console command.
