@@ -20,7 +20,7 @@ class NavItem extends Model
     public const META = [
         "label" => "Pozycje menu",
         "icon" => "navigation",
-        "description" => "Przyciski wyświetlane na pasku nawigacji. Mogą prowadzić do stron standardowych lub innych ścieżek.",
+        "description" => "Przyciski wyświetlane na pasku nawigacji. Mogą prowadzić do podstron lub innych ścieżek.",
         "role" => "technical",
     ];
 
@@ -94,7 +94,7 @@ class NavItem extends Model
             "type" => "select",
             "selectData" => [
                 "options" => [
-                    ["value" => 0, "label" => "Strona standardowa"],
+                    ["value" => 0, "label" => "Podstrona"],
                     ["value" => 1, "label" => "Link wewnętrzny"],
                     ["value" => 2, "label" => "Link zewnętrzny"],
                 ],
@@ -107,7 +107,7 @@ class NavItem extends Model
             "type" => "text",
             "label" => "Nazwa celu",
             "icon" => "label",
-            "hint" => "Strona standardowa: nazwa strony<br>Link wewnętrzny: nazwa route'a<br>Link zewnętrzny: URL",
+            "hint" => "Podstrona: nazwa strony<br>Link wewnętrzny: nazwa route'a<br>Link zewnętrzny: URL",
             "required" => true,
         ],
         "target_params" => [

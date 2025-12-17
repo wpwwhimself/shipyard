@@ -14,7 +14,7 @@ return new class extends Migration
     public function up(): void
     {
         Role::find("content-manager")->update([
-            "description" => "Ma dostęp do repozytorium plików oraz stron standardowych",
+            "description" => "Ma dostęp do repozytorium plików oraz podstron",
         ]);
     }
 

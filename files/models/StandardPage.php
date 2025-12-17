@@ -16,9 +16,9 @@ use Mattiverse\Userstamps\Traits\Userstamps;
 class StandardPage extends Model
 {
     public const META = [
-        "label" => "Strony standardowe",
+        "label" => "Podstrony",
         "icon" => "script-text",
-        "description" => "Podstrony aplikacji, stanowiące dodatkową treść portalu. Ich pełna lista wyświetla się w stopce strony.",
+        "description" => "Podstrony aplikacji, stanowiące dodatkową treść aplikacji.",
         "role" => "content-manager",
     ];
 

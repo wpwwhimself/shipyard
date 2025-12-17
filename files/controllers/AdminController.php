@@ -151,7 +151,7 @@ class AdminController extends Controller
                                 "name" => "users_terms_and_conditions_page_url",
                                 "label" => "Strona z regulaminem",
                                 "icon" => "script-text",
-                                "hint" => "Link do strony z regulaminem. Możesz ją utworzyć np. jako stronę standardową. Jeśli to pole jest puste, podczas rejestracji nie zostanie wyświetlone pole do zaznaczenia zgody na regulamin. W przeciwnym wypadku pojawi się tam pole oraz link do strony.",
+                                "hint" => "Link do strony z regulaminem. Możesz ją utworzyć np. jako podstronę. Jeśli to pole jest puste, podczas rejestracji nie zostanie wyświetlone pole do zaznaczenia zgody na regulamin. W przeciwnym wypadku pojawi się tam pole oraz link do strony.",
                             ],
                             [
                                 "name" => "users_turing_question",
