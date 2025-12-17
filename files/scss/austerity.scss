@@ -421,6 +421,8 @@ main {
 .section {
     @extend .tile;
 
+    background: transparent;
+
     & > .header {
         @extend .flex, .right, .middle, .spread;
 

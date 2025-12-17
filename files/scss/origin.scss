@@ -306,6 +306,9 @@ header {
     &:has(:focus) {
         border-color: var(--primary);
     }
+    &:has(:disabled) {
+        border-style: dashed;
+    }
     &:has([role="extra-buttons"]) {
         grid-template-columns: auto 1fr auto;
     }

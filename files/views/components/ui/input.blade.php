@@ -60,6 +60,12 @@ if ($type == "date") $value = ($value)
             <x-shipyard.app.icon name="asterisk" />
         </span>
         @endif
+
+        @if ($disabled)
+        <span @popper(Zablokowane)>
+            <x-shipyard.app.icon name="lock" />
+        </span>
+        @endif
     </span>
 
     @if ($dummy)

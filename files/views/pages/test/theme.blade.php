@@ -8,7 +8,6 @@
 <x-shipyard.app.section
     title="Inputy"
     icon="cursor-text"
-    :extended="false"
 >
     <x-slot:actions>
         <x-shipyard.ui.button
@@ -46,6 +45,42 @@
             Nulla viverra dignissim volutpat. Ut faucibus ipsum quis turpis convallis cursus. Sed turpis nulla, elementum id tincidunt lobortis, molestie viverra sapien. Vestibulum accumsan efficitur orci a sodales. Vestibulum et elementum dui, in rutrum est. Mauris ex metus, efficitur in dui vel, suscipit eleifend nisi. Donec egestas lectus tellus, sit amet vestibulum lorem porttitor nec. Fusce sollicitudin posuere diam at venenatis."
         />
         @endforeach
+
+        <x-shipyard.app.h icon="shape" lvl="3">Atrybuty</x-shipyard.app.h>
+        <div class="grid but-mobile-down" style="--col-count: 3;">
+            @foreach (["text", "checkbox", "select"] as $type)
+            <x-shipyard.ui.input :type="$type"
+                name="{{ $type }}-required"
+                label="{{ $type }}-required"
+                icon="cursor-text"
+                :select-data="[
+                    'options' => [
+                        ['label' => 'jeden', 'value' => 1],
+                        ['label' => 'dwa', 'value' => 2],
+                        ['label' => 'trzy', 'value' => 3],
+                    ],
+                ]"
+                :value="in_array($type, ['text', 'select']) ? 2 : null"
+                :checked="in_array($type, ['checkbox'])"
+                required
+            />
+            <x-shipyard.ui.input :type="$type"
+                name="{{ $type }}-disabled"
+                label="{{ $type }}-disabled"
+                icon="cursor-text"
+                :select-data="[
+                    'options' => [
+                        ['label' => 'jeden', 'value' => 1],
+                        ['label' => 'dwa', 'value' => 2],
+                        ['label' => 'trzy', 'value' => 3],
+                    ],
+                ]"
+                :value="in_array($type, ['text', 'select']) ? 2 : null"
+                :checked="in_array($type, ['checkbox'])"
+                disabled
+            />
+            @endforeach
+        </div>
     </div>
 </x-shipyard.app.section>
 
