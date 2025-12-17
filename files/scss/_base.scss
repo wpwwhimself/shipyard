@@ -316,7 +316,7 @@ code, pre {
 [role="copyright"] {
     & .icon {
         --icon-size: 1em;
-        vertical-align: text-top;
+        vertical-align: middle;
     }
 }
 
@@ -649,6 +649,10 @@ search {
     }
 }
 
+[role="shipyard-version"] {
+    @extend .ghost;
+}
+
 .stagger {
     --stagger-index: 0;
     transition:
@@ -847,7 +851,7 @@ table {
     display: inline-block;
     width: var(--size);
     height: var(--size);
-    vertical-align: text-bottom;
+    vertical-align: middle;
     background: linear-gradient(
         135deg,
         #09f,

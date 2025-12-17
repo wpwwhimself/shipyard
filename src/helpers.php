@@ -30,6 +30,12 @@ function setting(string $key, $default = null): ?string
     return Setting::get($key, $default);
 }
 
+function shipyard_version(): string
+{
+    $packages = collect(json_decode(file_get_contents(base_path("composer.lock")), true)["packages"]);
+    return $packages->firstWhere("name", "wpwwhimself/shipyard")["version"];
+}
+
 #region files
 /**
  * Is it a picture?

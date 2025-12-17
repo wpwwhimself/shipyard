@@ -48,7 +48,7 @@
         <link rel="stylesheet" href="{{ asset("css/shipyard_theme_cache.css") }}">
         @endif
         @else
-        <link rel="stylesheet" href="https://wpww.pl/shipyard/{{ \App\ShipyardTheme::getTheme() }}.css">
+        <link rel="stylesheet" href="https://wpww.pl/shipyard/{{ \App\ShipyardTheme::getTheme() }}.css?v={{ shipyard_version() }}">
         @endenv
         <link rel="stylesheet" href="{{ asset("css/app.css") }}">
         {{-- 💄 styles 💄 --}}
