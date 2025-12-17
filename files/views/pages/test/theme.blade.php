@@ -132,6 +132,19 @@
     </div>
 </x-shipyard.app.card>
 
+<x-shipyard.app.card
+    title="Loadery"
+    icon="reload"
+    id="test-loaders"
+>
+    <x-shipyard.app.loader />
+    <x-shipyard.app.loader horizontal />
+
+    <script>
+    document.querySelectorAll("#test-loaders .loader").forEach(loader => loader.classList.remove("hidden"));
+    </script>
+</x-shipyard.app.card>
+
 <script>
 function toggleSwitch(btn)
 {

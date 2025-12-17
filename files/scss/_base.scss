@@ -440,7 +440,7 @@ hr {
         & > .icon {
             @extend .accent, .background, .primary;
             display: block;
-            height: 0.5rem; width: 0%;
+            height: 0.6rem; width: 0%;
             animation: zip 1.5s ease-in-out infinite;
         }
     }
