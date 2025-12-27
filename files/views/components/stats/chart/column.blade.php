@@ -24,10 +24,12 @@ $maxValue = $data->max("value");
     @foreach ($data as $d)
     <div class="value-wrapper">
         <div class="value" style="height: {{ $d['value'] / $maxValue * 100 }}%;"
-            @if ($d["value_label"] ?? $d["value"])
-            {{ Popper::pop($d["value_label"] ?? $d["value"]) }}
+            @if ($d["value_label"] ?? null)
+            {{ Popper::pop($d["value_label"]) }}
             @endif
-        ></div>
+        >
+            <span class="value-label">{{ $d["value"] }}</span>
+        </div>
     </div>
     <div class="label">
         {{ $d["label"] }}

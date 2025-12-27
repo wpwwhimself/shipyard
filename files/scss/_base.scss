@@ -301,6 +301,14 @@ a.button, a:has(> .tile), a:has(> .full-width) {
 
                 & > .value {
                     @extend .accent, .background, .tertiary;
+
+                    position: relative;
+
+                    & > .value-label {
+                        position: absolute;
+                        bottom: calc(100% + 0.5em); left: 0; right: 0;
+                        text-align: center;
+                    }
                 }
             }
         }
