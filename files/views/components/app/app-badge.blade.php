@@ -9,7 +9,7 @@
                 <img class="icon invert-when-dark" src="https://creativecommons.org/wp-content/themes/vocabulary-theme/vocabulary/svg/cc/icons/cc-icons.svg#cc-logo" alt="cc"><img class="icon invert-when-dark" src="https://creativecommons.org/wp-content/themes/vocabulary-theme/vocabulary/svg/cc/icons/cc-icons.svg#cc-by" alt="by"><img class="icon invert-when-dark" src="https://creativecommons.org/wp-content/themes/vocabulary-theme/vocabulary/svg/cc/icons/cc-icons.svg#cc-sa" alt="sa">
             </a>
             <span role="app-lifetime">{{ app_lifetime() }}</span>
-            <span role="shipyard-version">{{ shipyard_version() }}</span>
+            <span role="shipyard-version" class="hide-for-print">{{ shipyard_version() }}</span>
         </span>
     </div>
 </div>
