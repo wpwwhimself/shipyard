@@ -59,18 +59,17 @@ class CacheThemeCommand extends Command
             file_get_contents(base_path("vendor/wpwwhimself/shipyard/files/scss/_base.scss")),
             file_get_contents(base_path("vendor/wpwwhimself/shipyard/files/scss/".\App\ShipyardTheme::getTheme().".scss")),
         ]);
+        file_put_contents(public_path("css/shipyard_theme_cache.scss"), $styles);
 
         $this->line("Processing file...");
 
         try {
-            $ready_css = Http::timeout(120)
-                ->post("https://sasscompiler.wpww.pl/compile-scss", [
-                    "scss" => $styles,
-                ])
-                ->throwUnlessStatus(200)
-                ->body();
-    
-            file_put_contents(public_path("css/shipyard_theme_cache.css"), $ready_css);
+            exec(implode(" ", [
+                "sass",
+                public_path("css/shipyard_theme_cache.scss"),
+                public_path("css/shipyard_theme_cache.css"),
+            ]));
+            @unlink(public_path("css/shipyard_theme_cache.scss"));
         } catch (\Throwable $th) {
             $this->error("🚨 Theme cache failed. Sasscompiler is probably unavailable.");
             throw $th;

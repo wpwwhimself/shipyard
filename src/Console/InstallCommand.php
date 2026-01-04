@@ -144,7 +144,7 @@ class InstallCommand extends Command
         }
         foreach ([
             [base_path("config/.gitignore"), "popper.php\nblade-icons.php\nbackup.php"],
-            [base_path("public/css/.gitignore"), "shipyard_theme_cache.css"],
+            [base_path("public/css/.gitignore"), "shipyard_theme_cache*"],
         ] as [$path, $file_name]) {
             $contents = "$file_name\n.gitignore";
             file_put_contents($path, $contents);
