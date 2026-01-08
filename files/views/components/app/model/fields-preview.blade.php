@@ -13,7 +13,7 @@ $data = $model::getFields();
         <span {{ Popper::pop($data[$field_name]["label"]) }}>
             <x-shipyard.app.icon :name="$data[$field_name]['icon']" />
         </span>
-        <span>{!! $model->{$field_name} ?? "—" !!}</span>
+        <span>{!! $model->{$field_name."_pretty"} ?? $model->{$field_name} ?? "—" !!}</span>
     </div>
     @endforeach
 </div>
