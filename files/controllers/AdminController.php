@@ -338,6 +338,10 @@ class AdminController extends Controller
                 }
             }
 
+            if (method_exists($model_name, "autofillOnSave")) {
+                $data = $model_name::autofillOnSave($data);
+            }
+
             $model = model($scope)::updateOrCreate(
                 [$keyName => $rq->id],
                 $data,

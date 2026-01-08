@@ -158,6 +158,16 @@ class {{ class }} extends Model
     //
     //     return $res;
     // }
+
+    /**
+     * extended form fields autofill on model save
+     * add or update fields inside $data to trigger additional changes based on existing form data
+     * then return updated $data
+     */
+    // public static function autofillOnSave(array $data): array
+    // {
+    //     return $data;
+    // }
     #endregion
 
     public const SORTS = [
