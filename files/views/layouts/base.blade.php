@@ -50,14 +50,14 @@
         @else
         <link rel="stylesheet" href="https://wpww.pl/shipyard/{{ \App\ShipyardTheme::getTheme() }}.css?v={{ shipyard_version() }}">
         @endenv
-        <link rel="stylesheet" href="{{ asset("css/app.css") }}">
+        <link rel="stylesheet" href="{{ asset("css/app.css") }}?v={{ shipyard_version() }}">
         {{-- 💄 styles 💄 --}}
 
         {{-- 🚀 standard scripts 🚀 --}}
-        <script src="{{ asset("js/Shipyard/earlies.js") }}"></script>
-        <script src="{{ asset("js/earlies.js") }}"></script>
-        <script defer src="{{ asset("js/Shipyard/app.js") }}"></script>
-        <script defer src="{{ asset("js/app.js") }}"></script>
+        <script src="{{ asset("js/Shipyard/earlies.js") }}?v={{ shipyard_version() }}"></script>
+        <script src="{{ asset("js/earlies.js") }}?v={{ shipyard_version() }}"></script>
+        <script defer src="{{ asset("js/Shipyard/app.js") }}?v={{ shipyard_version() }}"></script>
+        <script defer src="{{ asset("js/app.js") }}?v={{ shipyard_version() }}"></script>
         {{-- 🚀 standard scripts 🚀 --}}
 
         {{-- ✏️ ckeditor stuff ✏️ --}}
@@ -70,8 +70,8 @@
         }
         </script>
         <link rel="stylesheet" href="https://cdn.ckeditor.com/ckeditor5/43.0.0/ckeditor5.css">
-        <link rel="stylesheet" href="{{ asset("css/Shipyard/ckeditor.css") }}">
-        <script type="module" src="{{ asset("js/Shipyard/ckeditor.js") }}"></script>
+        <link rel="stylesheet" href="{{ asset("css/Shipyard/ckeditor.css") }}?v={{ shipyard_version() }}">
+        <script type="module" src="{{ asset("js/Shipyard/ckeditor.js") }}?v={{ shipyard_version() }}"></script>
         {{-- ✏️ ckeditor stuff ✏️ --}}
 
         {{-- ✅ choices stuff ✅ --}}
