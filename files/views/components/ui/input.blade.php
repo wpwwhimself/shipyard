@@ -237,8 +237,9 @@ if ($type == "date") $value = ($value)
                     @if (is_array($value)
                         ? collect($value)->contains($opt["value"])
                         : ($hasGroups
-                            ? implode(":", [$opt["type"], $opt["value"]]) === $value
-                            : $opt["value"] === $value
+                            // both sides have to be cast to string to maintain different types (1 = "1") but 3= keeps out false null sets (null = 0)
+                            ? implode(":", [$opt["type"], $opt["value"]]) === (string) $value
+                            : (string) $opt["value"] === (string) $value
                         )
                     ) selected @endif
                 >
