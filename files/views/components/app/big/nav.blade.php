@@ -1,33 +1,21 @@
-@php
-$pages = \App\Models\Shipyard\NavItem::visible()->get();
-@endphp
-
-@foreach ($pages as $page)
+@if (\App\Models\Shipyard\NavItem::visible()->count())
 <x-shipyard.ui.button
-    :icon="$page->icon"
-    :pop="$page->name"
-    :action="$page->action"
-    :show-for="$page->roles->pluck('name')->join('|') ?: null"
+    icon="menu"
+    pop="Menu główne"
+    action="none"
+    onclick="openMenu('main')"
+    class="tertiary"
 />
-@endforeach
+@endif
 
+@if (Auth::user()?->hasRole("content-manager|technical"))
 <x-shipyard.ui.button
-    icon="folder"
-    pop="Pliki"
-    :action="route('files')"
-    show-for="content-manager"
+    icon="cogs"
+    pop="Administracja"
+    action="none"
+    onclick="openMenu('admin')"
+    class="tertiary"
 />
+@endif
 
-<x-shipyard.ui.button
-    :icon="model_icon('standard-pages')"
-    :pop="model('standard-pages')::META['label']"
-    :action="route('admin.model.list', ['model' => 'standard-pages'])"
-    show-for="content-manager"
-/>
-
-<x-shipyard.ui.button
-    icon="database"
-    pop="Zarządzanie modelami"
-    :action="route('admin.models')"
-    show-for="technical"
-/>
+<x-shipyard.app.big.menu />

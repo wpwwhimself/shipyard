@@ -5,12 +5,6 @@
     :action="route('profile')"
 />
 <x-shipyard.ui.button
-    :icon="model_icon('settings')"
-    :pop="model('settings')::META['label']"
-    :action="route('admin.system-settings')"
-    show-for="technical"
-/>
-<x-shipyard.ui.button
     icon="book-information-variant"
     pop="Dokumentacja"
     :action="route('docs.index')"

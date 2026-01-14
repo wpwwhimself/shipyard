@@ -234,6 +234,17 @@ function lookupSelect(fieldName, value) {
 // #endregion
 
 // #region navigation
+function openMenu(mode = "") {
+    const menu = document.querySelector(`nav#menu`);
+
+    menu.classList.toggle("hidden", menu.dataset.mode == mode || mode == "");
+    menu.dataset.mode = mode;
+
+    menu.querySelectorAll(`.button`).forEach(btn => {
+        btn.classList.toggle("hidden", !btn.dataset.mode.includes(mode));
+    });
+}
+
 function jumpTo(selector) {
     document.querySelector(selector).scrollIntoView({
         behavior: "smooth",

@@ -404,6 +404,10 @@ hr {
     }
 }
 
+header {
+    position: relative;
+}
+
 .icon {
     --icon-size: 1.5em;
     width: var(--icon-size);
@@ -514,6 +518,17 @@ hr {
 
 main {
     flex-grow: 1;
+}
+
+#menu {
+    @extend .flex, .right, .center, .middle;
+
+    align-content: center;
+    position: absolute;
+    top: 0; bottom: 0; left: 0; right: 0;
+
+    --bg-gradient-size: 5em;
+    background: var(--bg);
 }
 
 #modal {
