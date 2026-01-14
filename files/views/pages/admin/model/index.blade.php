@@ -26,7 +26,7 @@
     :icon="$group['icon']"
     id="{{ $group['id'] }}"
 >
-    <div class="grid" style="--col-count: 3;">
+    <div class="grid but-mobile-down" style="--col-count: 3;">
         @foreach ($group["models"] as $model)
         <x-shipyard.ui.button
             :icon="$model['icon'] ?? null"
