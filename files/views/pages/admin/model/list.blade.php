@@ -126,6 +126,19 @@
 </x-shipyard.app.section>
 @endif
 
+@foreach ($extraSections as $esid => $esdata)
+<x-shipyard.app.section
+    :title="$esdata['title']"
+    :icon="$esdata['icon']"
+    :id="$esid"
+>
+    <x-dynamic-component
+        :component="$esdata['component']"
+        :data="new (model($scope))()"
+    />
+</x-shipyard.app.section>
+@endforeach
+
 <x-shipyard.app.card>
     @forelse ($data as $item)
     <x-shipyard.app.model.tile :model="$item" @class(["ghost" => $item->is_uneditable ?? false])>

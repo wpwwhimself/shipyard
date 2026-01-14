@@ -240,8 +240,9 @@ class AdminController extends Controller
         $actions = model($scope)::getActions("list");
         $sorts = model($scope)::getSorts($meta["defaultSort"] ?? null);
         $filters = model($scope)::getFilters($meta["defaultFltr"] ?? null);
+        $extraSections = collect(model($scope)::getExtraSections())->filter(fn ($es) => Str::contains($es["show-on"] ?? "", "list"))->toArray();
 
-        return view("pages.shipyard.admin.model.list", compact("data", "meta", "scope", "actions", "sorts", "filters"));
+        return view("pages.shipyard.admin.model.list", compact("data", "meta", "scope", "actions", "sorts", "filters", "extraSections"));
     }
 
     public function filterListModel(Request $rq, string $scope): RedirectResponse
@@ -265,7 +266,7 @@ class AdminController extends Controller
         $fields = model($scope)::getFields();
         $connections = model($scope)::getConnections();
         $actions = model($scope)::getActions("edit");
-        $extraSections = model($scope)::getExtraSections();
+        $extraSections = collect(model($scope)::getExtraSections())->filter(fn ($es) => Str::contains($es["show-on"] ?? "", "edit"))->toArray();
 
         $sections = array_merge(
             [["icon" => $meta["icon"], "title" => "Dane podstawowe", "id" => "basic"]],

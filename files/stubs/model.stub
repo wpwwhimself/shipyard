@@ -195,6 +195,7 @@ class {{ class }} extends Model
         // "<id>" => [
         //     "title" => "",
         //     "icon" => "",
+        //     "show-on" => "<list|edit>",
         //     "component" => "<component_name>",
         //     "role" => "",
         // ],
