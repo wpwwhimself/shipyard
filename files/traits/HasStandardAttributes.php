@@ -31,7 +31,9 @@ trait HasStandardAttributes
     public function visiblePretty(): Attribute
     {
         return Attribute::make(
-            get: fn ($v) => collect(self::VISIBILITIES)->firstWhere(fn ($vv) => $vv["value"] == $v)["label"],
+            get: fn ($v, $attrs) => isset($attrs["visible"])
+                ? collect(self::VISIBILITIES)->firstWhere(fn ($vv) => $vv["value"] == $attrs["visible"])["label"]
+                : "—",
         );
     }
 }
