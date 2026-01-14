@@ -20,6 +20,7 @@ class StandardPage extends Model
         "icon" => "script-text",
         "description" => "Podstrony aplikacji, stanowiące dodatkową treść aplikacji.",
         "role" => "content-manager",
+        "defaultSort" => "order",
     ];
 
     use SoftDeletes, Userstamps;
@@ -59,21 +60,25 @@ class StandardPage extends Model
     public function displaySubtitle(): Attribute
     {
         return Attribute::make(
-            get: fn () => null
+            get: fn () => null,
         );
     }
 
     public function displayMiddlePart(): Attribute
     {
         return Attribute::make(
-            get: fn () => view("components.shipyard.ui.button", [
-                "action" => route("standard-page", ["slug" => $this->slug]),
-                "icon" => "eye",
-                "pop" => "Przejdź do strony",
-                "attributes" => new ComponentAttributeBag([
-                    "target" => "_blank",
+            get: fn () => view("components.shipyard.app.model.fields-preview", [
+                "model" => $this,
+                "fields" => ["visible", "order",],
+            ])
+                . view("components.shipyard.ui.button", [
+                    "action" => route("standard-page", ["slug" => $this->slug]),
+                    "icon" => "eye",
+                    "pop" => "Przejdź do strony",
+                    "attributes" => new ComponentAttributeBag([
+                        "target" => "_blank",
+                    ]),
                 ]),
-            ]),
         );
     }
     #endregion
@@ -108,6 +113,37 @@ class StandardPage extends Model
         ],
     ];
     #endregion
+
+    public const SORTS = [
+        "order" => [
+            "label" => "Kolejność",
+            "compare-using" => "field",
+            "discr" => "order",
+        ],
+        "name" => [
+            "label" => "Nazwa",
+            "compare-using" => "field",
+            "discr" => "name",
+        ],
+    ];
+
+    public const FILTERS = [
+        "visible" => [
+            "label" => "Widoczność",
+            "compare-using" => "field",
+            "discr" => "visible",
+            "type" => "select",
+            "operator" => "=",
+            "selectData" => [
+                "options" => [
+                    ["label" => "Dla wszystkich", "value" => 2],
+                    ["label" => "Dla zalogowanych", "value" => 1],
+                    ["label" => "Nie", "value" => 0],
+                ],
+                "emptyOption" => "Wszystkie",
+            ],
+        ],
+    ];
 
     #region scopes
     use HasStandardScopes;
