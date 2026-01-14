@@ -196,7 +196,7 @@ class AdminController extends Controller
     {
         foreach (Setting::all() as $setting) {
             $value = ($setting->type == "checkbox") ? $rq->has($setting->name)
-                : ($setting->type == "select-multiple" ? implode(",", $rq->get(Str::replace("[]", "", $setting->name)))
+                : ($setting->type == "select-multiple" ? implode(",", $rq->get(Str::replace("[]", "", $setting->name), []))
                 : $rq->get($setting->name));
             $setting->update(["value" => $value]);
         }
