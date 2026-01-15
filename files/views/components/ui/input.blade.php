@@ -69,7 +69,13 @@ if ($type == "date") $value = ($value)
     </span>
 
     @if ($dummy)
-    <span role="dummy">{{ $value }}</span>
+    <span role="dummy">
+        @if ($value && in_array($type, ["TEXT", "HTML"]))
+        {!! Illuminate\Mail\Markdown::parse($value) !!}
+        @else
+        {{ $value ?? "—" }}
+        @endif
+    </span>
 
     @else
     @switch ($type)
