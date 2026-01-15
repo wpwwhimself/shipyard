@@ -235,10 +235,9 @@ function lookupSelect(fieldName, value) {
 
 // #region navigation
 function openMenu(mode = "") {
-    const menu = document.querySelector(`nav#menu`);
+    const menu = document.querySelector(`header [role="bottom-part"]`);
 
-    menu.classList.toggle("hidden", menu.dataset.mode == mode || mode == "");
-    menu.dataset.mode = mode;
+    menu.dataset.mode = mode || "pinned";
 
     menu.querySelectorAll(`.button`).forEach(btn => {
         btn.classList.toggle("hidden", !btn.dataset.mode.includes(mode));

@@ -534,14 +534,15 @@ main {
 }
 
 #menu {
-    @extend .flex, .right, .center, .middle;
+    @extend .flex, .right, .middle;
 
+    justify-content: right;
     align-content: center;
-    position: absolute;
-    top: 0; bottom: 0; left: 0; right: 0;
+    // position: absolute;
+    // top: 0; bottom: 0; left: 0; right: 0;
 
-    --bg-gradient-size: 5em;
-    background: var(--bg);
+    // --bg-gradient-size: 5em;
+    // background: var(--bg);
 }
 
 #modal {

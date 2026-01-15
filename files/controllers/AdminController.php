@@ -66,6 +66,13 @@ class AdminController extends Controller
                         "icon" => "theme-light-dark",
                         "hint" => "Automatycznie ustawia tryb ciemny aplikacji w zależności od ustawień przeglądarki/systemu. Jeśli opcja jest wyłączona, tryb ciemny może zostać włączony ręcznie za pomocą odpowiedniego przycisku na dole strony.",
                     ],
+                    [
+                        "name" => "menu_nav_items_in_top_bar_count",
+                        "label" => "Liczba przypiętych pozycji menu",
+                        "icon" => "menu",
+                        "hint" => "Pasek nawigacji na górze strony będzie wyświetlać pierwsze kilka pozycji, a pozostałe będą dostępne w rozwijanym menu. Wyczyść wartość, aby nie ukrywać żadnej pozycji.",
+                        "min" => 0,
+                    ],
                 ],
             ],
             [
