@@ -28,13 +28,16 @@ if ($models->count() > 1) {
 
 @switch ($rdata['mode'])
     @case ("one")
-    <x-shipyard.ui.input type="select"
+    <x-shipyard.ui.input :type="($dummy || ($rdata['readonly'] ?? false) ? 'dummy-' : '') . 'select'"
         :name="$rdata['field_name'] ?? Str::snake($connectionName).'_id'"
         :label="$field_label"
         :icon="$icon"
-        :value="$models->count() > 1
-            ? implode(':', [$model?->{Str::snake($connectionName).'_type'}, $model?->{$rdata['field_name'] ?? Str::snake($connectionName).'_id'}])
-            : $model?->{$rdata['field_name'] ?? Str::snake($connectionName).'_id'}
+        :value="$dummy || ($rdata['readonly'] ?? false)
+            ? $options->firstWhere('value', $model?->{$rdata['field_name'] ?? Str::snake($connectionName).'_id'})['label']
+            : ($models->count() > 1
+                ? implode(':', [$model?->{Str::snake($connectionName).'_type'}, $model?->{$rdata['field_name'] ?? Str::snake($connectionName).'_id'}])
+                : $model?->{$rdata['field_name'] ?? Str::snake($connectionName).'_id'}
+            )
         "
         :select-data="[
             'options' => $options,
@@ -44,7 +47,7 @@ if ($models->count() > 1) {
     @break
 
     @case ("many")
-    <x-shipyard.ui.input :type="$dummy ||($rdata['readonly'] ?? false) ? 'dummy-text' : 'select-multiple'"
+    <x-shipyard.ui.input :type="($dummy || ($rdata['readonly'] ?? false) ? 'dummy-' : '') . 'select-multiple'"
         :name="($rdata['field_name'] ?? Str::snake($connectionName)).'[]'"
         :label="$field_label"
         :icon="$icon"
