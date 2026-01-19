@@ -160,7 +160,7 @@ function getModelList(page = null) {
 
     fetch(filterForm.action, {
         method: filterForm.method,
-        body: new FormData(filterForm),
+        body: filterFormData,
     })
         .then(res => res.json())
         .then(({ data, html, url }) => {
