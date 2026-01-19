@@ -89,7 +89,7 @@ class StandardPage extends Model
     public const FIELDS = [
         "content" => [
             "type" => "HTML",
-            "label" => "Treść",
+            "label" => "Treść",
             "icon" => "pencil",
         ],
     ];

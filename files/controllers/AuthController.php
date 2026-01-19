@@ -141,7 +141,7 @@ class AuthController extends Controller
 
             return $status === Password::PasswordReset
                 ? redirect()->route('login')->with("toast", ['success', "Hasło zostało zmienione"])
-                : back()->with("toast", ['error', "Coś poszło nie tak podczas resetowania hasła"]);
+                : back()->with("toast", ['error', "Coś poszło nie tak podczas resetowania hasła"]);
         }
 
         // zmiana hasła z formularza
@@ -175,7 +175,7 @@ class AuthController extends Controller
 
                 return back()->with("toast", $success
                     ? ["success", "Link do resetowania hasła został wysłany"]
-                    : ["error", "Coś poszło nie tak podczas resetowania hasła"]
+                    : ["error", "Coś poszło nie tak podczas resetowania hasła"]
                 );
 
             case "manual":

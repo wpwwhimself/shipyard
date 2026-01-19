@@ -26,7 +26,7 @@ if(toast) {
 document.querySelectorAll("button.danger, .button.danger")
     .forEach(btn => {
         btn.addEventListener("click", (ev) => {
-            if (!confirm("Ostrożnie! Czy na pewno chcesz to zrobić?")) {
+            if (!confirm("Ostrożnie! Czy na pewno chcesz to zrobić?")) {
                 ev.preventDefault();
             }
         })
