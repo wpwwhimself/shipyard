@@ -89,7 +89,7 @@
                 )"
             :value="request('fltr.' . $fname)"
             :select-data="$fdata['selectData'] ?? null"
-            onchange="this.form.submit()"
+            onchange="getModelList();"
         />
         @endforeach
 
@@ -119,7 +119,7 @@
                         ]),
             ]"
             :value="request('sort')"
-            onchange="this.form.submit()"
+            onchange="getModelList();"
         />
         @endif
     </x-shipyard.app.form>
@@ -139,28 +139,51 @@
 </x-shipyard.app.section>
 @endforeach
 
-<x-shipyard.app.card>
-    @forelse ($data as $item)
-    <x-shipyard.app.model.tile :model="$item" @class(["ghost" => $item->is_uneditable ?? false])>
-        <x-slot:actions>
-            @unless ($item->is_uneditable)
-                @if ($item->model_edit_button)
-                {!! $item->model_edit_button !!}
-                @else
-                <x-shipyard.ui.button
-                    icon="pencil"
-                    label="Edytuj"
-                    :action="route('admin.model.edit', ['model' => $scope, 'id' => $item->getKey()])"
-                />
-                @endif
-            @endunless
-        </x-slot:actions>
-    </x-shipyard.app.model.tile>
-    @empty
-    <div role="empty">Brak danych do wyświetlenia</div>
-    @endforelse
-
-    {{ $data->links("components.shipyard.pagination.default") }}
+<x-shipyard.app.card id="model-list">
 </x-shipyard.app.card>
 
+@endsection
+
+@section("prepends")
+<script>
+function getModelList(page = null) {
+    const filterForm = document.forms[0];
+    const loader = document.querySelector(`#model-list > .loader`);
+    const results = document.querySelector(`#model-list > .contents`);
+
+    filterForm.querySelector("input[name='page']").value = page;
+    const filterFormData = new FormData(filterForm);
+
+    loader.classList.remove("hidden");
+    results.classList.add("ghost");
+    window.scrollTo({top: 0, behavior: 'smooth'});
+
+    fetch(filterForm.action, {
+        method: filterForm.method,
+        body: new FormData(filterForm),
+    })
+        .then(res => res.json())
+        .then(({ data, html, url }) => {
+            results.innerHTML = html;
+            window.history.pushState(null, null, url);
+
+            reapplyPopper();
+            reinitSelect();
+        })
+        .catch(err => {
+            console.error(err);
+        })
+        .finally(() => {
+            loader.classList.add("hidden");
+            results.classList.remove("ghost");
+        });
+}
+</script>
+@endsection
+
+@section("appends")
+<script>
+// init list
+getModelList({{ request('page') }});
+</script>
 @endsection

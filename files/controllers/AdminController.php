@@ -7,6 +7,7 @@ use App\Models\Setting as LocalSetting;
 use App\Models\Shipyard\Role;
 use App\Models\Shipyard\Setting;
 use App\Models\Shipyard\User;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
@@ -239,27 +240,30 @@ class AdminController extends Controller
         if ($scope === "users" && !Auth::user()?->hasRole("technical")) abort(403); // manual user editing permission, as this is a special case
 
         $meta = model($scope)::META;
-        $listScope = $meta["listScope"] ?? "forAdminList";
-        $data = model($scope)::$listScope(
-            request("sort") ?? $meta["defaultSort"] ?? null,
-            request("fltr") ?? $meta["defaultFltr"] ?? null
-        );
         $actions = model($scope)::getActions("list");
         $sorts = model($scope)::getSorts($meta["defaultSort"] ?? null);
         $filters = model($scope)::getFilters($meta["defaultFltr"] ?? null);
         $extraSections = collect(model($scope)::getExtraSections())->filter(fn ($es) => Str::contains($es["show-on"] ?? "", "list"))->toArray();
 
-        return view("pages.shipyard.admin.model.list", compact("data", "meta", "scope", "actions", "sorts", "filters", "extraSections"));
+        return view("pages.shipyard.admin.model.list", compact("meta", "scope", "actions", "sorts", "filters", "extraSections"));
     }
 
-    public function filterListModel(Request $rq, string $scope): RedirectResponse
+    public function filterListModel(Request $rq, string $scope): JsonResponse
     {
+        $meta = model($scope)::META;
+        $listScope = $meta["listScope"] ?? "forAdminList";
         $filters = collect($rq->except("_token"))
-            ->filter(fn ($v, $k) => !empty($v));
+            ->map(fn ($v, $k) => is_array($v) ? array_filter($v) : $v)
+            ->filter(fn ($v, $k) => $v !== null);
+        $data = model($scope)::$listScope(
+            $filters["sort"] ?? $meta["defaultSort"] ?? null,
+            $filters["fltr"] ?? $meta["defaultFltr"] ?? null
+        );
 
-        return redirect()->route("admin.model.list", [
-            "model" => $scope,
-            ...$filters,
+        return response()->json([
+            "data" => $data,
+            "html" => view("components.shipyard.app.model.list", compact("data", "scope"))->render(),
+            "url" => route("admin.model.list", ["model" => $scope, ...$filters]),
         ]);
     }
 

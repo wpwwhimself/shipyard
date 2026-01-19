@@ -31,6 +31,8 @@
     </div>
     @endif
 
+    <x-shipyard.app.loader horizontal />
+
     @isset ($slot)
     <div class="contents">
         {{ $slot }}
