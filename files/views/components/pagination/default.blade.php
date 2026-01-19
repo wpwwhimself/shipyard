@@ -1,3 +1,7 @@
+@php
+$pageSwitcher ??= false;
+@endphp
+
 <nav role="pagination" aria-label="{{ __('Pagination Navigation') }}">
     @if ($paginator->hasPages())
     <x-shipyard.ui.button
