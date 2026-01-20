@@ -26,7 +26,7 @@ if ($dummy) $type = Str::after($type, "dummy-");
 $lookup = $type == "lookup";
 if ($lookup) $type = "text";
 
-$extraButtons = ($type == "url" && $value) || $storageFile || ($type == "icon" && $value);
+$extraButtons = ($type == "url" && $value) || $storageFile || ($type == "icon");
 
 if ($type == "date") $value = ($value)
     ? Carbon\Carbon::parse($value)->format("Y-m-d")
@@ -278,11 +278,10 @@ if ($type == "date") $value = ($value)
             placeholder="{{ $attributes->get("placeholder", "— brak —") }}"
             {{ $disabled ? "disabled" : "" }}
             {{ $attributes->merge([
-                "oninput" => $lookup ? "lookup(
-                    '".($selectData['dataRoute'] ? route($selectData['dataRoute']) : null)."',
-                    '".$selectData['dataRoute']."',
-                    this.value
-                );" : null,
+                "oninput" => $lookup ? "lookup('".($selectData['dataRoute'] ? route($selectData['dataRoute']) : null)."', '".$selectData['dataRoute']."', this.value);" : (
+                    $type == "icon" ? "getIconPreview('".$name."');" :
+                    null
+                ),
             ]) }}
         />
     @endswitch
@@ -306,7 +305,7 @@ if ($type == "date") $value = ($value)
         />
         @endif
 
-        @if ($type == "icon" && $value)
+        @if ($type == "icon")
         <x-shipyard.app.icon :name="$value" />
         @endif
     </div>

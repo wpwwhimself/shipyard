@@ -4,6 +4,12 @@
     "data" => null,
 ])
 
+@php
+if ($attributes->has("class")) {
+    $data["class"] = implode(" ", ["icon", $attributes->get("class")]);
+}
+@endphp
+
 @switch ($mode)
     @case ("url")
     <img class="icon invert-when-dark" src="{{ $data }}" alt="{{ $name }}">

@@ -84,6 +84,10 @@ Route::controller(FrontController::class)->group(function () {
 
     Route::get("contact", "contactForm")->name("contact-form");
     Route::post("contact", "processContactForm")->name("contact-form.process");
+
+    Route::prefix("front")->group(function () {
+        Route::get("icon/{icon?}", "icon")->name("front.icon");
+    });
 });
 #endregion
 

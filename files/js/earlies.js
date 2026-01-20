@@ -67,7 +67,7 @@ function initFileReplace(file_name) {
 }
 // #endregion
 
-// #region JSON inputs
+// #region inputs
 function JSONInputUpdate(input_name) {
     const input = document.querySelector(`input[name="${input_name}"]`)
     const table = document.querySelector(`table[data-name="${input_name}"]`)
@@ -166,9 +166,7 @@ function JSONInputWatchForConfirm(input_name, ev) {
         JSONInputAddRow(input_name, ev.target.closest("tr").querySelector(".button"))
     }
 }
-// #endregion
 
-// #region select inputs
 function initSelect(name) {
     const input = document.querySelector(`[name='${name}']`);
     const dropdown = new Choices(input, {
@@ -197,10 +195,23 @@ function reinitSelect() {
 function reinitHTML() {
     window.CKEditorInit();
 }
-// #endregion
 
-// #region lookup
 let debounce_timer;
+
+function getIconPreview(input_name) {
+    const input = document.querySelector(`input[name="${input_name}"]`)
+    const icon = input.nextElementSibling.querySelector(`.icon`);
+    
+    clearTimeout(debounce_timer);
+    debounce_timer = setTimeout(() => {
+        icon.classList.add("ghost");
+
+        fetch(`/front/icon/${input.value}`)
+            .then(res => res.text())
+            .then(html => icon.replaceWith(fromHTML(html)))
+            .catch(err => console.error(err));
+    }, 0.3e3);
+}
 
 function lookup(lookupUrl, lookupRoute, query = "") {
     const loader = document.querySelector(`#lookup-container[for="${lookupRoute}"] .loader`);

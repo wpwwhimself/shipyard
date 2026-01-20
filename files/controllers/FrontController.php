@@ -28,4 +28,10 @@ class FrontController extends Controller
 
         return view("pages.shipyard.standard-page", compact("page"));
     }
+
+    #region fetching components
+    public function icon(string $icon) {
+        return view("components.shipyard.app.icon", ["name" => $icon])->render();
+    }
+    #endregion
 }
