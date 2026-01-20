@@ -52,7 +52,6 @@
 </x-shipyard.app.card>
 @endif
 
-@if ($sorts || $filters)
 <x-shipyard.app.section
     title="Filtry i sortowanie"
     :subtitle="request('sort') || request('fltr')
@@ -63,6 +62,9 @@
         : null"
     icon="filter"
     :extended="false"
+    @class([
+        "hidden" => !($sorts || $filters),
+    ])
 >
     <x-slot:actions>
         @if (request('sort') || request('fltr'))
@@ -124,7 +126,6 @@
         @endif
     </x-shipyard.app.form>
 </x-shipyard.app.section>
-@endif
 
 @foreach ($extraSections as $esid => $esdata)
 <x-shipyard.app.section
