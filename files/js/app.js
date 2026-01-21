@@ -33,6 +33,7 @@ document.querySelectorAll("button.danger, .button.danger")
     })
 //#endregion
 
-// #region initialize choices
+// #region initialize
 reinitSelect();
+reinitTableSort();
 // #endregion
