@@ -1,10 +1,11 @@
 @props([
     "horizontal" => false,
+    "notHidden" => false,
 ])
 
 <div @class([
     "loader",
-    "hidden",
+    "hidden" => !$notHidden,
     "horizontal" => $horizontal
 ])>
     <x-shipyard.app.logo :clickable="false" />
