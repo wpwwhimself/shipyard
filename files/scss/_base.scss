@@ -221,6 +221,10 @@ span.large {
     background: repeating-linear-gradient(-45deg, var(--bg-lite), var(--bg-lite) 10px, var(--tertiary) 10px, var(--tertiary) 20px);
 }
 
+.sortable {
+    @extend .interactive;
+}
+
 .stick-top {
     position: sticky;
     top: 1em;
@@ -236,6 +240,7 @@ span.large {
 
 .interactive {
     cursor: pointer;
+    user-select: none;
 
     &.highlight:hover {
         box-shadow: 0 0 1em var(--shadow);

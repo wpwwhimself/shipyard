@@ -201,7 +201,7 @@ let debounce_timer;
 function getIconPreview(input_name) {
     const input = document.querySelector(`input[name="${input_name}"]`)
     const icon = input.nextElementSibling.querySelector(`.icon`);
-    
+
     clearTimeout(debounce_timer);
     debounce_timer = setTimeout(() => {
         icon.classList.add("ghost");
@@ -261,6 +261,24 @@ function jumpTo(selector) {
         block: "center"
     });
 }
+
+function initTableSort(ev) {
+    const rowValue = (tr, i) => tr.children[i].innerText || tr.children[i].textContent;
+    const comparer = (i, desc) => (a, b) => (
+        (v1, v2) => v1 !== "" && v2 !== "" && !isNaN(v1) && !isNaN(v2)
+            ? v1 - v2
+            : v1.toString().localeCompare(v2)
+    )(rowValue(desc ? b : a, i), rowValue(desc ? a : b, i));
+
+    const clickedTh = ev.target.closest("th");
+    const data = ev.target.closest("table").querySelector("tbody");
+    Array.from(data.querySelectorAll("tr:not(.hidden)"))
+        .sort(comparer(
+            Array.from(clickedTh.parentNode.children).indexOf(clickedTh),
+            this.desc = !this.desc
+        ))
+        .forEach(tr => data.appendChild(tr));
+}
 // #endregion
 
 // #region cleanup
@@ -274,6 +292,15 @@ function reapplyPopper() {
     document.querySelectorAll(`[data-tippy]`).forEach(el => {
         tippy(el, {
             content: el.dataset.tippy,
+        });
+    });
+}
+
+function reinitTableSort() {
+    document.querySelectorAll(`table`).forEach(table => {
+        table.querySelectorAll(`thead th.sortable`).forEach(th => {
+            th.removeEventListener("click", initTableSort);
+            th.addEventListener("click", initTableSort);
         });
     });
 }
