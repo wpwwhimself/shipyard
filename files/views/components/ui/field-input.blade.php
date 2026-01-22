@@ -12,8 +12,16 @@ $fdata = $model::getFields()[$fieldName];
     :name="$fieldName"
     :label="$fdata['label']"
     :icon="$fdata['icon']"
-    :value="$fdata['type'] == 'checkbox' ? 1 : $model?->{$fieldName}"
-    :checked="$fdata['type'] == 'checkbox' && $model?->{$fieldName}"
+    :value="$fdata['type'] == 'checkbox' ? 1 : (
+        $model->getKey() !== null
+            ? $model?->{$fieldName}
+            : ($fdata['default'] ?? null)
+    )"
+    :checked="$fdata['type'] == 'checkbox' && (
+        $model->getKey() !== null
+            ? $model?->{$fieldName}
+            : ($fdata['default'] ?? null)
+    )"
     :select-data="$fdata['selectData'] ?? null"
     :required="$fdata['required'] ?? false"
     :placeholder="$fdata['placeholder'] ?? null"
