@@ -94,6 +94,11 @@ trait HasStandardFields
 
         if (!empty($defaultSort)) {
             $direction = $defaultSort[0] == "-" ? "desc" : "asc";
+
+            if (!in_array(Str::after($defaultSort, "-"), array_keys($sortData))) {
+                throw new \Error("⚓ Model ".self::class." has no sort `".Str::after($defaultSort, "-")."` to be marked as default.");
+            }
+
             $defaultSortData = array_merge(
                 $defaultSortData,
                 $sortData[Str::after($defaultSort, "-")]
