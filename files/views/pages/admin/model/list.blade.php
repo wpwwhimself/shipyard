@@ -149,35 +149,27 @@
 <script>
 function getModelList(page = null) {
     const filterForm = document.forms[0];
-    const loader = document.querySelector(`#model-list > .loader`);
-    const results = document.querySelector(`#model-list > .contents`);
-
     filterForm.querySelector("input[name='page']").value = page;
     const filterFormData = new FormData(filterForm);
 
-    loader.classList.remove("hidden");
-    results.classList.add("ghost");
     window.scrollTo({top: 0, behavior: 'smooth'});
 
-    fetch(filterForm.action, {
-        method: filterForm.method,
-        body: filterFormData,
-    })
-        .then(res => res.json())
-        .then(({ data, html, url }) => {
-            results.innerHTML = html;
-            window.history.pushState(null, null, url);
-
+    fetchComponent(
+        `#model-list > .loader`,
+        filterForm.action,
+        {
+            method: filterForm.method,
+            body: filterFormData,
+        },
+        [
+            [`#model-list > .contents`, `html`],
+        ],
+        (res) => {
+            window.history.pushState(null, null, res.url);
             reapplyPopper();
             reinitSelect();
-        })
-        .catch(err => {
-            console.error(err);
-        })
-        .finally(() => {
-            loader.classList.add("hidden");
-            results.classList.remove("ghost");
-        });
+        }
+    );
 }
 </script>
 @endsection
