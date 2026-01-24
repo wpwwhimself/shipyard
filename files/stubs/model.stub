@@ -118,7 +118,7 @@ class {{ class }} extends Model
         //     // "autofillFrom" => ["<route>", "<model_name>"],
         //     // "characterLimit" => 999, // for text fields
         //     // "role" => "",
-        //     // "allowNulls => true, // for when null values should not be treated as disabling filter but actual values
+        //     // "allowNulls" => true, // for when null values should not be treated as disabling filter but actual values
         // ],
     ];
 

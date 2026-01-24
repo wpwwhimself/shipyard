@@ -35,7 +35,7 @@ if ($type == "date") $value = ($value)
 
 <div {{
     $attributes
-        // ->filter(fn($val, $key) => (!in_array($key, ["autofocus", "required", "placeholder", "small"])))
+        ->filter(fn($val, $key) => !Str::startsWith($key, "on"))
         ->merge(["for" => $name])
         ->class(["input-container"])
     }}>
