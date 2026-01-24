@@ -313,3 +313,54 @@ function openSection(btn, key) {
     section.querySelectorAll(`.toggles`).forEach(b => b.classList.toggle("hidden"));
 }
 // #endregion
+
+// #region dynamic components fetching
+/**
+ * All-in-one callback for fetching a component from API
+ *
+ * @param {string} loader_selector - selector for the loader connected to the component
+ * @param {string} url - URL to API which serves the component
+ * @param {object} urlbody - object containing body of the request
+ * @param {Array} targets - array of 2-element arrays containing:
+ *   - selector for the target element,
+ *   - key of the response object with html to replace the target
+ * @param {Function} afterCallback - optional callback to run after the component is fetched
+ * @param {object} options - optional modifiers:
+ *   - customError - html of an error message
+ */
+function fetchComponent(loader_selector, url, urlbody = {}, targets = [], afterCallback = (res) => {}, options = {}) {
+    const loader = document.querySelector(loader_selector);
+
+    // start the sequence
+    loader.classList.remove("hidden");
+    targets.forEach(tdata => {
+        document.querySelector(tdata[0]).classList.add("ghost");
+    });
+
+    // call the API
+    fetch(url, urlbody)
+        .then(res => res.json())
+        .then(res => {
+            targets.forEach(tdata => {
+                document.querySelector(tdata[0]).innerHTML = res[tdata[1]];
+            });
+            afterCallback(res);
+        })
+        .catch(err => {
+            console.error(err);
+            // show error message in targets
+            targets.forEach(tdata => {
+                document.querySelector(tdata[0]).innerHTML =
+                    options.customError
+                    || `<p class="accent error">Nie udało się pobrać danych. To nie Twoja wina. Już nad tym pracujemy.</p>`;
+            });
+        })
+        .finally(() => {
+            // revert loading
+            loader.classList.add("hidden");
+            targets.forEach(tdata => {
+                document.querySelector(tdata[0]).classList.remove("ghost");
+            });
+        });
+}
+// #endregion
