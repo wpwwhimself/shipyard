@@ -321,9 +321,10 @@ function openSection(btn, key) {
  * @param {string} loader_selector - selector for the loader connected to the component
  * @param {string} url - URL to API which serves the component
  * @param {object} urlbody - object containing body of the request
- * @param {Array} targets - array of 2-element arrays containing:
+ * @param {Array} targets - array of arrays containing:
  *   - selector for the target element,
- *   - key of the response object with html to replace the target
+ *   - key of the response object with data - this assumes to be html to replace the target
+ *   - (optional) name of a component maker - if passed, instead of html, 2nd element should be the data to pass to the so-named function to build the component
  * @param {Function} afterCallback - optional callback to run after the component is fetched
  * @param {object} options - optional modifiers:
  *   - customError - html of an error message
@@ -342,7 +343,9 @@ function fetchComponent(loader_selector, url, urlbody = {}, targets = [], afterC
         .then(res => res.json())
         .then(res => {
             targets.forEach(tdata => {
-                document.querySelector(tdata[0]).innerHTML = res[tdata[1]];
+                document.querySelector(tdata[0]).innerHTML = (tdata[2])
+                    ? window[tdata[2]](res[tdata[1]])
+                    : res[tdata[1]];
             });
             afterCallback(res);
         })
