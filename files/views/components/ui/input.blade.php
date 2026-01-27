@@ -80,11 +80,20 @@ if ($type == "date") $value = ($value)
     @else
     @switch ($type)
         @case ("TEXT")
-        <textarea name="{{ $name }}"
-            id="{{ $name }}"
-            {{ $disabled ? "disabled" : "" }}
-            {{ $attributes }}
-        >{{ $value }}</textarea>
+        @case ("ABC")
+        <div class="flex right but-mobile-down stretch and-cover nowrap">
+            <textarea name="{{ $name }}"
+                id="{{ $name }}"
+                {{ $disabled ? "disabled" : "" }}
+                {{ $attributes->merge([
+                    "oninput" => $type === "ABC" ? "abcPreview('".$name."');" : null,
+                ]) }}
+            >{{ $value }}</textarea>
+
+            @if ($type === "ABC")
+            <x-shipyard.ui.abc-preview :name="$name" />
+            @endif
+        </div>
         @break
 
         @case ("HTML")

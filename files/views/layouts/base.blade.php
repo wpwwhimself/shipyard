@@ -79,6 +79,12 @@
         <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
         {{-- ✅ choices stuff ✅ --}}
 
+        {{-- 🎼 abcjs stuff 🎼 --}}
+        <link rel="stylesheet" href="{{ asset("css/Shipyard/abcjs.css") }}?v={{ shipyard_version() }}">
+        <script src="https://cdn.jsdelivr.net/npm/abcjs/dist/abcjs-basic.min.js"></script>
+        <script src="{{ asset("js/Shipyard/abcjs-note-transpose.js") }}?v={{ shipyard_version() }}"></script>
+        {{-- 🎼 abcjs stuff 🎼 --}}
+
         @hasSection("prepends")
         @yield("prepends")
         @endif

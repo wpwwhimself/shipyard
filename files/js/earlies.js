@@ -242,6 +242,35 @@ function lookup(lookupUrl, lookupRoute, query = "") {
 function lookupSelect(fieldName, value) {
     document.querySelector(`input[name="${fieldName}"][value="${value}"]`).checked = true;
 }
+
+function abcPreview(field_name, transposer = 0) {
+    window.ABCJS.renderAbc(
+        `abc-preview-sheet-${field_name}`,
+        document.querySelector(`[name="${field_name}"]`).value,
+        {
+            responsive: "resize",
+            add_classes: true,
+            jazzchords: true,
+            germanAlphabet: true,
+            initialClef: true,
+            visualTranspose: transposer,
+        }
+    );
+}
+
+function abcTransposer(field_name, mode = undefined) {
+    const transposerMainBtn = document.querySelector(`.abc-preview[for="${field_name}"] .transposer-main-btn`)
+    if (mode === undefined) {
+        transposerMainBtn.classList.toggle("active");
+        document.querySelectorAll(`.abc-preview[for="${field_name}"] .transposer-btn`).forEach(el => el.classList.toggle("hidden"));
+        return;
+    }
+
+    let current_transposition = Number(transposerMainBtn.children[1].innerText.replace(/\+/, ""));
+    current_transposition = mode === 0 ? 0 : current_transposition + mode;
+    transposerMainBtn.children[1].innerText = current_transposition > 0 ? `+${current_transposition}` : current_transposition;
+    abcPreview(field_name, current_transposition);
+}
 // #endregion
 
 // #region navigation

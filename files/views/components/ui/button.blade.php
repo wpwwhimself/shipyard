@@ -37,7 +37,7 @@
     @endif
 >
     @if ($icon && !$iconRight) <x-shipyard.app.icon :name="$icon" /> @endif
-    @if ($label && !$hideLabel) <span>{{ $label }}</span> @endif
+    @if ($label !== null && !$hideLabel) <span>{{ $label }}</span> @endif
     @if ($icon && $iconRight) <x-shipyard.app.icon :name="$icon" /> @endif
 
     @if ($badge) <strong class="badge">{{ $badge }}</strong> @endif

@@ -1,0 +1,18 @@
+/* ABC notation */
+
+.abc-preview {
+    width: 650px;
+
+    & .abcjs-chord {
+        font-family: var(--heading-font);
+    }
+    & .abcjs-lyric {
+        font-family: var(--base-font);
+        font-weight: normal;
+    }
+}
+@media screen and (max-width: 550px) {
+    .abc-preview {
+        width: 100%;
+    }
+}
