@@ -8,7 +8,7 @@ $pageSwitcher ??= false;
         icon="chevron-left"
         pop="Poprzednia strona"
         :action="$paginator->onFirstPage() ? null : ($pageSwitcher ? 'none' : $paginator->previousPageUrl())"
-        :onclick="$pageSwitcher ? $pageSwitcher.'()' : null"
+        :onclick="$pageSwitcher ? $pageSwitcher.'('.($paginator->currentPage() - 1).')' : null"
     />
     @endif
 
@@ -49,7 +49,7 @@ $pageSwitcher ??= false;
         icon="chevron-right"
         pop="Następna strona"
         :action="$paginator->hasMorePages() ? ($pageSwitcher ? 'none' : $paginator->nextPageUrl()) : null"
-        :onclick="$pageSwitcher ? $pageSwitcher.'('.$paginator->lastPage().')' : null"
+        :onclick="$pageSwitcher ? $pageSwitcher.'('.($paginator->currentPage() + 1).')' : null"
     />
     @endif
 </nav>
