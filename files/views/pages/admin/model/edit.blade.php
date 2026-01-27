@@ -57,7 +57,7 @@
         @endforeach
     </x-shipyard.app.section>
 
-    <div class="grid but-mobile down" style="--col-count: 2;">
+    <div class="grid but-mobile-down" style="--col-count: 2;">
         @foreach ($connections as $relation => $rdata)
         @if (isset($rdata["role"]) && !auth()->user()->hasRole($rdata["role"])) @continue @endif
 
