@@ -2,6 +2,7 @@
 
 .abc-preview {
     width: 650px;
+    margin-inline: auto;
 
     & .abcjs-chord {
         font-family: var(--heading-font);
