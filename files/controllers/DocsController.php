@@ -40,16 +40,14 @@ class DocsController extends Controller
         $lines = explode("\n", $doc);
         $meta = [];
 
-        if (($lines[0][0] ?? "") !== "{") {
-            return $meta;
-        }
-
-        while (($lines[0][0] ?? "") !== "}") {
+        if (($lines[0][0] ?? "") === "{") {
+            while (($lines[0][0] ?? "") !== "}") {
+                $meta[] = array_shift($lines);
+            }
             $meta[] = array_shift($lines);
+            $meta = implode("\n", $meta);
+            $meta = json_decode($meta, true);
         }
-        $meta[] = array_shift($lines);
-        $meta = implode("\n", $meta);
-        $meta = json_decode($meta, true);
 
         if ($meta === null) {
             throw new \Error("⚓ Invalid meta in $path");
