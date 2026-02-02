@@ -100,7 +100,7 @@ trait HasStandardScopes
 
         $query = $query->where("visible", ">", 1 - Auth::check());
         if ($sort) $query = $query
-            ->orderBy("order")
+            ->orderByRaw("0 - `order` desc")
             ->orderBy("name");
         return $query;
     }

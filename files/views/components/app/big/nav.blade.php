@@ -1,6 +1,8 @@
 @php
-$pages = \App\Models\Shipyard\NavItem::visible()->get();
-$max_pages = setting("menu_nav_items_in_top_bar_count") ?? INF;
+$pages = \App\Models\Shipyard\NavItem::visible()->get()
+    ->filter(fn ($page) => Auth::user()->hasRole($page->roles->pluck('name')->join('|') ?: null))
+    ->values();
+$max_pages = (int) setting("menu_nav_items_in_top_bar_count") ?? INF;
 $pages_are_truncated = $pages->count() > $max_pages;
 @endphp
 
@@ -10,7 +12,7 @@ $pages_are_truncated = $pages->count() > $max_pages;
     :icon="$page->icon"
     :pop="$page->name"
     :action="$page->action"
-    :show-for="$page->roles->pluck('name')->join('|') ?: null"
+    {{-- :show-for="$page->roles->pluck('name')->join('|') ?: null" --}}
     :data-mode="$page_i < $max_pages
         ? 'pinned|main'
         : 'main'
