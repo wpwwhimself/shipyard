@@ -6,7 +6,7 @@
 <div class="card">
     <p>Wybierz temat dokumentacji za pomocą przycisków obok.</p>
 
-    @if (auth()->user()->hasRole("technical"))
+    @if (auth()->user()?->hasRole("technical"))
     <h2>Tworzenie dokumentacji</h2>
 
     <p>Wpisy w dokumentacji budowane są na podstawie zawartości katalogu <code>docs</code>.</p>

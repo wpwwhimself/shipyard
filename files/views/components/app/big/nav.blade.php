@@ -1,6 +1,6 @@
 @php
 $pages = \App\Models\Shipyard\NavItem::visible()->get()
-    ->filter(fn ($page) => Auth::user()->hasRole($page->roles->pluck('name')->join('|') ?: null))
+    ->filter(fn ($page) => Auth::user()?->hasRole($page->roles->pluck('name')->join('|') ?: null))
     ->values();
 $max_pages = (int) setting("menu_nav_items_in_top_bar_count") ?? INF;
 $pages_are_truncated = $pages->count() > $max_pages;

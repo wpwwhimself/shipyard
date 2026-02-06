@@ -52,14 +52,14 @@
         </x-slot:actions>
 
         @foreach ($fields as $name => $fdata)
-        @if (isset($fdata["role"]) && !auth()->user()->hasRole($fdata["role"])) @continue @endif
+        @if (isset($fdata["role"]) && !auth()->user()?->hasRole($fdata["role"])) @continue @endif
         <x-shipyard.ui.field-input :model="$data ?? new (model($scope))()" :field-name="$name" />
         @endforeach
     </x-shipyard.app.section>
 
     <div class="grid but-mobile-down" style="--col-count: 2;">
         @foreach ($connections as $relation => $rdata)
-        @if (isset($rdata["role"]) && !auth()->user()->hasRole($rdata["role"])) @continue @endif
+        @if (isset($rdata["role"]) && !auth()->user()?->hasRole($rdata["role"])) @continue @endif
 
         @php
         $models = collect($rdata["model"]);
@@ -144,7 +144,7 @@
             <x-shipyard.ui.button
                 icon="arrow-left"
                 label="Wróć"
-                :action="Auth::user()->hasRole('technical')
+                :action="Auth::user()?->hasRole('technical')
                     ? route('admin.model.list', ['model' => $scope])
                     : route('profile')"
             />
