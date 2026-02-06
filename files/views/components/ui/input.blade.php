@@ -287,10 +287,15 @@ if ($type == "date") $value = ($value)
             placeholder="{{ $attributes->get("placeholder", "— brak —") }}"
             {{ $disabled ? "disabled" : "" }}
             {{ $attributes->merge([
-                "oninput" => $lookup ? "lookup('".($selectData['dataRoute'] ? route($selectData['dataRoute']) : null)."', '".$selectData['dataRoute']."', this.value);" : (
-                    $type == "icon" ? "getIconPreview('".$name."');" :
-                    null
-                ),
+                "oninput" => $lookup
+                    ? "lookup('".(($selectData['dataRoute'] ?? false)
+                        ? route($selectData['dataRoute'])
+                        : ($selectData['dataUrl'] ?? null)
+                    )."', '".$name."', this.value, ". json_encode($selectData['dataParams'] ?? 'undefined') .");"
+                    : ($type == "icon"
+                        ? "getIconPreview('".$name."');"
+                        : null
+                    ),
             ]) }}
         />
     @endswitch
@@ -340,7 +345,7 @@ if ($type == "date") $value = ($value)
 </div>
 
 @if ($lookup)
-<div id="lookup-container" for="{{ $selectData["dataRoute"] ?? null }}">
+<div id="lookup-container" for="{{ $name }}">
     <x-shipyard.app.loader horizontal />
     <div role="results"></div>
 </div>

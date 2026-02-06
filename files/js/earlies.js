@@ -213,16 +213,19 @@ function getIconPreview(input_name) {
     }, 0.3e3);
 }
 
-function lookup(lookupUrl, lookupRoute, query = "") {
-    const loader = document.querySelector(`#lookup-container[for="${lookupRoute}"] .loader`);
-    const results = document.querySelector(`#lookup-container[for="${lookupRoute}"] [role="results"]`);
+function lookup(lookupUrl, input_name, query = "", other_params = {}) {
+    const loader = document.querySelector(`#lookup-container[for="${input_name}"] .loader`);
+    const results = document.querySelector(`#lookup-container[for="${input_name}"] [role="results"]`);
 
     clearTimeout(debounce_timer);
     debounce_timer = setTimeout(() => {
         loader.classList.remove("hidden");
 
         // actual query
-        fetch(lookupUrl + `?query=${query}`)
+        fetch(lookupUrl + "?" + new URLSearchParams({
+            query: query,
+            ...other_params,
+        }))
             .then(res => {
                 if (!res.ok) throw new Error(res.statusText);
                 return res.text();
