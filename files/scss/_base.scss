@@ -646,6 +646,25 @@ main {
     text-align: center;
 }
 
+.rank-marker {
+    &.military {
+        @extend .flex, .right, .middle;
+        display: inline-flex;
+        vertical-align: middle;
+        background: var(--primary);
+        padding: 2px 5px;
+
+        & > svg {
+            color: var(--fg);
+            fill: var(--fg);
+
+            & > [role="null"] {
+                fill: transparent;
+            }
+        }
+    }
+}
+
 search {
     flex-grow: 1;
 
