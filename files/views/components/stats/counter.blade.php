@@ -4,7 +4,7 @@
     "style" => "military",
 ])
 
-<span @class(["rank-marker", $style])
+<span @class(["counter", $style])
     {{ Popper::pop(($label ? "$label: " : "") . $rank) }}
 >
     @switch ($style)

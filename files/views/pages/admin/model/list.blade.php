@@ -168,7 +168,7 @@ function getModelList(page = null) {
             window.history.pushState(null, null, res.url);
             reapplyPopper();
             reinitSelect();
-            cropRankMarkers();
+            cropCounters();
         }
     );
 }

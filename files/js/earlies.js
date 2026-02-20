@@ -337,8 +337,8 @@ function reinitTableSort() {
     });
 }
 
-function cropRankMarkers() {
-    document.querySelectorAll(`.rank-marker svg`).forEach(el => {
+function cropCounters() {
+    document.querySelectorAll(`.counter svg`).forEach(el => {
         const bbox = el.getBBox();
         el.setAttribute("width", bbox.x + bbox.width + bbox.x);
         el.setAttribute("height", bbox.y + bbox.height + bbox.y);

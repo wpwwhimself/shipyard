@@ -36,5 +36,5 @@ document.querySelectorAll("button.danger, .button.danger")
 // #region initialize
 reinitSelect();
 reinitTableSort();
-cropRankMarkers();
+cropCounters();
 // #endregion
