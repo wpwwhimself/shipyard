@@ -340,7 +340,7 @@ function reinitTableSort() {
 function cropCounters() {
     document.querySelectorAll(`.counter svg`).forEach(el => {
         const bbox = el.getBBox();
-        el.setAttribute("width", bbox.x + bbox.width + bbox.x);
+        el.setAttribute("width", Math.max(bbox.x + bbox.width + bbox.x, 30));
         el.setAttribute("height", bbox.y + bbox.height + bbox.y);
     });
 }
