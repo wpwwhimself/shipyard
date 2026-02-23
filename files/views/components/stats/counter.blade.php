@@ -72,13 +72,13 @@
 
                     @case ("stars")
                     <path d="M{{ $offset + $scale }} {{ $height / 2 }}
-                        l{{ -$scale }} {{ -$height * 1/4 }}
-                        l{{ $scale * 8/12 }} {{ $height * 7/12 }}
-                        l0 {{ -$height * 8/12 }}
-                        l{{ -$scale * 8/12 }} {{ $height * 7/12 }}
-                        l{{ $scale }} {{ -$height * 1/4 }}
+                        l{{ -$scale * 0.9 }} {{ -$scale * 0.3 }}
+                        l{{ $scale * 0.55 }} {{ $scale * 0.77 }}
+                        l0 {{ -$scale * 0.94 }}
+                        l{{ -$scale * 0.55 }} {{ $scale * 0.77 }}
+                        l{{ $scale * 0.9 }} {{ -$scale * 0.3 }}
                     " />
-                    @php $offset += $scale; @endphp
+                    @php $offset += $scale * 5/6; @endphp
                     @php if($i + 1 == $counts[$piptype]) $offset -= $scale * 1/2; @endphp
                     @break
 
