@@ -1,13 +1,37 @@
 @props([
     "rank",
     "label" => null,
-    "style" => "military",
+    "style" => "dots",
 ])
 
 <span @class(["counter", $style])
     {{ Popper::pop(($label ? "$label: " : "") . $rank) }}
 >
     @switch ($style)
+        @case ("dots")
+        @php
+        $dots = [
+            0 => "⠀",
+            1 => "⠄",
+            2 => "⠆",
+            3 => "⠦",
+            4 => "⠶",
+            5 => "⠾",
+            6 => "⠿",
+        ];
+        
+        $output = "";
+        $i = $rank;
+        
+        while ($i > 0) {
+            $output .= $dots[($i >= 6) ? 6 : $i];
+            $i -= 6;
+        }
+        @endphp
+
+        <span>{{ $output }}</span>
+        @break
+
         @case ("military")
         @php
         $scale = 8;

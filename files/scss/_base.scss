@@ -353,10 +353,15 @@ code, pre {
 }
 
 .counter {
+    @extend .flex, .right, .middle;
+    display: inline-flex !important;
+    vertical-align: middle;
+
+    & > * {
+        color: var(--primary);
+    }
+
     &.military {
-        @extend .flex, .right, .middle;
-        display: inline-flex !important;
-        vertical-align: middle;
         background: var(--primary);
         padding: 2px 5px;
 
