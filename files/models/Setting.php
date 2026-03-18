@@ -5,10 +5,12 @@ namespace App\Models\Shipyard;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Mattiverse\Userstamps\Traits\Userstamps;
+use OwenIt\Auditing\Auditable;
+use OwenIt\Auditing\Contracts\Auditable as ContractsAuditable;
 
-class Setting extends Model
+class Setting extends Model implements ContractsAuditable
 {
-    use Userstamps;
+    use Userstamps, Auditable;
 
     public $incrementing = false;
     protected $primaryKey = "name";

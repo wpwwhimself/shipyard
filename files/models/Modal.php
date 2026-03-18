@@ -10,8 +10,10 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\View\ComponentAttributeBag;
 use Mattiverse\Userstamps\Traits\Userstamps;
+use OwenIt\Auditing\Auditable;
+use OwenIt\Auditing\Contracts\Auditable as ContractsAuditable;
 
-class Modal extends Model
+class Modal extends Model implements ContractsAuditable
 {
     //
 
@@ -26,7 +28,7 @@ class Modal extends Model
         "uneditableField" => "name",
     ];
 
-    use SoftDeletes, Userstamps;
+    use SoftDeletes, Userstamps, Auditable;
 
     protected $fillable = [
         "name",

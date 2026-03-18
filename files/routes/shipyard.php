@@ -71,6 +71,7 @@ Route::middleware("auth")->group(function () {
                 Route::post("filter", "filterListModel")->name("admin.model.list.filter");
                 Route::get("edit/{id?}", "editModel")->name("admin.model.edit");
                 Route::post("edit", "processEditModel")->name("admin.model.edit.process");
+                Route::get("history/{id?}", "modelHistory")->name("admin.model.history");
             });
         });
     });

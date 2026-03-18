@@ -10,10 +10,12 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\View\ComponentAttributeBag;
 use Mattiverse\Userstamps\Traits\Userstamps;
+use OwenIt\Auditing\Auditable;
+use OwenIt\Auditing\Contracts\Auditable as ContractsAuditable;
 
-class Role extends Model
+class Role extends Model implements ContractsAuditable
 {
-    use SoftDeletes, Userstamps;
+    use SoftDeletes, Userstamps, Auditable;
 
     public $incrementing = false;
     protected $primaryKey = "name";

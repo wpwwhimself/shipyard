@@ -213,7 +213,7 @@ class AdminController extends Controller
     }
     #endregion
 
-    #region automatic model editors
+    #region models
     public function models(): View
     {
         $model_groups = [
@@ -380,6 +380,16 @@ class AdminController extends Controller
         }
 
         return back()->with("toast", ["error", "Nieprawidłowa operacja"]);
+    }
+
+    public function modelHistory(string $scope, int|string|null $id = null): View|RedirectResponse
+    {
+        if (!Auth::user()?->hasRole(model($scope)::META["role"] ?? null)) abort(403);
+
+        $meta = model($scope)::META;
+        $data = model($scope)::find($id);
+
+        return view("pages.shipyard.admin.model.history", compact("data", "meta", "scope"));
     }
     #endregion
 

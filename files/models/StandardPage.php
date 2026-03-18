@@ -12,8 +12,10 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Illuminate\View\ComponentAttributeBag;
 use Mattiverse\Userstamps\Traits\Userstamps;
+use OwenIt\Auditing\Auditable;
+use OwenIt\Auditing\Contracts\Auditable as ContractsAuditable;
 
-class StandardPage extends Model
+class StandardPage extends Model implements ContractsAuditable
 {
     public const META = [
         "label" => "Podstrony",
@@ -23,7 +25,7 @@ class StandardPage extends Model
         "defaultSort" => "order",
     ];
 
-    use SoftDeletes, Userstamps;
+    use SoftDeletes, Userstamps, Auditable;
 
     protected $fillable = [
         "name", "content",

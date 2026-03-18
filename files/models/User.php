@@ -18,11 +18,13 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\View\ComponentAttributeBag;
 use Laravel\Sanctum\HasApiTokens;
 use Mattiverse\Userstamps\Traits\Userstamps;
+use OwenIt\Auditing\Auditable;
+use OwenIt\Auditing\Contracts\Auditable as ContractsAuditable;
 
-class User extends Authenticatable
+class User extends Authenticatable implements ContractsAuditable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable, HasApiTokens, SoftDeletes, Userstamps;
+    use HasFactory, Notifiable, HasApiTokens, SoftDeletes, Userstamps, Auditable;
 
     public const META = [
         "label" => "Użytkownicy",

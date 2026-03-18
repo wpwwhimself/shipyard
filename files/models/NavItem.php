@@ -11,9 +11,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
 use Illuminate\View\ComponentAttributeBag;
 use Mattiverse\Userstamps\Traits\Userstamps;
+use OwenIt\Auditing\Auditable;
+use OwenIt\Auditing\Contracts\Auditable as ContractsAuditable;
 use Throwable;
 
-class NavItem extends Model
+class NavItem extends Model implements ContractsAuditable
 {
     //
 
@@ -24,7 +26,7 @@ class NavItem extends Model
         "role" => "technical",
     ];
 
-    use SoftDeletes, Userstamps;
+    use SoftDeletes, Userstamps, Auditable;
 
     protected $fillable = [
         "name",

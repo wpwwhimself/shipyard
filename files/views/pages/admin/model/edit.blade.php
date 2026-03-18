@@ -140,10 +140,17 @@
                 name="method"
                 value="delete"
             />
+                @if ($data->audits)
+                <x-shipyard.ui.button
+                    icon="history"
+                    pop="Historia"
+                    :action="route('admin.model.history', ['model' => $scope, 'id' => $data->getKey()])"
+                />
+                @endif
             @endif
             <x-shipyard.ui.button
                 icon="arrow-left"
-                label="Wróć"
+                pop="Wróć"
                 :action="Auth::user()?->hasRole('technical')
                     ? route('admin.model.list', ['model' => $scope])
                     : route('profile')"
