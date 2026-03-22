@@ -19,10 +19,10 @@
             5 => "⠾",
             6 => "⠿",
         ];
-        
+
         $output = "";
         $i = $rank;
-        
+
         while ($i > 0) {
             $output .= $dots[($i >= 6) ? 6 : $i];
             $i -= 6;
@@ -84,18 +84,18 @@
 
                     @case ("chevrons")
                     <path d="M{{ $offset }} 0
-                        l{{ $scale }} {{ $height / 2 }}
-                        l{{ -$scale }} {{ $height / 2 }}
-                        l{{ $scale }} 0
-                        l{{ $scale }} {{ -$height / 2 }}
-                        l{{ -$scale }} {{ -$height / 2 }}
-                        l{{ -$scale }} 0
+                        l{{ $scale * 0.8 }} {{ $height / 2 }}
+                        l{{ -$scale * 0.8 }} {{ $height / 2 }}
+                        l{{ $scale * 0.8 }} 0
+                        l{{ $scale * 0.8 }} {{ -$height / 2 }}
+                        l{{ -$scale * 0.8 }} {{ -$height / 2 }}
+                        l{{ -$scale * 0.8 }} 0
                     " />
-                    @php $offset += $scale; @endphp
+                    @php $offset += $scale * 0.9; @endphp
                     @break
 
                     @case ("stars")
-                    <path d="M{{ $offset + $scale }} {{ $height / 2 }}
+                    <path d="M{{ $offset + $scale * 0.9 }} {{ $height / 2 }}
                         l{{ -$scale * 0.9 }} {{ -$scale * 0.3 }}
                         l{{ $scale * 0.55 }} {{ $scale * 0.77 }}
                         l0 {{ -$scale * 0.94 }}
