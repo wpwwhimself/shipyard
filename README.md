@@ -1,6 +1,6 @@
 # ⚓ Shipyard: where WPWW's projects set sail ⚓
 
-Soon I'll write more here but for now know that this project is a framework for my own web apps.
+This project is a framework for my own web apps.
 
 ## Concepts
 
@@ -17,13 +17,6 @@ Shipyard requires _Laravel_ installation.
 ```json
 {
     ...
-    // appends Shipyard repository
-    "repositories": {
-        "shipyard": {
-            "type": "vcs",
-            "url": "https://github.com/wpwwhimself/shipyard.git"
-        }
-    },
     // refresh Shipyard after updates
     "scripts": {
         ...
@@ -52,6 +45,7 @@ composer require wpwwhimself/shipyard
 ```json
 {
     ...
+    // appends Shipyard repository
     "repositories": {
         "shipyard": {
             "type": "path",
