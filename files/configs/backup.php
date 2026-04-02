@@ -23,10 +23,13 @@ return [
                  *
                  * Directories used by the backup process will automatically be excluded.
                  */
-                'exclude' => [
-                    base_path('vendor'),
-                    base_path('node_modules'),
-                ],
+                'exclude' => array_map(
+                    fn ($path) => base_path($path),
+                    array_filter(array_merge([
+                        'vendor',
+                        'node_modules',
+                    ], explode(":", env("SHIPYARD_BACKUP_EXCLUDES", ""))))
+                ),
 
                 /*
                  * Determines if symlinks should be followed.
