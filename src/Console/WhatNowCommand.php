@@ -69,6 +69,23 @@ class WhatNowCommand extends Command
             }
         }"
         );
+        $this->comment("> prepare extended class of Scaffolds to add new properties:
+        <?php
+
+        namespace App\Scaffolds;
+
+        use App\Scaffolds\Shipyard\Modal as ShipyardModal;
+
+        class Modal extends ShipyardModal
+        {
+            protected static function items(): array
+            {
+                return [
+
+                ];
+            }
+        }"
+        );
         $this->comment("> clear your `resources/css/app.css` file - it may overwrite themes");
 
         return Command::SUCCESS;

@@ -79,6 +79,9 @@ class InstallCommand extends Command
         $this->comment("- models...");
         $this->tryLink(__DIR__.'/../../files/models', base_path("app/Models/Shipyard"));
 
+        $this->comment("- scaffolds...");
+        $this->tryLink(__DIR__.'/../../files/scaffolds', base_path("app/Scaffolds/Shipyard"));
+
         $this->comment("- migrations...");
         $this->tryCopyDirectory(__DIR__.'/../../files/migrations', base_path("database/migrations"));
 
