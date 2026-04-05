@@ -117,6 +117,11 @@ function similar_models(?string $scope = null): array
         ->toArray();
 }
 
+function model_field_label(string $scope, string $field): ?string
+{
+    return model($scope)::getFields()[$field]["label"] ?? null;
+}
+
 function model_field_icon(string $scope, string $field): ?string
 {
     return model($scope)::getFields()[$field]["icon"] ?? null;
