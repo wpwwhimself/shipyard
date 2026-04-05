@@ -77,7 +77,7 @@ abstract class Modal
         if ($ret->has("summary_route")) {
             $ret->put("full_summary_route", route($ret["summary_route"]));
         }
-        $ret->put("rendered_fields", collect($ret["fields"])->map(function ($f) use ($name) {
+        $ret->put("rendered_fields", collect($ret["fields"])->map(function ($f) {
             switch ($f["type"]) {
                 case "heading":
                     return view("components.shipyard.app.h", [
@@ -101,7 +101,7 @@ abstract class Modal
                 default:
                     return view("components.shipyard.ui.input", [
                         "type" => $f["type"],
-                        "name" => $name,
+                        "name" => $f["name"],
                         "label" => $f["label"],
                         "icon" => $f["icon"],
                         "attributes" => new ComponentAttributeBag([
