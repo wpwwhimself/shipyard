@@ -9,7 +9,7 @@ use Wpwwhimself\Shipyard\Console\InstallCommand;
  */
 function app_lifetime(): string
 {
-    $init = date('Y', filemtime(base_path('composer.json')));
+    $init = date('Y', filemtime(base_path('artisan')));
     $now = date('Y');
 
     return ($init != $now) ? "$init – $now" : $now;
