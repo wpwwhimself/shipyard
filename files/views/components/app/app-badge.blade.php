@@ -15,7 +15,7 @@
                 class="hide-for-print"
                 @popper(Wersja Shipyard)
             >
-                <img class="icon invert-when-dark" src="{{ asset("media/shipyard/shipyard.svg") }}" alt="shipyard logo">
+                <img class="icon invert-when-dark" src="{{ asset("media/Shipyard/shipyard.svg") }}" alt="shipyard logo">
                 {{ shipyard_version() }}
             </a>
         </span>
