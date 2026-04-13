@@ -180,6 +180,21 @@
     </script>
 </x-shipyard.app.card>
 
+<x-shipyard.app.card
+    title="Countery"
+    icon="counter"
+>
+    @foreach ([
+        "military",
+    ] as $style)
+    <div class="flex right center">
+        @for ($i = 0; $i < 250; $i = $i + 3)
+        <x-shipyard.stats.counter :rank="$i" :style="$style" />
+        @endfor
+    </div>
+    @endforeach
+</x-shipyard.app.card>
+
 <script>
 function toggleSwitch(btn)
 {
