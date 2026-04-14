@@ -365,6 +365,7 @@ code, pre {
 
     &.military {
         background: var(--primary);
+        clip-path: polygon(0 0, 90% 0, 100% 50%, 90% 100%, 0 100%);
         padding: 2px 5px;
 
         & > svg {
