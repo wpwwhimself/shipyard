@@ -160,7 +160,7 @@ function JSONInputAutofill(input_name, ev, filled_value = null) {
 }
 
 function JSONInputWatchForConfirm(input_name, ev) {
-    if (ev.key == "Enter" || ev.key == ",") {
+    if (ev.key == "Enter") {
         ev.stopPropagation()
         ev.preventDefault()
         JSONInputAutofill(input_name, ev, ev.target.value)
