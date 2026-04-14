@@ -112,6 +112,7 @@ function JSONInputAddRow(input_name) {
 
     newRow.querySelectorAll("input").forEach(input => input.value = (input.type == "checkbox" ? "1" : ""))
     JSONInputUpdate(input_name)
+    newRow.querySelector("input").focus();
 }
 
 function JSONInputPrependRow(input_name, btn) {
