@@ -82,7 +82,7 @@ abstract class Modal
                 case "heading":
                     return view("components.shipyard.app.h", [
                         "lvl" => 3,
-                        "icon" => $f["icon"],
+                        "icon" => $f["icon"] ?? null,
                         "slot" => $f["label"],
                         "attributes" => new ComponentAttributeBag([
                             ...($f["extra"] ?? []),
@@ -91,7 +91,7 @@ abstract class Modal
 
                 case "paragraph":
                     return view("components.shipyard.app.icon-label-value", [
-                        "icon" => $f["icon"],
+                        "icon" => $f["icon"] ?? null,
                         "slot" => $f["label"],
                         "attributes" => new ComponentAttributeBag([
                             ...($f["extra"] ?? []),
@@ -103,7 +103,7 @@ abstract class Modal
                         "type" => $f["type"],
                         "name" => $f["name"],
                         "label" => $f["label"],
-                        "icon" => $f["icon"],
+                        "icon" => $f["icon"] ?? null,
                         "attributes" => new ComponentAttributeBag([
                             "required" => $f["required"] ?? false,
                             ...($f["extra"] ?? []),
