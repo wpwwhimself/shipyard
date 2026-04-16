@@ -61,11 +61,13 @@ const summary_btn = form.querySelector("[role='go_to_summary']");
 const summary_close_btn = form.querySelector("[role='close_summary']");
 const close_modal_btn = form.querySelector("[role='close_modal']");
 
-const openModal = (name, defaults = {}) => {
+const openModal = (name, defaults = {}, overrides = {}) => {
     loader.classList.remove("hidden");
     modal.classList.remove("hidden");
 
-    fetch(`{{ route("modals.data") }}/${name}`)
+    fetch(`{{ route("modals.data") }}/${name}?` + new URLSearchParams({
+        overrides: JSON.stringify(overrides),
+    }))
         .then(res => res.json())
         .then(data => {
             form.action = data.full_target_route;
@@ -74,13 +76,16 @@ const openModal = (name, defaults = {}) => {
 
             Object.entries(defaults).forEach(([name, value]) => {
                 if (form.querySelector(`[role='fields'] [name="${name}"]`)) {
-                    form.querySelector(`[role='fields'] [name="${name}"]`).value = value;
+                    if (form.querySelector(`[role='fields'] [name="${name}"]`).type == "checkbox") {
+                        form.querySelector(`[role='fields'] [name="${name}"]`).checked = value;
+                    } else {
+                        form.querySelector(`[role='fields'] [name="${name}"]`).value = value;
+                    }
                     form.querySelector(`[role='fields'] [name="${name}"]`).dispatchEvent(new Event("input"));
                 } else {
                     form.querySelector("[role='fields']").append(fromHTML(`<input type="hidden" name="${name}" value="${value}">`));
                 }
             });
-
 
             if (data.full_summary_route) {
                 submit_btn.classList.add("hidden");

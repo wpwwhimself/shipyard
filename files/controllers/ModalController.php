@@ -10,7 +10,7 @@ class ModalController extends Controller
 {
     public function data(Request $rq)
     {
-        $modal = Modal::get($rq->name);
+        $modal = Modal::get($rq->name, json_decode($rq->overrides, true));
 
         return response()->json($modal);
     }

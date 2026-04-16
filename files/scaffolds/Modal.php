@@ -62,7 +62,7 @@ abstract class Modal
     }
     abstract protected static function items(): array;
 
-    public static function get(string $name): Collection
+    public static function get(string $name, ?array $overrides = null): Collection
     {
         $all_items = array_merge(self::defaultItems(), static::items());
 
@@ -77,7 +77,18 @@ abstract class Modal
         if ($ret->has("summary_route")) {
             $ret->put("full_summary_route", route($ret["summary_route"]));
         }
-        $ret->put("rendered_fields", collect($ret["fields"])->map(function ($f) {
+        $ret->put("rendered_fields", collect($ret["fields"])->map(function ($f) use ($overrides) {
+            // overrides
+            foreach (["icon", "label", "required", "extra"] as $overridable) {
+                if (!isset($f["name"])) continue;
+
+                if (isset($overrides[$f["name"]][$overridable])) {
+                    $f[$overridable] = $overrides[$f["name"]][$overridable];
+                }
+
+                if ($overrides[$f["name"]]["hide"] ?? false) return "";
+            }
+
             switch ($f["type"]) {
                 case "heading":
                     return view("components.shipyard.app.h", [
@@ -103,7 +114,7 @@ abstract class Modal
                         "type" => $f["type"],
                         "name" => $f["name"],
                         "label" => $f["label"],
-                        "icon" => $f["icon"] ?? null,
+                        "icon" => $overrides[$f["name"]]["icon"] ?? $f["icon"] ?? null,
                         "attributes" => new ComponentAttributeBag([
                             "required" => $f["required"] ?? false,
                             ...($f["extra"] ?? []),

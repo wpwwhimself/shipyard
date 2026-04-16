@@ -35,6 +35,7 @@ Pola składają się z następujących elementów. Podaj je jako zwykły array:
 
 # 🧑‍💻 Obsługa modali
 
-Wywołanie modala odbywa się za pomocą JSowej funkcji `openModal(name, defaults)`.
+Wywołanie modala odbywa się za pomocą JSowej funkcji `openModal(name, defaults, overrides)`.
 Za `name` podaje się nazwę modala.
 Jeśli podany jest JSON `defaults`, wartości z niego zostaną przepisane na pola formularza. Jeśli jakiegoś pola brakuje, zostanie ono dodane jako input:hidden.
+Jeśli podany jest JSON `overrides`, wartości z niego posłużą do zmodyfikowania pól. Jako opcje można podać opcję dowolnego pola (z wyjątkiem `type` i `name`) lub `hide: true`, żeby usunąć je całkowicie.
