@@ -239,6 +239,17 @@ class {{ class }} extends Model implements ContractsAuditable
     //     );
     // }
 
+    //? override add button on model list
+    // public static function modelAddButton(): string
+    // {
+    //     return view("components.shipyard.ui.button", [
+    //         "icon" => "plus",
+    //         "label" => "Dodaj",
+    //         "action" => route(...),
+    //         "class" => "primary",
+    //     ])->render();
+    // }
+
     //? override edit button on model list
     // public function modelEditButton(): Attribute
     // {

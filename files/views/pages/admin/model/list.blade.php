@@ -5,12 +5,16 @@
 @section("sidebar")
 
 <div class="card stick-top">
+    @if (method_exists(model($scope), "modelAddButton"))
+    {!! model($scope)::modelAddButton() !!}
+    @else
     <x-shipyard.ui.button
         icon="plus"
         pop="Dodaj"
         class="primary"
         :action="route('admin.model.edit', ['model' => $scope])"
     />
+    @endif
 
     @if ($actions)
     <x-shipyard.app.sidebar-separator />
