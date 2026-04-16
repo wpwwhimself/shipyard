@@ -1,4 +1,4 @@
-<div id="modal" class="hidden">
+<div id="modal" class="modal hidden">
     <x-shipyard.app.loader />
 
     <x-shipyard.app.card title="..." title-lvl="2" id="modal-card" class="hidden">
@@ -72,7 +72,7 @@ const openModal = (name, defaults = {}, overrides = {}) => {
         .then(data => {
             form.action = data.full_target_route;
             card.querySelector("[role$='title']").textContent = data.heading;
-            form.querySelector("[role='fields']").innerHTML = data.rendered_fields;
+            fields.innerHTML = data.rendered_fields;
 
             Object.entries(defaults).forEach(([name, value]) => {
                 if (form.querySelector(`[role='fields'] [name="${name}"]`)) {

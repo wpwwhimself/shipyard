@@ -577,7 +577,7 @@ main {
     // background: var(--bg);
 }
 
-#modal {
+.modal {
     @extend .flex, .down, .center, .middle;
 
     position: fixed;
