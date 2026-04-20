@@ -58,16 +58,16 @@
                 >
                     @foreach ($column["fields"] as $sub_field)
                     <x-shipyard.ui.input
-                        :type="$settings->find($sub_field['name'])->type ?? null"
+                        :type="$settings->find($sub_field['name'])?->type"
                         :name="$sub_field['name']"
                         :label="$sub_field['label']"
                         :hint="$sub_field['hint'] ?? null"
                         :icon="$sub_field['icon'] ?? null"
                         :select-data="$sub_field['selectData'] ?? null"
-                        :value="$settings->find($sub_field['name'])->type == 'checkbox' ? null
-                            : ($settings->find($sub_field['name'])->type == 'select-multiple' ? explode(',', setting($sub_field['name']))
+                        :value="$settings->find($sub_field['name'])?->type == 'checkbox' ? null
+                            : ($settings->find($sub_field['name'])?->type == 'select-multiple' ? explode(',', setting($sub_field['name']))
                             : setting($sub_field['name']))"
-                        :checked="$settings->find($sub_field['name'])->type == 'checkbox' && setting($sub_field['name'])"
+                        :checked="$settings->find($sub_field['name'])?->type == 'checkbox' && setting($sub_field['name'])"
                     />
                     @endforeach
                 </x-shipyard.app.card>
@@ -77,16 +77,16 @@
             @else
             @foreach ($field["fields"] as $sub_field)
             <x-shipyard.ui.input
-                :type="$settings->find($sub_field['name'])->type ?? null"
+                :type="$settings->find($sub_field['name'])?->type"
                 :name="$sub_field['name']"
                 :label="$sub_field['label']"
                 :hint="$sub_field['hint'] ?? null"
                 :icon="$sub_field['icon'] ?? null"
                 :select-data="$sub_field['selectData'] ?? null"
-                :value="$settings->find($sub_field['name'])->type == 'checkbox' ? null
-                    : ($settings->find($sub_field['name'])->type == 'select-multiple' ? explode(',', setting($sub_field['name']))
+                :value="$settings->find($sub_field['name'])?->type == 'checkbox' ? null
+                    : ($settings->find($sub_field['name'])?->type == 'select-multiple' ? explode(',', setting($sub_field['name']))
                     : setting($sub_field['name']))"
-                :checked="$settings->find($sub_field['name'])->type == 'checkbox' && setting($sub_field['name'])"
+                :checked="$settings->find($sub_field['name'])?->type == 'checkbox' && setting($sub_field['name'])"
             />
             @endforeach
 
@@ -94,16 +94,16 @@
 
         @else
         <x-shipyard.ui.input
-            :type="$settings->find($field['name'])->type ?? null"
+            :type="$settings->find($field['name'])?->type"
             :name="$field['name']"
             :label="$field['label']"
             :hint="$field['hint'] ?? null"
             :icon="$field['icon'] ?? null"
             :select-data="$field['selectData'] ?? null"
-            :value="$settings->find($field['name'])->type == 'checkbox' ? null
-                : ($settings->find($field['name'])->type == 'select-multiple' ? explode(',', setting($field['name']))
+            :value="$settings->find($field['name'])?->type == 'checkbox' ? null
+                : ($settings->find($field['name'])?->type == 'select-multiple' ? explode(',', setting($field['name']))
                 : setting($field['name']))"
-            :checked="$settings->find($field['name'])->type == 'checkbox' && setting($field['name'])"
+            :checked="$settings->find($field['name'])?->type == 'checkbox' && setting($field['name'])"
         />
         @endisset
     @endforeach
