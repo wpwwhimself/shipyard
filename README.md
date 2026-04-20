@@ -1,4 +1,4 @@
-# ⚓ Shipyard: where WPWW's projects set sail ⚓
+![Shipyard banner](/meta/full_banner.svg)
 
 This project is a framework for my own web apps.
 
