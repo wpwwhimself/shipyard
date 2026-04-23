@@ -338,10 +338,6 @@ class AdminController extends Controller
             }
         }
 
-        if ($scope == "users") {
-            $data["password"] = Hash::make(Str::random(16));
-        }
-
         if ($rq->input("method") == "save") {
             $model_name = model($scope);
             $keyName = (new $model_name())->getKeyName();
