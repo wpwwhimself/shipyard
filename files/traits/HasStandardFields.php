@@ -18,7 +18,7 @@ trait HasStandardFields
      */
     public static function getFields(): array
     {
-        $table = (new self())->getTable();
+        $table = (new static())->getTable();
 
         return array_merge(array_filter([
             "id" => (!Schema::hasColumn($table, "id")) ? null : [
@@ -51,7 +51,7 @@ trait HasStandardFields
                 "label" => "Wymuś kolejność",
                 "icon" => "sort",
             ],
-        ]), self::FIELDS);
+        ]), static::FIELDS);
     }
 
     /**
@@ -60,8 +60,8 @@ trait HasStandardFields
     public static function getConnections(): array
     {
         return array_filter(array_merge(
-            defined(self::class."::CONNECTIONS")
-                ? self::CONNECTIONS
+            defined(static::class."::CONNECTIONS")
+                ? static::CONNECTIONS
                 : [],
         ));
     }
@@ -73,8 +73,8 @@ trait HasStandardFields
     public static function getActions(string $showOn): array
     {
         return array_filter(array_merge(
-            defined(self::class."::ACTIONS")
-                ? array_filter(self::ACTIONS, fn ($a) => ($a["show-on"] ?? "list") == $showOn)
+            defined(static::class."::ACTIONS")
+                ? array_filter(static::ACTIONS, fn ($a) => ($a["show-on"] ?? "list") == $showOn)
                 : [],
         ));
     }
@@ -84,9 +84,9 @@ trait HasStandardFields
      */
     public static function getSorts($defaultSort = null): array
     {
-        if (!defined(self::class."::SORTS")) return [];
+        if (!defined(static::class."::SORTS")) return [];
 
-        $sortData = self::SORTS;
+        $sortData = static::SORTS;
         $defaultSortData = [
             "label" => "domyślnie",
             "direction" => "asc",
@@ -96,7 +96,7 @@ trait HasStandardFields
             $direction = $defaultSort[0] == "-" ? "desc" : "asc";
 
             if (!in_array(Str::after($defaultSort, "-"), array_keys($sortData))) {
-                throw new \Error("⚓ Model ".self::class." has no sort `".Str::after($defaultSort, "-")."` to be marked as default.");
+                throw new \Error("⚓ Model ".static::class." has no sort `".Str::after($defaultSort, "-")."` to be marked as default.");
             }
 
             $defaultSortData = array_merge(
@@ -124,8 +124,8 @@ trait HasStandardFields
     public static function getFilters($defaultFltr = null): array
     {
         return array_filter(array_merge(
-            defined(self::class."::FILTERS")
-                ? self::FILTERS
+            defined(static::class."::FILTERS")
+                ? static::FILTERS
                 : [],
         ));
     }
@@ -136,8 +136,8 @@ trait HasStandardFields
     public static function getExtraSections(): array
     {
         return array_filter(array_merge(
-            defined(self::class."::EXTRA_SECTIONS")
-                ? self::EXTRA_SECTIONS
+            defined(static::class."::EXTRA_SECTIONS")
+                ? static::EXTRA_SECTIONS
                 : [],
         ));
     }

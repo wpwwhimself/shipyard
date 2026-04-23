@@ -20,10 +20,10 @@ trait HasStandardAttributes
     {
         return Attribute::make(
             fn () => in_array(
-                (self::META["uneditableField"] ?? false)
-                    ? $this->{self::META["uneditableField"]}
+                (static::META["uneditableField"] ?? false)
+                    ? $this->{static::META["uneditableField"]}
                     : $this->getKey(),
-                self::META["uneditable"] ?? []
+                static::META["uneditable"] ?? []
             ),
         );
     }
@@ -32,7 +32,7 @@ trait HasStandardAttributes
     {
         return Attribute::make(
             get: fn ($v, $attrs) => isset($attrs["visible"])
-                ? collect(self::VISIBILITIES)->firstWhere(fn ($vv) => $vv["value"] == $attrs["visible"])["label"]
+                ? collect(static::VISIBILITIES)->firstWhere(fn ($vv) => $vv["value"] == $attrs["visible"])["label"]
                 : "—",
         );
     }

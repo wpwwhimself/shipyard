@@ -12,9 +12,9 @@ trait HasStandardScopes
     public function scopeSortAndFilter($query, $sort = null, $filters = null)
     {
         // setup
-        $filterData = self::getFilters();
+        $filterData = static::getFilters();
         $sortData = !empty($sort)
-            ? self::getSorts()[Str::after($sort, "-")]
+            ? static::getSorts()[Str::after($sort, "-")]
             : null;
 
         // pre-get filters for db filtering
@@ -36,8 +36,8 @@ trait HasStandardScopes
             ->each(fn ($fd) => $query = $query->whereNull($fd["discr"]));
 
         if (
-            (self::META["checkOwnerUnless"] ?? false)
-            && !Auth::user()?->hasRole(self::META["checkOwnerUnless"]."|archmage", true)
+            (static::META["checkOwnerUnless"] ?? false)
+            && !Auth::user()?->hasRole(static::META["checkOwnerUnless"]."|archmage", true)
         ) {
             $query = $query->where("created_by", Auth::id());
         }
