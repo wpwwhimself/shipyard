@@ -7,12 +7,12 @@
     title="Dane użytkownika"
     :icon="model_icon('users')"
 >
-    <p>Zalogowano jako {{ Auth::user() }}</p>
+    <p>Zalogowano jako <strong class="accent primary">{{ Auth::user() }}</strong></p>
 
     <x-shipyard.app.h lvl="3" :icon="model_icon('roles')">Role w systemie</x-shipyard.app.h>
     <ul>
-        @foreach (Auth::user()->roles as $role)
-        <li><x-shipyard.app.role.full :role="$role" /></li>
+        @foreach (Auth::user()->roles as $i => $role)
+        <li class="stagger" style="--stagger-index: {{ $i }};"><x-shipyard.app.role.full :role="$role" /></li>
         @endforeach
     </ul>
 

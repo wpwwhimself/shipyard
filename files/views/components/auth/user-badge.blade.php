@@ -1,7 +1,10 @@
 @auth
 <x-shipyard.ui.button
     icon="account"
-    label="Profil"
+    :label="setting('users_login_is') != 'none'
+        ? Auth::user()->name
+        : 'Profil'"
+    pop="Zobacz profil"
     :action="route('profile')"
 />
 <x-shipyard.ui.button
