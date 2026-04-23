@@ -93,7 +93,7 @@
                     : [$data->{$relation}]
                 ) as $item)
                 <x-shipyard.ui.button
-                    :icon="$item::META['icon']"
+                    :icon="$item->icon ??$item::META['icon']"
                     :pop="$item"
                     :action="route('admin.model.edit', ['model' => scope($item::class), 'id' => $item->getKey()])"
                 />
