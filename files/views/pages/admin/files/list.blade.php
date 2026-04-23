@@ -20,7 +20,8 @@
 
 @section("content")
 
-<div class="card">
+@php $stagger = 0; @endphp
+<div class="card stagger" style="--stagger-index: {{ $stagger++ }};">
     Tutaj możesz umieszczać pliki – np. grafiki – które mają pojawić się na podstronach.
     Po wgraniu ich na serwer możesz je umieścić w treściach strony, korzystając z wygenerowanych linków.
 </div>
@@ -30,6 +31,7 @@
     :title="$sections[$card_id]['label']"
     :icon="$sections[$card_id]['icon']"
     :id="$card_id"
+    class="stagger" style="--stagger-index: {{ $stagger }};"
 >
     <x-slot:actions>
         <x-shipyard.ui.button
@@ -49,6 +51,7 @@
         @endforelse
     </div>
 </x-shipyard.app.section>
+@php $stagger++ @endphp
 
 <div class="grid but-mobile-down" style="--col-count: 2;">
     @php $card_id = "files-upload"; @endphp
@@ -56,6 +59,7 @@
         :title="$sections[$card_id]['label']"
         :icon="$sections[$card_id]['icon']"
         :id="$card_id"
+        class="stagger" style="--stagger-index: {{ $stagger }};"
     >
         <x-shipyard.app.form
             :action="route('files.upload')"
@@ -78,12 +82,14 @@
             </x-slot:actions>
         </x-shipyard.app.form>
     </x-shipyard.app.section>
+    @php $stagger++; @endphp
 
     @php $card_id = "folder-mgmt"; @endphp
     <x-shipyard.app.section
         :title="$sections[$card_id]['label']"
         :icon="$sections[$card_id]['icon']"
         :id="$card_id"
+        class="stagger" style="--stagger-index: {{ $stagger }};"
     >
         <x-shipyard.app.form
             :action="route('files.folder.create')"
@@ -119,6 +125,7 @@
             </x-slot:actions>
         </x-shipyard.app.form>
     </x-shipyard.app.section>
+    @php $stagger++; @endphp
 </div>
 
 @endsection

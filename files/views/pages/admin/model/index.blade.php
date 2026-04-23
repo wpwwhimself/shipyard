@@ -20,11 +20,13 @@
 
 @section("content")
 
+@php $stagger = 0; @endphp
 @foreach ($model_groups as $group)
 <x-shipyard.app.section
     :title="$group['label']"
     :icon="$group['icon']"
     id="{{ $group['id'] }}"
+    class="stagger" style="--stagger-index: {{ $stagger }};"
 >
     <div class="grid but-mobile-down" style="--col-count: 3;">
         @foreach ($group["models"] as $model)
@@ -37,6 +39,7 @@
         @endforeach
     </div>
 </x-shipyard.app.section>
+@php $stagger++; @endphp
 @endforeach
 
 @endsection

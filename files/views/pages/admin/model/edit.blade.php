@@ -39,6 +39,7 @@
 
 @section("content")
 
+@php $stagger = 0; @endphp
 <x-shipyard.app.form :action="route('admin.model.edit.process', ['model' => $scope])" method="POST">
     <input type="hidden" name="id" value="{{ $data?->getKey() ?? "" }}">
 
@@ -46,6 +47,7 @@
         title="Dane podstawowe"
         :icon="model_icon($scope)"
         id="basic"
+        class="stagger" style="--stagger-index: {{ $stagger }};"
     >
         <x-slot:actions>
             <x-shipyard.app.model.timestamps :model="$data" />
@@ -56,6 +58,7 @@
         <x-shipyard.ui.field-input :model="$data ?? new (model($scope))()" :field-name="$name" />
         @endforeach
     </x-shipyard.app.section>
+    @php $stagger++; @endphp
 
     <div class="grid but-mobile-down" style="--col-count: 2;">
         @foreach ($connections as $relation => $rdata)
@@ -75,6 +78,7 @@
             :title="$pop_label"
             :icon="$icon"
             id="connections_{{ $relation }}"
+            class="stagger" style="--stagger-index: {{ $stagger }};"
         >
             <x-slot:actions>
                 @if ($rdata["readonly"] ?? false)
@@ -101,6 +105,7 @@
             </div>
             @endif
         </x-shipyard.app.section>
+        @php $stagger++; @endphp
         @endforeach
 
         @foreach ($extraSections as $esid => $esdata)
@@ -112,12 +117,14 @@
             :title="$sdata['title']"
             :icon="$sdata['icon']"
             :id="$sdata['id']"
+            class="stagger" style="--stagger-index: {{ $stagger }};"
         >
             <x-dynamic-component
                 :component="$sdata['component']"
                 :data="$data ?? new (model($scope))()"
             />
         </x-shipyard.app.section>
+        @php $stagger++; @endphp
         @endforeach
     </div>
 

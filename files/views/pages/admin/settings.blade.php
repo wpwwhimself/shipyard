@@ -30,6 +30,8 @@
 
 @section("content")
 
+@php $stagger = 0 @endphp
+
 <x-shipyard.app.form :action="route('admin.system-settings.process')" method="post">
 
 @foreach ($fields as $section)
@@ -39,6 +41,7 @@
     :icon="$section['icon'] ?? null"
     :id="$section['id'] ?? null"
     :extended="false"
+    class="stagger" style="--stagger-index: {{ $stagger }};"
 >
     @foreach ($section["fields"] as $field)
         @isset ($field["subsection_title"])
@@ -108,6 +111,7 @@
         @endisset
     @endforeach
 </x-shipyard.app.section>
+@php $stagger++; @endphp
 @endforeach
 
     <x-slot:actions>
