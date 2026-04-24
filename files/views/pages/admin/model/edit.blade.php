@@ -39,26 +39,25 @@
 
 @section("content")
 
-@php $stagger = 0; @endphp
-<x-shipyard.app.form :action="route('admin.model.edit.process', ['model' => $scope])" method="POST">
+<x-shipyard.app.form :action="route('admin.model.edit.process', ['model' => $scope])" method="POST" @class(["stagger-contents" => setting("animations_mode") >= 1])>
     <input type="hidden" name="id" value="{{ $data?->getKey() ?? "" }}">
 
     <x-shipyard.app.section
         title="Dane podstawowe"
         :icon="model_icon($scope)"
         id="basic"
-        class="stagger" style="--stagger-index: {{ $stagger }};"
     >
         <x-slot:actions>
             <x-shipyard.app.model.timestamps :model="$data" />
         </x-slot:actions>
 
-        @foreach ($fields as $name => $fdata)
-        @if (isset($fdata["role"]) && !auth()->user()?->hasRole($fdata["role"])) @continue @endif
-        <x-shipyard.ui.field-input :model="$data ?? new (model($scope))()" :field-name="$name" />
-        @endforeach
+        <div @class(["flex", "down", "stagger-contents" => setting("animations_mode") >= 2])>
+            @foreach ($fields as $name => $fdata)
+            @if (isset($fdata["role"]) && !auth()->user()?->hasRole($fdata["role"])) @continue @endif
+            <x-shipyard.ui.field-input :model="$data ?? new (model($scope))()" :field-name="$name" />
+            @endforeach
+        </div>
     </x-shipyard.app.section>
-    @php $stagger++; @endphp
 
     <div class="grid but-mobile-down" style="--col-count: 2;">
         @foreach ($connections as $relation => $rdata)
@@ -78,7 +77,6 @@
             :title="$pop_label"
             :icon="$icon"
             id="connections_{{ $relation }}"
-            class="stagger" style="--stagger-index: {{ $stagger }};"
         >
             <x-slot:actions>
                 @if ($rdata["readonly"] ?? false)
@@ -105,7 +103,6 @@
             </div>
             @endif
         </x-shipyard.app.section>
-        @php $stagger++; @endphp
         @endforeach
 
         @foreach ($extraSections as $esid => $esdata)
@@ -117,14 +114,12 @@
             :title="$sdata['title']"
             :icon="$sdata['icon']"
             :id="$sdata['id']"
-            class="stagger" style="--stagger-index: {{ $stagger }};"
         >
             <x-dynamic-component
                 :component="$sdata['component']"
                 :data="$data ?? new (model($scope))()"
             />
         </x-shipyard.app.section>
-        @php $stagger++; @endphp
         @endforeach
     </div>
 
@@ -150,7 +145,7 @@
                 @if ($data->audits)
                 <x-shipyard.ui.button
                     icon="history"
-                    pop="Historia"
+                    pop="Historia zmian"
                     :action="route('admin.model.history', ['model' => $scope, 'id' => $data->getKey()])"
                 />
                 @endif

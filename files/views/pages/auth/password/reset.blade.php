@@ -7,18 +7,11 @@
 $reset_own_password = !Auth::check() && !$user;
 @endphp
 
-<script>
-function fillResetWithUsername(username) {
-    ["password", "password_confirmation"].forEach((name) => {
-        document.querySelector(`input[name="${name}"]`).value = username;
-    });
-}
-</script>
-
-<div class="card">
+<div @class(["card", "stagger" => setting("animations_mode") >= 1])>
     <x-shipyard.app.form
         :action="route('password.reset.process')"
         method="post"
+        @class(["stagger-contents" => setting("animations_mode") >= 2])
     >
         <p>
             Rozpoczynasz proces resetowania hasła
@@ -112,5 +105,17 @@ function fillResetWithUsername(username) {
         </x-slot:actions>
     </x-shipyard.app.form>
 </div>
+
+@endsection
+
+@section("prepends")
+
+<script>
+function fillResetWithUsername(username) {
+    ["password", "password_confirmation"].forEach((name) => {
+        document.querySelector(`input[name="${name}"]`).value = username;
+    });
+}
+</script>
 
 @endsection

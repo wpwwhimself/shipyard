@@ -20,15 +20,15 @@
 
 @section("content")
 
-@php $stagger = 0; @endphp
+<div @class(["flex", "down", "stagger-contents" => setting("animations_mode") >= 1])>
+
 @foreach ($model_groups as $group)
 <x-shipyard.app.section
     :title="$group['label']"
     :icon="$group['icon']"
     id="{{ $group['id'] }}"
-    class="stagger" style="--stagger-index: {{ $stagger }};"
 >
-    <div class="grid but-mobile-down" style="--col-count: 3;">
+    <div @class(["grid", "but-mobile-down", "stagger-contents" => setting("animations_mode") >= 2]) style="--col-count: 3;">
         @foreach ($group["models"] as $model)
         <x-shipyard.ui.button
             :icon="$model['icon'] ?? null"
@@ -39,7 +39,8 @@
         @endforeach
     </div>
 </x-shipyard.app.section>
-@php $stagger++; @endphp
 @endforeach
+
+</div>
 
 @endsection

@@ -4,6 +4,8 @@
 
 @section("content")
 
+<div @class(["flex", "down", "stagger-contents" => setting("animations_mode") >= 1])>
+
 @foreach ($data->audits()->with("user")->get() as $hentry)
     @php
     $events = [
@@ -64,6 +66,8 @@
             :action="route('admin.model.edit', ['model' => $scope, 'id' => $data->getKey()])"
         />
     </div>
+</div>
+
 </div>
 
 @endsection

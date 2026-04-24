@@ -74,6 +74,18 @@ class AdminController extends Controller
                         "hint" => "Pasek nawigacji na górze strony będzie wyświetlać pierwsze kilka pozycji, a pozostałe będą dostępne w rozwijanym menu. Wyczyść wartość, aby nie ukrywać żadnej pozycji.",
                         "min" => 0,
                     ],
+                    [
+                        "name" => "animations_mode",
+                        "label" => "Animacje",
+                        "icon" => "transfer-right",
+                        "selectData" => [
+                            "options" => [
+                                ["value" => 2, "label" => "Dla wszystkich dostępnych elementów"],
+                                ["value" => 1, "label" => "Tylko główne elementy"],
+                                ["value" => 0, "label" => "Wyłączone"],
+                            ]
+                        ]
+                    ]
                 ],
             ],
             [

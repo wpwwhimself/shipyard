@@ -4,6 +4,8 @@
 
 @section("content")
 
+<div @class(["flex", "down", "stagger-contents" => setting("animations_mode") >= 1])>
+
 <div class="card">
     <x-shipyard.app.form>
         <p>
@@ -40,6 +42,7 @@
     title="Wyniki wyszukiwania"
     icon="magnify"
 >
+    <div @class(["flex", "down", "stagger-contents" => setting("animations_mode") >= 2])>
     @forelse ($files as $file)
     <a class="flex-right middle" href="{{ route('files', ['path' => Str::contains($file, '/') ? Str::beforeLast($file, '/') : null]) }}">
         <img class="inline" src="{{ asset(Storage::url($file)) }}" {{ Popper::pop("<img class='thumbnail' src='".asset(Storage::url($file))."' />") }} />
@@ -48,7 +51,10 @@
     @empty
     <p class="ghost">Brak wyników</p>
     @endforelse
+    </div>
 </x-shipyard.app.card>
 @endif
+
+</div>
 
 @endsection

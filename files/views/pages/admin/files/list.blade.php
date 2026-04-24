@@ -20,8 +20,9 @@
 
 @section("content")
 
-@php $stagger = 0; @endphp
-<div class="card stagger" style="--stagger-index: {{ $stagger++ }};">
+<div @class(["flex", "down", "stagger-contents" => setting("animations_mode") >= 1])>
+
+<div class="card">
     Tutaj możesz umieszczać pliki – np. grafiki – które mają pojawić się na podstronach.
     Po wgraniu ich na serwer możesz je umieścić w treściach strony, korzystając z wygenerowanych linków.
 </div>
@@ -31,7 +32,6 @@
     :title="$sections[$card_id]['label']"
     :icon="$sections[$card_id]['icon']"
     :id="$card_id"
-    class="stagger" style="--stagger-index: {{ $stagger }};"
 >
     <x-slot:actions>
         <x-shipyard.ui.button
@@ -43,7 +43,7 @@
 
     <x-shipyard.app.file.breadcrumbs :directories="$directories" />
 
-    <div role="files-list">
+    <div role="files-list" @class(["stagger-contents" => setting("animations_mode") >= 2])>
         @forelse ($files as $file)
         <x-shipyard.app.file.card :file="$file" />
         @empty
@@ -51,7 +51,6 @@
         @endforelse
     </div>
 </x-shipyard.app.section>
-@php $stagger++ @endphp
 
 <div class="grid but-mobile-down" style="--col-count: 2;">
     @php $card_id = "files-upload"; @endphp
@@ -59,7 +58,6 @@
         :title="$sections[$card_id]['label']"
         :icon="$sections[$card_id]['icon']"
         :id="$card_id"
-        class="stagger" style="--stagger-index: {{ $stagger }};"
     >
         <x-shipyard.app.form
             :action="route('files.upload')"
@@ -82,14 +80,12 @@
             </x-slot:actions>
         </x-shipyard.app.form>
     </x-shipyard.app.section>
-    @php $stagger++; @endphp
 
     @php $card_id = "folder-mgmt"; @endphp
     <x-shipyard.app.section
         :title="$sections[$card_id]['label']"
         :icon="$sections[$card_id]['icon']"
         :id="$card_id"
-        class="stagger" style="--stagger-index: {{ $stagger }};"
     >
         <x-shipyard.app.form
             :action="route('files.folder.create')"
@@ -125,7 +121,8 @@
             </x-slot:actions>
         </x-shipyard.app.form>
     </x-shipyard.app.section>
-    @php $stagger++; @endphp
+</div>
+
 </div>
 
 @endsection

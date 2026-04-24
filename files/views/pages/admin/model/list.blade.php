@@ -50,6 +50,8 @@
 
 @section("content")
 
+<div @class(["flex", "down", "stagger-contents" => setting("animations_mode") >= 2])>
+
 @if ($meta['description'])
 <x-shipyard.app.card>
     <p>{{ $meta['description'] }}</p>
@@ -145,7 +147,10 @@
 @endforeach
 
 <x-shipyard.app.card id="model-list">
+    <div @class(["flex", "down", "stagger-contents" => setting("animations_mode") >= 2])></div>
 </x-shipyard.app.card>
+
+</div>
 
 @endsection
 
@@ -166,7 +171,7 @@ function getModelList(page = null) {
             body: filterFormData,
         },
         [
-            [`#model-list > .contents`, `html`],
+            [`#model-list > .contents > div`, `html`],
         ],
         (res) => {
             window.history.pushState(null, null, res.url);

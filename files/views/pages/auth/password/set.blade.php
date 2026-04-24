@@ -6,8 +6,9 @@
 <x-shipyard.app.card
     title="Zmiana hasła"
     icon="key-change"
+    @class(["stagger" => setting("animations_mode") >= 1])
 >
-    <x-shipyard.app.form :action="route('password.set.process')" method="POST">
+    <x-shipyard.app.form :action="route('password.set.process')" method="POST" @class(["stagger-contents" => setting("animations_mode") >= 2])>
         @if (request()->has("id"))
         <input type="hidden" name="user_id" value="{{ request()->get("id") }}">
         <x-shipyard.ui.input type="password"

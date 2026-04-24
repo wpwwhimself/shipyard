@@ -735,6 +735,16 @@ search {
     }
 }
 
+.stagger-contents > * {
+    @extend .stagger;
+}
+
+@for $i from 1 through 99 {
+    .stagger-contents > *:nth-child(#{$i}) {
+        transition-delay: #{$i * 0.15}s;
+    }
+}
+
 .stat-tile {
     @extend .flex, .down, .center, .middle, .no-gap;
 

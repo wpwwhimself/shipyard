@@ -3,6 +3,8 @@
 
 @section("content")
 
+<div @class(["flex", "down", "stagger-contents" => setting("animations_mode") >= 1])>
+
 <x-shipyard.app.h lvl="1" icon="hand-wave">Hello</x-shipyard.app.h>
 
 <x-shipyard.app.section
@@ -194,6 +196,12 @@
     </div>
     @endforeach
 </x-shipyard.app.card>
+
+</div>
+
+@endsection
+
+@section("prepends")
 
 <script>
 function toggleSwitch(btn)

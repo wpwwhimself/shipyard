@@ -3,14 +3,15 @@
 
 @section("content")
 
-<x-shipyard.app.card>
-    <p>Rozpoczynasz proces rejestracji użytkownika w systemie.</p>
-</x-shipyard.app.card>
-
 <x-shipyard.app.form
     :action="route('register.process')"
     method="post"
+    @class(["stagger-contents" => setting("animations_mode") >= 1])
 >
+    <x-shipyard.app.card>
+        <p>Rozpoczynasz proces rejestracji użytkownika w systemie.</p>
+    </x-shipyard.app.card>
+
     <x-shipyard.app.section title="Dane użytkownika" :icon="model_icon('users')">
         <x-shipyard.ui.input type="text"
             name="name" label="Login"

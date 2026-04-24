@@ -3,7 +3,7 @@
 
 @section("content")
 
-<div class="card">
+<div @class(["card", "stagger" => setting("animations_mode") >= 1, "stagger-contents" => setting("animations_mode") >= 2])>
     <p>Wybierz temat dokumentacji za pomocą przycisków obok.</p>
 
     @if (auth()->user()?->hasRole("technical"))
