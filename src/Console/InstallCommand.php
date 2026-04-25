@@ -174,6 +174,11 @@ class InstallCommand extends Command
             return;
         }
 
+        // unlink broken symlinks (happens with windows/linux merger)
+        if (is_link($to) && readlink($to) && !file_exists(readlink($to))) {
+            unlink($to);
+        }
+
         $to_before = Str::beforeLast($to, '/');
         if (!file_exists($to_before)) {
             (new Filesystem)->makeDirectory($to_before, recursive: true);
