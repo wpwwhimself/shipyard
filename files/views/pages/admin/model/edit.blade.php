@@ -39,27 +39,28 @@
 
 @section("content")
 
-<x-shipyard.app.form :action="route('admin.model.edit.process', ['model' => $scope])" method="POST" @class(["stagger-contents" => setting("animations_mode") >= 1])>
+<x-shipyard.app.form :action="route('admin.model.edit.process', ['model' => $scope])" method="POST">
     <input type="hidden" name="id" value="{{ $data?->getKey() ?? "" }}">
 
-    <x-shipyard.app.section
-        title="Dane podstawowe"
-        :icon="model_icon($scope)"
-        id="basic"
-    >
-        <x-slot:actions>
-            <x-shipyard.app.model.timestamps :model="$data" />
-        </x-slot:actions>
+    <div @class(["grid", "but-mobile-down", "stagger-contents" => setting("animations_mode") >= 1]) style="--col-count: 2;">
+        <x-shipyard.app.section
+            title="Dane podstawowe"
+            :icon="model_icon($scope)"
+            id="basic"
+            style="grid-column: span 2;"
+        >
+            <x-slot:actions>
+                <x-shipyard.app.model.timestamps :model="$data" />
+            </x-slot:actions>
 
-        <div @class(["flex", "down", "stagger-contents" => setting("animations_mode") >= 2])>
-            @foreach ($fields as $name => $fdata)
-            @if (isset($fdata["role"]) && !auth()->user()?->hasRole($fdata["role"])) @continue @endif
-            <x-shipyard.ui.field-input :model="$data ?? new (model($scope))()" :field-name="$name" />
-            @endforeach
-        </div>
-    </x-shipyard.app.section>
+            <div @class(["flex", "down", "stagger-contents" => setting("animations_mode") >= 2])>
+                @foreach ($fields as $name => $fdata)
+                @if (isset($fdata["role"]) && !auth()->user()?->hasRole($fdata["role"])) @continue @endif
+                <x-shipyard.ui.field-input :model="$data ?? new (model($scope))()" :field-name="$name" />
+                @endforeach
+            </div>
+        </x-shipyard.app.section>
 
-    <div class="grid but-mobile-down" style="--col-count: 2;">
         @foreach ($connections as $relation => $rdata)
         @if (isset($rdata["role"]) && !auth()->user()?->hasRole($rdata["role"])) @continue @endif
 
