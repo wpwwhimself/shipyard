@@ -243,6 +243,9 @@ span.large {
     user-select: none;
 
     &.highlight:hover {
+        background-color: var(--bg-lite);
+    }
+    &.halo:hover {
         box-shadow: 0 0 1em var(--shadow);
     }
     &.shift-right:hover {
@@ -783,7 +786,7 @@ table {
     }
 
     & tr:hover {
-        background-color: var(--bg-lite);
+        @extend .interactive, .highlight;
     }
 
     & .button {
