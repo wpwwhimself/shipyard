@@ -744,7 +744,10 @@ search {
 
 @for $i from 1 through 99 {
     .stagger-contents > *:nth-child(#{$i}) {
-        transition-delay: #{$i * 0.15}s;
+        transition:
+            all 0.3s ease-out 0s,
+            opacity 0.3s ease-out #{$i * 0.15}s,
+            translate 0.3s ease-out #{$i * 0.15}s;;
     }
 }
 
