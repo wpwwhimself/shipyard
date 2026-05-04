@@ -13,7 +13,7 @@ class UninstallCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'shipyard:uninstall';
+    protected $signature = 'shipyard:uninstall {--soft}';
 
     /**
      * The console command description.
@@ -70,7 +70,6 @@ class UninstallCommand extends Command
 
         $this->comment("- theme...");
         $this->tryDelete(base_path("app/Theme/Shipyard"));
-        $this->tryDelete(base_path("app/ShipyardTheme.php"));
 
         $this->comment("- scripts...");
         $this->tryDelete(base_path("public/js/Shipyard"));
@@ -86,12 +85,15 @@ class UninstallCommand extends Command
         $this->comment("- media...");
         $this->tryDelete(base_path("public/media/Shipyard"));
 
-        $this->comment("- configs...");
-        $this->tryDelete(base_path("config/popper.php"));
-        $this->tryDelete(base_path("config/blade-icons.php"));
-
         $this->comment("- docs...");
         $this->tryDelete(base_path("docs/Shipyard"));
+
+        if (!$this->option("soft")) {
+            $this->info("🔥 Removing configs...");
+            $this->tryDelete(base_path("app/ShipyardTheme.php"));
+            $this->tryDelete(base_path("config/popper.php"));
+            $this->tryDelete(base_path("config/blade-icons.php"));
+        }
         #endregion
 
         $this->info("✅ Shipyard is gone now!");
@@ -106,7 +108,7 @@ class UninstallCommand extends Command
     private function tryDelete($path) {
         // broken links
         if (!realpath($path)) {
-            unlink($path);
+            @unlink($path);
             return;
         }
 
