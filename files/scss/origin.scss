@@ -341,7 +341,7 @@ header {
     }
 
     & label,
-    & .icon:not(.error .icon) {
+    & .icon:not(.error .icon, .button .icon) {
         @extend .ghost;
     }
 

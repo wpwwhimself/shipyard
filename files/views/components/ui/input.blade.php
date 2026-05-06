@@ -13,7 +13,7 @@
 ])
 
 @php
-$storageFile = $type == "storage_url";
+$storageFile = $type == "url-storage";
 if ($storageFile) $type = "url";
 
 $autofillRoute = $autofillFrom
@@ -305,16 +305,19 @@ if ($type == "date") $value = ($value)
     <div role="extra-buttons">
         @if ($storageFile)
         <x-shipyard.ui.button
+            pop="Wybierz plik z wgranych"
             icon="folder-open"
-            onclick="browseFiles('{{ route('files-list', ['select' => $name]) }}')"
+            action="none"
+            class="tertiary"
+            onclick="browseFiles('{{ route('files', ['select' => $name]) }}')"
         />
         @endif
 
         @if ($type == "url" && $value)
         <x-shipyard.ui.button
-            :action="$value"
+            pop="Otwórz"
             icon="open-in-new"
-            class="accent background secondary"
+            :action="$value"
             target="_blank"
         />
         @endif
