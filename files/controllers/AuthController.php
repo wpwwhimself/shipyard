@@ -67,8 +67,8 @@ class AuthController extends Controller
             "name" => $rq->name,
             "email" => $rq->email,
             "password" => Hash::make($rq->password),
+            "roles" => explode(",", setting("users_default_roles[]")),
         ]);
-        $user->roles()->attach(explode(",", setting("users_default_roles[]")));
 
         Auth::login($user);
 

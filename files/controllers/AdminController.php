@@ -4,16 +4,12 @@ namespace App\Http\Controllers\Shipyard;
 
 use App\Http\Controllers\Controller;
 use App\Models\Setting as LocalSetting;
-use App\Models\Shipyard\Role;
 use App\Models\Shipyard\Setting;
-use App\Models\Shipyard\User;
+use App\Scaffolds\Role;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 use Illuminate\Support\Str;
@@ -188,11 +184,11 @@ class AdminController extends Controller
                             [
                                 "name" => "users_default_roles[]",
                                 "label" => "Role dla nowego użytkownika",
-                                "icon" => model_icon('roles'),
+                                "icon" => Role::META["icon"],
                                 "selectData" => [
-                                    "optionsFromScope" => [
+                                    "optionsFromStatic" => [
                                         Role::class,
-                                        "withoutArchmage",
+                                        "getWithoutArchmage",
                                         "option_label",
                                         "name",
                                     ],

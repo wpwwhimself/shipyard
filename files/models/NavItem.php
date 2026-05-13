@@ -33,6 +33,7 @@ class NavItem extends Model implements ContractsAuditable
         "visible",
         "order",
         "icon",
+        "roles",
         "target_type",
         "target_name",
         "target_params",
@@ -92,6 +93,19 @@ class NavItem extends Model implements ContractsAuditable
             "label" => "Ikona",
             "icon" => "image",
         ],
+        "roles" => [
+            "type" => "select-multiple",
+            "label" => "Role",
+            "icon" => "key-chain",
+            "selectData" => [
+                "optionsFromStatic" => [
+                    "\\App\\Scaffolds\\Role",
+                    "getWithoutArchmage",
+                    "option_label",
+                    "name",
+                ],
+            ],
+        ],
         "target_type" => [
             "type" => "select",
             "selectData" => [
@@ -125,10 +139,6 @@ class NavItem extends Model implements ContractsAuditable
     ];
 
     public const CONNECTIONS = [
-        "roles" => [
-            "model" => Role::class,
-            "mode" => "many",
-        ],
     ];
 
     public const ACTIONS = [
@@ -179,6 +189,14 @@ class NavItem extends Model implements ContractsAuditable
 
     use HasStandardAttributes;
 
+    public function roles(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value) => explode(",", $value ?? ""),
+            set: fn ($value) => implode(",", is_array($value) ? $value : [$value]),
+        );
+    }
+
     // public function badges(): Attribute
     // {
     //     return Attribute::make(
@@ -212,10 +230,6 @@ class NavItem extends Model implements ContractsAuditable
     #endregion
 
     #region relations
-    public function roles()
-    {
-        return $this->belongsToMany(Role::class);
-    }
     #endregion
 
     #region helpers

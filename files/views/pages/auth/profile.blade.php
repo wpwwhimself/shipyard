@@ -12,7 +12,7 @@
     <div @class(["flex", "down", "stagger-contents" => setting("animations_mode") >= 2])>
     <p>Zalogowano jako <strong class="accent primary">{{ Auth::user() }}</strong></p>
 
-    <x-shipyard.app.h lvl="3" :icon="model_icon('roles')">Role w systemie</x-shipyard.app.h>
+    <x-shipyard.app.h lvl="3" icon="key-chain">Role w systemie</x-shipyard.app.h>
     <ul>
         @foreach (Auth::user()->roles as $i => $role)
         <li><x-shipyard.app.role.full :role="$role" /></li>

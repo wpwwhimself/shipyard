@@ -5,6 +5,7 @@ namespace App\Models\Shipyard;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
 use App\Mail\Shipyard\ResetPasswordLink;
+use App\Scaffolds\Role;
 use App\Traits\Shipyard\HasStandardScopes;
 use App\Traits\Shipyard\HasStandardAttributes;
 use App\Traits\Shipyard\HasStandardFields;
@@ -41,6 +42,7 @@ class User extends Authenticatable implements ContractsAuditable
         'name',
         'email',
         'password',
+        'roles',
     ];
 
     #region presentation
@@ -96,14 +98,22 @@ class User extends Authenticatable implements ContractsAuditable
             "label" => "Adres email",
             "icon" => "at",
         ],
+        "roles" => [
+            "type" => "select-multiple",
+            "label" => "Role",
+            "icon" => "key-chain",
+            "selectData" => [
+                "optionsFromStatic" => [
+                    "\\App\\Scaffolds\\Role",
+                    "getWithoutArchmage",
+                    "option_label",
+                    "name",
+                ],
+            ],
+        ],
     ];
 
     public const CONNECTIONS = [
-        "roles" => [
-            "model" => Role::class,
-            "mode" => "many",
-            "role" => "technical",
-        ],
     ];
 
     public const ACTIONS = [
@@ -173,23 +183,27 @@ class User extends Authenticatable implements ContractsAuditable
 
     use HasStandardAttributes;
 
+    public function roles(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value) => explode(",", $value ?? ""),
+            set: fn ($value) => implode(",", is_array($value) ? $value : [$value]),
+        );
+    }
+
     public function badges(): Attribute
     {
         return Attribute::make(
-            get: fn () => collect($this->roles)
+            get: fn () => Role::get($this->roles)
                 ->map(fn ($r) => [
-                    "label" => "$r->name: $r->description",
-                    "icon" => $r->icon,
+                    "label" => "$r[name]: $r[description]",
+                    "icon" => $r["icon"],
                 ]),
         );
     }
     #endregion
 
     #region relations
-    public function roles()
-    {
-        return $this->belongsToMany(Role::class);
-    }
     #endregion
 
     #region helpers
@@ -199,10 +213,10 @@ class User extends Authenticatable implements ContractsAuditable
 
         $ret = false;
         foreach (explode("|", $role) as $r) {
-            $ret = $ret || $this->roles->contains(Role::find($r));
+            $ret = $ret || in_array($r, $this->roles);
         }
 
-        return $ret || (!$and_is_not_archmage && $this->roles->contains(Role::find("archmage")));
+        return $ret || (!$and_is_not_archmage && in_array("archmage", $this->roles));
     }
     #endregion
 
