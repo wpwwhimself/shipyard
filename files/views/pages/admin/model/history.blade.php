@@ -42,7 +42,7 @@
         </x-slot:actions>
 
         @foreach ($hentry->getModified() as $field_name => $change)
-            <div class="grid but-mobile-down" style="--col-count: 3;">
+            <div class="grid but-mobile-down interactive highlight" style="--col-count: 3;">
                 <div class="accent secondary">
                     <x-shipyard.app.icon :name="model_field_icon($scope, $field_name)" />
                     {{ $data::getFields()[$field_name]["label"] }}
