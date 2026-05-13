@@ -348,6 +348,7 @@ class AdminController extends Controller
             }
             if ($fdata["type"] == "checkbox") $data[$name] ??= false;
             if (($fdata["required"] ?? false) && ($data[$name] == "" || $data[$name] == null)) return back()->with("toast", ["error", "Pole $fdata[label] jest wymagane"]);
+            if ($fdata["type"] == "select-multiple" && !isset($data[$name])) $data[$name] = [];
         }
 
         // update morphing connections

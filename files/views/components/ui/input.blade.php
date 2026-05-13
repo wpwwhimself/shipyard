@@ -31,6 +31,8 @@ $extraButtons = ($type == "url" && $value) || $storageFile || ($type == "icon");
 if ($type == "date") $value = ($value)
     ? Carbon\Carbon::parse($value)->format("Y-m-d")
     : null;
+
+if (Str::endsWith($type, "multiple") && !Str::endsWith($name, "[]")) $name .= "[]";
 @endphp
 
 <div {{

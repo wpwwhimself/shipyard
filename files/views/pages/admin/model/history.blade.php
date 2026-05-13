@@ -48,10 +48,10 @@
                     {{ $data::getFields()[$field_name]["label"] }}
                 </div>
                 <div class="ghost">
-                    {{ $change["old"] ?? "—" }}
+                    {{ is_array($change["old"]) ? implode(",", $change["old"]) : $change["old"] ?? "—" }}
                 </div>
                 <div>
-                    {{ $change["new"] ?? "—" }}
+                    {{ is_array($change["new"]) ? implode(",", $change["new"]) : $change["new"] ?? "—" }}
                 </div>
             </div>
             @endforeach
