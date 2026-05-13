@@ -127,8 +127,8 @@ class AdminController extends Controller
                 ],
             ],
             [
-                "title" => "Użytkownicy",
-                "subtitle" => "Logowanie i rejestracja",
+                "title" => "Użytkownicy i interakcja",
+                "subtitle" => "Logowanie, rejestracja i formularze",
                 "icon" => "account-multiple",
                 "id" => "users",
                 "fields" => [
@@ -158,6 +158,18 @@ class AdminController extends Controller
                         ],
                     ],
                     [
+                        "name" => "users_turing_question",
+                        "label" => "Pytanie do testu antyspamowego",
+                        "icon" => "robot-confused",
+                        "hint" => "Treść pytania wyświetlanego podczas rejestracji.",
+                    ],
+                    [
+                        "name" => "users_turing_answer",
+                        "label" => "Odpowiedź do testu antyspamowego",
+                        "icon" => "robot-happy",
+                        "hint" => "Odpowiedź na pytanie antyspamowe.",
+                    ],
+                    [
                         "subsection_title" => "Rejestracja",
                         "subsection_icon" => "account-plus",
                         "fields" => [
@@ -174,18 +186,6 @@ class AdminController extends Controller
                                 "hint" => "Link do strony z regulaminem. Możesz ją utworzyć np. jako podstronę. Jeśli to pole jest puste, podczas rejestracji nie zostanie wyświetlone pole do zaznaczenia zgody na regulamin. W przeciwnym wypadku pojawi się tam pole oraz link do strony.",
                             ],
                             [
-                                "name" => "users_turing_question",
-                                "label" => "Pytanie do testu antyspamowego",
-                                "icon" => "robot-confused",
-                                "hint" => "Treść pytania wyświetlanego podczas rejestracji.",
-                            ],
-                            [
-                                "name" => "users_turing_answer",
-                                "label" => "Odpowiedź do testu antyspamowego",
-                                "icon" => "robot-happy",
-                                "hint" => "Odpowiedź na pytanie antyspamowe.",
-                            ],
-                            [
                                 "name" => "users_default_roles[]",
                                 "label" => "Role dla nowego użytkownika",
                                 "icon" => model_icon('roles'),
@@ -197,6 +197,18 @@ class AdminController extends Controller
                                         "name",
                                     ],
                                 ],
+                            ],
+                        ],
+                    ],
+                    [
+                        "subsection_title" => "Formularz kontaktowy",
+                        "subsection_icon" => "email",
+                        "fields" => [
+                            [
+                                "name" => "contact_form_enabled",
+                                "label" => "Formularz dostępny",
+                                "icon" => "email",
+                                "hint" => "Umożliwia wyświetlanie przycisku do formularza kontaktowego w stopce strony. Dodatkowo przycisk nie będzie widoczny, jeśli żaden użytkownik nie ma uprawnień do odbierania wiadomości (rola 'mediator').",
                             ],
                         ],
                     ],
@@ -361,6 +373,12 @@ class AdminController extends Controller
                 }
             }
 
+            $new_user_has_been_created = false;
+            if ($scope === "users" && !$rq->id) { // generate temporary password for new user
+                $data["password"] = Str::random(8);
+                $new_user_has_been_created = true;
+            }
+
             if (method_exists($model_name, "autofillOnSave")) {
                 $data = $model_name::autofillOnSave($data);
             }
@@ -380,6 +398,11 @@ class AdminController extends Controller
                             break;
                     }
                 }
+            }
+
+            if ($new_user_has_been_created) {
+                return redirect()->route("password.set", ["id" => $model->getKey()])
+                    ->with("toast", ["success", "Zapisano. Teraz nadaj hasło dla użytkownika."]);
             }
 
             return redirect()->route("admin.model.edit", ["model" => $scope, "id" => $model->getKey()])

@@ -38,6 +38,16 @@
     </x-slot:top>
 
     <x-slot:bottom>
+        @if (setting("contact_form_enabled") && \App\Models\User::whereHas("roles", fn ($q) => $q->where("name", "mediator"))->exists())
+        <x-shipyard.ui.button
+            icon="email"
+            pop="Formularz kontaktowy"
+            action="none"
+            onclick="openModal(`contact-form`)"
+            class="tertiary"
+        />
+        @endif
+
         @unless (setting("app_adaptive_dark_mode"))
         <x-shipyard.ui.button
             icon="theme-light-dark"

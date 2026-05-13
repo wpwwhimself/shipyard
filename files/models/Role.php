@@ -32,6 +32,7 @@ class Role extends Model implements ContractsAuditable
             "technical",
             "content-manager",
             "spellcaster",
+            "mediator",
         ],
     ];
 

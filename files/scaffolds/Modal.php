@@ -41,6 +41,49 @@ abstract class Modal
                     ]
                 ],
             ],
+            "contact-form" => [
+                "heading" => "Formularz kontaktowy",
+                "target_route" => "contact-form.process",
+                "fields" => [
+                    [
+                        "name" => "user_name",
+                        "type" => "text",
+                        "label" => "Imię i nazwisko",
+                        "icon" => "card-account-details",
+                        "required" => true,
+                    ],
+                    [
+                        "name" => "user_email",
+                        "type" => "email",
+                        "label" => "E-mail kontaktowy",
+                        "icon" => "at",
+                        "required" => false,
+                    ],
+                    [
+                        "name" => "user_phone",
+                        "type" => "tel",
+                        "label" => "Numer telefonu",
+                        "icon" => "phone",
+                        "required" => false,
+                    ],
+                    [
+                        "name" => "contents",
+                        "type" => "TEXT",
+                        "label" => "Treść zapytania",
+                        "icon" => "text",
+                        "required" => true,
+                    ],
+                    [
+                        "name" => "test",
+                        "type" => "text",
+                        "label" => setting("users_turing_question"),
+                        "icon" => "robot",
+                        "extra" => [
+                            "hint" => "To pytanie jest częścią testu antyspamowego. Poprawna odpowiedź jest konieczna do wysłania zapytania.",
+                        ],
+                    ],
+                ],
+            ],
             // "<modal_name>" => [
             //     "heading" => "",
             //     "target_route" => "",

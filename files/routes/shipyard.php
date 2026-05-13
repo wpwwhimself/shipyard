@@ -83,7 +83,6 @@ Route::controller(FrontController::class)->group(function () {
     Route::get("/", "index")->name("main");
     Route::get("/pages/{slug}", "standardPage")->name("standard-page");
 
-    Route::get("contact", "contactForm")->name("contact-form");
     Route::post("contact", "processContactForm")->name("contact-form.process");
 
     Route::prefix("front")->group(function () {
