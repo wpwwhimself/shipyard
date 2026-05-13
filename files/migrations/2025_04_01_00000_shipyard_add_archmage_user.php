@@ -3,6 +3,7 @@
 use App\Models\Shipyard\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Schema;
 
@@ -19,7 +20,10 @@ return new class extends Migration
             "password" => Hash::make("archmage"),
         ]);
 
-        $archmage->roles()->sync(["archmage"]);
+        DB::table("role_user")->insert([
+            "user_id" => $archmage->id,
+            "role_name" => "archmage",
+        ]);
     }
 
     /**
