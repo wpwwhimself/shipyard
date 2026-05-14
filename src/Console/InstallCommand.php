@@ -177,7 +177,7 @@ class InstallCommand extends Command
     }
 
     private function tryLink($from, $to) {
-        if (file_exists($to) && readlink($to) === realpath($from)) {
+        if (file_exists($to)) {
             return;
         }
 
