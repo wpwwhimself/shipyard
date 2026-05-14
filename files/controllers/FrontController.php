@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Mail\Shipyard\ContactFormQuery;
 use App\Models\Shipyard\StandardPage;
 use App\Models\User;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -52,6 +53,45 @@ class FrontController extends Controller
     #region fetching components
     public function icon(string $icon) {
         return view("components.shipyard.app.icon", ["name" => $icon])->render();
+    }
+    #endregion
+
+    #region api
+    public function apiListModel(string $model, Request $rq): JsonResponse
+    {
+        $data = model($model)::forAdminList($rq->sort ?? null, $rq->fltr ?? null);
+
+        return response()->json($data);
+    }
+
+    public function apiFindModel(string $model, mixed $id, Request $rq): JsonResponse
+    {
+        $data = model($model)::find($id);
+
+        return response()->json($data);
+    }
+
+    public function apiCreateModel(string $model, Request $rq): JsonResponse
+    {
+        return response()->json($data, 201);
+    }
+
+    public function apiUpdateModel(string $model, mixed $id, Request $rq): JsonResponse
+    {
+        if (!$rq->has("data")) {
+            abort(400, "No data provided. Add fields to update within `data` field.");
+        }
+
+        $data = model($model)::find($id)->update($rq->data);
+
+        return response()->json($data);
+    }
+
+    public function apiDeleteModel(string $model, mixed $id, Request $rq): JsonResponse
+    {
+        model($model)::find($id)->delete();
+
+        return response()->json(null, 204);
     }
     #endregion
 }

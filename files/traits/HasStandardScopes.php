@@ -81,16 +81,18 @@ trait HasStandardScopes
         $perPage = request("prpg", 25);
 
         $data = $query->sortAndFilter($sort, $filters);
-        $data = new LengthAwarePaginator(
-            $data->slice($perPage * ($page - 1), $perPage),
-            $data->count(),
-            $perPage,
-            $page,
-            [
-                "path" => request()->url(),
-                "query" => request()->query(),
-            ],
-        );
+        if ($perPage > 0) {
+            $data = new LengthAwarePaginator(
+                $data->slice($perPage * ($page - 1), $perPage),
+                $data->count(),
+                $perPage,
+                $page,
+                [
+                    "path" => request()->url(),
+                    "query" => request()->query(),
+                ],
+            );
+        }
 
         return $data;
     }
