@@ -1,10 +1,6 @@
 @props([
-    "role",
+    "role", // scaffolded array of role data
 ])
-
-@php
-$role = \App\Scaffolds\Role::find($role);
-@endphp
 
 <span role="role">
     <x-shipyard.app.icon :name="$role['icon']" />

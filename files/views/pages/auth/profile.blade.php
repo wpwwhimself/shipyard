@@ -14,7 +14,7 @@
 
     <x-shipyard.app.h lvl="3" icon="key-chain">Role w systemie</x-shipyard.app.h>
     <ul>
-        @foreach (Auth::user()->roles as $i => $role)
+        @foreach (\App\Scaffolds\Role::get(Auth::user()->roles) as $role)
         <li><x-shipyard.app.role.full :role="$role" /></li>
         @endforeach
     </ul>
