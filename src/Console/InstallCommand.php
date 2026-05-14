@@ -78,9 +78,12 @@ class InstallCommand extends Command
 
         $this->comment("- models...");
         $this->tryLink(__DIR__.'/../../files/models', base_path("app/Models/Shipyard"));
+        $this->tryCopy(__DIR__.'/../../files/scaffold_extensions/Setting.php', base_path("app/Models/Setting.php"), true);
 
         $this->comment("- scaffolds...");
         $this->tryLink(__DIR__.'/../../files/scaffolds', base_path("app/Scaffolds/Shipyard"));
+        $this->tryCopy(__DIR__.'/../../files/scaffold_extensions/Modal.php', base_path("app/Scaffolds/Modal.php"), true);
+        $this->tryCopy(__DIR__.'/../../files/scaffold_extensions/Role.php', base_path("app/Scaffolds/Role.php"), true);
 
         $this->comment("- migrations...");
         $this->tryCopyDirectory(__DIR__.'/../../files/migrations', base_path("database/migrations"));
@@ -165,6 +168,10 @@ class InstallCommand extends Command
         }
 
         $this->info("✅ Shipyard is ready!");
+
+        if ($old_version === null) {
+            $this->call("shipyard:what-now");
+        }
 
         return Command::SUCCESS;
     }
