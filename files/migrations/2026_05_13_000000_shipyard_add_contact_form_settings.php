@@ -1,8 +1,8 @@
 <?php
 
-use App\Models\Shipyard\Role;
 use App\Models\Shipyard\Setting;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Support\Facades\DB;
 
 return new class extends Migration
 {
@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Role::create([
+        DB::table("roles")->insert([
             "name" => "mediator",
             "icon" => "account-voice",
             "description" => "Otrzymuje wiadomości z formularza kontaktowego",
@@ -33,6 +33,6 @@ return new class extends Migration
             "contact_form_enabled",
         ])->delete();
 
-        Role::where("name", "mediator")->delete();
+        DB::table("roles")->where("name", "mediator")->delete();
     }
 };

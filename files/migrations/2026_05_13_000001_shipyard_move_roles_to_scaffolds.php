@@ -2,7 +2,6 @@
 
 use App\Models\Shipyard\NavItem;
 use App\Models\User;
-use App\Models\Shipyard\Role;
 use App\Models\Shipyard\Setting;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
