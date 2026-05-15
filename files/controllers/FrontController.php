@@ -59,6 +59,8 @@ class FrontController extends Controller
     #region api
     public function apiListModel(string $model, Request $rq): JsonResponse
     {
+        //todo uprawnienia
+
         $data = model($model)::forAdminList($rq->sort ?? null, $rq->fltr ?? null);
 
         return response()->json($data);
@@ -66,6 +68,8 @@ class FrontController extends Controller
 
     public function apiFindModel(string $model, mixed $id, Request $rq): JsonResponse
     {
+        //todo uprawnienia
+
         $data = model($model)::find($id);
 
         return response()->json($data);
@@ -73,22 +77,29 @@ class FrontController extends Controller
 
     public function apiCreateModel(string $model, Request $rq): JsonResponse
     {
+        //todo wydzielić w AdminControllerze wypełnianie danych i przekazać tutaj
+
         return response()->json($data, 201);
     }
 
     public function apiUpdateModel(string $model, mixed $id, Request $rq): JsonResponse
     {
-        if (!$rq->has("data")) {
-            abort(400, "No data provided. Add fields to update within `data` field.");
-        }
+        if (!$rq->except("_token", "_connections", "method")) return response()->json([
+            "error" => "No data provided.",
+        ], 400);
 
-        $data = model($model)::find($id)->update($rq->data);
+        //todo wydzielić w AdminControllerze wypełnianie danych i przekazać tutaj
+
+        $data = model($model)::find($id);
+        $data->update($rq->data);
 
         return response()->json($data);
     }
 
     public function apiDeleteModel(string $model, mixed $id, Request $rq): JsonResponse
     {
+        //todo uprawnienia
+
         model($model)::find($id)->delete();
 
         return response()->json(null, 204);

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Shipyard;
 
 use App\Http\Controllers\Controller;
 use App\Models\Shipyard\User;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -77,26 +78,67 @@ class AuthController extends Controller
     #endregion
 
     #region token
-    public function apiToken(Request $rq)
+    public function apiToken(Request $rq): JsonResponse
     {
-        $validator = Validator::make($rq->all(), [
-            "email" => "required|email",
-            "password" => "required",
-        ]);
+        $credentials = [
+            "name" => $rq->name,
+            "email" => $rq->email,
+            "password" => $rq->password,
+        ];
 
-        $user = User::where("email", $rq->email)->first();
+        if (
+            !$credentials["password"]
+            || (setting("users_login_is") != "none" && !$credentials[setting("users_login_is")])
+        ) return response()->json([
+            "error" => "Incomplete credentials provided. Required: " . implode(", ", array_filter([
+                setting("users_login_is") != "none" ? "login" : null,
+                "password",
+            ])),
+        ], 400);
 
-        if ($validator->fails() || !$user || !Hash::check($rq->password, $user->password)) {
+        if (setting("users_login_is") == "none") {
+            // this form uses one string as both login and password - login is extracted from part of the password
+            $user = User::where("name", substr($credentials["password"], 0, self::NOLOGIN_LOGIN_PART_LENGTH))->first();
+
+            if ($user) {
+                $credentials = ["name" => $user->name, "email" => $user->email, "password" => $rq->password];
+            }
+        }
+
+        if (Auth::attempt($credentials)) {
+            $token = Auth::user()->createToken(Auth::user()->name);
+
             return response()->json([
-                "status" => "error",
-                "message" => $validator->errors()?->first() ?? "Nieprawidłowe dane logowania",
-            ], 401);
+                "token" => $token->plainTextToken,
+            ]);
         }
 
         return response()->json([
-            "status" => "success",
-            "token" => $user->createToken("token")->plainTextToken,
-        ]);
+            "error" => "Invalid credentials provided",
+        ], 401);
+    }
+
+    public function userTokens(Request $rq): JsonResponse
+    {
+        $tokens = $rq->user()->tokens;
+
+        return response()->json($tokens);
+    }
+
+    public function deleteToken(int $id, Request $rq): JsonResponse
+    {
+        if (!$rq->user()->hasRole("technical")) return response()->json([
+            "error" => "You need to be a technical to do this.",
+        ], 403);
+
+        $token = $rq->user()->tokens()->find($id);
+        if (!$token) return response()->json([
+            "error" => "Token not found",
+        ], 404);
+
+        $token->delete();
+
+        return response()->json(null, 204);
     }
     #endregion
 

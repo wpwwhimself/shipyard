@@ -69,6 +69,7 @@ class InstallCommand extends Command
 
         $this->comment("- routes...");
         $this->tryLink(__DIR__.'/../../files/routes', base_path("routes/Shipyard"));
+        $this->tryCopy(__DIR__.'/../../files/templates/api.php', base_path("routes/api.php"), true);
 
         $this->comment("- traits...");
         $this->tryLink(__DIR__.'/../../files/traits', base_path("app/Traits/Shipyard"));

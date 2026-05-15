@@ -88,16 +88,6 @@ Route::controller(FrontController::class)->group(function () {
     Route::prefix("front")->group(function () {
         Route::get("icon/{icon?}", "icon")->name("front.icon");
     });
-
-    Route::prefix("api")->group(function () {
-        Route::prefix("models/{model}")->group(function () {
-            Route::patch("{id}", "apiUpdateModel")->name("api.model.update");
-            Route::delete("{id}", "apiDeleteModel")->name("api.model.delete");
-            Route::get("{id}", "apiFindModel")->name("api.model.Find");
-            Route::post("", "apiCreateModel")->name("api.model.create");
-            Route::get("", "apiListModel")->name("api.model.list");
-        });
-    });
 });
 #endregion
 
