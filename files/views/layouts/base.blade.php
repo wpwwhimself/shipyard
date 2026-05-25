@@ -5,13 +5,27 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>@yield("title", "Strona główna")
+        <title>
+            @if (Route::current()->uri() == "/")
+                {{ setting("metadata_title") }}
+            @else
+            @yield("title", "Strona główna")
             @hasSection("subtitle")
             | @yield("subtitle")
             @endif
             | {{ setting("app_name") }}
+            @endif
         </title>
+        <meta name="description" content="{{ setting("metadata_description") }}">
+        <meta name="author" content="{{ setting("metadata_author") }}">
+        <meta name="keywords" content="{{ setting("metadata_keywords") }}">
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="{{ url()->current() }}" />
+        <meta property="og:title" content="{{ setting("metadata_title") }}" />
+        <meta property="og:image" content="{{ setting("metadata_image") }}" />
+        <meta property="og:description" content="{{ setting("metadata_description") }}" />
         <link rel="icon" href="{{ setting("app_favicon_path") ?? setting("app_logo_path") }}">
+        {{-- 🔍 seo 🔍 --}}
 
         {{-- 💄 styles 💄 --}}
         <style>
