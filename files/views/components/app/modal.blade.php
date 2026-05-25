@@ -61,7 +61,7 @@ const summary_btn = form.querySelector("[role='go_to_summary']");
 const summary_close_btn = form.querySelector("[role='close_summary']");
 const close_modal_btn = form.querySelector("[role='close_modal']");
 
-const openModal = (name, defaults = {}, overrides = {}) => {
+const openModal = (name, defaults = {}, overrides = {}, afterAll = () => {}) => {
     loader.classList.remove("hidden");
     modal.classList.remove("hidden");
 
@@ -118,6 +118,7 @@ const openModal = (name, defaults = {}, overrides = {}) => {
             card.classList.remove("hidden");
             reapplyPopper();
             reinitSelect();
+            afterAll();
         })
         .catch(err => {
             console.error(err);
