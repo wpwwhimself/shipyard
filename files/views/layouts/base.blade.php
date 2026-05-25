@@ -6,7 +6,7 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <title>
-            @if (Route::current()->uri() == "/")
+            @if (request()->path() == "/")
                 {{ setting("metadata_title") }}
             @else
             @yield("title", "Strona główna")
