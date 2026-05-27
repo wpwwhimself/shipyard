@@ -34,7 +34,7 @@ $sumValue = collect($data)->sum("value");
             round($d["value"], 2),
             $mode == "monetary" ? 2 : 0,
             ",",
-            " "
+            "&nbsp;"
         );
     }
 
@@ -45,7 +45,7 @@ $sumValue = collect($data)->sum("value");
             {{ Popper::pop($d["value_label"]) }}
             @endif
         >
-            <span class="value-label">{{ $value_pretty }}</span>
+            <span class="value-label">{!! $value_pretty !!}</span>
         </div>
     </div>
     <div class="label">
