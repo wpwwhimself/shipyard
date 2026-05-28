@@ -236,11 +236,6 @@ span.large {
 .animatable, .interactive {
     transition-duration: 0.3s;
     transition-timing-function: ease-out;
-}
-
-.interactive {
-    cursor: pointer;
-    user-select: none;
 
     &.highlight:hover {
         background-color: var(--bg-lite);
@@ -254,6 +249,11 @@ span.large {
     &.zoom:hover {
         scale: 1.5;
     }
+}
+
+.interactive {
+    cursor: pointer;
+    user-select: none;
 }
 @media (prefers-reduced-motion: reduce) {
     .animatable, .interactive {
@@ -790,7 +790,7 @@ table {
     }
 
     & tr:hover {
-        @extend .interactive, .highlight;
+        @extend .animatable, .highlight;
     }
 
     & .button {
