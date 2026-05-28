@@ -9,7 +9,7 @@ use Wpwwhimself\Shipyard\Console\InstallCommand;
  */
 function app_lifetime(): string
 {
-    $init = date('Y', filemtime(public_path('index.php')));
+    $init = setting("app_beginning");
     $now = date('Y');
 
     return ($init != $now) ? "$init – $now" : $now;

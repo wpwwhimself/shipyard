@@ -49,6 +49,12 @@ class AdminController extends Controller
                         "icon" => "image-text",
                         "hint" => "Link do favicona aplikacji – małej ikony wyświetlanej na karcie przeglądarki.",
                     ],
+                    [
+                        "name" => "app_beginning",
+                        "label" => "Rok uruchomienia aplikacji",
+                        "icon" => "calendar-start",
+                        "hint" => "Wyświetlany w stopce strony w postaci zakresu lat od roku uruchomienia do dziś. Pozostaw puste, aby zamiast zakresu wyświetlał się tylko obecny rok.",
+                    ],
                 ],
             ],
             [
