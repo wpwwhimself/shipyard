@@ -35,7 +35,7 @@ class FrontController extends Controller
     {
         if ($rq->test != setting("users_turing_answer")) return back()->with("toast", ["error", "Nie wierzymy, że nie jesteś robotem. Odpowiedz poprawnie na pytanie z formularza."]);
 
-        $recipients = User::whereHas("roles", fn ($q) => $q->where("name", "mediator"))->get();
+        $recipients = User::all()->filter(fn ($u) => $u->hasRole("mediator"));
 
         Mail::to($recipients)->send(new ContactFormQuery(
             [

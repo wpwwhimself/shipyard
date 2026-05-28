@@ -14,7 +14,7 @@ class ErrorController extends Controller
 {
     public function report(Request $rq): RedirectResponse
     {
-        $recipients = User::whereHas("roles", fn ($q) => $q->where("name", "archmage"))->get();
+        $recipients = User::all()->filter(fn ($u) => $u->hasRole("archmage"));
 
         Mail::to($recipients)->send(new ReportError(
             Auth::user(),

@@ -38,7 +38,7 @@
     </x-slot:top>
 
     <x-slot:bottom>
-        @if (setting("contact_form_enabled") && \App\Models\User::whereHas("roles", fn ($q) => $q->where("name", "mediator"))->exists())
+        @if (setting("contact_form_enabled") && \App\Models\User::all()->count(fn ($u) => $u->hasRole("mediator")))
         <x-shipyard.ui.button
             icon="email"
             pop="Formularz kontaktowy"
