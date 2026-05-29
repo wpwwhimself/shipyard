@@ -4,10 +4,11 @@
     "icon" => null,
     "data" => [], // każdy element musi mieć "label" (string) i "value" (liczba). "value_label" wymusza wyświetlanie wartości po najechaniu
     "mode" => "normal", // normal (bez zmian) | monetary (formatowanie walutowe) | percentage (obliczanie procentów)
+    "max" => null,
 ])
 
 @php
-$maxValue = collect($data)->max("value");
+$maxValue = max($max, collect($data)->max("value"));
 $sumValue = collect($data)->sum("value");
 @endphp
 
