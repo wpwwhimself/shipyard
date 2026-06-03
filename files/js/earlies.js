@@ -2,6 +2,10 @@
 //? scripts ran before page is loaded ?//
 //? ********************************* ?//
 
+window.shipyard = {
+    selects: {},
+};
+
 /**
  * @param {String} HTML representing a single element.
  * @param {Boolean} flag representing whether or not to trim input whitespace, defaults to true.
@@ -182,6 +186,8 @@ function initSelect(name) {
             treshold: 0,
         },
     });
+
+    window.shipyard.selects[name] = dropdown;
 }
 
 function reinitSelect() {
