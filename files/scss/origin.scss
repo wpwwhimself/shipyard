@@ -493,18 +493,9 @@ main {
         white-space: normal;
     }
 
-    header [role="top-part"],
     footer [role="bottom-part"] {
         @extend .but-mobile-down;
 
         text-align: center;
-    }
-
-    #page-title {
-        text-align: center;
-
-        & > * {
-            margin-inline: auto;
-        }
     }
 }

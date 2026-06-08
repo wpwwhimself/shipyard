@@ -388,7 +388,7 @@ main {
 }
 
 #middle-wrapper {
-    @extend .flex, .right, .spread, .nowrap, .but-mobile-wrap;
+    @extend .flex, .right, .but-mobile-down, .spread, .nowrap;
 
     flex: 1 0 auto;
 }
@@ -519,18 +519,9 @@ main {
         white-space: normal;
     }
 
-    header [role="top-part"],
     footer [role="bottom-part"] {
         @extend .but-mobile-down;
 
         text-align: center;
-    }
-
-    #page-title {
-        text-align: center;
-
-        & > * {
-            margin-inline: auto;
-        }
     }
 }
