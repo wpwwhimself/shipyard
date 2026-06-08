@@ -256,7 +256,7 @@ function lookupSelect(fieldName, value) {
 function abcPreview(field_name, transposer = 0) {
     window.ABCJS.renderAbc(
         `abc-preview-sheet-${field_name}`,
-        document.querySelector(`[name="${field_name}"]`).value,
+        document.querySelector(`[name="${field_name}"]`)?.value,
         {
             responsive: "resize",
             add_classes: true,
