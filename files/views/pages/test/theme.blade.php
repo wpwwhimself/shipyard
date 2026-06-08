@@ -187,10 +187,12 @@
     icon="counter"
 >
     @foreach ([
+        "dots",
+        "lines",
         "military",
     ] as $style)
     <div class="flex right center">
-        @for ($i = 0; $i < 250; $i = $i + 3)
+        @for ($i = 0; $i < (in_array($style, ["military"]) ? 250 : 50); $i = $i + 3)
         <x-shipyard.stats.counter :rank="$i" :style="$style" />
         @endfor
     </div>

@@ -32,11 +32,22 @@
         <span>{{ $output }}</span>
         @break
 
+        @case ("lines")
+        @php
+        $i = $rank;
+        @endphp
+        
+        @while ($i > 0)
+        <x-shipyard.app.icon :name="'tally-mark-'.($i >= 5 ? 5 : $i)" />
+        @php $i -= 5; @endphp
+        @endwhile
+        @break
+
         @case ("military")
         @php
-        $scale = 6;
+        $scale = 4;
         $space = 0.25 * $scale;
-        $height = 16;
+        $height = $scale * 8 / 3;
 
         $counts = [
             "bars" => 0,
