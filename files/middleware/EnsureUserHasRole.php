@@ -18,7 +18,7 @@ class EnsureUserHasRole
     public function handle(Request $request, Closure $next, string $role): Response
     {
         if (empty($role)) $next($request);
-        if (!Auth::user()?->hasRole($role) && !Auth::user()?->hasRole("super")) {
+        if (!Auth::user()?->hasRole($role) && !Auth::user()?->hasRole("archmage")) {
             abort(403);
         }
 
