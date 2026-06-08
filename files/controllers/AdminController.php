@@ -358,7 +358,7 @@ class AdminController extends Controller
         foreach ($rq->get("_connections") ?? [] as $connection_name) {
             if ($available_connections[$connection_name]["mode"] != "one") continue;
 
-            $connection_value = $data[$available_connections[$connection_name]["field_name"] ?? $connection_name."_id"];
+            $connection_value = $data[$available_connections[$connection_name]["field_name"] ?? Str::snake($connection_name)."_id"];
             if (Str::contains($connection_value, ":")) {
                 $data[$connection_name."_type"] = Str::before($connection_value, ":");
                 $data[$connection_name."_id"] = Str::after($connection_value, ":");
