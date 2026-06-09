@@ -21,7 +21,7 @@
         <span {{ Popper::pop($pop_label) }}>
             <x-shipyard.app.icon :name="$icon" />
         </span>
-        <span>{!! $data["mode"] === "many"
+        <span>{!! Str::startsWith($data["mode"], "many")
             ? $model->{$connection_name}->map(fn ($i) => $i->__toString())->join(", ")
             : $model->{$connection_name} !!}
         </span>
