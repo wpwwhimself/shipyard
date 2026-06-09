@@ -128,7 +128,7 @@ class {{ class }} extends Model implements ContractsAuditable
     public const CONNECTIONS = [
         // "<name>" => [
         //     "model" => ,
-        //     "mode" => "<one|many>",
+        //     "mode" => "<one|many|many-reverse>",
         //     // "field_name" => "",
         //     // "field_label" => "",
         //     // "readonly" => true,

@@ -356,7 +356,9 @@ class AdminController extends Controller
         // update morphing connections
         $available_connections = model($scope)::getConnections();
         foreach ($rq->get("_connections") ?? [] as $connection_name) {
-            if ($available_connections[$connection_name]["mode"] != "one") continue;
+            if (
+                $available_connections[$connection_name]["mode"] != "one"
+            ) continue;
 
             $connection_value = $data[$available_connections[$connection_name]["field_name"] ?? Str::snake($connection_name)."_id"];
             if (Str::contains($connection_value, ":")) {
@@ -398,6 +400,20 @@ class AdminController extends Controller
                     switch ($available_connections[$connection]["mode"]) {
                         case "many":
                             $model->{$connection}()->sync($rq->get($connection));
+                            break;
+                        case "many-reverse":
+                            $current_related_ids = $model->{$connection}->pluck($model->{$connection}()->getLocalKeyName());
+                            $incoming_related_ids = $data[$connection];
+                            foreach ($current_related_ids->merge($incoming_related_ids) as $related_id) {
+                                $related = model($connection)::find($related_id);
+                                $related_connection = $related::getConnections()[Str::of($scope)->singular()->camel()->__toString()];
+                                $field_name = $related_connection["field_name"] ?? (Str::of($scope)->singular()->camel()->snake()."_id");
+                                $related->update([
+                                    $field_name => in_array($related_id, $incoming_related_ids)
+                                        ? $model->getKey()
+                                        : null
+                                ]);
+                            }
                             break;
                     }
                 }

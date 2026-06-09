@@ -91,7 +91,7 @@
             <x-shipyard.ui.connection-input :model="$data ?? new (model($scope))()" :connection-name="$relation" />
             @if ($data && $data->{$relation})
             <div class="flex right">
-                @foreach (($rdata["mode"] == "many"
+                @foreach ((Str::startsWith($rdata["mode"], "many")
                     ? $data->{$relation}
                     : [$data->{$relation}]
                 ) as $item)

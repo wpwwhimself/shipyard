@@ -47,6 +47,7 @@ if ($models->count() > 1) {
     @break
 
     @case ("many")
+    @case ("many-reverse")
     <x-shipyard.ui.input :type="($dummy || ($rdata['readonly'] ?? false) ? 'dummy-' : '') . 'select-multiple'"
         :name="($rdata['field_name'] ?? Str::snake($connectionName)).'[]'"
         :label="$field_label"
