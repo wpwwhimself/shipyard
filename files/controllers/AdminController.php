@@ -403,7 +403,7 @@ class AdminController extends Controller
                             break;
                         case "many-reverse":
                             $current_related_ids = $model->{$connection}->pluck($model->{$connection}()->getLocalKeyName());
-                            $incoming_related_ids = $data[$connection];
+                            $incoming_related_ids = $data[$connection] ?? [];
                             foreach ($current_related_ids->merge($incoming_related_ids) as $related_id) {
                                 $related = model($connection)::find($related_id);
                                 $related_connection = $related::getConnections()[Str::of($scope)->singular()->camel()->__toString()];
