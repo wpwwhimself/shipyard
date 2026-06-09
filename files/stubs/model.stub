@@ -247,7 +247,9 @@ class {{ class }} extends Model implements ContractsAuditable
     //         "icon" => "plus",
     //         "label" => "Dodaj",
     //         "action" => route(...),
-    //         "class" => "primary",
+    //         "attributes" => new ComponentAttributeBag([
+    //             "class" => "primary",
+    //         ]),
     //     ])->render();
     // }
 
