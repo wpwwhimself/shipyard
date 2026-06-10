@@ -3,6 +3,8 @@
     "subtitle" => null,
     "icon" => null,
     "titleLvl" => 3,
+    "innerClass" => null,
+    "innerStyle" => null,
 ])
 
 <div {{ $attributes->class([
@@ -34,7 +36,7 @@
     <x-shipyard.app.loader horizontal />
 
     @isset ($slot)
-    <div class="contents">
+    <div @class(["contents", $innerClass]) @style([$innerStyle])>
         {{ $slot }}
     </div>
     @endisset

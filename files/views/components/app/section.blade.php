@@ -4,6 +4,8 @@
     "icon" => null,
     "extended" => "perma",
     "key" => null,
+    "innerClass" => null,
+    "innerStyle" => null,
 ])
 
 @php
@@ -66,7 +68,7 @@ $key ??= Str::uuid();
     @endif
 
     @isset ($slot)
-    <div @class(['contents', 'hidden' => !$extended])>
+    <div @class(['contents', 'hidden' => !$extended, $innerClass]) @style([$innerStyle])>
         {{ $slot }}
     </div>
     @endisset
