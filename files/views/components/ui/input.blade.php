@@ -26,7 +26,7 @@ if ($dummy) $type = Str::after($type, "dummy-");
 $lookup = $type == "lookup";
 if ($lookup) $type = "text";
 
-$extraButtons = ($type == "url" && $value) || $storageFile || ($type == "icon");
+$extraButtons = ($type == "url" && $value) || $storageFile || ($type == "icon") || ($type == "ABC");
 
 if ($type == "date") $value = ($value)
     ? Carbon\Carbon::parse($value)->format("Y-m-d")
@@ -93,7 +93,7 @@ if (Str::endsWith($type, "multiple") && !Str::endsWith($name, "[]")) $name .= "[
             >{{ $value }}</textarea>
 
             @if ($type === "ABC")
-            <x-shipyard.ui.abc-preview :name="$name" />
+            <x-shipyard.ui.abc-preview :name="$name" live />
             @endif
         </div>
         @break
@@ -326,6 +326,25 @@ if (Str::endsWith($type, "multiple") && !Str::endsWith($name, "[]")) $name .= "[
 
         @if ($type == "icon")
         <x-shipyard.app.icon :name="$value" />
+        @endif
+
+        @if ($type == "ABC")
+        <x-shipyard.ui.button
+            icon="music-note-plus"
+            pop="Transponuj w górę"
+            action="none"
+            class="tertiary"
+            name="up"
+            onclick="abcTransposeUp(document.querySelector(`[name='{{ $name }}']`)); abcPreview('{{ $name }}');"
+        />
+        <x-shipyard.ui.button
+            icon="music-note-minus"
+            pop="Transponuj w dół"
+            action="none"
+            class="tertiary"
+            name="down"
+            onclick="abcTransposeDown(document.querySelector(`[name='{{ $name }}']`)); abcPreview('{{ $name }}');"
+        />
         @endif
     </div>
     @endif
