@@ -376,7 +376,7 @@ code, pre {
 
     &.military {
         @extend .animatable;
-        
+
         background: var(--primary);
         clip-path: polygon(0 0, 0 90%, 50% 100%, 100% 90%, 100% 0);
         padding: 1px;
@@ -485,6 +485,20 @@ header {
 
     body.dark &.invert-when-dark {
         filter: invert(1);
+    }
+}
+
+.input-container {
+    &.compact {
+        padding: 0;
+        border: none;
+        width: initial;
+        display: inline-flex;
+        vertical-align: center;
+        flex-direction: row;
+
+        & > :first-child { order: 1; }
+        & > :last-child { order: 0; }
     }
 }
 
