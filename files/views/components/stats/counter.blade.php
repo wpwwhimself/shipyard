@@ -45,7 +45,7 @@
 
         @case ("military")
         @php
-        $scale = 4;
+        $scale = 2.75;
         $space = 0.25 * $scale;
         $height = $scale * 8 / 3;
 
@@ -100,9 +100,9 @@
             : $scale;
         @endphp
 
-        <svg width="{{ 2.3 * $height }}" height="{{ $height }}">
+        <svg height="{{ 2.3 * $height }}" width="{{ $height }}">
             @if ($rank <= 0)
-            <rect x="{{ $offset }}" width="1" role="null" height="{{ $height }}" />
+            <rect y="{{ $offset }}" width="1" role="null" width="{{ $height }}" />
 
             @else
             @foreach ([
@@ -117,82 +117,82 @@
                 @for ($i = 0; $i < $counts[$piptype]; $i++)
                 @switch ($piptype)
                     @case ("bars")
-                    <rect x="{{ $offset }}" width="{{ $scale * 2/3 }}" height="{{ $height }}" />
+                    <rect y="{{ $offset }}" height="{{ $scale * 2/3 }}" width="{{ $height }}" />
                     @php $offset += $scale * 2/3; @endphp
                     @break
 
                     @case ("bars2")
-                    <rect x="{{ $offset }}" width="{{ $scale * 2/3 }}" height="{{ $height * 0.4 }}" />
-                    <rect x="{{ $offset }}" y="{{ $height * 0.6 }}" width="{{ $scale * 2/3 }}" height="{{ $height * 0.4 }}" />
+                    <rect y="{{ $offset }}" height="{{ $scale * 2/3 }}" width="{{ $height * 0.4 }}" />
+                    <rect y="{{ $offset }}" x="{{ $height * 0.6 }}" height="{{ $scale * 2/3 }}" width="{{ $height * 0.4 }}" />
                     @php $offset += $scale * 2/3; @endphp
                     @break
 
                     @case ("chevrons")
-                    <path d="M{{ $offset }} 0
-                        l{{ $scale * 0.8 }} {{ $height / 2 }}
-                        l{{ -$scale * 0.8 }} {{ $height / 2 }}
-                        l{{ $scale * 0.8 }} 0
-                        l{{ $scale * 0.8 }} {{ -$height / 2 }}
-                        l{{ -$scale * 0.8 }} {{ -$height / 2 }}
-                        l{{ -$scale * 0.8 }} 0
+                    <path d="M0 {{ $offset }}
+                        l{{ $height / 2 }} {{ $scale * 0.8 }}
+                        l{{ $height / 2 }} {{ -$scale * 0.8 }}
+                        l0 {{ $scale * 0.8 }}
+                        l{{ -$height / 2 }} {{ $scale * 0.8 }}
+                        l{{ -$height / 2 }} {{ -$scale * 0.8 }}
+                        l0 {{ -$scale * 0.8 }}
                     " />
                     @php $offset += $scale * 0.9; @endphp
                     @break
 
                     @case ("chevrons2")
-                    <path d="M{{ $offset }} 0
-                        l{{ $scale * 0.6 }} {{ $height * 0.4 }}
-                        l{{ $scale * 0.8 }} 0
-                        l{{ -$scale * 0.6 }} {{ -$height * 0.4 }}
-                        l{{ -$scale * 0.8 }} 0
-                        M{{ $offset }} {{ $height }}
-                        l{{ $scale * 0.6 }} {{ -$height * 0.4 }}
-                        l{{ $scale * 0.8 }} 0
-                        l{{ -$scale * 0.6 }} {{ $height * 0.4 }}
-                        l{{ -$scale * 0.8 }} 0
+                    <path d="M0 {{ $offset }}
+                        l{{ $height * 0.4 }} {{ $scale * 0.6 }}
+                        l0 {{ $scale * 0.8 }}
+                        l{{ -$height * 0.4 }} {{ -$scale * 0.6 }}
+                        l0 {{ -$scale * 0.8 }}
+                        M{{ $height }} {{ $offset }}
+                        l{{ -$height * 0.4 }} {{ $scale * 0.6 }}
+                        l0 {{ $scale * 0.8 }}
+                        l{{ $height * 0.4 }} {{ -$scale * 0.6 }}
+                        l0 {{ -$scale * 0.8 }}
                     " />
                     @php $offset += $scale * 0.9; @endphp
                     @break
 
                     @case ("stars")
-                    <path d="M{{ $offset + $scale * 0.9 }} {{ $height / 2 }}
-                        l{{ -$scale * 0.9 }} {{ -$scale * 0.3 }}
-                        l{{ $scale * 0.55 }} {{ $scale * 0.77 }}
-                        l0 {{ -$scale * 0.94 }}
-                        l{{ -$scale * 0.55 }} {{ $scale * 0.77 }}
-                        l{{ $scale * 0.9 }} {{ -$scale * 0.3 }}
+                    <path d="M{{ $height / 2 }} {{ $offset + $scale * 0.9 }}
+                        l{{ -$scale * 0.3 }} {{ -$scale * 0.9 }}
+                        l{{ $scale * 0.77 }} {{ $scale * 0.55 }}
+                        l{{ -$scale * 0.94 }} 0
+                        l{{ $scale * 0.77 }} {{ -$scale * 0.55 }}
+                        l{{ -$scale * 0.3 }} {{ $scale * 0.9 }}
                     " />
                     @php $offset += $scale * 5/6; @endphp
                     @php if($i + 1 == $counts[$piptype]) $offset -= $scale * 1/2; @endphp
                     @break
 
                     @case ("stars2")
-                    <path d="M{{ $offset + $scale * 0.9 }} {{ $height / 4 }}
-                        l{{ -$scale * 0.9 }} {{ -$scale * 0.3 }}
-                        l{{ $scale * 0.55 }} {{ $scale * 0.77 }}
-                        l0 {{ -$scale * 0.94 }}
-                        l{{ -$scale * 0.55 }} {{ $scale * 0.77 }}
-                        l{{ $scale * 0.9 }} {{ -$scale * 0.3 }}
+                    <path d="M{{ $height / 4 }} {{ $offset + $scale * 0.9 }}
+                        l{{ -$scale * 0.3 }} {{ -$scale * 0.9 }}
+                        l{{ $scale * 0.77 }} {{ $scale * 0.55 }}
+                        l{{ -$scale * 0.94 }} 0
+                        l{{ $scale * 0.77 }} {{ -$scale * 0.55 }}
+                        l{{ -$scale * 0.3 }} {{ $scale * 0.9 }}
                     " />
-                    <path d="M{{ $offset + $scale * 0.9 }} {{ $height * 3/4 }}
-                        l{{ -$scale * 0.9 }} {{ -$scale * 0.3 }}
-                        l{{ $scale * 0.55 }} {{ $scale * 0.77 }}
-                        l0 {{ -$scale * 0.94 }}
-                        l{{ -$scale * 0.55 }} {{ $scale * 0.77 }}
-                        l{{ $scale * 0.9 }} {{ -$scale * 0.3 }}
+                    <path d="M{{ $height * 3/4 }} {{ $offset + $scale * 0.9 }}
+                        l{{ -$scale * 0.3 }} {{ -$scale * 0.9 }}
+                        l{{ $scale * 0.77 }} {{ $scale * 0.55 }}
+                        l{{ -$scale * 0.94 }} 0
+                        l{{ $scale * 0.77 }} {{ -$scale * 0.55 }}
+                        l{{ -$scale * 0.3 }} {{ $scale * 0.9 }}
                     " />
                     @php $offset += $scale * 5/6; @endphp
                     @php if($i + 1 == $counts[$piptype]) $offset -= $scale * 1/4; @endphp
                     @break
 
                     @case ("waves")
-                    <path d="M{{ $offset }} {{ -$height / 3 }}
+                    <path d="M{{ -$height / 3 }} {{ $offset }}
                         @for ($ii = 0; $ii < 5; $ii++)
-                        l{{ $scale }} {{ $height / 2 }}
-                        l0 {{ -$height / 4 }}
-                        l{{ -$scale }} {{ -$height / 2 }}
-                        l0 {{ $height / 4 }}
-                        m0 {{ $height / 3 }}
+                        l{{ $height / 2 }} {{ $scale }}
+                        l{{ -$height / 4 }} 0
+                        l{{ -$height / 2 }} {{ -$scale }}
+                        l{{ $height / 4 }} 0
+                        m{{ $height / 3 }} 0
                         @endfor
                     " />
                     @php $offset += $scale; @endphp

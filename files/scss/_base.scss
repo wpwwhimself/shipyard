@@ -371,9 +371,18 @@ code, pre {
     }
 
     &.military {
+        @extend .animatable;
+        
         background: var(--primary);
-        clip-path: polygon(0 0, 90% 0, 100% 50%, 90% 100%, 0 100%);
-        padding: 2px 3px;
+        clip-path: polygon(0 0, 0 90%, 50% 100%, 100% 90%, 100% 0);
+        padding: 1px;
+        scale: -1;
+        vertical-align: center;
+
+        &:hover {
+            scale: -3;
+            rotate: 90deg;
+        }
 
         & > svg {
             color: var(--fg);
