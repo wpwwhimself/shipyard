@@ -322,7 +322,11 @@ a.button, a:has(> .tile), a:has(> .full-width) {
                 align-content: end;
 
                 & > .value {
-                    @extend .accent, .background, .tertiary;
+                    @extend .accent, .background, .secondary;
+
+                    &[data-tippy] {
+                        @extend .primary;
+                    }
 
                     position: relative;
 
