@@ -9,11 +9,11 @@ $data = $model::getFields();
 
 <div>
     @foreach ($fields as $field_name)
-    <div>
-        <span {{ Popper::pop($data[$field_name]["label"]) }}>
-            <x-shipyard.app.icon :name="$data[$field_name]['icon']" />
-        </span>
-        <span>{!! $model->{$field_name."_pretty"} ?? $model->{$field_name} ?? "—" !!}</span>
-    </div>
+    <x-shipyard.app.icon-label-value
+        :icon="$data[$field_name]['icon']"
+        :label="$data[$field_name]['label']"
+    >
+        {!! $model->{$field_name."_pretty"} ?? $model->{$field_name} ?? "—" !!}
+    </x-shipyard.app.icon-label-value>
     @endforeach
 </div>
