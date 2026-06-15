@@ -16,7 +16,7 @@
             icon="check"
             pop="Wybierz"
             action="none"
-            onclick="selectFile('{{ asset(Storage::url($file)) }}', '{{ request('select') }}')"
+            onclick="selectFile(`{{ asset(Storage::url($file)) }}`, '{{ request('select') }}')"
             class="primary"
         />
         @else
