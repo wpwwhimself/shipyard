@@ -23,13 +23,19 @@
     <x-shipyard.ui.button
         :icon="$action['icon']"
         :pop="$action['label']"
-        :action="route(
-            $action['route'],
-            collect($action['params'] ?? [])
-                ->mapWithKeys(fn ($prop, $key) => [$key => $data->{$prop}])
-                ->toArray()
-        )"
-        class="{{ ($action['dangerous'] ?? false) ? 'danger' : '' }}"
+        :action="$action['route'] === 'none'
+            ? 'none'
+            : route(
+                $action['route'],
+                collect($action['params'] ?? [])
+                    ->mapWithKeys(fn ($prop, $key) => [$key => $data->{$prop}])
+                    ->toArray()
+            )"
+        :onclick="$action['onclick'] ?? null"
+        @class([
+            "tertiary" => $action['route'] === 'none',
+            "danger" => $action['dangerous'] ?? false,
+        ])
         :show-for="$action['role'] ?? null"
     />
     @endforeach
