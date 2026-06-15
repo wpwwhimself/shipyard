@@ -98,7 +98,7 @@
             :icon="isset($fdata['icon'])
                 ? $fdata['icon']
                 : ($fdata['compare-using'] == 'field'
-                    ? model_field_icon($scope, $fname)
+                    ? model_field_icon($scope, $fdata['discr'])
                     : null
                 )"
             :value="request('fltr.' . $fname)"
