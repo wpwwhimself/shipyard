@@ -189,7 +189,7 @@ class {{ class }} extends Model implements ContractsAuditable
         //     "compare-using" => "function|field",
         //     "discr" => "<function_name|field_name>",
         //     "type" => "<input type>",
-        //     "operator" => "regexp",
+        //     "operator" => "regexp", // for function: =, ~, ~*
         //     "selectData" => [
         //     ],
         // ],

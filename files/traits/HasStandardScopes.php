@@ -58,13 +58,26 @@ trait HasStandardScopes
         $data = $query->get();
 
         // post-get filters for model filtering
-        //todo obsłużyć filtrowanie po funkcji z różnymi operatorami
         foreach ($filters ?? [] as $filter_name => $filter_value) {
             if ($filterData[$filter_name]["compare-using"] != "function") continue;
 
-            $data = $data->filter(
-                fn ($i) => $i->{$filterData[$filter_name]["discr"]} == $filter_value,
-            );
+            switch ($filterData[$filter_name]["operator"]) {
+                case "~":
+                case "~*":
+                    $data = $data->filter(
+                        fn ($i) => Str::contains(
+                            $i->{$filterData[$filter_name]["discr"]},
+                            $filter_value,
+                            $filterData[$filter_name]["operator"] == "~*"
+                        ),
+                    );
+                    break;
+
+                default:
+                    $data = $data->filter(
+                        fn ($i) => $i->{$filterData[$filter_name]["discr"]} == $filter_value,
+                    );
+            }
         }
 
         // post-get sort for model sorting
