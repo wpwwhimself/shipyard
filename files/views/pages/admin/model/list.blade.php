@@ -103,7 +103,8 @@
                 )"
             :value="request('fltr.' . $fname)"
             :select-data="$fdata['selectData'] ?? null"
-            onchange="getModelList();"
+            :onchange="(Str::startsWith($fdata['type'], 'select')) ? 'getModelList();' : null"
+            :oninput="(Str::startsWith($fdata['type'], 'select')) ? null : 'getModelList();'"
         />
         @endforeach
 
@@ -162,6 +163,8 @@
 
 @section("prepends")
 <script>
+let filterController;
+
 function getModelList(page = null) {
     const filterForm = document.forms[0];
     filterForm.querySelector("input[name='page']").value = page;
@@ -169,12 +172,15 @@ function getModelList(page = null) {
 
     window.scrollTo({top: 0, behavior: 'smooth'});
 
+    filterController?.abort();
+    filterController = new AbortController();
     fetchComponent(
         `#model-list > .loader`,
         filterForm.action,
         {
             method: filterForm.method,
             body: filterFormData,
+            signal: filterController?.signal,
         },
         [
             [`#model-list > .contents > div`, `html`],
