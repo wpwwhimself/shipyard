@@ -53,7 +53,7 @@ class SpellbookController extends Controller
     #region definitions
     public function become(User $user) {
         Auth::login($user);
-        return back()->with("toast", ["success", "Jesteś teraz: $user->name"]);
+        return redirect("/")->with("toast", ["success", "Jesteś teraz: $user->name"]);
     }
 
     public function invokeBook() {
