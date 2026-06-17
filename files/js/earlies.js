@@ -220,31 +220,43 @@ function getIconPreview(input_name) {
     }, 0.3e3);
 }
 
+let lookupController;
 function lookup(lookupUrl, input_name, query = "", other_params = {}) {
     const loader = document.querySelector(`#lookup-container[for="${input_name}"] .loader`);
     const results = document.querySelector(`#lookup-container[for="${input_name}"] [role="results"]`);
 
+    if (!query) {
+        return;
+    }
+
     clearTimeout(debounce_timer);
-    debounce_timer = setTimeout(() => {
+    debounce_timer = setTimeout(async () => {
+        lookupController?.abort();
+        lookupController = new AbortController();
         loader.classList.remove("hidden");
 
         // actual query
         fetch(lookupUrl + "?" + new URLSearchParams({
             query: query,
             ...other_params,
-        }))
+        }), {
+            signal: lookupController.signal,
+        })
             .then(res => {
                 if (!res.ok) throw new Error(res.statusText);
                 return res.text();
             })
             .then(html => {
                 results.innerHTML = html;
-            })
-            .catch(err => console.error(err))
-            .finally(() => {
+                
                 loader.classList.add("hidden");
                 reapplyPopper();
                 reinitSelect();
+            })
+            .catch(err => {
+                if (err.name !== "AbortError") {
+                    console.error(err);
+                }
             });
     }, 0.3e3);
 }

@@ -293,7 +293,7 @@ if (Str::endsWith($type, "multiple") && !Str::endsWith($name, "[]")) $name .= "[
                     ? "lookup('".(($selectData['dataRoute'] ?? false)
                         ? route($selectData['dataRoute'])
                         : ($selectData['dataUrl'] ?? null)
-                    )."', '".$name."', this.value, ". json_encode($selectData['dataParams'] ?? 'undefined') .");"
+                    )."', '".$name."', this.value, ". json_encode($selectData['dataParams'] ?? null) .");"
                     : ($type == "icon"
                         ? "getIconPreview('".$name."');"
                         : null
