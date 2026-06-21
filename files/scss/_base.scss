@@ -762,9 +762,9 @@ search {
 .stagger {
     --stagger-index: 0;
     transition:
-        all 0.3s ease-out 0s,
-        opacity 0.3s ease-out calc(0.15s * var(--stagger-index)),
-        translate 0.3s ease-out calc(0.15s * var(--stagger-index));
+        all 0.18s ease-out 0s,
+        opacity 0.18s ease-out calc(0.15s * var(--stagger-index)),
+        translate 0.18s ease-out calc(0.15s * var(--stagger-index));
 
     @starting-style {
         opacity: 0;
@@ -779,9 +779,9 @@ search {
 @for $i from 1 through 99 {
     .stagger-contents > *:nth-child(#{$i}) {
         transition:
-            all 0.3s ease-out 0s,
-            opacity 0.3s ease-out #{$i * 0.15}s,
-            translate 0.3s ease-out #{$i * 0.15}s;;
+            all 0.18s ease-out 0s,
+            opacity 0.18s ease-out #{$i * 0.15}s,
+            translate 0.18s ease-out #{$i * 0.15}s;;
     }
 }
 
