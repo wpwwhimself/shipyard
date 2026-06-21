@@ -33,6 +33,20 @@ document.querySelectorAll("button.danger, .button.danger")
     })
 //#endregion
 
+// #region apply visual sortables
+document.querySelectorAll("th.sortable").forEach(th => {
+    th.innerHTML +=
+        `<span role="sortable-hint"
+            data-tippy="Sortuj"
+            data-tippy-arrow="true"
+            data-tippy-theme="light"
+            data-tippy-placement="top-end"
+        >
+            ↕️
+        </span>`;
+});
+// #endregion
+
 // #region initialize
 reinitSelect();
 reinitTableSort();
