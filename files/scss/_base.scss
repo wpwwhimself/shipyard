@@ -234,7 +234,7 @@ span.large {
 /******************** animations *******************/
 
 .animatable, .interactive {
-    transition-duration: 0.3s;
+    transition-duration: 0.18s;
     transition-timing-function: ease-out;
 
     &.highlight:hover {
