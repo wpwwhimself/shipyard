@@ -126,4 +126,29 @@ function model_field_icon(string $scope, string $field): ?string
 {
     return model($scope)::getFields()[$field]["icon"] ?? null;
 }
+
+function model_field_modal_data(string $scope, string $field): ?array
+{
+    $model_fields = model($scope)::getFields();
+    $extras = [];
+    foreach ([
+        "selectData",
+        "min",
+        "max",
+        "step",
+    ] as $extra) {
+        if (isset($model_fields[$field][$extra])) {
+            $extras[$extra] = $model_fields[$field][$extra];
+        }
+    }
+
+    return [
+        "name" => $field,
+        "type" => $model_fields[$field]["type"],
+        "label" => $model_fields[$field]["label"],
+        "icon" => $model_fields[$field]["icon"],
+        "required" => $model_fields[$field]["required"] ?? false,
+        "extra" => $extras,
+    ];
+}
 #endregion
