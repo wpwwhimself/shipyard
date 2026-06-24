@@ -55,6 +55,8 @@ abstract class Role
     public static function getAll(): Collection
     {
         $all_items = array_merge(self::defaultItems(), static::items());
+        
+        self::validateRoles($all_items);
 
         $ret = collect($all_items)->map(fn ($data) => [
             ...$data,
@@ -77,6 +79,20 @@ abstract class Role
     public static function find(string $name): ?array
     {
         return self::getAll()->firstWhere("name", $name);
+    }
+    #endregion
+
+    #region validation
+    private static function validateRoles(array $roles): void
+    {
+        $required_keys = ["name", "icon", "description"];
+        foreach ($roles as $role) {
+            foreach ($required_keys as $key) {
+                if (!array_key_exists($key, $role)) {
+                    throw new \Exception("⚓ One of your defined roles does not have '$key' key. Fill it out in 'Roles' scaffold.");
+                }
+            }
+        }
     }
     #endregion
 }
