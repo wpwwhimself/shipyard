@@ -76,9 +76,19 @@ class DocsController extends Controller
         $title = $doc["title"];
         $doc = $this->extractMetaFromDoc($doc["path"], true);
 
-        $headings = collect(explode("\r\n", $doc))
+        $heading_i = 0;
+        $headings = collect(preg_split("/\r?\n/", $doc))
             ->filter(fn ($line) => Str::startsWith($line, "#"))
-            ->map(fn ($line) => Str::of($line)->replace("# ", "1. ")->replace("#", "    "))
+            ->map(function ($line) use (&$heading_i) {
+                $heading = Str::of($line)->replace("#", "")->trim();
+                $lvl = Str::substrCount($line, "#");
+                $heading_i++;
+                return implode("", [
+                    str_repeat("    ", $lvl - 1),
+                    "1. ",
+                    "[$heading](#dh-$heading_i)",
+                ]);
+            })
             ->join("\r\n");
 
         return view("pages.shipyard.docs.view", compact(

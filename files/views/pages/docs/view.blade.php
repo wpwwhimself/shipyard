@@ -35,9 +35,18 @@
 
 @section("appends")
 <script defer>
+// add targets to headings
+let heading_i = 0;
+document.querySelectorAll(`[role="doc-contents"] .contents > *`).forEach(el => {
+    if (el.tagName.charAt(0) !== "H") return;
+
+    heading_i++;
+    el.id = `dh-${heading_i}`;
+});
+
+// add navigation to toc
 document.querySelectorAll(`[role="doc-toc"] li`).forEach(li => {
     li.classList.add("interactive", "shift-right");
-    //todo add jumpers
 });
 </script>
 @endsection

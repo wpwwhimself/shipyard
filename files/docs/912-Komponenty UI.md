@@ -21,7 +21,7 @@ Dostępne typy pola i ich dodatkowe opcje:
 
 Standardowe pole tekstowe.
 
-### number, url, datetime-local, ...
+### number, url, date, ...
 
 Inne HTMLowe typy inputa.
 
