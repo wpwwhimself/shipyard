@@ -18,6 +18,9 @@
 
     --font-size: 12px;
     --margin-size: 1em;
+
+    --animation-speed: 0.18s;
+    --stagger-speed: 0.05s; /* zmieniasz? popraw też kod w @for $i from 1 through 999 */
 }
 
 /******************** discard existing *******************/
@@ -234,7 +237,7 @@ span.large {
 /******************** animations *******************/
 
 .animatable, .interactive {
-    transition-duration: 0.18s;
+    transition-duration: var(--animation-speed);
     transition-timing-function: ease-out;
 
     &.highlight:hover {
@@ -762,9 +765,9 @@ search {
 .stagger {
     --stagger-index: 0;
     transition:
-        all 0.18s ease-out 0s,
-        opacity 0.18s ease-out calc(0.15s * var(--stagger-index)),
-        translate 0.18s ease-out calc(0.15s * var(--stagger-index));
+        all var(--animation-speed) ease-out 0s,
+        opacity var(--animation-speed) ease-out calc(var(--stagger-speed) * var(--stagger-index)),
+        translate var(--animation-speed) ease-out calc(var(--stagger-speed) * var(--stagger-index));
 
     @starting-style {
         opacity: 0;
@@ -776,12 +779,12 @@ search {
     @extend .stagger;
 }
 
-@for $i from 1 through 99 {
+@for $i from 1 through 999 {
     .stagger-contents > *:nth-child(#{$i}) {
         transition:
-            all 0.18s ease-out 0s,
-            opacity 0.18s ease-out #{$i * 0.15}s,
-            translate 0.18s ease-out #{$i * 0.15}s;;
+            all var(--animation-speed) ease-out 0s,
+            opacity var(--animation-speed) ease-out #{$i * 0.05}s,
+            translate var(--animation-speed) ease-out #{$i * 0.05}s;
     }
 }
 
