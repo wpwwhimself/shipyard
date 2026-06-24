@@ -76,10 +76,16 @@ class DocsController extends Controller
         $title = $doc["title"];
         $doc = $this->extractMetaFromDoc($doc["path"], true);
 
+        $headings = collect(explode("\r\n", $doc))
+            ->filter(fn ($line) => Str::startsWith($line, "#"))
+            ->map(fn ($line) => Str::of($line)->replace("# ", "1. ")->replace("#", "    "))
+            ->join("\r\n");
+
         return view("pages.shipyard.docs.view", compact(
             "docs",
             "title",
             "doc",
+            "headings",
         ));
     }
 

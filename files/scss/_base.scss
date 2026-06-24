@@ -402,6 +402,18 @@ code, pre {
     }
 }
 
+[role="doc-contents"] {
+    & h1 {
+        border-bottom: 1px solid var(--fg-lite);
+    }
+}
+
+[role="doc-toc"] {
+    & ol {
+        padding-left: 1em;
+    }
+}
+
 .flex {
     display: flex;
     flex-wrap: wrap;

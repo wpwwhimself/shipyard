@@ -1,0 +1,4 @@
+{
+    "icon": "wall",
+    "role": "spellcaster"
+}
