@@ -47,6 +47,15 @@ document.querySelectorAll("th.sortable").forEach(th => {
 });
 // #endregion
 
+// #region apply codeblocks copy
+document.querySelectorAll(`[role="doc-contents"] pre`).forEach(code => {
+    code.addEventListener("click", () => {
+        navigator.clipboard.writeText(code.innerText);
+        alert("Skopiowano do schowka.");
+    });
+});
+// #endregion
+
 // #region initialize
 reinitSelect();
 reinitTableSort();
