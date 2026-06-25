@@ -244,7 +244,7 @@ span.large {
         background-color: var(--bg-lite);
     }
     &.halo:hover {
-        box-shadow: 0 0 1em var(--shadow);
+        box-shadow: 0 0 1em var(--tertiary);
     }
     &.shift-right:hover {
         translate: 0.75em;
@@ -347,8 +347,24 @@ a.button, a:has(> .tile), a:has(> .full-width) {
 
 code, pre {
     font-family: var(--mono-font);
-    background-color: var(--bg-lite);
+    background-color: var(--bg);
+    padding: 0.5em 1.25em;
     border-radius: 0.5em;
+    border: 2px solid var(--bg-lite);
+}
+
+code {
+    @extend .accent, .tertiary;
+    padding: 0 0.25em;
+}
+
+pre {
+    @extend .interactive, .halo;
+
+    & > code {
+        border: none;
+        padding: none;
+    }
 }
 
 [role="copyright"] {
@@ -406,7 +422,7 @@ code, pre {
     @extend .grid, .but-mobile-down;
 
     & [role="doc-contents"] {
-        & h1 {
+        & .card > .contents > h2 {
             border-bottom: 1px solid var(--fg-lite);
         }
     }

@@ -15,16 +15,17 @@
     </x-shipyard.app.card>
     @endif
 
-    <div class="flex down">
-        <x-shipyard.app.card
-            role="doc-contents"
-            :inner-class="implode(' ', array_filter([
-                setting('animations_mode') >= 1 ? 'stagger' : null,
-                setting('animations_mode') >= 2 ? 'stagger-contents' : null,
-            ]))"
-        >
-            {!! \Illuminate\Mail\Markdown::parse($doc) !!}
+    <div role="doc-contents"
+        @class([
+            "flex down",
+            "stagger-contents" => setting("animations_mode") >= 2,
+        ])
+    >
+        @foreach ($doc as $heading => $content)
+        <x-shipyard.app.card :title="$heading" title-lvl="2" :icon="$icon ?? 'book-information-variant'">
+            {!! \Illuminate\Mail\Markdown::parse($content) !!}
         </x-shipyard.app.card>
+        @endforeach
     </div>
 </div>
 

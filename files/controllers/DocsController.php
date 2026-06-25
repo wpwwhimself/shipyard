@@ -74,26 +74,34 @@ class DocsController extends Controller
         $doc = $docs->firstWhere("slug", $slug);
         if (!$doc) abort(404);
         $title = $doc["title"];
+        $icon = $doc["icon"] ?? null;
         $doc = $this->extractMetaFromDoc($doc["path"], true);
 
-        $heading_i = 0;
-        $headings = collect(preg_split("/\r?\n/", $doc))
+        $headings_raw = collect(preg_split("/\r?\n/", $doc))
             ->filter(fn ($line) => Str::startsWith($line, "#"))
-            ->map(function ($line) use (&$heading_i) {
-                $heading = Str::of($line)->replace("#", "")->trim();
-                $lvl = Str::substrCount($line, "#");
-                $heading_i++;
-                return implode("", [
-                    str_repeat("    ", $lvl - 1),
-                    "1. ",
-                    "[$heading](#dh-$heading_i)",
-                ]);
-            })
+            ->map(fn ($line) => [
+                "heading" => Str::of($line)->replace("#", "")->trim(),
+                "lvl" => Str::substrCount($line, "#"),
+            ])
+            ->values();
+        $headings = $headings_raw->map(fn ($hdata, $i) => implode("", [
+                str_repeat("    ", $hdata["lvl"] - 1),
+                "1. ",
+                "[$hdata[heading]](#dh-".($i+1).")",
+            ]))
             ->join("\r\n");
+
+        // docs split by h1s
+        $doc = collect(preg_split("/\n# /", $doc))
+            ->filter()
+            ->map(fn ($chpt) => Str::after($chpt, "\n\n"));
+        $doc = $headings_raw->filter(fn ($hdata) => $hdata["lvl"] === 1)->pluck("heading")->values()
+            ->combine($doc);
 
         return view("pages.shipyard.docs.view", compact(
             "docs",
             "title",
+            "icon",
             "doc",
             "headings",
         ));
