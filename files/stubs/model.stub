@@ -23,32 +23,18 @@ class {{ class }} extends Model implements ContractsAuditable
         "icon" => "",
         "description" => "",
         "role" => "",
-        // "checkOwnerUnless" => "", // for roles above, allow to see only one's own objects unless they're also other role
         "ordering" => ,
-        // "listScope" => "", // default scope to list items in model editor, empty defaults to forAdminList
-        // "defaultSort" => "", // default sort, as it appears in url
-        // "defaultFltr" => "", // default filters //todo expand
     ];
 
+    use HasStandardFields, HasStandardScopes, HasStandardAttributes;
     use SoftDeletes, Userstamps, Auditable;
 
-    protected $fillable = [
-        "name",
-        "visible",
-    ];
-
     #region presentation
-    /**
-     * Pretty display of a model - can use components and stuff
-     */
     public function __toString(): string
     {
         return $this->name;
     }
 
-    /**
-     * Display for select options - text only
-     */
     public function optionLabel(): Attribute
     {
         return Attribute::make(
@@ -56,9 +42,6 @@ class {{ class }} extends Model implements ContractsAuditable
         );
     }
 
-    /**
-     * Pretty display for model tiles
-     */
     public function displayTitle(): Attribute
     {
         return Attribute::make(
@@ -101,115 +84,41 @@ class {{ class }} extends Model implements ContractsAuditable
     #endregion
 
     #region fields
-    use HasStandardFields;
-
     public const FIELDS = [
         // "<column_name>" => [
         //     "type" => "<input_type>",
-        //     "columnTypes" => [ // for JSON
-        //         "<label>" => "<input_type>",
-        //     ],
-        //     "selectData" => [ // for select
-        //         "options" => ["label" => "", "value" => ""],
-        //         "emptyOption" => "",
-        //     ],
         //     "label" => "",
-        //     "hint" => "",
         //     "icon" => "",
-        //     // "required" => true,
-        //     // "default" => ,
-        //     // "autofillFrom" => ["<route>", "<model_name>"],
-        //     // "characterLimit" => 999, // for text fields
-        //     // "role" => "",
-        //     // "allowNulls" => true, // for when null values should not be treated as disabling filter but actual values
         // ],
     ];
 
+    protected $fillable = [
+        "name",
+        "visible",
+    ];
+    #endregion
+
+    #region relations
     public const CONNECTIONS = [
         // "<name>" => [
         //     "model" => ,
         //     "mode" => "<one|many|many-reverse>",
-        //     // "field_name" => "",
-        //     // "field_label" => "",
-        //     // "readonly" => true,
         // ],
     ];
 
-    public const ACTIONS = [
-        // [
-        //     "icon" => "",
-        //     "label" => "",
-        //     "show-on" => "<list|edit>",
-        //     "route" => "<route|none>",
-        //     "onclick" => "",
-        //     "role" => "",
-        //     "dangerous" => true,
-        // ],
-    ];
-
-    /**
-     * extended form validation on model save
-     * set result to true if everything is ok, false with message to force back with toast
-     */
-    // public static function validateOnSave($data): array
-    // {
-    //     $res = [
-    //         "result" => true/false,
-    //         "message" => "",
-    //     ];
-    //
-    //     // validation...
-    //
-    //     return $res;
-    // }
-
-    /**
-     * extended form fields autofill on model save
-     * add or update fields inside $data to trigger additional changes based on existing form data
-     * then return updated $data
-     */
-    // public static function autofillOnSave(array $data): array
-    // {
-    //     return $data;
-    // }
+    //? tutaj dodaj metody od relacji ?//
     #endregion
 
-    public const SORTS = [
-        // "<name>" => [
-        //     "label" => "",
-        //     "compare-using" => "function|field",
-        //     "discr" => "<function_name|field_name>",
-        // ],
-    ];
-
-    public const FILTERS = [
-        // "<name>" => [
-        //     "label" => "",
-        //     "icon" => "",
-        //     "compare-using" => "function|field",
-        //     "discr" => "<function_name|field_name>",
-        //     "type" => "<input type>",
-        //     "operator" => "regexp", // for function: =, ~, ~*
-        //     "selectData" => [
-        //     ],
-        // ],
-    ];
-
-    public const EXTRA_SECTIONS = [
-        // "<id>" => [
-        //     "title" => "",
-        //     "icon" => "",
-        //     "show-on" => "<list|edit>",
-        //     "component" => "<component_name>",
-        //     "role" => "",
-        // ],
-    ];
+    #region actions and extras
+    #endregion
 
     #region scopes
-    use HasStandardScopes;
     #endregion
 
-    #region attributes
+    #region sorts and filters
+    #endregion
+
+    #region attributes and helpers
     protected function casts(): array
     {
         return [
@@ -220,56 +129,8 @@ class {{ class }} extends Model implements ContractsAuditable
     protected $appends = [
 
     ];
-
-    use HasStandardAttributes;
-
-    // public function badges(): Attribute
-    // {
-    //     return Attribute::make(
-    //         get: fn () => [
-    //             [
-    //                 "label" => "",
-    //                 "icon" => "",
-    //                 "class" => "",
-    //                 "style" => "",
-    //                 "condition" => "",
-    //             ],
-    //             [
-    //                 "html" => "",
-    //             ],
-    //         ],
-    //     );
-    // }
-
-    //? override add button on model list
-    // public static function modelAddButton(): string
-    // {
-    //     return view("components.shipyard.ui.button", [
-    //         "icon" => "plus",
-    //         "label" => "Dodaj",
-    //         "action" => route(...),
-    //         "attributes" => new ComponentAttributeBag([
-    //             "class" => "primary",
-    //         ]),
-    //     ])->render();
-    // }
-
-    //? override edit button on model list
-    // public function modelEditButton(): Attribute
-    // {
-    //     return Attribute::make(
-    //         get: fn () => view("components.shipyard.ui.button", [
-    //             "icon" => "pencil",
-    //             "label" => "Edytuj",
-    //             "action" => route(...),
-    //         ])->render(),
-    //     );
-    // }
     #endregion
 
-    #region relations
-    #endregion
-
-    #region helpers
+    #region on-saves
     #endregion
 }

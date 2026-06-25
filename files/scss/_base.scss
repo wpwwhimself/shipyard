@@ -405,13 +405,13 @@ code, pre {
 #doc {
     @extend .grid, .but-mobile-down;
 
-    & > [role="doc-contents"] {
+    & [role="doc-contents"] {
         & h1 {
             border-bottom: 1px solid var(--fg-lite);
         }
     }
 
-    & > [role="doc-toc"] {
+    & [role="doc-toc"] {
         grid-area: 1 / 2;
 
         & ol {
