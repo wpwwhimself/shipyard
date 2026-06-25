@@ -4,10 +4,7 @@
 
 @section("content")
 
-<div id="doc"
-    class="flex right spread and-cover"
-    style="flex-direction: row-reverse; align-items: flex-start;"
->
+<div id="doc">
     @if ($headings)
     <x-shipyard.app.card role="doc-toc"
         title="Spis treści"

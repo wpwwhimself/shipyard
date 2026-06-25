@@ -402,15 +402,21 @@ code, pre {
     }
 }
 
-[role="doc-contents"] {
-    & h1 {
-        border-bottom: 1px solid var(--fg-lite);
-    }
-}
+#doc {
+    @extend .grid, .but-mobile-down;
 
-[role="doc-toc"] {
-    & ol {
-        padding-left: 1em;
+    & > [role="doc-contents"] {
+        & h1 {
+            border-bottom: 1px solid var(--fg-lite);
+        }
+    }
+
+    & > [role="doc-toc"] {
+        grid-area: 1 / 2;
+
+        & ol {
+            padding-left: 1em;
+        }
     }
 }
 
