@@ -420,19 +420,19 @@ pre {
 
 #doc {
     @extend .grid, .but-mobile-down;
+}
 
-    & [role="doc-contents"] {
-        & .card > .contents > h2 {
-            border-bottom: 1px solid var(--fg-lite);
-        }
+[role="doc-contents"] {
+    & .contents > h2 {
+        border-bottom: 1px solid var(--fg-lite);
     }
+}
 
-    & [role="doc-toc"] {
-        grid-area: 1 / 2;
+[role="doc-toc"] {
+    grid-area: 1 / 2;
 
-        & ol {
-            padding-left: 1em;
-        }
+    & ol {
+        padding-left: 1em;
     }
 }
 
