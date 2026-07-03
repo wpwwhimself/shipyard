@@ -3,13 +3,13 @@
     "role": "technical"
 }
 
-# 📦 Kopie zapasowe systemu
+# Kopie zapasowe systemu
 
-Kopie są tworzone codziennie po północy. Kompletna kopia zawiera dane pozwalające na odtworzenie:
+Kopie są tworzone codziennie po północy (domyślnie ok. 1:00). Kompletna kopia zawiera dane pozwalające na odtworzenie:
 - bazy danych
 - repozytorium plików
 
-# 🛠️ Konfiguracja
+# Konfiguracja
 
 ## Katalogi do wykluczenia
 
