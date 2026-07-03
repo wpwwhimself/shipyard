@@ -19,8 +19,8 @@
     --font-size: 16px;
     --margin-size: 1em;
 
-    --animation-speed: 0.18s;
-    --stagger-speed: 0.05s; /* zmieniasz? popraw też kod w @for $i from 1 through 999 */
+    --animation-speed: 0.3s;
+    --stagger-speed: 0.15s; /* zmieniasz? popraw też kod w @for $i from 1 through 999 */
 }
 
 /******************** discard existing *******************/
@@ -817,8 +817,8 @@ search {
     .stagger-contents > *:nth-child(#{$i}) {
         transition:
             all var(--animation-speed) ease-out 0s,
-            opacity var(--animation-speed) ease-out #{$i * 0.05}s,
-            translate var(--animation-speed) ease-out #{$i * 0.05}s;
+            opacity var(--animation-speed) ease-out #{$i * 0.15}s,
+            translate var(--animation-speed) ease-out #{$i * 0.15}s;
     }
 }
 
