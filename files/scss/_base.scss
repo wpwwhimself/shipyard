@@ -284,6 +284,13 @@ a.button, a:has(> .tile), a:has(> .full-width) {
     }
 }
 
+#app-badge {
+    & .icon {
+        --icon-size: 1em;
+        vertical-align: middle;
+    }
+}
+
 .banner.full-width {
     position: relative;
     overflow: hidden;
@@ -364,13 +371,6 @@ pre {
     & > code {
         border: none;
         padding: none;
-    }
-}
-
-[role="copyright"] {
-    & .icon {
-        --icon-size: 1em;
-        vertical-align: middle;
     }
 }
 

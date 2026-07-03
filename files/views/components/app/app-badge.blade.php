@@ -10,7 +10,7 @@
             </a>
             <span role="app-lifetime">{{ app_lifetime() }}</span>
         </span>
-        <span role="shipyard">
+        <span role="shipyard-info">
             <a href="https://github.com/wpwwhimself/shipyard"
                 target="_blank"
                 role="shipyard-version"
