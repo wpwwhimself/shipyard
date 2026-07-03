@@ -42,16 +42,16 @@
         </x-slot:actions>
 
         @foreach ($hentry->getModified() as $field_name => $change)
-            <div class="grid but-mobile-down interactive highlight" style="--col-count: 3;">
+            <div class="grid but-mobile-down animatable highlight" style="--col-count: 3;">
                 <div class="accent secondary">
                     <x-shipyard.app.icon :name="model_field_icon($scope, $field_name)" />
-                    {{ $data::getFields()[$field_name]["label"] }}
+                    {{ $data::getFields()[$field_name]["label"] ?? $field_name }}
                 </div>
                 <div class="ghost">
-                    {{ is_array($change["old"]) ? implode(",", $change["old"]) : $change["old"] ?? "—" }}
+                    {{ is_array($change["old"] ?? null) ? implode(",", $change["old"]) : $change["old"] ?? "—" }}
                 </div>
                 <div>
-                    {{ is_array($change["new"]) ? implode(",", $change["new"]) : $change["new"] ?? "—" }}
+                    {{ is_array($change["new"] ?? null) ? implode(",", $change["new"]) : $change["new"] ?? "—" }}
                 </div>
             </div>
             @endforeach
