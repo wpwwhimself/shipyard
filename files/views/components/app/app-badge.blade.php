@@ -9,11 +9,13 @@
                 <img class="icon invert-when-dark" src="https://creativecommons.org/wp-content/themes/vocabulary-theme/vocabulary/svg/cc/icons/cc-icons.svg#cc-logo" alt="cc"><img class="icon invert-when-dark" src="https://creativecommons.org/wp-content/themes/vocabulary-theme/vocabulary/svg/cc/icons/cc-icons.svg#cc-by" alt="by"><img class="icon invert-when-dark" src="https://creativecommons.org/wp-content/themes/vocabulary-theme/vocabulary/svg/cc/icons/cc-icons.svg#cc-sa" alt="sa">
             </a>
             <span role="app-lifetime">{{ app_lifetime() }}</span>
+        </span>
+        <span role="shipyard">
             <a href="https://github.com/wpwwhimself/shipyard"
                 target="_blank"
                 role="shipyard-version"
                 class="hide-for-print"
-                @popper(Wersja Shipyard)
+                @popper(Ta aplikacja jest oparta na Shipyard)
             >
                 <img class="icon invert-when-dark" src="{{ asset("media/Shipyard/shipyard.svg") }}" alt="shipyard logo">
                 {{ shipyard_version() }}
