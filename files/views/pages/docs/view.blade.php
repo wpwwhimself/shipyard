@@ -39,7 +39,7 @@
 <script defer>
 // add targets to headings
 let heading_i = 0;
-document.querySelectorAll(`[role="doc-contents"] .contents > *`).forEach(el => {
+document.querySelectorAll(`[role="doc-contents"] [role="card-title"], [role="doc-contents"] .contents > *`).forEach(el => {
     if (el.tagName.charAt(0) !== "H") return;
 
     heading_i++;
