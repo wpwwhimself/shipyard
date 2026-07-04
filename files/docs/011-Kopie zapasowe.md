@@ -9,7 +9,7 @@ Kopie są tworzone codziennie po północy (domyślnie ok. 1:00). Kompletna kopi
 - bazy danych
 - repozytorium plików
 
-# Konfiguracja
+# Konfiguracja 🧑‍💻
 
 ## Katalogi do wykluczenia
 
