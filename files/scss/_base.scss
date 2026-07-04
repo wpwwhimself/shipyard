@@ -423,8 +423,18 @@ pre {
 }
 
 [role="doc-contents"] {
-    & .contents > h2 {
-        border-bottom: 1px solid var(--fg-lite);
+    & .contents {
+        & > h2 {
+            border-bottom: 1px solid var(--fg-lite);
+        }
+
+        & em {
+            @extend .accent, .secondary;
+        }
+
+        & strong {
+            @extend .accent, .primary;
+        }
     }
 }
 
