@@ -82,7 +82,7 @@ trait HasStandardFields
     /**
      * Get all sorts from the model from SORTS constant.
      */
-    public static function getSorts($defaultSort = null): array
+    public static function getSorts(?string $defaultSort = null): array
     {
         if (!defined(static::class."::SORTS")) return [];
 

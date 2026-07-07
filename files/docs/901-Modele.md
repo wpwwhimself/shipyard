@@ -36,7 +36,9 @@ Stała `META` przechowuje metadane i podstawowe reguły modelu
 - `checkOwnerUnless` - (opcj.) - jeśli wypełnione, domyślnie uprawnieni (czyli ci z `role`) mogą przeglądać tylko swoje obiekty (sprawdzane po `created_by`), a uprawnieni z `checkOwnerUnless` widzą wszystkie wpisy
 - `listScope` - domyślny scope używany do listingu, jeśli nie ma być to `forAdminList`
 - `defaultSort` - domyślne sortowanie listingu (patrz `SORTS`)
-- `defaultFltr` - domyslne filtrowanie listingu (patrz `FILTERS`) - 🚧 niezaimplementowane 
+- `defaultFltr` - domyslne filtrowanie listingu (patrz `FILTERS`) - 🚧 niezaimplementowane
+- `uneditable` - array odgórnie podanych ID modeli, które nie mogą być edytowane
+  - domyślnie korzysta z klucza głównego modelu. Aby nadpisać, dodaj pole `uneditableField`
 
 ## Prezentacja 🔦
 
@@ -275,3 +277,208 @@ public static function autofillOnSave(array $data): array
 ```
 
 Wypełnianie domyślnych wartości po zapisie formularza w edytorze. Przejmij i zmodyfikuj/dopisz dane do `$data`, a następnie zwróć `$data`.
+
+# Wyciąganie danych z modelu
+
+Do pobierania danych o modelu służy kilka metod implementowanych przez traity oraz helpery:
+
+## Parametry pól i relacji
+
+### getFields
+
+```php
+TestModel::getFields();
+```
+
+Zwraca dane ze stałej `FIELDS` oraz domyślne pola, takie jak `id`, `name` itp (o ile istnieją).
+
+### getConnections
+
+```php
+TestModel::getConnections();
+```
+
+Zwraca dane ze stałej `CONNECTIONS` (puste, jeśli takiej nie ma).
+
+### getActions
+
+```php
+TestModel::getActions(string $showOn);
+```
+
+Zwraca dane ze stałej `ACTIONS`, przefiltrowane o widok, którego dotyczy (np. `list` albo `edit`).
+
+### getSorts
+
+```php
+TestModel::getSorts(?string $defaultSort = null);
+```
+
+Zwraca gotowe opcje sortowania ze stałej `SORTS` oraz domyślne sortowanie, jeśli podane.
+
+### getFilters
+
+```php
+TestModel::getFilters($defaultFltr = null);
+```
+
+Zwraca dane ze stałej `FILTERS` (puste, jeśli takiej nie ma).
+
+### getExtraSections
+
+```php
+TestModel::getExtraSections();
+```
+
+Zwraca dane ze stałej `EXTRA_SECTIONS` (puste, jeśli takiej nie ma).
+
+### canBeSeen
+
+```php
+bool $can_be_seen = $model->can_be_seen;
+```
+
+Zwraca, czy model jest widoczny dla aktualnego użytkownika (na podstawie kolumny `visible`).
+
+### isUneditable
+
+```php
+bool $is_uneditable = $model->is_uneditable;
+```
+
+Zwraca, czy model jest nieedytowalny, tzn. figuruje w `META["uneditable"]`. Patrz [metadane](#dh-4).
+
+## Domyślne scope'y
+
+Pochodzą z `HasStandardScopes`.
+
+### sortAndFilter
+
+Wykorzystywany do budowania posortowanego i wyfiltrowanego listingu danego modelu, np. w widoku `list`.
+
+- ⚠️ Raczej niewykorzystywany samodzielnie. Patrz `forAdminList`.
+
+### forAdminList
+
+```php
+TestModel::forAdminList($sort = null, $filters = null);
+```
+
+Wrapper wyciągający dane gotowe do listingu, korzystający z `sortAndFilter`.
+
+### visible
+
+```php
+TestModel::visible(bool $sort = true);
+```
+
+Wyświetla wszystkie widoczne dla aktualnego użytkownika modele.
+- obliczenie widoczności wymaga kolumny `visible`. Zwróci błąd, jeśli jej nie ma.
+- `$sort` umożliwia posortowanie wyników po `order`, a następnie po `name`. Zwróci błąd, jeśli tych kolumn nie ma.
+
+### recent
+
+```php
+TestModel::recent(?string $except_id = null);
+```
+
+Wyświetla 3 najnowsze modele pod kątem modyfikacji.
+- obliczenie świeżości na podstawie `updated_at`.
+- `$except_id` wyklucza jedno ID z listy.
+
+### forConnection
+
+```php
+TestModel::forConnection();
+```
+
+Wyświetla prostą listę widocznych modeli, posortowaną po nazwie. Wykorzystywane głównie w listach relacji.
+- opiera się na scope `visible` i wymaga kolumny `name`.
+
+### classes
+
+```php
+TestModel::classes(string $field);
+```
+
+Zwraca kolekcję unikalnych wartości z pola `$field` dla tego modelu.
+
+## Szybkie info
+
+### visiblePretty
+
+```blade
+Czy ten model jest widoczny? {{ $model->visible_pretty }}
+```
+
+Pokazuje etykietę widoczności dla modelu.
+
+### model
+
+```php
+$model = model('users')::find(1);
+```
+
+Zwraca nazwę klasy modelu na podstawie dostarczonego scope'a.
+
+Dla odwrotności, patrz `scope()`.
+
+### scope
+
+```php
+$scope = scope(User::class); // users
+```
+
+Zwraca scope dla podanej klasy modelu.
+
+### model_icon
+
+```php
+<x-shipyard.app.icon :name="model_icon('users')" />
+```
+
+Zwraca nazwę ikony modelu.
+
+### model_field_icon
+
+```php
+<x-shipyard.app.icon :name="model_field_icon('users', 'name')" />
+```
+
+Zwraca nazwę ikony pola modelu (wliczając domyślne).
+
+### model_field_label
+
+```php
+<x-shipyard.ui.input name="aaa" :label="model_field_label('users', 'name')" :icon="model_field_icon('users', 'name')" />
+```
+
+Zwraca etykietę pola modelu.
+
+### model_field_modal_data
+
+```php
+// app\Scaffolds\Modal.php
+
+protected static function items(): array
+{
+    return [
+        "test-modal" => [
+            "heading" => "Jestem test modalem!",
+            "target_route" => "aaaa",
+            "fields" => [
+                model_field_modal_data('users', 'name'),
+                [
+                    "name" => "ok",
+                    "type" => "checkbox",
+                    "label" => "Wszystko gra",
+                    "icon" => "robot",
+                    "required" => true,
+                ],
+            ]
+        ]
+    ];
+}
+```
+
+Pozwala na szybkie przekopiowanie danych z pola do modala.
