@@ -428,6 +428,10 @@ main {
     @extend .tile;
 }
 
+table {
+    @extend .bordered, .rounded, .backdropped, .padded, .small;
+}
+
 .tag {
     @extend .rounded;
 
