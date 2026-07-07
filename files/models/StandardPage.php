@@ -72,7 +72,7 @@ class StandardPage extends Model implements ContractsAuditable
             get: fn () => view("components.shipyard.app.model.fields-preview", [
                 "model" => $this,
                 "fields" => ["visible", "order",],
-            ])
+            ])->render()
                 . view("components.shipyard.ui.button", [
                     "action" => route("standard-page", ["slug" => $this->slug]),
                     "icon" => "eye",
@@ -80,7 +80,7 @@ class StandardPage extends Model implements ContractsAuditable
                     "attributes" => new ComponentAttributeBag([
                         "target" => "_blank",
                     ]),
-                ]),
+                ])->render(),
         );
     }
     #endregion
