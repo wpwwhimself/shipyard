@@ -65,13 +65,6 @@ class {{ class }} extends Model implements ContractsAuditable
         );
     }
 
-    public function displayPreTitle(): Attribute
-    {
-        return Attribute::make(
-            get: fn () => null,
-        );
-    }
-
     public function displayMiddlePart(): Attribute
     {
         return Attribute::make(
