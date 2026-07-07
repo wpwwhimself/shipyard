@@ -23,6 +23,16 @@ $autofillRoute = $autofillFrom
 $dummy = Str::startsWith($type, "dummy-");
 if ($dummy) $type = Str::after($type, "dummy-");
 
+// 🦺 is module enabled for this type? 🦺 //
+$modules_required = [
+    "ABC" => "sheetmusic",
+    "HTML" => "wysiwyg",
+];
+$module_missing =
+    in_array($type, array_keys($modules_required))
+    && !\App\ShipyardTheme::moduleEnabled($modules_required[$type]);
+// 🦺 is module enabled for this type? 🦺 //
+
 $lookup = $type == "lookup";
 if ($lookup) $type = "text";
 
@@ -78,6 +88,12 @@ if (Str::endsWith($type, "multiple") && !Str::endsWith($name, "[]")) $name .= "[
         {{ $value ?? "—" }}
         @endif
     </span>
+
+    @elseif ($module_missing)
+    <strong class="accent error">
+        <x-shipyard.app.icon name="alert" />
+        Aplikacja nie wspiera obecnie wyświetlenia tego pola. Skontaktuj się z administratorem.
+    </strong>
 
     @else
     @switch ($type)

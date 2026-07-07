@@ -2,6 +2,8 @@
 
 namespace App\Theme\Shipyard;
 
+use Illuminate\Support\Facades\Log;
+
 trait Theme
 {
     #region theme
@@ -58,6 +60,18 @@ trait Theme
         return collect(self::FONT_IMPORT_URL)
             ->map(fn ($url) => "@import url(\"$url\");")
             ->join("\n");
+    }
+    #endregion
+
+    #region optional modules
+    public static function moduleEnabled(string $module): bool
+    {
+        try {
+            return in_array($module, self::MODULES);
+        } catch (\Error) {
+            Log::error("⚓ Watch out, MODULES array is not defined in theme settings. Defaulting to false.");
+            return false;
+        }
     }
     #endregion
 }

@@ -74,6 +74,12 @@
         <script defer src="{{ asset("js/app.js") }}?v={{ shipyard_version() }}"></script>
         {{-- 🚀 standard scripts 🚀 --}}
 
+        {{-- ✅ choices stuff ✅ --}}
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css" />
+        <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
+        {{-- ✅ choices stuff ✅ --}}
+
+        @if (\App\ShipyardTheme::moduleEnabled("wysiwyg"))
         {{-- ✏️ ckeditor stuff ✏️ --}}
         <script type="importmap">
         {
@@ -87,17 +93,15 @@
         <link rel="stylesheet" href="{{ asset("css/Shipyard/ckeditor.css") }}?v={{ shipyard_version() }}">
         <script type="module" src="{{ asset("js/Shipyard/ckeditor.js") }}?v={{ shipyard_version() }}"></script>
         {{-- ✏️ ckeditor stuff ✏️ --}}
+        @endif
 
-        {{-- ✅ choices stuff ✅ --}}
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css" />
-        <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
-        {{-- ✅ choices stuff ✅ --}}
-
+        @if (\App\ShipyardTheme::moduleEnabled("sheetmusic"))
         {{-- 🎼 abcjs stuff 🎼 --}}
         <link rel="stylesheet" href="{{ asset("css/Shipyard/abcjs.css") }}?v={{ shipyard_version() }}">
         <script src="https://cdn.jsdelivr.net/npm/abcjs/dist/abcjs-basic.min.js"></script>
         <script src="{{ asset("js/Shipyard/abcjs-note-transpose.js") }}?v={{ shipyard_version() }}"></script>
         {{-- 🎼 abcjs stuff 🎼 --}}
+        @endif
 
         @hasSection("prepends")
         @yield("prepends")

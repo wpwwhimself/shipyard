@@ -54,9 +54,13 @@ Duże pole tekstowe.
 
 ### 🎼 ABC
 
+**🧑‍💻 Wymaga włączonego modułu `sheetmusic`**
+
 Pole do wprowadzania zapisu muzycznego. Korzysta z formatu ABC. Dokumentacja dostępna jest [tutaj](https://abcnotation.com/wiki/abc:standard:v2.1).
 
 ### 👾 HTML
+
+**🧑‍💻 Wymaga włączonego modułu `wysiwyg`**
 
 Edytor WYSIWYG.
 
