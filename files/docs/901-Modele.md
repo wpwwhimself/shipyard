@@ -215,6 +215,7 @@ Stała `FILTERS` zawiera kryteria filtrowania listingu w okluczowanej tablicy - 
 - opcjonalne
   - `icon` - jeśli filtr jest w trybie `field`, to wykorzystana zostanie ikona pola
   - `selectData` - dla inputa typu `select`
+  - `role` - ograniczenia dla widoczności filtrów dla konkretnych ról
 
 ## Atrybuty i funkcje pomocnicze 🎖️
 

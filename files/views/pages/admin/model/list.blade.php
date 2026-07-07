@@ -92,6 +92,7 @@
         <input type="hidden" name="page" value="{{ request('page') }}">
 
         @foreach ($filters as $fname => $fdata)
+        @continue (!Auth::user()?->hasRole($fdata["role"] ?? null))
         <x-shipyard.ui.input :type="$fdata['type']"
             :name="'fltr['.$fname.']'"
             :label="$fdata['label']"
