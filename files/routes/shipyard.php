@@ -99,7 +99,8 @@ Route::controller(ModalController::class)->prefix("api/modals")->group(function 
 
 #region docs
 Route::controller(DocsController::class)->prefix("docs")->group(function () {
-    Route::get("spells", "spellbook")->middleware(EnsureUserHasRole::class.":spellcaster")->name("docs.spellbook");
+    Route::get("zaklecia", "spellbook")->middleware(EnsureUserHasRole::class.":spellcaster")->name("docs.spellbook");
+    Route::get("role", "roles")->name("docs.roles");
     Route::get("{slug}", "view")->where("slug", "[a-zA-Z0-9-/]+")->name("docs.view");
     Route::get("", "index")->name("docs.index");
 });

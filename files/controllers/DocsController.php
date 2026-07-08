@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Shipyard;
 
 use App\Http\Controllers\Controller;
+use App\Scaffolds\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
@@ -107,6 +108,7 @@ class DocsController extends Controller
         ));
     }
 
+    #region special pages
     public function spellbook()
     {
         $docs = $this->prepareDocs();
@@ -118,4 +120,17 @@ class DocsController extends Controller
             "spells",
         ));
     }
+    
+    public function roles()
+    {
+        $docs = $this->prepareDocs();
+        
+        $roles = Role::getAll();
+
+        return view("pages.shipyard.docs.roles", compact(
+            "docs",
+            "roles",
+        ));
+    }
+    #endregion
 }
