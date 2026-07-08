@@ -88,7 +88,7 @@ class DocsController extends Controller
         $headings = $headings_raw->map(fn ($hdata, $i) => implode("", [
                 str_repeat("    ", $hdata["lvl"] - 1),
                 "1. ",
-                "[$hdata[heading]](#dh-".($i+1).")",
+                $hdata["heading"],
             ]))
             ->join("\r\n");
 

@@ -47,8 +47,13 @@ document.querySelectorAll(`[role="doc-contents"] [role="card-title"], [role="doc
 });
 
 // add navigation to toc
-document.querySelectorAll(`[role="doc-toc"] li`).forEach(li => {
+document.querySelectorAll(`[role="doc-toc"] li`).forEach((li, i) => {
     li.classList.add("interactive", "shift-right");
+    li.onclick = (ev) => {
+        ev.preventDefault();
+        ev.stopPropagation();
+        jumpTo(`#dh-${i + 1}`, "start");
+    }
 });
 </script>
 @endsection

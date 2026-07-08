@@ -306,10 +306,10 @@ function openMenu(mode = "") {
     });
 }
 
-function jumpTo(selector) {
+function jumpTo(selector, block = "center") {
     document.querySelector(selector).scrollIntoView({
         behavior: "smooth",
-        block: "center"
+        block: block,
     });
 }
 
