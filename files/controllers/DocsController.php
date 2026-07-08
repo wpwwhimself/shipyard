@@ -94,8 +94,15 @@ class DocsController extends Controller
 
         // docs split by h1s
         $doc = collect(preg_split("/\n# /", $doc))
-            ->filter()
-            ->map(fn ($chpt) => Str::after($chpt, "\n\n"));
+            ->filter(fn ($chpt) => !preg_match("/^\r?\n?$/", $chpt))
+            ->map(function ($chpt) {
+                $first_newline = null;
+                preg_match("/(\r?\n){2}/", $chpt, $first_newline, PREG_OFFSET_CAPTURE);
+                $chpt = substr($chpt, $first_newline[0][1]);
+                $chpt = trim($chpt);
+                
+                return $chpt;
+            });
         $doc = $headings_raw->filter(fn ($hdata) => $hdata["lvl"] === 1)->pluck("heading")->values()
             ->combine($doc);
 

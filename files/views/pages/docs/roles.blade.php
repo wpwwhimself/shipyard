@@ -32,7 +32,7 @@
             ]))"
         >
             @foreach ($roles as $role)
-            <x-shipyard.app.h lvl="3" :icon="$role['icon']">{{ $role["name"] }}</x-shipyard.app.h>
+            <x-shipyard.app.h lvl="2" :icon="$role['icon']">{{ $role["name"] }}</x-shipyard.app.h>
             <p>{{ $role["description"] }}</p>
             @endforeach
         </x-shipyard.app.card>
