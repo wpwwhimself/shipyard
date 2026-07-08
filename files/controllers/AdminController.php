@@ -3,8 +3,7 @@
 namespace App\Http\Controllers\Shipyard;
 
 use App\Http\Controllers\Controller;
-use App\Models\Setting as LocalSetting;
-use App\Models\Shipyard\Setting;
+use App\Models\Setting;
 use App\Scaffolds\Role;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
@@ -217,7 +216,7 @@ class AdminController extends Controller
                 ],
             ],
         ];
-        $fields = array_merge($fields, LocalSetting::fields());
+        $fields = array_merge($fields, Setting::fields());
         $settings = Setting::all();
 
         return view("pages.shipyard.admin.settings", compact(

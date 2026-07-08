@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\Shipyard\NavItem;
+use App\Models\NavItem;
 use App\Models\User;
 use App\Models\Shipyard\Setting;
 use Illuminate\Database\Migrations\Migration;
