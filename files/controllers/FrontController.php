@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Shipyard;
 
 use App\Http\Controllers\Controller;
 use App\Mail\Shipyard\ContactFormQuery;
-use App\Models\Shipyard\StandardPage;
+use App\Models\StandardPage;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;

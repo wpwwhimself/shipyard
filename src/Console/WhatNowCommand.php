@@ -31,19 +31,6 @@ class WhatNowCommand extends Command
         $this->comment("> in your `routes/web.php` add the following: \n\t if (file_exists(__DIR__.'/Shipyard/shipyard.php')) require __DIR__.'/Shipyard/shipyard.php';");
         $this->comment("> in your `routes/console.php` add the following: \n\t if (file_exists(__DIR__.'/Shipyard/shipyard_schedule.php')) require __DIR__.'/Shipyard/shipyard_schedule.php';");
         $this->comment("> in your `routes/api.php` (if missing) add the following: \n\t if (file_exists(__DIR__.'/Shipyard/shipyard_api.php')) require __DIR__.'/Shipyard/shipyard_api.php';");
-        $this->comment("> prepare extended model classes to add new properties in `app/Models/User.php`:
-        <?php
-
-        namespace App\Models;
-
-        use App\Models\Shipyard\User as ShipyardUser;
-
-        class User extends ShipyardUser
-        {
-            public const FROM_SHIPYARD = true;
-
-        }"
-        );
         $this->comment("> clear your `resources/css/app.css` file - it may overwrite themes");
 
         return Command::SUCCESS;

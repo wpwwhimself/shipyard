@@ -1,5 +1,5 @@
 @php
-$pages = \App\Models\Shipyard\NavItem::visible()->get()
+$pages = \App\Models\NavItem::visible()->get()
     ->filter(fn ($page) => Auth::user()?->hasRole(implode("|", $page->roles) ?: null) ?? true)
     ->values();
 $max_pages = (int) setting("menu_nav_items_in_top_bar_count") ?? INF;

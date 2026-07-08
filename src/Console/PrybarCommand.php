@@ -2,8 +2,8 @@
 
 namespace Wpwwhimself\Shipyard\Console;
 
-use App\Models\Shipyard\User;
-use App\Models\Shipyard\NavItem;
+use App\Models\User;
+use App\Models\NavItem;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 

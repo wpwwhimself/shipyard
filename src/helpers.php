@@ -100,14 +100,16 @@ function scope(string $model): string
  */
 function similar_models(?string $scope = null): array
 {
+    $is_base_model_shipyard = ($scope ? is_shipyard_model(model($scope)) : false);
     $model_dir = app_path(implode("/", array_filter([
         "Models",
-        ($scope ? is_shipyard_model(model($scope)) : false) ? "Shipyard" : null,
+        $is_base_model_shipyard ? "Shipyard" : null,
         "*.php",
     ])));
     return collect(glob($model_dir))
         ->map(fn ($file) => scope(Str::of(basename($file))->replace(".php", "")))
         ->filter(fn ($scope) => !Str::of($scope)->contains("settings"))
+        ->filter(fn ($scope) => is_shipyard_model(model($scope)) === $is_base_model_shipyard)
         ->sortBy(fn ($scope) => model($scope)::META["ordering"] ?? 999)
         ->map(fn ($scope) => [
             "icon" => model_icon($scope),

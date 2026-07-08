@@ -85,6 +85,9 @@ class InstallCommand extends Command
         $this->tryLink(__DIR__.'/../../files/scaffolds', base_path("app/Scaffolds/Shipyard"));
         $this->tryCopy(__DIR__.'/../../files/templates/Modal.php', base_path("app/Scaffolds/Modal.php"), true);
         $this->tryCopy(__DIR__.'/../../files/templates/Role.php', base_path("app/Scaffolds/Role.php"), true);
+        $this->tryCopy(__DIR__.'/../../files/templates/User.php', base_path("app/Models/User.php"), true);
+        $this->tryCopy(__DIR__.'/../../files/templates/StandardPage.php', base_path("app/Models/StandardPage.php"), true);
+        $this->tryCopy(__DIR__.'/../../files/templates/NavItem.php', base_path("app/Models/NavItem.php"), true);
 
         $this->comment("- migrations...");
         $this->tryCopyDirectory(__DIR__.'/../../files/migrations', base_path("database/migrations"));
