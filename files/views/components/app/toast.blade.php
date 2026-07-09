@@ -1,16 +1,21 @@
-@session("toast")
-<div id="toast" class="{{ session("toast")[0] }}">
+<div id="toast">
     @php
     $icons = [
         "success" => "check",
-        "warning" => "exclamation",
+        "danger" => "exclamation",
         "error" => "close",
+        "info" => "information",
     ];
     @endphp
-    <x-shipyard.app.icon :name="$icons[session('toast')[0]]" />
+    @foreach ($icons as $mode => $icon)
+    <x-shipyard.app.icon :data="$mode" :name="$icon" />
+    @endforeach
 
-    <span role="label">
-        {{ session("toast")[1] }}
-    </span>
+    <span role="label"></span>
 </div>
+
+@session("toast")
+<script defer>
+popToast(`{{ session("toast")[0] }}`, `{{ session("toast")[1] }}`);
+</script>
 @endsession

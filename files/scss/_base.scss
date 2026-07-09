@@ -12,6 +12,7 @@
     --success: #07e33d;
     --error: rgb(215, 61, 61);
     --danger: rgb(255, 107, 8);
+    --info: rgb(79, 190, 255);
 
     --hot: rgb(255, 107, 8);
     --cold: rgb(8, 107, 255);
@@ -187,6 +188,9 @@ body {
     }
     &.error {
         --accent-color: var(--error);
+    }
+    &.info {
+        --accent-color: var(--info);
     }
     &.hot {
         --accent-color: var(--hot);
@@ -927,6 +931,9 @@ table {
     }
     &.error {
         color: var(--error);
+    }
+    &.info {
+        color: var(--info);
     }
 
     &.visible {

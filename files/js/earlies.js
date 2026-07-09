@@ -27,6 +27,31 @@ function fromHTML(html, trim = true) {
     return result;
 }
 
+function popToast(mode, message) {
+    const TOAST_TIMEOUT = 4000;
+    const toast = document.querySelector("#toast")
+
+    // fill out
+    toast.className = mode;
+    toast.querySelectorAll(`.icon`).forEach(icon => {
+        icon.classList.toggle("hidden", !icon.classList.contains(mode));
+    });
+    toast.querySelector(`[role="label"]`).innerHTML = message;
+
+    // appear
+    setTimeout(() => {
+        toast.classList.add("visible");
+    }, 1);
+
+    //allow dismissal
+    toast.addEventListener("click", (ev) => ev.target.classList.remove("visible"));
+
+    // disappear
+    setTimeout(() => {
+        toast.classList.remove("visible");
+    }, TOAST_TIMEOUT);
+}
+
 // #region theme management
 function toggleTheme() {
     const bodyClass = document.body.classList
