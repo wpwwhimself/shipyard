@@ -25,7 +25,7 @@ $key ??= Str::uuid();
             <div role="texts">
                 <x-shipyard.app.h lvl="2" role="section-title">{{ $title }}</x-shipyard.app.h>
                 @if ($subtitle)
-                {!! $subtitle !!}
+                <span role="section-subtitle">{!! $subtitle !!}</span>
                 @endif
             </div>
         </div>

@@ -20,7 +20,7 @@
             <div role="texts">
                 <x-shipyard.app.h :lvl="$titleLvl" role="card-title">{{ $title }}</x-shipyard.app.h>
                 @if ($subtitle)
-                {!! $subtitle !!}
+                <span role="card-subtitle">{!! $subtitle !!}</span>
                 @endif
             </div>
         </div>
