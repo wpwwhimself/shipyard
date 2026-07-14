@@ -439,6 +439,15 @@ pre {
         & strong {
             @extend .accent, .primary;
         }
+
+        & blockquote {
+            @extend .padded, .small;
+
+            margin: 0;
+            border-left: 0.25em double var(--fg-lite);
+            font-style: italic;
+            color: var(--fg-lite);
+        }
     }
 }
 
