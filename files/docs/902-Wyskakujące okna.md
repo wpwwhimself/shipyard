@@ -43,6 +43,21 @@ Jeśli podany jest JSON `overrides`, wartości z niego posłużą do zmodyfikowa
 
 Jeśli podana jest funkcja `afterAll`, zostanie ona wykonana po utworzeniu i uzbrojeniu pól. Przydatna do autofocusu pól.
 
+# Modal o własnej treści
+
+Okno modala może być zmodyfikowane do wyświetlenia własnego kodu. Służy do tego funkcja `openModalManually`, która potrzebuje tytułu i HTMLa treści modala.
+
+```js
+toggleBigLoader();
+fetch(`/stats/get`)
+    .then(res => res.json())
+    .then(({html}) => {
+        openModalManually("Gratulacje", html);
+    });
+```
+
+Użycie funkcji `openModalManually` automatycznie wyświetla wszystkie potrzebne i ukrywa wszystkie zbędne elementy modala.
+
 # Toast 🍞
 
 Toast to mały komunikat wyskakujący zazwyczaj na górze strony. Pojawia się, informuje o udanej/nieudanej operacji, a potem znika.

@@ -129,15 +129,33 @@ const openModal = (name, defaults = {}, overrides = {}, afterAll = () => {}) => 
         });
 }
 
+const toggleBigLoader = () => {
+    loader.classList.toggle("hidden");
+    modal.classList.toggle("hidden");
+}
+
+const openModalManually = (header, html) => {
+    modal.classList.remove("hidden");
+    loader.classList.add("hidden");
+
+    card.querySelector("[role$='title']").textContent = header;
+    fields.innerHTML = html;
+    submit_btn?.classList.add("hidden");
+
+    card.classList.remove("hidden");
+    reapplyPopper();
+    reinitSelect();
+}
+
 const closeModal = () => {
     fields.innerHTML = "";
     card.classList.add("hidden");
     modal.classList.add("hidden");
 
-    submit_btn.classList.remove("hidden");
-    summary_btn.classList.add("hidden");
-    summary_close_btn.classList.add("hidden");
-    close_modal_btn.classList.remove("hidden");
+    submit_btn?.classList.remove("hidden");
+    summary_btn?.classList.add("hidden");
+    summary_close_btn?.classList.add("hidden");
+    close_modal_btn?.classList.remove("hidden");
 }
 
 const closeSummary = () => {
@@ -145,9 +163,9 @@ const closeSummary = () => {
     fields.classList.remove("hidden");
     summary.classList.add("hidden");
 
-    submit_btn.classList.add("hidden");
-    summary_btn.classList.remove("hidden");
-    summary_close_btn.classList.add("hidden");
-    close_modal_btn.classList.remove("hidden");
+    submit_btn?.classList.add("hidden");
+    summary_btn?.classList.remove("hidden");
+    summary_close_btn?.classList.add("hidden");
+    close_modal_btn?.classList.remove("hidden");
 }
 </script>

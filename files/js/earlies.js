@@ -273,14 +273,14 @@ function lookup(lookupUrl, input_name, query = "", other_params = {}) {
             })
             .then(html => {
                 results.innerHTML = html;
-                
+
                 loader.classList.add("hidden");
                 reapplyPopper();
                 reinitSelect();
             })
             .catch(err => {
                 if (err.name === "AbortError") return;
-                
+
                 console.error(err);
             });
     }, 0.3e3);
@@ -415,7 +415,7 @@ function fetchComponent(loader_selector, url, urlbody = {}, targets = [], afterC
         targets.forEach(tdata => {
             document.querySelector(tdata[0]).classList.add("ghost");
         });
-    
+
         // call the API
         fetch(url, urlbody)
             .then(res => res.json())
@@ -426,7 +426,7 @@ function fetchComponent(loader_selector, url, urlbody = {}, targets = [], afterC
                         : res[tdata[1]];
                 });
                 afterCallback(res);
-    
+
                 // revert loading
                 loader.classList.add("hidden");
                 targets.forEach(tdata => {
@@ -435,7 +435,7 @@ function fetchComponent(loader_selector, url, urlbody = {}, targets = [], afterC
             })
             .catch(err => {
                 if (err.name === "AbortError") return;
-    
+
                 console.error(err);
                 // show error message in targets
                 targets.forEach(tdata => {
