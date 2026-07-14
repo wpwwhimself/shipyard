@@ -5,6 +5,10 @@
 
 <div @class(["flex", "down", "stagger-contents" => setting("animations_mode") >= 1])>
 
+@foreach (Auth::user()->profile_components ?? [] as $section)
+{!! $section !!}
+@endforeach
+
 <x-shipyard.app.section
     title="Dane użytkownika"
     :icon="model_icon('users')"
