@@ -50,3 +50,9 @@
 </div>
 
 @endsection
+
+@section("appends")
+<script defer>
+fetch(`/sanctum/csrf-cookie`);
+</script>
+@endsection
