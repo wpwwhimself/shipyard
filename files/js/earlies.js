@@ -27,6 +27,17 @@ function fromHTML(html, trim = true) {
     return result;
 }
 
+async function fetchWithXSRF(url, options) {
+    options["credentials"] = "include";
+    options["headers"]["X-XSRF-TOKEN"] = decodeURIComponent(document.cookie
+        .split("; ")
+        .find(c => c.startsWith("XSRF-TOKEN="))
+        .split("=")[1]
+    );
+    options["headers"]["Content-Type"] = "application/json";
+    return await fetch(url, options);
+}
+
 function popToast(mode, message) {
     const TOAST_TIMEOUT = 4000;
     const toast = document.querySelector("#toast")
