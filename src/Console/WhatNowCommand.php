@@ -30,7 +30,6 @@ class WhatNowCommand extends Command
         $this->info("Things to do now:");
         $this->comment("> in your `routes/web.php` add the following: \n\t if (file_exists(__DIR__.'/Shipyard/shipyard.php')) require __DIR__.'/Shipyard/shipyard.php';");
         $this->comment("> in your `routes/console.php` add the following: \n\t if (file_exists(__DIR__.'/Shipyard/shipyard_schedule.php')) require __DIR__.'/Shipyard/shipyard_schedule.php';");
-        $this->comment("> in your `routes/api.php` (if missing) add the following: \n\t if (file_exists(__DIR__.'/Shipyard/shipyard_api.php')) require __DIR__.'/Shipyard/shipyard_api.php';");
         $this->comment("> prepare extended model classes to add new properties in `app/Models/User.php`:
 <?php
 

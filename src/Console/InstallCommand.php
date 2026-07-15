@@ -123,10 +123,12 @@ class InstallCommand extends Command
         $this->tryLink(__DIR__.'/../../files/media', base_path("public/media/Shipyard"));
 
         $this->comment("- configs...");
+        $this->tryCopy(__DIR__.'/../../files/configs/app.php', base_path("bootstrap/app.php"));
         $this->tryCopy(__DIR__.'/../../files/configs/popper.php', base_path("config/popper.php"));
         $this->tryCopy(__DIR__.'/../../files/configs/blade-icons.php', base_path("config/blade-icons.php"));
         $this->tryCopy(__DIR__.'/../../files/configs/backup.php', base_path("config/backup.php"));
         $this->tryCopy(__DIR__.'/../../files/configs/audit.php', base_path("config/audit.php"));
+        $this->tryCopy(__DIR__.'/../../files/configs/sanctum.php', base_path("config/sanctum.php"));
 
         $this->comment("- docs...");
         $this->tryLink(__DIR__.'/../../files/docs', base_path("docs/Shipyard"));
@@ -154,7 +156,7 @@ class InstallCommand extends Command
             $this->tryCopy(__DIR__.'/../../files/.gitignore.nametagged.example', $path);
         }
         foreach ([
-            [base_path("config/.gitignore"), "popper.php\nblade-icons.php\nbackup.php\naudit.php"],
+            [base_path("config/.gitignore"), "popper.php\nblade-icons.php\nbackup.php\naudit.php\nsanctum.php"],
             [base_path("public/css/.gitignore"), "shipyard_theme_cache*"],
         ] as [$path, $file_name]) {
             $contents = "$file_name\n.gitignore";
