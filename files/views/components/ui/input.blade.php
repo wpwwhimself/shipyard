@@ -394,7 +394,7 @@ if (Str::endsWith($type, "multiple") && !Str::endsWith($name, "[]")) $name .= "[
 @if ($autofillFrom)
 <script>
 window.autofill = window.autofill ?? {}
-fetch("{{ $autofillRoute }}").then(res => res.json()).then(data => {
+fetchPublic("{{ $autofillRoute }}").then(res => res.json()).then(data => {
     window.autofill['{{ $name }}'] = data
 })
 

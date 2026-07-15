@@ -65,7 +65,7 @@ const openModal = (name, defaults = {}, overrides = {}, afterAll = () => {}) => 
     loader.classList.remove("hidden");
     modal.classList.remove("hidden");
 
-    fetch(`{{ route("modals.data") }}/${name}?` + new URLSearchParams({
+    fetchPublic(`{{ route("modals.data") }}/${name}?` + new URLSearchParams({
         overrides: JSON.stringify(overrides),
     }))
         .then(res => res.json())
@@ -97,7 +97,7 @@ const openModal = (name, defaults = {}, overrides = {}, afterAll = () => {}) => 
                     summary.classList.remove("hidden");
                     summary_loader.classList.remove("hidden");
 
-                    fetch(data.full_summary_route, {
+                    fetchWithUser(data.full_summary_route, {
                         method: "POST",
                         body: new FormData(form),
                     })

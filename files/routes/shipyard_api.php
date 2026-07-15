@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Shipyard\AuthController;
 use App\Http\Controllers\Shipyard\FrontController;
+use App\Http\Controllers\Shipyard\ModalController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -18,6 +19,12 @@ Route::controller(AuthController::class)->prefix("auth")->group(function () {
         Route::get("", "userTokens");
     });
 
+});
+#endregion
+
+#region modals
+Route::controller(ModalController::class)->withoutMiddleware("auth:sanctum")->prefix("modals")->group(function () {
+    Route::get("{name?}", "data")->name("modals.data");
 });
 #endregion
 

@@ -53,6 +53,6 @@
 
 @section("appends")
 <script defer>
-fetch(`/sanctum/csrf-cookie`);
+fetchWithUser(`/sanctum/csrf-cookie`);
 </script>
 @endsection

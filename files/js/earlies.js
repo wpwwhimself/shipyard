@@ -27,17 +27,6 @@ function fromHTML(html, trim = true) {
     return result;
 }
 
-async function fetchWithXSRF(url, options) {
-    options["credentials"] = "include";
-    options["headers"]["X-XSRF-TOKEN"] = decodeURIComponent(document.cookie
-        .split("; ")
-        .find(c => c.startsWith("XSRF-TOKEN="))
-        .split("=")[1]
-    );
-    options["headers"]["Content-Type"] = "application/json";
-    return await fetch(url, options);
-}
-
 function popToast(mode, message) {
     const TOAST_TIMEOUT = 4000;
     const toast = document.querySelector("#toast")
@@ -62,6 +51,26 @@ function popToast(mode, message) {
         toast.classList.remove("visible");
     }, TOAST_TIMEOUT);
 }
+
+// #region fetching
+async function fetchPublic(url, options) {
+    options ??= {};
+    options["credentials"] ??= "omit";
+    return await fetch(url, options);
+}
+
+async function fetchWithUser(url, options) {
+    options ??= {};
+    options["credentials"] ??= "include";
+    options["headers"] ??= {};
+    options["headers"]["X-XSRF-TOKEN"] = decodeURIComponent(document.cookie
+        .split("; ")
+        .find(c => c.startsWith("XSRF-TOKEN="))
+        .split("=")[1]
+    );
+    return await fetch(url, options);
+}
+// #endregion
 
 // #region theme management
 function toggleTheme() {
@@ -249,7 +258,7 @@ function getIconPreview(input_name) {
     debounce_timer = setTimeout(() => {
         icon.classList.add("ghost");
 
-        fetch(`/front/icon/${input.value}`)
+        fetchPublic(`/front/icon/${input.value}`)
             .then(res => res.text())
             .then(html => icon.replaceWith(fromHTML(html)))
             .catch(err => console.error(err));
@@ -272,7 +281,7 @@ function lookup(lookupUrl, input_name, query = "", other_params = {}) {
         loader.classList.remove("hidden");
 
         // actual query
-        fetch(lookupUrl + "?" + new URLSearchParams({
+        fetchPublic(lookupUrl + "?" + new URLSearchParams({
             query: query,
             ...other_params,
         }), {
