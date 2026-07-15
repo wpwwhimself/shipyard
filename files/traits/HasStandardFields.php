@@ -2,6 +2,8 @@
 
 namespace App\Traits\Shipyard;
 
+use App\Http\Controllers\Shipyard\DocsController;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
 
@@ -140,5 +142,14 @@ trait HasStandardFields
                 ? static::EXTRA_SECTIONS
                 : [],
         ));
+    }
+
+    /**
+     * Get docs which are flagged as related to this model.
+     */
+    public static function getRelatedDocs(): Collection
+    {
+        return DocsController::prepareDocs()
+            ->filter(fn ($doc) => Str::contains($doc["models"] ?? null, scope(static::class)));
     }
 }

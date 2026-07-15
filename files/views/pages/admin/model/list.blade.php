@@ -158,6 +158,24 @@
     <div @class(["flex", "down", "stagger-contents" => setting("animations_mode") >= 2])></div>
 </x-shipyard.app.card>
 
+@if (model($scope)::getRelatedDocs())
+<x-shipyard.app.card
+    title="Powiązana dokumentacja"
+    icon="book-information-variant"
+>
+    <x-slot:actions>
+        @foreach (model($scope)::getRelatedDocs() as $doc)
+        <x-shipyard.ui.button
+            :icon="$doc['icon'] ?? 'book-information-variant'"
+            :label="$doc['title']"
+            :action="route('docs.view', ['slug' => $doc['slug']])"
+            :role="$doc['role']"
+        />
+        @endforeach
+    </x-slot:actions>
+</x-shipyard.app.card>
+@endif
+
 </div>
 
 @endsection

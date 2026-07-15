@@ -11,7 +11,7 @@ use Illuminate\Support\Str;
 
 class DocsController extends Controller
 {
-    private function prepareDocs(): Collection
+    public static function prepareDocs(): Collection
     {
         //find all md files in docs, regardless of subfolders
         $docs = collect(glob(base_path("docs/*.md")))
@@ -27,7 +27,7 @@ class DocsController extends Controller
             ->map(fn ($doc) => [
                 ...$doc,
                 "slug" => Str::slug($doc["title"]),
-                ...$this->extractMetaFromDoc($doc["path"]),
+                ...self::extractMetaFromDoc($doc["path"]),
             ])
             ->filter(fn ($doc) => Auth::user()?->hasRole($doc["role"] ?? null))
             ->sortBy("full_basename");
@@ -35,7 +35,7 @@ class DocsController extends Controller
         return $docs;
     }
 
-    private function extractMetaFromDoc(string $path, bool $output_file_instead = false)
+    private static function extractMetaFromDoc(string $path, bool $output_file_instead = false)
     {
         $doc = file_get_contents($path);
         $lines = explode("\n", $doc);
@@ -61,7 +61,7 @@ class DocsController extends Controller
 
     public function index()
     {
-        $docs = $this->prepareDocs();
+        $docs = self::prepareDocs();
 
         return view("pages.shipyard.docs.index", compact(
             "docs",
@@ -70,12 +70,13 @@ class DocsController extends Controller
 
     public function view(string $slug)
     {
-        $docs = $this->prepareDocs();
+        $docs = self::prepareDocs();
 
         $doc = $docs->firstWhere("slug", $slug);
         if (!$doc) abort(404);
         $title = $doc["title"];
         $icon = $doc["icon"] ?? null;
+        $models = array_filter(explode(",", $doc["models"] ?? null));
         $doc = $this->extractMetaFromDoc($doc["path"], true);
 
         $headings_raw = collect(preg_split("/\r?\n/", $doc))
@@ -100,7 +101,7 @@ class DocsController extends Controller
                 preg_match("/(\r?\n){2}/", $chpt, $first_newline, PREG_OFFSET_CAPTURE);
                 $chpt = substr($chpt, $first_newline[0][1]);
                 $chpt = trim($chpt);
-                
+
                 return $chpt;
             });
         $doc = $headings_raw->filter(fn ($hdata) => $hdata["lvl"] === 1)->pluck("heading")->values()
@@ -112,13 +113,14 @@ class DocsController extends Controller
             "icon",
             "doc",
             "headings",
+            "models",
         ));
     }
 
     #region special pages
     public function spellbook()
     {
-        $docs = $this->prepareDocs();
+        $docs = self::prepareDocs();
 
         $spells = SpellbookController::SPELLS;
 
@@ -127,11 +129,11 @@ class DocsController extends Controller
             "spells",
         ));
     }
-    
+
     public function roles()
     {
-        $docs = $this->prepareDocs();
-        
+        $docs = self::prepareDocs();
+
         $roles = Role::getAll();
 
         return view("pages.shipyard.docs.roles", compact(

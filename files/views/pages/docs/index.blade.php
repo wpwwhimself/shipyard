@@ -19,6 +19,7 @@
     </p>
     <ul>
         <li><code>icon</code></li>
+        <li><code>models</code> - model (scope), którego dotyczy artykuł; może być ich więcej, rozdzielone przecinkami</li>
         <li><code>role</code></li>
     </ul>
     @endif

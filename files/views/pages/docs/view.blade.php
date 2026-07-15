@@ -6,13 +6,31 @@
 
 <div id="doc">
     @if ($headings)
-    <x-shipyard.app.card role="doc-toc"
-        title="Spis treści"
-        icon="table-of-contents"
-        class="stick-top but-mobile-reset"
-    >
-        {!! \Illuminate\Mail\Markdown::parse($headings) !!}
-    </x-shipyard.app.card>
+    <div class="flex down stick-top but-mobile-reset stagger-contents" role="doc-toc">
+        <x-shipyard.app.card
+            title="Spis treści"
+            icon="table-of-contents"
+        >
+            {!! \Illuminate\Mail\Markdown::parse($headings) !!}
+        </x-shipyard.app.card>
+
+        @if ($models)
+        <x-shipyard.app.card
+            title="Powiązane modele"
+            icon="database"
+            inner-class="flex down no-gap"
+        >
+            @foreach ($models as $scope)
+            <x-shipyard.ui.button
+                :label="model($scope)::META['label']"
+                :icon="model_icon($scope)"
+                :action="route('admin.model.list', ['model' => $scope])"
+                :role="model($scope)::META['role']"
+            />
+            @endforeach
+        </x-shipyard.app.card>
+        @endif
+    </div>
     @endif
 
     <div role="doc-contents"

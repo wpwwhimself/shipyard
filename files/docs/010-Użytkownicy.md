@@ -1,5 +1,6 @@
 {
     "icon": "account",
+    "models": "users",
     "role": "technical"
 }
 
