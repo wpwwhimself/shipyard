@@ -158,7 +158,7 @@
     <div @class(["flex", "down", "stagger-contents" => setting("animations_mode") >= 2])></div>
 </x-shipyard.app.card>
 
-@if (model($scope)::getRelatedDocs())
+@if (!model($scope)::getRelatedDocs()->empty())
 <x-shipyard.app.card
     title="Powiązana dokumentacja"
     icon="book-information-variant"
