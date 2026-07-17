@@ -37,9 +37,6 @@ class UninstallCommand extends Command
         $this->comment("- middleware...");
         $this->tryDelete(base_path("app/Http/Middleware/Shipyard"));
 
-        $this->comment("- routes...");
-        $this->tryDelete(base_path("routes/Shipyard"));
-
         $this->comment("- traits...");
         $this->tryDelete(base_path("app/Traits/Shipyard"));
 
@@ -83,10 +80,6 @@ class UninstallCommand extends Command
         #endregion
 
         $this->info("✅ Shipyard is gone now!");
-
-        $this->comment("Things to do now:");
-        $this->comment("> in your `routes/web.php` remove the following: \n\t if (file_exists(__DIR__.'/Shipyard/shipyard.php')) require __DIR__.'/Shipyard/shipyard.php';");
-        $this->comment("> in your `routes/console.php` remove the following: \n\t if (file_exists(__DIR__.'/Shipyard/shipyard_schedule.php')) require __DIR__.'/Shipyard/shipyard_schedule.php';");
 
         return Command::SUCCESS;
     }

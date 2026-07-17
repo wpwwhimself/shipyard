@@ -11,6 +11,8 @@ use App\Http\Controllers\Shipyard\ThemeController;
 use App\Http\Middleware\Shipyard\EnsureUserHasRole;
 use Illuminate\Support\Facades\Route;
 
+Route::middleware("web")->group(function () {
+
 #region auth
 Route::controller(AuthController::class)->prefix("auth")->group(function () {
     Route::get("/login", "login")->name("login");
@@ -126,3 +128,5 @@ Route::controller(ErrorController::class)->prefix("errors")->group(function () {
     Route::post("report", "report")->name("error.report");
 });
 #endregion
+
+});

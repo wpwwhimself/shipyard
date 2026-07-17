@@ -6,7 +6,7 @@ use App\Http\Controllers\Shipyard\ModalController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-Route::middleware("auth:sanctum")->group(function () {
+Route::middleware(["api", "auth:sanctum"])->prefix("api")->group(function () {
 
 #region auth
 Route::controller(AuthController::class)->prefix("auth")->group(function () {
