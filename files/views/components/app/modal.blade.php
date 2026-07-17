@@ -37,15 +37,15 @@
         </x-shipyard.app.form>
 
         <x-slot:actions>
-                <x-shipyard.ui.button
-                    icon="close"
-                    pop="Zamknij"
-                    action="none"
-                    onclick="closeModal()"
-                    class="tertiary"
-                    role="close_modal"
-                />
-            </x-slot:actions>
+            <x-shipyard.ui.button
+                icon="close"
+                pop="Zamknij"
+                action="none"
+                onclick="closeModal()"
+                class="tertiary"
+                role="close_modal"
+            />
+        </x-slot:actions>
     </x-shipyard.app.card>
 </div>
 
@@ -98,6 +98,8 @@ const openModal = (name, defaults = {}, overrides = {}, afterAll = () => {}) => 
                 summary_btn.classList.remove("hidden");
 
                 summary_btn.onclick = () => {
+                    if (!form.reportValidity()) return;
+
                     summary_btn.classList.add("hidden");
                     fields.classList.add("hidden");
                     summary.classList.remove("hidden");
