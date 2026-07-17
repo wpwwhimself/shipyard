@@ -75,7 +75,6 @@ class UninstallCommand extends Command
             $this->info("🔥 Removing configs...");
             $this->tryDelete(base_path("app/ShipyardTheme.php"));
             $this->tryDelete(base_path("config/popper.php"));
-            $this->tryDelete(base_path("config/blade-icons.php"));
         }
         #endregion
 
