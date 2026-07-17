@@ -27,11 +27,11 @@ Niżej wymienione komponenty przyjmują nazwę `*.blade.php`.
 
 Przy nazwach podano również kolorami, czy komponent jest wspierany przez dany layout.
 
-## background 🟥🟨🟩
+## background 🟥🟨
 
 Tło aplikacji może zostać zmodyfikowane poprzez dodatkowy komponent. W jego treści mogą znajdować się na przykład **wystylowane obrazki latające w tle**.
 
-## footer-extra 🟥🟨🟩
+## footer-extra 🟥🟨
 
 Stopka layoutu (jeśli istnieje) przewiduje miejsce na dodatkowe informacje, np. **dane kontaktowe**. Wyświetlać się one będą wówczas na środku stopki.
 

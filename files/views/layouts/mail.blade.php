@@ -8,8 +8,6 @@
     </x-slot:middle>
 </x-shipyard.app.big.header>
 
-@includeIf("components.layout-extra.background")
-
 <div id="middle-wrapper">
     @hasSection("content")
     <main>
@@ -19,10 +17,6 @@
 </div>
 
 <x-shipyard.app.big.footer>
-    <x-slot:top>
-        @includeIf("components.layout-extra.footer-extra")
-    </x-slot:top>
-
     <x-slot:bottom>
         <x-shipyard.mail.app-badge />
     </x-slot:bottom>
