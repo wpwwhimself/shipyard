@@ -33,6 +33,10 @@
                     class="tertiary hidden"
                     role="close_summary"
                 />
+            </x-slot:actions>
+        </x-shipyard.app.form>
+
+        <x-slot:actions>
                 <x-shipyard.ui.button
                     icon="close"
                     pop="Zamknij"
@@ -42,7 +46,6 @@
                     role="close_modal"
                 />
             </x-slot:actions>
-        </x-shipyard.app.form>
     </x-shipyard.app.card>
 </div>
 
@@ -59,7 +62,7 @@ const summary_content = summary.querySelector("[role='summary-content']");
 const submit_btn = form.querySelector("button[type='submit']");
 const summary_btn = form.querySelector("[role='go_to_summary']");
 const summary_close_btn = form.querySelector("[role='close_summary']");
-const close_modal_btn = form.querySelector("[role='close_modal']");
+const close_modal_btn = card.querySelector("[role='close_modal']");
 
 const openModal = (name, defaults = {}, overrides = {}, afterAll = () => {}) => {
     loader.classList.remove("hidden");
@@ -87,6 +90,9 @@ const openModal = (name, defaults = {}, overrides = {}, afterAll = () => {}) => 
                 }
             });
 
+            fields.classList.remove("hidden");
+            summary_content.innerHTML = "";
+            summary_close_btn.classList.add("hidden");
             if (data.full_summary_route) {
                 submit_btn.classList.add("hidden");
                 summary_btn.classList.remove("hidden");
@@ -110,7 +116,6 @@ const openModal = (name, defaults = {}, overrides = {}, afterAll = () => {}) => 
                             summary_loader.classList.add("hidden");
                             submit_btn.classList.remove("hidden");
                             summary_close_btn.classList.remove("hidden");
-                            close_modal_btn.classList.add("hidden");
                         });
                 }
             }
