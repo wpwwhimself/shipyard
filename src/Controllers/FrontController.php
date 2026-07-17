@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Shipyard;
+namespace Wpwwhimself\Shipyard\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Mail\Shipyard\ContactFormQuery;
+use Wpwwhimself\Shipyard\Mail\ContactFormQuery;
 use App\Models\StandardPage;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;

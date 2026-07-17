@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Models\Shipyard;
+namespace Wpwwhimself\Shipyard\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
-use App\Mail\Shipyard\ResetPasswordLink;
+use Wpwwhimself\Shipyard\Mail\ResetPasswordLink;
 use App\Scaffolds\Role;
-use App\Traits\Shipyard\HasStandardScopes;
-use App\Traits\Shipyard\HasStandardAttributes;
-use App\Traits\Shipyard\HasStandardFields;
+use Wpwwhimself\Shipyard\Traits\HasStandardScopes;
+use Wpwwhimself\Shipyard\Traits\HasStandardAttributes;
+use Wpwwhimself\Shipyard\Traits\HasStandardFields;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;

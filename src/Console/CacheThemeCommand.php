@@ -2,7 +2,7 @@
 
 namespace Wpwwhimself\Shipyard\Console;
 
-use App\Http\Controllers\Shipyard\ThemeController;
+use Wpwwhimself\Shipyard\Controllers\ThemeController;
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Facades\Http;

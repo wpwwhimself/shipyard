@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Mail\Shipyard;
+namespace Wpwwhimself\Shipyard\Mail;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;

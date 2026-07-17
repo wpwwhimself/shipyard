@@ -34,21 +34,6 @@ class UninstallCommand extends Command
         #region removing
         $this->info("🔥 Removing...");
 
-        $this->comment("- middleware...");
-        $this->tryDelete(base_path("app/Http/Middleware/Shipyard"));
-
-        $this->comment("- traits...");
-        $this->tryDelete(base_path("app/Traits/Shipyard"));
-
-        $this->comment("- mails...");
-        $this->tryDelete(base_path("app/Mail/Shipyard"));
-
-        $this->comment("- models...");
-        $this->tryDelete(base_path("app/Models/Shipyard"));
-
-        $this->comment("- controllers...");
-        $this->tryDelete(base_path("app/Http/Controllers/Shipyard"));
-
         $this->comment("- stubs...");
         $this->tryDelete(base_path("stubs"));
 

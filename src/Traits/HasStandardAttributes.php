@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Traits\Shipyard;
+namespace Wpwwhimself\Shipyard\Traits;
 
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Support\Facades\Auth;

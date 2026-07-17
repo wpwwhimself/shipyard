@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Traits\Shipyard;
+namespace Wpwwhimself\Shipyard\Traits;
 
 use Illuminate\Support\Facades\Log;
 

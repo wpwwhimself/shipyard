@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Scaffolds\Shipyard;
+namespace Wpwwhimself\Shipyard\Scaffolds;
 
-use App\Scaffolds\Shipyard\Scaffold;
 use Illuminate\Support\Collection;
 use Illuminate\View\ComponentAttributeBag;
 

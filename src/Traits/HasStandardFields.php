@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Traits\Shipyard;
+namespace Wpwwhimself\Shipyard\Traits;
 
-use App\Http\Controllers\Shipyard\DocsController;
+use Wpwwhimself\Shipyard\Controllers\DocsController;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;

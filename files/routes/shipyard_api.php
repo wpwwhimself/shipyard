@@ -1,8 +1,8 @@
 <?php
 
-use App\Http\Controllers\Shipyard\AuthController;
-use App\Http\Controllers\Shipyard\FrontController;
-use App\Http\Controllers\Shipyard\ModalController;
+use Wpwwhimself\Shipyard\Controllers\AuthController;
+use Wpwwhimself\Shipyard\Controllers\FrontController;
+use Wpwwhimself\Shipyard\Controllers\ModalController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 

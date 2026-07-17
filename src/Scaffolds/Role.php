@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Scaffolds\Shipyard;
+namespace Wpwwhimself\Shipyard\Scaffolds;
 
-use App\Scaffolds\Shipyard\Scaffold;
 use Illuminate\Support\Collection;
 use Illuminate\View\ComponentAttributeBag;
 
@@ -55,7 +54,7 @@ abstract class Role
     public static function getAll(): Collection
     {
         $all_items = array_merge(self::defaultItems(), static::items());
-        
+
         self::validateRoles($all_items);
 
         $ret = collect($all_items)->map(fn ($data) => [

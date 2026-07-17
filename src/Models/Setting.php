@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Shipyard;
+namespace Wpwwhimself\Shipyard\Models;
 
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
