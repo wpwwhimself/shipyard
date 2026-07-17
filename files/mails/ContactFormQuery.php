@@ -43,7 +43,7 @@ class ContactFormQuery extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'mail.shipyard.contact-form.query',
+            view: 'shipyard::mail.contact-form.query',
         );
     }
 

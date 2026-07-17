@@ -19,11 +19,11 @@ $key ??= Str::uuid();
     <div class="header">
         <div class="titles">
             @if ($icon)
-            <x-shipyard.app.h lvl="2" role="section-icon" :icon="$icon" />
+            <x-shipyard::app.h lvl="2" role="section-icon" :icon="$icon" />
             @endif
 
             <div role="texts">
-                <x-shipyard.app.h lvl="2" role="section-title">{{ $title }}</x-shipyard.app.h>
+                <x-shipyard::app.h lvl="2" role="section-title">{{ $title }}</x-shipyard::app.h>
                 @if ($subtitle)
                 <span role="section-subtitle">{!! $subtitle !!}</span>
                 @endif
@@ -47,7 +47,7 @@ $key ??= Str::uuid();
                     ])
                     @popper(Rozwiń)
                 >
-                    <x-shipyard.app.icon name="unfold-more-horizontal" />
+                    <x-shipyard::app.icon name="unfold-more-horizontal" />
                 </span>
                 <span
                     onclick="openSection(this, '{{ $key }}')"
@@ -59,7 +59,7 @@ $key ??= Str::uuid();
                     ])
                     @popper(Zwiń)
                 >
-                    <x-shipyard.app.icon name="unfold-less-horizontal" />
+                    <x-shipyard::app.icon name="unfold-less-horizontal" />
                 </span>
             </div>
             @endunless
@@ -84,7 +84,7 @@ $key ??= Str::uuid();
                 "hidden" => $extended,
             ])
         >
-            <x-shipyard.app.icon name="chevron-down" />
+            <x-shipyard::app.icon name="chevron-down" />
             Rozwiń
         </span>
         <span
@@ -96,7 +96,7 @@ $key ??= Str::uuid();
                 "hidden" => !$extended,
             ])
         >
-            <x-shipyard.app.icon name="chevron-up" />
+            <x-shipyard::app.icon name="chevron-up" />
             Zwiń
         </span>
     </div>

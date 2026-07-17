@@ -8,11 +8,11 @@
     "hidden" => !$notHidden,
     "horizontal" => $horizontal
 ])>
-    <x-shipyard.app.logo :clickable="false" />
+    <x-shipyard::app.logo :clickable="false" />
 
     @if ($horizontal)
     <span class="icon"></span>
     @else
-    <x-shipyard.app.icon name="loading" />
+    <x-shipyard::app.icon name="loading" />
     @endif
 </div>

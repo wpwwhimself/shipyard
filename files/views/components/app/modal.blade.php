@@ -1,31 +1,31 @@
 <div id="modal" class="modal hidden">
-    <x-shipyard.app.loader />
+    <x-shipyard::app.loader />
 
-    <x-shipyard.app.card title="..." title-lvl="2" id="modal-card" class="hidden">
-        <x-shipyard.app.form method="POST">
+    <x-shipyard::app.card title="..." title-lvl="2" id="modal-card" class="hidden">
+        <x-shipyard::app.form method="POST">
             <div role="fields"></div>
 
             <div role="summary" class="hidden">
-                <x-shipyard.app.loader />
+                <x-shipyard::app.loader />
 
                 <div role="summary-content"></div>
             </div>
 
             <x-slot:actions>
-                <x-shipyard.ui.button
+                <x-shipyard::ui.button
                     icon="check"
                     label="Zatwierdź"
                     action="submit"
                     class="primary"
                 />
-                <x-shipyard.ui.button
+                <x-shipyard::ui.button
                     icon="arrow-right"
                     label="Dalej"
                     action="none"
                     class="tertiary hidden"
                     role="go_to_summary"
                 />
-                <x-shipyard.ui.button
+                <x-shipyard::ui.button
                     icon="arrow-left"
                     label="Wróć"
                     action="none"
@@ -34,10 +34,10 @@
                     role="close_summary"
                 />
             </x-slot:actions>
-        </x-shipyard.app.form>
+        </x-shipyard::app.form>
 
         <x-slot:actions>
-            <x-shipyard.ui.button
+            <x-shipyard::ui.button
                 icon="close"
                 pop="Zamknij"
                 action="none"
@@ -46,7 +46,7 @@
                 role="close_modal"
             />
         </x-slot:actions>
-    </x-shipyard.app.card>
+    </x-shipyard::app.card>
 </div>
 
 <script>

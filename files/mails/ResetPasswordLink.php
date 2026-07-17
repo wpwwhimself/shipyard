@@ -41,7 +41,7 @@ class ResetPasswordLink extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'mail.shipyard.password.reset-link',
+            view: 'shipyard::mail.password.reset-link',
         );
     }
 

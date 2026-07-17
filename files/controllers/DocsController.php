@@ -63,7 +63,7 @@ class DocsController extends Controller
     {
         $docs = self::prepareDocs();
 
-        return view("pages.shipyard.docs.index", compact(
+        return view("shipyard::pages.docs.index", compact(
             "docs",
         ));
     }
@@ -107,7 +107,7 @@ class DocsController extends Controller
         $doc = $headings_raw->filter(fn ($hdata) => $hdata["lvl"] === 1)->pluck("heading")->values()
             ->combine($doc);
 
-        return view("pages.shipyard.docs.view", compact(
+        return view("shipyard::pages.docs.view", compact(
             "docs",
             "title",
             "icon",
@@ -124,7 +124,7 @@ class DocsController extends Controller
 
         $spells = SpellbookController::SPELLS;
 
-        return view("pages.shipyard.docs.spellbook", compact(
+        return view("shipyard::pages.docs.spellbook", compact(
             "docs",
             "spells",
         ));
@@ -136,7 +136,7 @@ class DocsController extends Controller
 
         $roles = Role::getAll();
 
-        return view("pages.shipyard.docs.roles", compact(
+        return view("shipyard::pages.docs.roles", compact(
             "docs",
             "roles",
         ));

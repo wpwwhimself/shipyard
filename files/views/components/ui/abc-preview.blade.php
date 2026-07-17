@@ -12,7 +12,7 @@
 <div class="abc-preview" for="{{ $name }}">
     @unless ($live)
     <div class="flex right center wrap" role="options">
-        <x-shipyard.ui.button
+        <x-shipyard::ui.button
             icon="music-clef-treble"
             pop="Transpozycja"
             label="0"
@@ -25,7 +25,7 @@
             ["music-accidental-flat", "W dół", -1],
             ["music-accidental-natural", "Resetuj", 0],
         ] as [$icon, $label, $mode])
-        <x-shipyard.ui.button
+        <x-shipyard::ui.button
             :icon="$icon"
             :pop="$label"
             class="transposer-btn hidden tertiary"

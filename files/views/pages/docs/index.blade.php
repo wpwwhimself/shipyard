@@ -1,4 +1,4 @@
-@extends("layouts.shipyard.docs")
+@extends("shipyard::layouts.docs")
 @section("title", "Dokumentacja")
 
 @section("content")

@@ -17,7 +17,7 @@
 
     <div role="bottom-part">
         <div role="timestamps">
-            <x-shipyard.app.model.timestamps :model="$model" />
+            <x-shipyard::app.model.timestamps :model="$model" />
         </div>
 
         @isset ($actions)

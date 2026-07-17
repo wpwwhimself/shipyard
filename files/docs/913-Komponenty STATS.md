@@ -6,7 +6,7 @@
 # counter
 
 ```php
-<x-shipyard.stats.counter :rank="10" />
+<x-shipyard::stats.counter :rank="10" />
 ```
 
 Symboliczny wyświetlacz wartości. Po najechaniu wyświetla dokładną wartość.
@@ -25,7 +25,7 @@ Symboliczny wyświetlacz wartości. Po najechaniu wyświetla dokładną wartoś�
 # tile
 
 ```php
-<x-shipyard.stats.tile label="Fajności" value="50" />
+<x-shipyard::stats.tile label="Fajności" value="50" />
 ```
 
 Opisana komórka z wartością. Może też wyświetlać porównanie z innymi wartościami.
@@ -42,7 +42,7 @@ Opisana komórka z wartością. Może też wyświetlać porównanie z innymi war
 ## column
 
 ```php
-<x-shipyard.stats.chart.column title="Dziwności w skali roku" :data="$data" />
+<x-shipyard::stats.chart.column title="Dziwności w skali roku" :data="$data" />
 ```
 
 Wykres kolumnowy.

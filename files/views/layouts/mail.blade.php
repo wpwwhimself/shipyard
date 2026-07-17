@@ -1,12 +1,12 @@
-@extends("layouts.shipyard.simple")
+@extends("shipyard::layouts.simple")
 
 @section("body")
 
-<x-shipyard.app.big.header>
+<x-shipyard::app.big.header>
     <x-slot:middle>
         <h1 style="margin: 0;">@yield("title")</h1>
     </x-slot:middle>
-</x-shipyard.app.big.header>
+</x-shipyard::app.big.header>
 
 @includeIf("components.layout-extra.background")
 
@@ -18,14 +18,14 @@
     @endif
 </div>
 
-<x-shipyard.app.big.footer>
+<x-shipyard::app.big.footer>
     <x-slot:top>
         @includeIf("components.layout-extra.footer-extra")
     </x-slot:top>
 
     <x-slot:bottom>
-        <x-shipyard.mail.app-badge />
+        <x-shipyard::mail.app-badge />
     </x-slot:bottom>
-</x-shipyard.app.big.footer>
+</x-shipyard::app.big.footer>
 
 @endsection

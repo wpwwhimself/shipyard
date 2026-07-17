@@ -15,6 +15,6 @@ class ProfileController extends Controller
 {
     public function myProfile(): View
     {
-        return view('pages.shipyard.auth.profile');
+        return view('shipyard::pages.auth.profile');
     }
 }

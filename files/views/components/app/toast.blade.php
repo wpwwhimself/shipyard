@@ -8,7 +8,7 @@
     ];
     @endphp
     @foreach ($icons as $mode => $icon)
-    <x-shipyard.app.icon :data="$mode" :name="$icon" />
+    <x-shipyard::app.icon :data="$mode" :name="$icon" />
     @endforeach
 
     <span role="label"></span>

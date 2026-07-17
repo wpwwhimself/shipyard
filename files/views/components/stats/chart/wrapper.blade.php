@@ -9,7 +9,7 @@
     <div class="title">
         <div role="title-container">
             @if ($icon)
-            <x-shipyard.app.icon :name="$icon" />
+            <x-shipyard::app.icon :name="$icon" />
             @endif
             <div>
                 <h2 role="chart-title">{{ $title }}</h2>

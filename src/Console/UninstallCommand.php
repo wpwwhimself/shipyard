@@ -75,10 +75,6 @@ class UninstallCommand extends Command
         $this->tryDelete(base_path("public/js/Shipyard"));
 
         $this->comment("- views...");
-        $this->tryDelete(base_path("resources/views/layouts/shipyard"));
-        $this->tryDelete(base_path("resources/views/components/shipyard"));
-        $this->tryDelete(base_path("resources/views/mail/shipyard"));
-        $this->tryDelete(base_path("resources/views/pages/shipyard"));
         $this->tryDelete(base_path("resources/views/errors"));
         $this->tryDelete(base_path("resources/views/welcome_to_shipyard.blade.php"));
 

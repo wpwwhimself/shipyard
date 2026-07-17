@@ -12,7 +12,7 @@
 
     <div class="actions">
         @if (request()->has("select"))
-        <x-shipyard.ui.button
+        <x-shipyard::ui.button
             icon="check"
             pop="Wybierz"
             action="none"
@@ -20,25 +20,25 @@
             class="primary"
         />
         @else
-        <x-shipyard.ui.button
+        <x-shipyard::ui.button
             icon="download"
             pop="Pobierz"
             :action="route('files.download', ['file' => $file])"
             target="_blank"
         />
-        <x-shipyard.ui.button
+        <x-shipyard::ui.button
             icon="link"
             pop="Link"
             action="none"
             onclick="copyToClipboard('{{ asset(Storage::url($file)) }}')"
         />
-        <x-shipyard.ui.button
+        <x-shipyard::ui.button
             icon="pencil"
             pop="Podmień"
             action="none"
             onclick="initFileReplace('{{ Str::afterLast($file, '/') }}')"
         />
-        <x-shipyard.ui.button
+        <x-shipyard::ui.button
             icon="delete"
             pop="Usuń"
             :action="route('files.delete', ['file' => $file])"

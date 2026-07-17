@@ -39,7 +39,7 @@ class ThemeController extends Controller
 
     #region test pages
     public function testTheme() {
-        return view("pages.shipyard.test.theme");
+        return view("shipyard::pages.test.theme");
     }
 
     public function testThemeToast(string $type) {

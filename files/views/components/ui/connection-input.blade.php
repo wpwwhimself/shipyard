@@ -28,7 +28,7 @@ if ($models->count() > 1) {
 
 @switch ($rdata['mode'])
     @case ("one")
-    <x-shipyard.ui.input :type="($dummy || ($rdata['readonly'] ?? false) ? 'dummy-' : '') . 'select'"
+    <x-shipyard::ui.input :type="($dummy || ($rdata['readonly'] ?? false) ? 'dummy-' : '') . 'select'"
         :name="$rdata['field_name'] ?? Str::snake($connectionName).'_id'"
         :label="$field_label"
         :icon="$icon"
@@ -48,7 +48,7 @@ if ($models->count() > 1) {
 
     @case ("many")
     @case ("many-reverse")
-    <x-shipyard.ui.input :type="($dummy || ($rdata['readonly'] ?? false) ? 'dummy-' : '') . 'select-multiple'"
+    <x-shipyard::ui.input :type="($dummy || ($rdata['readonly'] ?? false) ? 'dummy-' : '') . 'select-multiple'"
         :name="($rdata['field_name'] ?? Str::snake($connectionName)).'[]'"
         :label="$field_label"
         :icon="$icon"

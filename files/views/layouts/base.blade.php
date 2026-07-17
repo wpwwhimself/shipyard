@@ -122,8 +122,8 @@
         @yield("appends")
         @endif
 
-        <x-shipyard.app.toast />
-        <x-shipyard.app.modal />
+        <x-shipyard::app.toast />
+        <x-shipyard::app.modal />
 
         @include("popper::assets")
     </body>

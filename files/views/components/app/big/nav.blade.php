@@ -8,7 +8,7 @@ $pages_are_truncated = $pages->count() > $max_pages;
 
 @if ($pages->count() > 0)
 @foreach ($pages as $page_i => $page)
-<x-shipyard.ui.button
+<x-shipyard::ui.button
     :icon="$page->icon"
     :pop="$page->name"
     :action="$page->action"
@@ -23,7 +23,7 @@ $pages_are_truncated = $pages->count() > $max_pages;
 />
 @endforeach
 @if ($pages_are_truncated)
-<x-shipyard.ui.button
+<x-shipyard::ui.button
     icon="menu"
     pop="Menu"
     action="none"
@@ -35,7 +35,7 @@ $pages_are_truncated = $pages->count() > $max_pages;
 @endif
 
 @if (Auth::user()?->hasRole("content-manager|technical"))
-<x-shipyard.ui.button
+<x-shipyard::ui.button
     icon="cogs"
     pop="Administracja"
     action="none"
@@ -45,7 +45,7 @@ $pages_are_truncated = $pages->count() > $max_pages;
 />
 @endif
 
-<x-shipyard.ui.button
+<x-shipyard::ui.button
     icon="folder"
     pop="Pliki"
     :action="route('files')"
@@ -53,7 +53,7 @@ $pages_are_truncated = $pages->count() > $max_pages;
     class="hidden"
     data-mode="admin"
 />
-<x-shipyard.ui.button
+<x-shipyard::ui.button
     :icon="model_icon('standard-pages')"
     :pop="model('standard-pages')::META['label']"
     :action="route('admin.model.list', ['model' => 'standard-pages'])"
@@ -61,7 +61,7 @@ $pages_are_truncated = $pages->count() > $max_pages;
     class="hidden"
     data-mode="admin"
 />
-<x-shipyard.ui.button
+<x-shipyard::ui.button
     :icon="model_icon('settings')"
     :pop="model('settings')::META['label']"
     :action="route('admin.system-settings')"
@@ -69,7 +69,7 @@ $pages_are_truncated = $pages->count() > $max_pages;
     class="hidden"
     data-mode="admin"
 />
-<x-shipyard.ui.button
+<x-shipyard::ui.button
     icon="database"
     pop="Zarządzanie danymi"
     :action="route('admin.models')"
@@ -78,7 +78,7 @@ $pages_are_truncated = $pages->count() > $max_pages;
     data-mode="admin"
 />
 
-<x-shipyard.ui.button
+<x-shipyard::ui.button
     icon="unfold-less-vertical"
     pop="Zwiń"
     action="none"

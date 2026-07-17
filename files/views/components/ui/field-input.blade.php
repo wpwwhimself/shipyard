@@ -8,7 +8,7 @@
 $fdata = $model::getFields()[$fieldName];
 @endphp
 
-<x-shipyard.ui.input :type="($dummy ? 'dummy-' : '') . $fdata['type']"
+<x-shipyard::ui.input :type="($dummy ? 'dummy-' : '') . $fdata['type']"
     :name="$fieldName"
     :label="$fdata['label']"
     :icon="$fdata['icon']"

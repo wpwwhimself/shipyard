@@ -1,4 +1,4 @@
-@extends("layouts.shipyard.mail")
+@extends("shipyard::layouts.mail")
 @section("title", "Zgłoszenie błędu")
 
 @section("content")

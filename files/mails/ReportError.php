@@ -47,7 +47,7 @@ class ReportError extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'mail.shipyard.error.report',
+            view: 'shipyard::mail.error.report',
         );
     }
 

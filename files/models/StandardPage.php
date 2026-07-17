@@ -48,7 +48,7 @@ class StandardPage extends Model implements ContractsAuditable
     public function displayTitle(): Attribute
     {
         return Attribute::make(
-            get: fn () => view("components.shipyard.app.h", [
+            get: fn () => view("shipyard::components.app.h", [
                 "lvl" => 3,
                 "icon" => $this->icon ?? self::META["icon"],
                 "attributes" => new ComponentAttributeBag([
@@ -69,11 +69,11 @@ class StandardPage extends Model implements ContractsAuditable
     public function displayMiddlePart(): Attribute
     {
         return Attribute::make(
-            get: fn () => view("components.shipyard.app.model.fields-preview", [
+            get: fn () => view("shipyard::components.app.model.fields-preview", [
                 "model" => $this,
                 "fields" => ["visible", "order",],
             ])->render()
-                . view("components.shipyard.ui.button", [
+                . view("shipyard::components.ui.button", [
                     "action" => route("standard-page", ["slug" => $this->slug]),
                     "icon" => "eye",
                     "pop" => "Przejdź do strony",

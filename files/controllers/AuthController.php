@@ -20,7 +20,7 @@ class AuthController extends Controller
     public function login()
     {
         if (Auth::check()) return redirect()->intended(route("profile"));
-        return view("pages.shipyard.auth.login");
+        return view("shipyard::pages.auth.login");
     }
 
     public function processLogin(Request $rq)
@@ -49,7 +49,7 @@ class AuthController extends Controller
     public function register()
     {
         if (Auth::check()) return redirect()->intended(route("profile"));
-        return view("pages.shipyard.auth.register");
+        return view("shipyard::pages.auth.register");
     }
 
     public function processRegister(Request $rq)
@@ -149,7 +149,7 @@ class AuthController extends Controller
             return redirect()->route("password.reset", ["id" => $rq->id]);
         }
 
-        return view("pages.shipyard.auth.password.set");
+        return view("shipyard::pages.auth.password.set");
     }
 
     public function processSetPassword(Request $rq)
@@ -200,12 +200,12 @@ class AuthController extends Controller
     public function resetPassword(Request $rq, ?string $token = null)
     {
         if ($token) {
-            return view("pages.shipyard.auth.password.set", compact("token"));
+            return view("shipyard::pages.auth.password.set", compact("token"));
         }
 
         $user = User::find($rq->id);
 
-        return view("pages.shipyard.auth.password.reset", compact("user"));
+        return view("shipyard::pages.auth.password.reset", compact("user"));
     }
 
     public function processResetPassword(Request $rq)

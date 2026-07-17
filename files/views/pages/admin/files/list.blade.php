@@ -1,4 +1,4 @@
-@extends("layouts.shipyard.admin")
+@extends("shipyard::layouts.admin")
 @section("title", "Repozytorium plików")
 @section("subtitle", "Administracja")
 
@@ -6,7 +6,7 @@
 
 <div class="card stick-top">
     @foreach ($sections as $id => $item)
-    <x-shipyard.ui.button
+    <x-shipyard::ui.button
         :icon="$item['icon'] ?? null"
         :pop="$item['label']"
         action="none"
@@ -28,38 +28,38 @@
 </div>
 
 @php $card_id = "files-list"; @endphp
-<x-shipyard.app.section
+<x-shipyard::app.section
     :title="$sections[$card_id]['label']"
     :icon="$sections[$card_id]['icon']"
     :id="$card_id"
 >
     <x-slot:actions>
-        <x-shipyard.ui.button
+        <x-shipyard::ui.button
             label="Znajdź pliki"
             icon="magnify"
             :action="route('files.search')"
         />
     </x-slot:actions>
 
-    <x-shipyard.app.file.breadcrumbs :directories="$directories" />
+    <x-shipyard::app.file.breadcrumbs :directories="$directories" />
 
     <div role="files-list" @class(["stagger-contents" => setting("animations_mode") >= 2])>
         @forelse ($files as $file)
-        <x-shipyard.app.file.card :file="$file" />
+        <x-shipyard::app.file.card :file="$file" />
         @empty
         <p>Brak plików</p>
         @endforelse
     </div>
-</x-shipyard.app.section>
+</x-shipyard::app.section>
 
 <div class="grid but-mobile-down" style="--col-count: 2;">
     @php $card_id = "files-upload"; @endphp
-    <x-shipyard.app.section
+    <x-shipyard::app.section
         :title="$sections[$card_id]['label']"
         :icon="$sections[$card_id]['icon']"
         :id="$card_id"
     >
-        <x-shipyard.app.form
+        <x-shipyard::app.form
             :action="route('files.upload')"
             method="post"
             enctype="multipart/form-data"
@@ -71,30 +71,30 @@
             <span>Pliki zostaną zapisane w obecnie wybranym katalogu.</span>
 
             <x-slot:actions>
-                <x-shipyard.ui.button
+                <x-shipyard::ui.button
                     label="Wgraj"
                     icon="upload"
                     action="submit"
                     class="primary"
                 />
             </x-slot:actions>
-        </x-shipyard.app.form>
-    </x-shipyard.app.section>
+        </x-shipyard::app.form>
+    </x-shipyard::app.section>
 
     @php $card_id = "folder-mgmt"; @endphp
-    <x-shipyard.app.section
+    <x-shipyard::app.section
         :title="$sections[$card_id]['label']"
         :icon="$sections[$card_id]['icon']"
         :id="$card_id"
     >
-        <x-shipyard.app.form
+        <x-shipyard::app.form
             :action="route('files.folder.create')"
             method="post"
         >
             <input type="hidden" name="path" value="{{ request("path") }}">
 
             <p>Utwórz nowy podfolder, podając jego nazwę.</p>
-            <x-shipyard.ui.input
+            <x-shipyard::ui.input
                 name="name"
                 label="Nazwa podfolderu"
                 icon="folder-text"
@@ -104,14 +104,14 @@
             </p>
 
             <x-slot:actions>
-                <x-shipyard.ui.button
+                <x-shipyard::ui.button
                     icon="folder-plus"
                     label="Utwórz"
                     action="submit"
                     class="primary"
                 />
                 @if (request('path'))
-                <x-shipyard.ui.button
+                <x-shipyard::ui.button
                     icon="folder-remove"
                     label="Usuń obecny folder i jego zawartość"
                     :action="route('files.folder.delete', ['path' => request('path')])"
@@ -119,8 +119,8 @@
                 />
                 @endif
             </x-slot:actions>
-        </x-shipyard.app.form>
-    </x-shipyard.app.section>
+        </x-shipyard::app.form>
+    </x-shipyard::app.section>
 </div>
 
 </div>

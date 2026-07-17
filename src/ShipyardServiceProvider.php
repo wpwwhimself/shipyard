@@ -2,6 +2,7 @@
 
 namespace Wpwwhimself\Shipyard;
 
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 
 class ShipyardServiceProvider extends ServiceProvider
@@ -13,9 +14,9 @@ class ShipyardServiceProvider extends ServiceProvider
 
     public function boot()
     {
-        if (!$this->app->runningInConsole()) {
-            return;
-        }
+        $this->loadViewsFrom(__DIR__ . "/../files/views", "shipyard");
+
+        Blade::anonymousComponentPath("shipyard::components", "shipyard");
 
         $this->commands([
             \Wpwwhimself\Shipyard\Console\InstallCommand::class,

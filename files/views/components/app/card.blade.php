@@ -14,11 +14,11 @@
     <div class="header">
         <div class="titles">
             @if ($icon)
-            <x-shipyard.app.h :lvl="$titleLvl" role="card-icon" :icon="$icon" />
+            <x-shipyard::app.h :lvl="$titleLvl" role="card-icon" :icon="$icon" />
             @endif
 
             <div role="texts">
-                <x-shipyard.app.h :lvl="$titleLvl" role="card-title">{{ $title }}</x-shipyard.app.h>
+                <x-shipyard::app.h :lvl="$titleLvl" role="card-title">{{ $title }}</x-shipyard::app.h>
                 @if ($subtitle)
                 <span role="card-subtitle">{!! $subtitle !!}</span>
                 @endif
@@ -33,7 +33,7 @@
     </div>
     @endif
 
-    <x-shipyard.app.loader horizontal />
+    <x-shipyard::app.loader horizontal />
 
     @isset ($slot)
     <div @class(["contents", $innerClass]) @style([$innerStyle])>
