@@ -8,6 +8,8 @@
     @env("stage") <span @popper(Środowisko testowe (stage)) class="accent success"><x-shipyard.app.icon name="test-tube" /></span> @endenv
 </div>
 
+@includeIf("components.layout-extra.background")
+
 <div id="middle-wrapper">
     @hasSection("sidebar")
     <aside>
@@ -26,6 +28,10 @@
     <x-slot:top>
         <x-shipyard.auth.user-badge />
     </x-slot:top>
+
+    <x-slot:middle>
+        @includeIf("components.layout-extra.footer-extra")
+    </x-slot:middle>
 
     <x-slot:bottom>
         @unless (setting("app_adaptive_dark_mode"))

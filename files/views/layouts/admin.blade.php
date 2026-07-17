@@ -18,6 +18,8 @@
     </x-slot:bottom>
 </x-shipyard.app.big.header>
 
+@includeIf("components.layout-extra.background")
+
 <div id="middle-wrapper">
     @hasSection("sidebar")
     <aside>
@@ -36,6 +38,10 @@
     <x-slot:top>
         <x-shipyard.auth.user-badge />
     </x-slot:top>
+
+    <x-slot:middle>
+        @includeIf("components.layout-extra.footer-extra")
+    </x-slot:middle>
 
     <x-slot:bottom>
         @if (setting("contact_form_enabled") && \App\Models\User::all()->count(fn ($u) => $u->hasRole("mediator")))
