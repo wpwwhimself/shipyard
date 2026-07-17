@@ -95,7 +95,7 @@ class InstallCommand extends Command
         $this->tryCopyDirectory(__DIR__.'/../../files/stubs', base_path("stubs"));
 
         $this->comment("- styles...");
-        $this->tryLink(__DIR__.'/../../files/css', base_path("public/css/Shipyard"));
+        $this->tryLink(__DIR__.'/../../files/css', base_path("public/css/Shipyard")); // assets cannot be exposed without publishing, so they must remain as symlinks
         $this->tryCreateEmptyFile(base_path("public/css/app.css"));
 
         $this->comment("- theme...");
@@ -103,7 +103,7 @@ class InstallCommand extends Command
         $this->tryCopy(__DIR__.'/../../files/ShipyardTheme.php', base_path("app/ShipyardTheme.php"), true);
 
         $this->comment("- scripts...");
-        $this->tryLink(__DIR__.'/../../files/js', base_path("public/js/Shipyard"));
+        $this->tryLink(__DIR__.'/../../files/js', base_path("public/js/Shipyard")); // assets cannot be exposed without publishing, so they must remain as symlinks
         $this->tryCreateEmptyFile(base_path("public/js/earlies.js"));
         $this->tryCreateEmptyFile(base_path("public/js/app.js"));
 
@@ -112,7 +112,7 @@ class InstallCommand extends Command
         $this->tryCopy(__DIR__.'/../../files/views/welcome_to_shipyard.blade.php', base_path("resources/views/welcome_to_shipyard.blade.php"));
 
         $this->comment("- media...");
-        $this->tryLink(__DIR__.'/../../files/media', base_path("public/media/Shipyard"));
+        $this->tryLink(__DIR__.'/../../files/media', base_path("public/media/Shipyard")); // assets cannot be exposed without publishing, so they must remain as symlinks
 
         $this->comment("- configs...");
         $this->tryCopy(__DIR__.'/../../files/configs/app.php', base_path("bootstrap/app.php"));

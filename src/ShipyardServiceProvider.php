@@ -47,6 +47,13 @@ class ShipyardServiceProvider extends ServiceProvider
         $this->loadRoutesFrom(__DIR__ . "/../files/routes/shipyard_api.php");
         $this->loadRoutesFrom(__DIR__ . "/../files/routes/shipyard_schedule.php");
 
+        // assets cannot be exposed without publishing, so they must remain as symlinks
+        // $this->publishes([
+        //     __DIR__ . "/../files/css" => public_path("vendor/shipyard/css"),
+        //     __DIR__ . "/../files/js" => public_path("vendor/shipyard/js"),
+        //     __DIR__ . "/../files/media" => public_path("vendor/shipyard/media"),
+        // ], "public");
+
         $this->publishes([
             __DIR__ . "/../files/configs/audit.php" => config_path("audit.php"),
             __DIR__ . "/../files/configs/backup.php" => config_path("backup.php"),
