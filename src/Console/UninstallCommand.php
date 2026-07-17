@@ -49,16 +49,6 @@ class UninstallCommand extends Command
         $this->comment("- models...");
         $this->tryDelete(base_path("app/Models/Shipyard"));
 
-        $this->comment("- migrations...");
-        $migrations = collect(glob(base_path("database/migrations/*shipyard*")))
-            ->sortDesc();
-        foreach ($migrations as $migration) {
-            //run down migration
-            // $migration_local_path = Str::replace(base_path(), '', $migration);
-            // $this->call('migrate:rollback', ['--path' => $migration_local_path]);
-            $this->tryDelete($migration);
-        }
-
         $this->comment("- controllers...");
         $this->tryDelete(base_path("app/Http/Controllers/Shipyard"));
 

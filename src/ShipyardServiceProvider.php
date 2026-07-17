@@ -14,6 +14,7 @@ class ShipyardServiceProvider extends ServiceProvider
 
     public function boot()
     {
+        $this->loadMigrationsFrom(__DIR__ . "/../files/migrations");
         $this->loadViewsFrom(__DIR__ . "/../files/views", "shipyard");
 
         Blade::anonymousComponentPath("shipyard::components", "shipyard");

@@ -89,9 +89,6 @@ class InstallCommand extends Command
         $this->tryCopy(__DIR__.'/../../files/templates/StandardPage.php', base_path("app/Models/StandardPage.php"), true);
         $this->tryCopy(__DIR__.'/../../files/templates/NavItem.php', base_path("app/Models/NavItem.php"), true);
 
-        $this->comment("- migrations...");
-        $this->tryCopyDirectory(__DIR__.'/../../files/migrations', base_path("database/migrations"));
-
         $this->comment("- controllers...");
         $this->tryLink(__DIR__.'/../../files/controllers', base_path("app/Http/Controllers/Shipyard"));
 
@@ -145,7 +142,6 @@ class InstallCommand extends Command
             $this->tryCopy(__DIR__.'/../../files/.gitignore.directory.example', $path);
         }
         foreach ([
-            base_path("database/migrations/.gitignore"),
             base_path("docs/.gitignore"),
         ] as $path) {
             $this->tryCopy(__DIR__.'/../../files/.gitignore.nametagged.example', $path);
