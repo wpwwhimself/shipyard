@@ -1,5 +1,5 @@
 @auth
-<x-shipyard.ui.button
+<x-shipyard::ui.button
     icon="account"
     :label="setting('users_login_is') != 'none'
         ? Auth::user()->name
@@ -7,12 +7,12 @@
     pop="Zobacz profil"
     :action="route('profile')"
 />
-<x-shipyard.ui.button
+<x-shipyard::ui.button
     icon="book-information-variant"
     pop="Dokumentacja"
     :action="route('docs.index')"
 />
-<x-shipyard.ui.button
+<x-shipyard::ui.button
     icon="logout"
     pop="Wyloguj"
     :action="route('logout')"
@@ -20,7 +20,7 @@
 />
 
 @else
-<x-shipyard.ui.button
+<x-shipyard::ui.button
     icon="login"
     :label="implode('/', array_filter([
         'Logowanie',

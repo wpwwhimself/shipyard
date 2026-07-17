@@ -18,13 +18,13 @@
         );
     @endphp
 
-    <x-shipyard.app.icon-label-value
+    <x-shipyard::app.icon-label-value
         :icon="$icon"
         :label="$pop_label"
     >
         {!! Str::startsWith($data["mode"], "many")
             ? $model->{$connection_name}->map(fn ($i) => $i->__toString())->join(", ")
             : $model->{$connection_name} !!}
-    </x-shipyard.app.icon-label-value>
+    </x-shipyard::app.icon-label-value>
     @endforeach
 </div>

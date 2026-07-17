@@ -1,7 +1,7 @@
 <table id="app-badge">
     <tr>
         <td>
-            <x-shipyard.app.logo />
+            <x-shipyard::app.logo />
         </td>
         <td role="details">
             <h2 role="app-name"><a href="/">{{ setting("app_name") }}</a></h2>

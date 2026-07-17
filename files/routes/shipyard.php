@@ -1,15 +1,17 @@
 <?php
 
-use App\Http\Controllers\Shipyard\AdminController;
-use App\Http\Controllers\Shipyard\AuthController;
-use App\Http\Controllers\Shipyard\DocsController;
-use App\Http\Controllers\Shipyard\ErrorController;
-use App\Http\Controllers\Shipyard\FrontController;
-use App\Http\Controllers\Shipyard\ProfileController;
-use App\Http\Controllers\Shipyard\SpellbookController;
-use App\Http\Controllers\Shipyard\ThemeController;
-use App\Http\Middleware\Shipyard\EnsureUserHasRole;
+use Wpwwhimself\Shipyard\Controllers\AdminController;
+use Wpwwhimself\Shipyard\Controllers\AuthController;
+use Wpwwhimself\Shipyard\Controllers\DocsController;
+use Wpwwhimself\Shipyard\Controllers\ErrorController;
+use Wpwwhimself\Shipyard\Controllers\FrontController;
+use Wpwwhimself\Shipyard\Controllers\ProfileController;
+use Wpwwhimself\Shipyard\Controllers\SpellbookController;
+use Wpwwhimself\Shipyard\Controllers\ThemeController;
+use Wpwwhimself\Shipyard\Middleware\EnsureUserHasRole;
 use Illuminate\Support\Facades\Route;
+
+Route::middleware("web")->group(function () {
 
 #region auth
 Route::controller(AuthController::class)->prefix("auth")->group(function () {
@@ -126,3 +128,5 @@ Route::controller(ErrorController::class)->prefix("errors")->group(function () {
     Route::post("report", "report")->name("error.report");
 });
 #endregion
+
+});

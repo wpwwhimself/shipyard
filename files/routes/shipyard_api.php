@@ -1,12 +1,12 @@
 <?php
 
-use App\Http\Controllers\Shipyard\AuthController;
-use App\Http\Controllers\Shipyard\FrontController;
-use App\Http\Controllers\Shipyard\ModalController;
+use Wpwwhimself\Shipyard\Controllers\AuthController;
+use Wpwwhimself\Shipyard\Controllers\FrontController;
+use Wpwwhimself\Shipyard\Controllers\ModalController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-Route::middleware("auth:sanctum")->group(function () {
+Route::middleware(["api", "auth:sanctum"])->prefix("api")->group(function () {
 
 #region auth
 Route::controller(AuthController::class)->prefix("auth")->group(function () {

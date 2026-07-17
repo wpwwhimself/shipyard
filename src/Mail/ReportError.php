@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Mail\Shipyard;
+namespace Wpwwhimself\Shipyard\Mail;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -47,7 +47,7 @@ class ReportError extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'mail.shipyard.error.report',
+            view: 'shipyard::mail.error.report',
         );
     }
 

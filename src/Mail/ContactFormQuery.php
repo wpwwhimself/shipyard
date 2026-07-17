@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Mail\Shipyard;
+namespace Wpwwhimself\Shipyard\Mail;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -43,7 +43,7 @@ class ContactFormQuery extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'mail.shipyard.contact-form.query',
+            view: 'shipyard::mail.contact-form.query',
         );
     }
 

@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\Shipyard\Setting;
+use Wpwwhimself\Shipyard\Models\Setting;
 use Illuminate\Database\Migrations\Migration;
 
 return new class extends Migration

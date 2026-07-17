@@ -28,14 +28,12 @@ class WhatNowCommand extends Command
     public function handle()
     {
         $this->info("Things to do now:");
-        $this->comment("> in your `routes/web.php` add the following: \n\t if (file_exists(__DIR__.'/Shipyard/shipyard.php')) require __DIR__.'/Shipyard/shipyard.php';");
-        $this->comment("> in your `routes/console.php` add the following: \n\t if (file_exists(__DIR__.'/Shipyard/shipyard_schedule.php')) require __DIR__.'/Shipyard/shipyard_schedule.php';");
         $this->comment("> prepare extended model classes to add new properties in `app/Models/User.php`:
 <?php
 
 namespace App\Models;
 
-use App\Models\Shipyard\User as ShipyardUser;
+use Wpwwhimself\Shipyard\Models\User as ShipyardUser;
 
 class User extends ShipyardUser
 {

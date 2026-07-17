@@ -1,4 +1,4 @@
-@extends("layouts.shipyard.admin")
+@extends("shipyard::layouts.admin")
 
 @section("content")
 
@@ -12,20 +12,20 @@
     </p>
 
     <div class="flex right center middle but-mobile-down">
-        <x-shipyard.ui.button
+        <x-shipyard::ui.button
             icon="chevron-left"
             label="Powrót"
             action="none"
             onclick="history.back()"
         />
-        <x-shipyard.ui.button
+        <x-shipyard::ui.button
             icon="chevron-double-left"
             label="Do strony głównej"
             action="/"
         />
 
         @if (in_array($exception->getStatusCode(), [500, 400]))
-        <x-shipyard.ui.button
+        <x-shipyard::ui.button
             icon="bug"
             label="Zgłoś błąd"
             action="none"

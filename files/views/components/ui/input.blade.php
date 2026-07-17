@@ -54,7 +54,7 @@ if (Str::endsWith($type, "multiple") && !Str::endsWith($name, "[]")) $name .= "[
 
     <span role="label-wrapper">
         @if ($icon)
-        <x-shipyard.app.icon :name="$icon" />
+        <x-shipyard::app.icon :name="$icon" />
         @endif
 
         @if($type != "hidden" && $label)
@@ -63,19 +63,19 @@ if (Str::endsWith($type, "multiple") && !Str::endsWith($name, "[]")) $name .= "[
 
         @if ($hint)
         <span role="hint" {{ Popper::pop($hint) }}>
-            <x-shipyard.app.icon name="tooltip-question" />
+            <x-shipyard::app.icon name="tooltip-question" />
         </span>
         @endif
 
         @if ($attributes->get("required"))
         <span class="accent error" @popper(Wymagane)>
-            <x-shipyard.app.icon name="asterisk" />
+            <x-shipyard::app.icon name="asterisk" />
         </span>
         @endif
 
         @if ($disabled)
         <span @popper(Zablokowane)>
-            <x-shipyard.app.icon name="lock" />
+            <x-shipyard::app.icon name="lock" />
         </span>
         @endif
     </span>
@@ -91,7 +91,7 @@ if (Str::endsWith($type, "multiple") && !Str::endsWith($name, "[]")) $name .= "[
 
     @elseif ($module_missing)
     <strong class="accent error">
-        <x-shipyard.app.icon name="alert" />
+        <x-shipyard::app.icon name="alert" />
         Aplikacja nie wspiera obecnie wyświetlenia tego pola. Skontaktuj się z administratorem.
     </strong>
 
@@ -109,13 +109,13 @@ if (Str::endsWith($type, "multiple") && !Str::endsWith($name, "[]")) $name .= "[
             >{{ $value }}</textarea>
 
             @if ($type === "ABC")
-            <x-shipyard.ui.abc-preview :name="$name" live />
+            <x-shipyard::ui.abc-preview :name="$name" live />
             @endif
         </div>
         @break
 
         @case ("HTML")
-        <x-shipyard.ui.ckeditor :name="$name" :value="$value" />
+        <x-shipyard::ui.ckeditor :name="$name" :value="$value" />
         @break
 
         @case ("JSON")
@@ -169,8 +169,8 @@ if (Str::endsWith($type, "multiple") && !Str::endsWith($name, "[]")) $name .= "[
 
                     @if (!$disabled)
                     <td>
-                        <span class="button tertiary" onclick="JSONInputPrependRow('{{ $name }}', this)" @popper(Dodaj wiersz przed)><x-shipyard.app.icon name="table-row-plus-before" /></span>
-                        <span class="button tertiary" onclick="JSONInputDeleteRow('{{ $name }}', this)" @popper(Usuń wiersz)><x-shipyard.app.icon name="table-row-remove" /></span>
+                        <span class="button tertiary" onclick="JSONInputPrependRow('{{ $name }}', this)" @popper(Dodaj wiersz przed)><x-shipyard::app.icon name="table-row-plus-before" /></span>
+                        <span class="button tertiary" onclick="JSONInputDeleteRow('{{ $name }}', this)" @popper(Usuń wiersz)><x-shipyard::app.icon name="table-row-remove" /></span>
                     </td>
                     @endif
                 </tr>
@@ -191,9 +191,9 @@ if (Str::endsWith($type, "multiple") && !Str::endsWith($name, "[]")) $name .= "[
                     @endforeach
 
                     <td>
-                        <span class="button secondary" onclick="JSONInputAddRow('{{ $name }}')" @popper(Dodaj)><x-shipyard.app.icon name="plus" /></span>
-                        <span class="button tertiary hidden" onclick="JSONInputPrependRow('{{ $name }}', this)" @popper(Dodaj wiersz przed)><x-shipyard.app.icon name="table-row-plus-before" /></span>
-                        <span class="button tertiary hidden" onclick="JSONInputDeleteRow('{{ $name }}', this)" @popper(Usuń)><x-shipyard.app.icon name="table-row-remove" /></span>
+                        <span class="button secondary" onclick="JSONInputAddRow('{{ $name }}')" @popper(Dodaj)><x-shipyard::app.icon name="plus" /></span>
+                        <span class="button tertiary hidden" onclick="JSONInputPrependRow('{{ $name }}', this)" @popper(Dodaj wiersz przed)><x-shipyard::app.icon name="table-row-plus-before" /></span>
+                        <span class="button tertiary hidden" onclick="JSONInputDeleteRow('{{ $name }}', this)" @popper(Usuń)><x-shipyard::app.icon name="table-row-remove" /></span>
                     </td>
                 </tr>
             </tfoot>
@@ -322,7 +322,7 @@ if (Str::endsWith($type, "multiple") && !Str::endsWith($name, "[]")) $name .= "[
     @if ($extraButtons)
     <div role="extra-buttons">
         @if ($storageFile)
-        <x-shipyard.ui.button
+        <x-shipyard::ui.button
             pop="Wybierz plik z wgranych"
             icon="folder-open"
             action="none"
@@ -332,7 +332,7 @@ if (Str::endsWith($type, "multiple") && !Str::endsWith($name, "[]")) $name .= "[
         @endif
 
         @if ($type == "url" && $value)
-        <x-shipyard.ui.button
+        <x-shipyard::ui.button
             pop="Otwórz"
             icon="open-in-new"
             :action="$value"
@@ -341,11 +341,11 @@ if (Str::endsWith($type, "multiple") && !Str::endsWith($name, "[]")) $name .= "[
         @endif
 
         @if ($type == "icon")
-        <x-shipyard.app.icon :name="$value" />
+        <x-shipyard::app.icon :name="$value" />
         @endif
 
         @if ($type == "ABC")
-        <x-shipyard.ui.button
+        <x-shipyard::ui.button
             icon="music-note-plus"
             pop="Transponuj w górę"
             action="none"
@@ -353,7 +353,7 @@ if (Str::endsWith($type, "multiple") && !Str::endsWith($name, "[]")) $name .= "[
             name="up"
             onclick="abcTransposeUp(document.querySelector(`[name='{{ $name }}']`)); abcPreview('{{ $name }}');"
         />
-        <x-shipyard.ui.button
+        <x-shipyard::ui.button
             icon="music-note-minus"
             pop="Transponuj w dół"
             action="none"
@@ -386,7 +386,7 @@ if (Str::endsWith($type, "multiple") && !Str::endsWith($name, "[]")) $name .= "[
 
 @if ($lookup)
 <div id="lookup-container" for="{{ $name }}">
-    <x-shipyard.app.loader horizontal />
+    <x-shipyard::app.loader horizontal />
     <div role="results"></div>
 </div>
 @endif

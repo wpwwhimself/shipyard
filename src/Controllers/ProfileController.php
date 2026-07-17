@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Shipyard;
+namespace Wpwwhimself\Shipyard\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProfileUpdateRequest;
@@ -15,6 +15,6 @@ class ProfileController extends Controller
 {
     public function myProfile(): View
     {
-        return view('pages.shipyard.auth.profile');
+        return view('shipyard::pages.auth.profile');
     }
 }

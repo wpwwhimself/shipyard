@@ -1,4 +1,4 @@
-@extends("layouts.shipyard.admin")
+@extends("shipyard::layouts.admin")
 @section("title", $meta["label"])
 @section("subtitle", "Administracja")
 
@@ -8,7 +8,7 @@
     @if (method_exists(model($scope), "modelAddButton"))
     {!! model($scope)::modelAddButton() !!}
     @else
-    <x-shipyard.ui.button
+    <x-shipyard::ui.button
         icon="plus"
         pop="Dodaj"
         class="primary"
@@ -17,10 +17,10 @@
     @endif
 
     @if ($actions)
-    <x-shipyard.app.sidebar-separator />
+    <x-shipyard::app.sidebar-separator />
 
     @foreach ($actions as $action)
-    <x-shipyard.ui.button
+    <x-shipyard::ui.button
         :icon="$action['icon']"
         :pop="$action['label']"
         :action="$action['route'] === 'none'
@@ -41,10 +41,10 @@
     @endforeach
     @endif
 
-    <x-shipyard.app.sidebar-separator />
+    <x-shipyard::app.sidebar-separator />
 
     @foreach (similar_models($scope) as $model)
-    <x-shipyard.ui.button
+    <x-shipyard::ui.button
         :icon="$model['icon'] ?? null"
         :pop="$model['label']"
         :action="route('admin.model.list', ['model' => $model['scope']])"
@@ -59,12 +59,12 @@
 <div @class(["flex", "down", "stagger-contents" => setting("animations_mode") >= 2])>
 
 @if ($meta['description'])
-<x-shipyard.app.card>
+<x-shipyard::app.card>
     <p>{{ $meta['description'] }}</p>
-</x-shipyard.app.card>
+</x-shipyard::app.card>
 @endif
 
-<x-shipyard.app.section
+<x-shipyard::app.section
     title="Filtry i sortowanie"
     :subtitle="request('sort') || request('fltr')
         ? implode(', ', array_filter([
@@ -80,7 +80,7 @@
 >
     <x-slot:actions>
         @if (request('sort') || request('fltr'))
-        <x-shipyard.ui.button
+        <x-shipyard::ui.button
             :action="route('admin.model.list', ['model' => $scope])"
             icon="undo-variant"
             pop="Wyczyść filtry"
@@ -88,12 +88,12 @@
         @endif
     </x-slot:actions>
 
-    <x-shipyard.app.form method="post" :action="route('admin.model.list.filter', ['model' => $scope])">
+    <x-shipyard::app.form method="post" :action="route('admin.model.list.filter', ['model' => $scope])">
         <input type="hidden" name="page" value="{{ request('page') }}">
 
         @foreach ($filters as $fname => $fdata)
         @continue (!Auth::user()?->hasRole($fdata["role"] ?? null))
-        <x-shipyard.ui.input :type="$fdata['type']"
+        <x-shipyard::ui.input :type="$fdata['type']"
             :name="'fltr['.$fname.']'"
             :label="$fdata['label']"
             :icon="isset($fdata['icon'])
@@ -110,7 +110,7 @@
         @endforeach
 
         @if ($sorts)
-        <x-shipyard.ui.input type="select"
+        <x-shipyard::ui.input type="select"
             name="sort"
             label="Sortuj"
             icon="sort"
@@ -138,11 +138,11 @@
             onchange="getModelList();"
         />
         @endif
-    </x-shipyard.app.form>
-</x-shipyard.app.section>
+    </x-shipyard::app.form>
+</x-shipyard::app.section>
 
 @foreach ($extraSections as $esid => $esdata)
-<x-shipyard.app.section
+<x-shipyard::app.section
     :title="$esdata['title']"
     :icon="$esdata['icon']"
     :id="$esid"
@@ -151,21 +151,21 @@
         :component="$esdata['component']"
         :data="new (model($scope))()"
     />
-</x-shipyard.app.section>
+</x-shipyard::app.section>
 @endforeach
 
-<x-shipyard.app.card id="model-list">
+<x-shipyard::app.card id="model-list">
     <div @class(["flex", "down", "stagger-contents" => setting("animations_mode") >= 2])></div>
-</x-shipyard.app.card>
+</x-shipyard::app.card>
 
 @if (!model($scope)::getRelatedDocs()->empty())
-<x-shipyard.app.card
+<x-shipyard::app.card
     title="Powiązana dokumentacja"
     icon="book-information-variant"
 >
     <x-slot:actions>
         @foreach (model($scope)::getRelatedDocs() as $doc)
-        <x-shipyard.ui.button
+        <x-shipyard::ui.button
             :icon="$doc['icon'] ?? 'book-information-variant'"
             :label="$doc['title']"
             :action="route('docs.view', ['slug' => $doc['slug']])"
@@ -173,7 +173,7 @@
         />
         @endforeach
     </x-slot:actions>
-</x-shipyard.app.card>
+</x-shipyard::app.card>
 @endif
 
 </div>

@@ -6,6 +6,6 @@
 ])
 
 <h{{ $lvl }} {{ $attributes }}>
-    @if ($icon) <x-shipyard.app.icon :name="$icon" :mode="$iconMode" :data="$iconData" /> @endif
+    @if ($icon) <x-shipyard::app.icon :name="$icon" :mode="$iconMode" :data="$iconData" /> @endif
     {{ $slot }}
 </h{{ $lvl }}>

@@ -61,12 +61,14 @@ function model(string $scope): string
     $model_name = Str::of($scope)->singular()->studly()->toString();
     $shipyard_models = array_map(
         fn ($file) => Str::of(basename($file))->replace(".php", "")->toString(),
-        glob(app_path("Models/Shipyard/*.php"))
+        glob(base_path("vendor/wpwwhimself/shipyard/src/Models/*.php"))
     );
     $is_shipyard_model = ($model_name == "User" && file_exists(app_path("Models/User.php")))
         ? false
         : in_array($model_name, $shipyard_models);
-    return "App\\Models\\".($is_shipyard_model ? "Shipyard\\" : "").$model_name;
+    return ($is_shipyard_model)
+        ? "Wpwwhimself\\Shipyard\\Models\\".$model_name
+        : "App\\Models\\".($is_shipyard_model ? "Shipyard\\" : "").$model_name;
 }
 
 /**
@@ -101,11 +103,9 @@ function scope(string $model): string
 function similar_models(?string $scope = null): array
 {
     $is_base_model_shipyard = ($scope ? is_shipyard_model(model($scope)) : false);
-    $model_dir = app_path(implode("/", array_filter([
-        "Models",
-        $is_base_model_shipyard ? "Shipyard" : null,
-        "*.php",
-    ])));
+    $model_dir = ($is_base_model_shipyard)
+        ? base_path("vendor/wpwwhimself/shipyard/src/Models/*.php")
+        : app_path("Models/*.php");
     return collect(glob($model_dir))
         ->map(fn ($file) => scope(Str::of(basename($file))->replace(".php", "")))
         ->filter(fn ($scope) => !Str::of($scope)->contains("settings"))

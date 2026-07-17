@@ -1,9 +1,9 @@
-@extends("layouts.shipyard.admin")
+@extends("shipyard::layouts.admin")
 
 @section("sidebar")
 
 <div class="card">
-    <x-shipyard.ui.button
+    <x-shipyard::ui.button
         icon="account"
         action="/"
         pop="hello"

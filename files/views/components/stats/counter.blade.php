@@ -36,9 +36,9 @@
         @php
         $i = $rank;
         @endphp
-        
+
         @while ($i > 0)
-        <x-shipyard.app.icon :name="'tally-mark-'.($i >= 5 ? 5 : $i)" />
+        <x-shipyard::app.icon :name="'tally-mark-'.($i >= 5 ? 5 : $i)" />
         @php $i -= 5; @endphp
         @endwhile
         @break

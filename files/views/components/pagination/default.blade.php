@@ -4,7 +4,7 @@ $pageSwitcher ??= false;
 
 <nav role="pagination" aria-label="{{ __('Pagination Navigation') }}">
     @if ($paginator->hasPages())
-    <x-shipyard.ui.button
+    <x-shipyard::ui.button
         icon="chevron-left"
         pop="Poprzednia strona"
         :action="$paginator->onFirstPage() ? null : ($pageSwitcher ? 'none' : $paginator->previousPageUrl())"
@@ -22,7 +22,7 @@ $pageSwitcher ??= false;
 
                 @if (is_array($element))
                     @foreach ($element as $page => $url)
-                    <x-shipyard.ui.button
+                    <x-shipyard::ui.button
                         :label="$page"
                         :action="$page == $paginator->currentPage() ? null : ($pageSwitcher ? 'none' : $url)"
                         :onclick="$pageSwitcher ? $pageSwitcher.'('.$page.')' : null"
@@ -45,7 +45,7 @@ $pageSwitcher ??= false;
     </div>
 
     @if ($paginator->hasPages())
-    <x-shipyard.ui.button
+    <x-shipyard::ui.button
         icon="chevron-right"
         pop="Następna strona"
         :action="$paginator->hasMorePages() ? ($pageSwitcher ? 'none' : $paginator->nextPageUrl()) : null"

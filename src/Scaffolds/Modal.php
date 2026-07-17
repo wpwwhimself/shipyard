@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Scaffolds\Shipyard;
+namespace Wpwwhimself\Shipyard\Scaffolds;
 
-use App\Scaffolds\Shipyard\Scaffold;
 use Illuminate\Support\Collection;
 use Illuminate\View\ComponentAttributeBag;
 
@@ -134,7 +133,7 @@ abstract class Modal
 
             switch ($f["type"]) {
                 case "heading":
-                    return view("components.shipyard.app.h", [
+                    return view("shipyard::components.app.h", [
                         "lvl" => 3,
                         "icon" => $f["icon"] ?? null,
                         "slot" => $f["label"],
@@ -144,7 +143,7 @@ abstract class Modal
                     ])->render();
 
                 case "paragraph":
-                    return view("components.shipyard.app.icon-label-value", [
+                    return view("shipyard::components.app.icon-label-value", [
                         "icon" => $f["icon"] ?? null,
                         "slot" => $f["label"],
                         "attributes" => new ComponentAttributeBag([
@@ -153,7 +152,7 @@ abstract class Modal
                     ])->render();
 
                 default:
-                    return view("components.shipyard.ui.input", [
+                    return view("shipyard::components.ui.input", [
                         "type" => $f["type"],
                         "name" => $f["name"],
                         "label" => $f["label"],

@@ -2,7 +2,6 @@
 
 namespace Wpwwhimself\Shipyard\Console;
 
-use App\Http\Controllers\Shipyard\ThemeController;
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Str;
@@ -64,71 +63,37 @@ class InstallCommand extends Command
         #region copying
         $this->info("📨 Copying...");
 
-        $this->comment("- middleware...");
-        $this->tryLink(__DIR__.'/../../files/middleware', base_path("app/Http/Middleware/Shipyard"));
 
-        $this->comment("- routes...");
-        $this->tryLink(__DIR__.'/../../files/routes', base_path("routes/Shipyard"));
+        $this->comment("- scaffolds and templates...");
+        $this->tryCreateDirectory(base_path("app/Scaffolds"));
         $this->tryCopy(__DIR__.'/../../files/templates/api.php', base_path("routes/api.php"), true);
-
-        $this->comment("- traits...");
-        $this->tryLink(__DIR__.'/../../files/traits', base_path("app/Traits/Shipyard"));
-
-        $this->comment("- mails...");
-        $this->tryLink(__DIR__.'/../../files/mails', base_path("app/Mail/Shipyard"));
-
-        $this->comment("- models...");
-        $this->tryLink(__DIR__.'/../../files/models', base_path("app/Models/Shipyard"));
-        $this->tryCopy(__DIR__.'/../../files/templates/Setting.php', base_path("app/Models/Setting.php"), true);
-
-        $this->comment("- scaffolds...");
-        $this->tryLink(__DIR__.'/../../files/scaffolds', base_path("app/Scaffolds/Shipyard"));
         $this->tryCopy(__DIR__.'/../../files/templates/Modal.php', base_path("app/Scaffolds/Modal.php"), true);
-        $this->tryCopy(__DIR__.'/../../files/templates/Role.php', base_path("app/Scaffolds/Role.php"), true);
-        $this->tryCopy(__DIR__.'/../../files/templates/User.php', base_path("app/Models/User.php"), true);
-        $this->tryCopy(__DIR__.'/../../files/templates/StandardPage.php', base_path("app/Models/StandardPage.php"), true);
         $this->tryCopy(__DIR__.'/../../files/templates/NavItem.php', base_path("app/Models/NavItem.php"), true);
-
-        $this->comment("- migrations...");
-        $this->tryCopyDirectory(__DIR__.'/../../files/migrations', base_path("database/migrations"));
-
-        $this->comment("- controllers...");
-        $this->tryLink(__DIR__.'/../../files/controllers', base_path("app/Http/Controllers/Shipyard"));
+        $this->tryCopy(__DIR__.'/../../files/templates/Role.php', base_path("app/Scaffolds/Role.php"), true);
+        $this->tryCopy(__DIR__.'/../../files/templates/Setting.php', base_path("app/Models/Setting.php"), true);
+        $this->tryCopy(__DIR__.'/../../files/templates/StandardPage.php', base_path("app/Models/StandardPage.php"), true);
+        $this->tryCopy(__DIR__.'/../../files/templates/User.php', base_path("app/Models/User.php"), true);
+        $this->tryCopy(__DIR__.'/../../files/ShipyardTheme.php', base_path("app/ShipyardTheme.php"), true);
 
         $this->comment("- stubs...");
         $this->tryCopyDirectory(__DIR__.'/../../files/stubs', base_path("stubs"));
 
-        $this->comment("- styles...");
-        $this->tryLink(__DIR__.'/../../files/css', base_path("public/css/Shipyard"));
+        $this->comment("- assets...");
+        $this->tryLink(__DIR__.'/../../files/css', base_path("public/css/Shipyard")); // assets cannot be exposed without publishing, so they must remain as symlinks
         $this->tryCreateEmptyFile(base_path("public/css/app.css"));
-
-        $this->comment("- theme...");
-        $this->tryLink(__DIR__.'/../../files/theme', base_path("app/Theme/Shipyard"));
-        $this->tryCopy(__DIR__.'/../../files/ShipyardTheme.php', base_path("app/ShipyardTheme.php"), true);
-
-        $this->comment("- scripts...");
-        $this->tryLink(__DIR__.'/../../files/js', base_path("public/js/Shipyard"));
+        $this->tryLink(__DIR__.'/../../files/js', base_path("public/js/Shipyard")); // assets cannot be exposed without publishing, so they must remain as symlinks
         $this->tryCreateEmptyFile(base_path("public/js/earlies.js"));
         $this->tryCreateEmptyFile(base_path("public/js/app.js"));
+        $this->comment("- media...");
+        $this->tryLink(__DIR__.'/../../files/media', base_path("public/media/Shipyard")); // assets cannot be exposed without publishing, so they must remain as symlinks
 
         $this->comment("- views...");
-        $this->tryLink(__DIR__.'/../../files/views/layouts', base_path("resources/views/layouts/shipyard"));
-        $this->tryLink(__DIR__.'/../../files/views/components', base_path("resources/views/components/shipyard"));
-        $this->tryLink(__DIR__.'/../../files/views/mail', base_path("resources/views/mail/shipyard"));
-        $this->tryLink(__DIR__.'/../../files/views/pages', base_path("resources/views/pages/shipyard"));
         $this->tryCopyDirectory(__DIR__.'/../../files/views/errors', base_path("resources/views/errors"));
-        $this->tryCopy(__DIR__.'/../../files/views/welcome_to_shipyard.blade.php', base_path("resources/views/welcome_to_shipyard.blade.php"));
-
-        $this->comment("- media...");
-        $this->tryLink(__DIR__.'/../../files/media', base_path("public/media/Shipyard"));
+        $this->tryCopy(__DIR__.'/../../files/views/welcome.blade.php', base_path("resources/views/welcome.blade.php"));
 
         $this->comment("- configs...");
         $this->tryCopy(__DIR__.'/../../files/configs/app.php', base_path("bootstrap/app.php"));
-        $this->tryCopy(__DIR__.'/../../files/configs/popper.php', base_path("config/popper.php"));
-        $this->tryCopy(__DIR__.'/../../files/configs/blade-icons.php', base_path("config/blade-icons.php"));
-        $this->tryCopy(__DIR__.'/../../files/configs/backup.php', base_path("config/backup.php"));
-        $this->tryCopy(__DIR__.'/../../files/configs/audit.php', base_path("config/audit.php"));
-        $this->tryCopy(__DIR__.'/../../files/configs/sanctum.php', base_path("config/sanctum.php"));
+        $this->tryCopy(__DIR__.'/../../files/configs/popper.php', base_path("config/popper.php")); // this one doesn't work by merge, so "install" still must copy it
 
         $this->comment("- docs...");
         $this->tryLink(__DIR__.'/../../files/docs', base_path("docs/Shipyard"));
@@ -142,21 +107,18 @@ class InstallCommand extends Command
         }
         foreach ([
             base_path("app/.gitignore"),
-            base_path("routes/.gitignore"),
             base_path("resources/.gitignore"),
             base_path("public/.gitignore"),
         ] as $path) {
             $this->tryCopy(__DIR__.'/../../files/.gitignore.directory.example', $path);
         }
         foreach ([
-            base_path("database/migrations/.gitignore"),
-            base_path("resources/views/.gitignore"),
             base_path("docs/.gitignore"),
         ] as $path) {
             $this->tryCopy(__DIR__.'/../../files/.gitignore.nametagged.example', $path);
         }
         foreach ([
-            [base_path("config/.gitignore"), "popper.php\nblade-icons.php\nbackup.php\naudit.php\nsanctum.php"],
+            [base_path("config/.gitignore"), "popper.php"],
             [base_path("public/css/.gitignore"), "shipyard_theme_cache*"],
         ] as [$path, $file_name]) {
             $contents = "$file_name\n.gitignore";
@@ -204,12 +166,11 @@ class InstallCommand extends Command
         (new Filesystem)->copyDirectory($from, $to);
     }
 
-    private function tryMove($from, $to) {
-        if (!file_exists($from)) {
+    private function tryCreateDirectory($path) {
+        if (file_exists($path)) {
             return;
         }
-
-        (new Filesystem)->move($from, $to);
+        (new Filesystem())->makeDirectory($path, recursive: true);
     }
 
     private function tryCopy($from, $to, $only_once = false) {

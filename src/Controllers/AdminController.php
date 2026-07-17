@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Shipyard;
+namespace Wpwwhimself\Shipyard\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Setting;
@@ -219,7 +219,7 @@ class AdminController extends Controller
         $fields = array_merge($fields, Setting::fields());
         $settings = Setting::all();
 
-        return view("pages.shipyard.admin.settings", compact(
+        return view("shipyard::pages.admin.settings", compact(
             "fields",
             "settings",
         ));
@@ -256,7 +256,7 @@ class AdminController extends Controller
             ],
         ];
 
-        return view("pages.shipyard.admin.model.index", compact("model_groups"));
+        return view("shipyard::pages.admin.model.index", compact("model_groups"));
     }
 
     public function listModel(string $scope): View
@@ -270,7 +270,7 @@ class AdminController extends Controller
         $filters = model($scope)::getFilters($meta["defaultFltr"] ?? null);
         $extraSections = collect(model($scope)::getExtraSections())->filter(fn ($es) => Str::contains($es["show-on"] ?? "", "list"))->toArray();
 
-        return view("pages.shipyard.admin.model.list", compact("meta", "scope", "actions", "sorts", "filters", "extraSections"));
+        return view("shipyard::pages.admin.model.list", compact("meta", "scope", "actions", "sorts", "filters", "extraSections"));
     }
 
     public function filterListModel(Request $rq, string $scope): JsonResponse
@@ -287,7 +287,7 @@ class AdminController extends Controller
 
         return response()->json([
             "data" => $data,
-            "html" => view("components.shipyard.app.model.list", compact("data", "scope"))->render(),
+            "html" => view("shipyard::components.app.model.list", compact("data", "scope"))->render(),
             "url" => route("admin.model.list", ["model" => $scope, ...$filters]),
         ]);
     }
@@ -330,7 +330,7 @@ class AdminController extends Controller
             return redirect()->route("admin.model.list", ["model" => $scope])->with("toast", ["error", "Tego modelu nie można edytować"]);
         }
 
-        return view("pages.shipyard.admin.model.edit", compact("data", "meta", "scope", "fields", "connections", "extraSections", "sections", "actions"));
+        return view("shipyard::pages.admin.model.edit", compact("data", "meta", "scope", "fields", "connections", "extraSections", "sections", "actions"));
     }
 
     public function processEditModel(Request $rq, string $scope): RedirectResponse
@@ -441,7 +441,7 @@ class AdminController extends Controller
         $meta = model($scope)::META;
         $data = model($scope)::find($id);
 
-        return view("pages.shipyard.admin.model.history", compact("data", "meta", "scope"));
+        return view("shipyard::pages.admin.model.history", compact("data", "meta", "scope"));
     }
     #endregion
 
@@ -471,7 +471,7 @@ class AdminController extends Controller
             ],
         ];
 
-        return view("pages.shipyard.admin.files.list", compact(
+        return view("shipyard::pages.admin.files.list", compact(
             "files",
             "directories",
             "sections",
@@ -507,7 +507,7 @@ class AdminController extends Controller
         $files = collect(Storage::disk("public")->allFiles())
             ->filter(fn($file) => Str::contains($file, request("q")));
 
-        return view("pages.shipyard.admin.files.search", compact(
+        return view("shipyard::pages.admin.files.search", compact(
             "files",
         ));
     }

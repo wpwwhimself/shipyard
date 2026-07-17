@@ -1,4 +1,4 @@
-@extends("layouts.shipyard.admin")
+@extends("shipyard::layouts.admin")
 @section("title", "Wyszukiwanie plików")
 @section("subtitle", "Zarządzanie plikami")
 
@@ -7,13 +7,13 @@
 <div @class(["flex", "down", "stagger-contents" => setting("animations_mode") >= 1])>
 
 <div class="card">
-    <x-shipyard.app.form>
+    <x-shipyard::app.form>
         <p>
             Ten panel pozwala na wyszukiwanie plików znajdujących się w repozytorium.
             Po wpisaniu hasła wyświetlone zostaną ścieżki do wszystkich plików o podobnej nazwie lub lokalizacji zawierającej wskazane hasło.
         </p>
 
-        <x-shipyard.ui.input type="text"
+        <x-shipyard::ui.input type="text"
             name="q"
             label="Fraza"
             icon="magnify"
@@ -22,23 +22,23 @@
         />
 
         <x-slot:actions>
-            <x-shipyard.ui.button
+            <x-shipyard::ui.button
                 icon="magnify"
                 label="Szukaj"
                 action="submit"
                 class="primary"
             />
-            <x-shipyard.ui.button
+            <x-shipyard::ui.button
                 icon="arrow-left"
                 label="Wróć"
                 :action="route('files')"
             />
         </x-slot:actions>
-    </x-shipyard.app.form>
+    </x-shipyard::app.form>
 </div>
 
 @if (request("q"))
-<x-shipyard.app.card
+<x-shipyard::app.card
     title="Wyniki wyszukiwania"
     icon="magnify"
 >
@@ -52,7 +52,7 @@
     <p class="ghost">Brak wyników</p>
     @endforelse
     </div>
-</x-shipyard.app.card>
+</x-shipyard::app.card>
 @endif
 
 </div>

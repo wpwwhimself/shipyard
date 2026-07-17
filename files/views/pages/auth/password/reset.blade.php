@@ -1,4 +1,4 @@
-@extends("layouts.shipyard.admin")
+@extends("shipyard::layouts.admin")
 @section("title", "Resetowanie hasła")
 
 @section("content")
@@ -8,7 +8,7 @@ $reset_own_password = !Auth::check() && !$user;
 @endphp
 
 <div @class(["card", "stagger" => setting("animations_mode") >= 1])>
-    <x-shipyard.app.form
+    <x-shipyard::app.form
         :action="route('password.reset.process')"
         method="post"
         @class(["stagger-contents" => setting("animations_mode") >= 2])
@@ -28,7 +28,7 @@ $reset_own_password = !Auth::check() && !$user;
                 <p>
                     Podaj swój adres email, na jaki ma zostać wysłany link do resetowania hasła.
                 </p>
-                <x-shipyard.ui.input type="email"
+                <x-shipyard::ui.input type="email"
                 name="email" label="Adres email"
                 icon="at"
                 required
@@ -51,7 +51,7 @@ $reset_own_password = !Auth::check() && !$user;
                 <p>
                     Podaj nowe hasło dla użytkownika.
                 </p>
-                <x-shipyard.ui.button
+                <x-shipyard::ui.button
                     :icon="model_icon('users')"
                     label="Podstaw nazwę użytkownika jako hasło"
                     action="none"
@@ -61,12 +61,12 @@ $reset_own_password = !Auth::check() && !$user;
 
                 <input type="hidden" name="user_id" value="{{ $user->id }}">
 
-                <x-shipyard.ui.input type="password"
+                <x-shipyard::ui.input type="password"
                     name="password" label="Nowe hasło"
                     icon="key"
                     required
                 />
-                <x-shipyard.ui.input type="password"
+                <x-shipyard::ui.input type="password"
                     name="password_confirmation" label="Powtórz nowe hasło"
                     icon="key-link"
                     required
@@ -78,7 +78,7 @@ $reset_own_password = !Auth::check() && !$user;
         <x-slot:actions>
             @switch (setting("users_password_reset_mode"))
                 @case ("email")
-                <x-shipyard.ui.button
+                <x-shipyard::ui.button
                     icon="send"
                     label="Wyślij link"
                     action="submit"
@@ -88,7 +88,7 @@ $reset_own_password = !Auth::check() && !$user;
 
                 @case ("manual")
                 @if (Auth::user()?->hasRole('technical'))
-                <x-shipyard.ui.button
+                <x-shipyard::ui.button
                     icon="check"
                     label="Zapisz"
                     action="submit"
@@ -97,13 +97,13 @@ $reset_own_password = !Auth::check() && !$user;
                 @endif
                 @break
             @endswitch
-            <x-shipyard.ui.button
+            <x-shipyard::ui.button
                 icon="arrow-left"
                 label="Wróć"
                 :action="$reset_own_password ? route('login') : route('admin.model.edit', ['model' => 'users', 'id' => $user->id])"
             />
         </x-slot:actions>
-    </x-shipyard.app.form>
+    </x-shipyard::app.form>
 </div>
 
 @endsection

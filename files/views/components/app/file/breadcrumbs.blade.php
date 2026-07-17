@@ -7,7 +7,7 @@
     <strong role="current-directory">{{ request('path', 'Katalog główny') }}</strong>
 
     @if (!in_array(request("path"), ["public", null]))
-    <x-shipyard.ui.button
+    <x-shipyard::ui.button
         label=".."
         icon="arrow-left"
         :action="route('files', [
@@ -18,7 +18,7 @@
     @endif
 
     @foreach ($directories as $dir)
-    <x-shipyard.ui.button
+    <x-shipyard::ui.button
         :label="Str::afterLast($dir, '/')"
         icon="folder"
         :action="route('files', ['path' => $dir, 'select' => request('select')])"

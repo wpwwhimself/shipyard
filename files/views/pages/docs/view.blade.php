@@ -1,4 +1,4 @@
-@extends("layouts.shipyard.docs")
+@extends("shipyard::layouts.docs")
 @section("title", $title)
 @section("subtitle", "Dokumentacja")
 
@@ -7,28 +7,28 @@
 <div id="doc">
     @if ($headings)
     <div class="flex down stick-top but-mobile-reset stagger-contents" role="doc-toc">
-        <x-shipyard.app.card
+        <x-shipyard::app.card
             title="Spis treści"
             icon="table-of-contents"
         >
             {!! \Illuminate\Mail\Markdown::parse($headings) !!}
-        </x-shipyard.app.card>
+        </x-shipyard::app.card>
 
         @if ($models)
-        <x-shipyard.app.card
+        <x-shipyard::app.card
             title="Powiązane modele"
             icon="database"
             inner-class="flex down no-gap"
         >
             @foreach ($models as $scope)
-            <x-shipyard.ui.button
+            <x-shipyard::ui.button
                 :label="model($scope)::META['label']"
                 :icon="model_icon($scope)"
                 :action="route('admin.model.list', ['model' => $scope])"
                 :role="model($scope)::META['role']"
             />
             @endforeach
-        </x-shipyard.app.card>
+        </x-shipyard::app.card>
         @endif
     </div>
     @endif
@@ -40,13 +40,13 @@
         ])
     >
         @foreach ($doc as $heading => $content)
-        <x-shipyard.app.card :title="$heading"
+        <x-shipyard::app.card :title="$heading"
             title-lvl="2"
             :icon="$icon ?? 'book-information-variant'"
             :inner-class="setting('animations_mode') >= 2 ? 'stagger-contents' : null"
         >
             {!! \Illuminate\Mail\Markdown::parse($content) !!}
-        </x-shipyard.app.card>
+        </x-shipyard::app.card>
         @endforeach
     </div>
 </div>

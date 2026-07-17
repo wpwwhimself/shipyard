@@ -1,4 +1,4 @@
-@extends("layouts.shipyard.admin")
+@extends("shipyard::layouts.admin")
 @section("title", "Ustawienia systemu")
 @section("subtitle", "Administracja")
 
@@ -6,7 +6,7 @@
 
 <div class="card stick-top">
     @foreach ($fields as $section)
-    <x-shipyard.ui.button
+    <x-shipyard::ui.button
         :icon="$section['icon'] ?? null"
         :pop="$section['title']"
         class="tertiary"
@@ -15,10 +15,10 @@
     />
     @endforeach
 
-    <x-shipyard.app.sidebar-separator />
+    <x-shipyard::app.sidebar-separator />
 
     @foreach (similar_models("settings") as $model)
-    <x-shipyard.ui.button
+    <x-shipyard::ui.button
         :icon="$model['icon'] ?? null"
         :pop="$model['label']"
         :action="route('admin.model.list', ['model' => $model['scope']])"
@@ -30,10 +30,10 @@
 
 @section("content")
 
-<x-shipyard.app.form :action="route('admin.system-settings.process')" method="post" @class(["stagger-contents" => setting("animations_mode") >= 1])>
+<x-shipyard::app.form :action="route('admin.system-settings.process')" method="post" @class(["stagger-contents" => setting("animations_mode") >= 1])>
 
 @foreach ($fields as $section)
-<x-shipyard.app.section
+<x-shipyard::app.section
     :title="$section['title']"
     :subtitle="$section['subtitle'] ?? null"
     :icon="$section['icon'] ?? null"
@@ -42,7 +42,7 @@
 >
     @foreach ($section["fields"] as $field)
         @isset ($field["subsection_title"])
-        <x-shipyard.app.h lvl="3" :icon="$field['subsection_icon'] ?? null">{{ $field["subsection_title"] }}</x-shipyard.app.h>
+        <x-shipyard::app.h lvl="3" :icon="$field['subsection_icon'] ?? null">{{ $field["subsection_title"] }}</x-shipyard::app.h>
         @isset ($field["subsection_subtitle"])
         <p class="ghost">{{ $field["subsection_subtitle"] }}</p>
         @endisset
@@ -50,14 +50,14 @@
             @isset ($field["columns"])
             <div class="grid" style="--col-count: {{ count($field["columns"]) }};">
                 @foreach ($field["columns"] as $column)
-                <x-shipyard.app.card
+                <x-shipyard::app.card
                     :title="$column['subsection_title']"
                     :subtitle="$column['subsection_subtitle'] ?? null"
                     :icon="$column['subsection_icon'] ?? null"
                     title-lvl="4"
                 >
                     @foreach ($column["fields"] as $sub_field)
-                    <x-shipyard.ui.input
+                    <x-shipyard::ui.input
                         :type="$settings->find($sub_field['name'])?->type"
                         :name="$sub_field['name']"
                         :label="$sub_field['label']"
@@ -70,13 +70,13 @@
                         :checked="$settings->find($sub_field['name'])?->type == 'checkbox' && setting($sub_field['name'])"
                     />
                     @endforeach
-                </x-shipyard.app.card>
+                </x-shipyard::app.card>
                 @endforeach
             </div>
 
             @else
             @foreach ($field["fields"] as $sub_field)
-            <x-shipyard.ui.input
+            <x-shipyard::ui.input
                 :type="$settings->find($sub_field['name'])?->type"
                 :name="$sub_field['name']"
                 :label="$sub_field['label']"
@@ -93,7 +93,7 @@
             @endisset
 
         @else
-        <x-shipyard.ui.input
+        <x-shipyard::ui.input
             :type="$settings->find($field['name'])?->type"
             :name="$field['name']"
             :label="$field['label']"
@@ -107,19 +107,19 @@
         />
         @endisset
     @endforeach
-</x-shipyard.app.section>
+</x-shipyard::app.section>
 @endforeach
 
     <x-slot:actions>
-        <x-shipyard.app.card>
-            <x-shipyard.ui.button
+        <x-shipyard::app.card>
+            <x-shipyard::ui.button
                 icon="content-save"
                 label="Zapisz zmiany"
                 class="primary"
                 action="submit"
             />
-        </x-shipyard.app.card>
+        </x-shipyard::app.card>
     </x-slot:actions>
-</x-shipyard.app.form>
+</x-shipyard::app.form>
 
 @endsection

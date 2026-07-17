@@ -9,12 +9,12 @@ Proces rozszerzenia standardowych layoutów strony zakłada oczywiście, że to 
 
 ## Szablony do użycia
 
-- 🟥 `layouts.shipyard.admin` - podstawowy układ z nagłówkiem, treścią i stopką
-- 🟨 `layouts.shipyard.minimal` - bez nagłówka; zamiast niego w lewym górnym rogu jest logo aplikacji
+- 🟥 `shipyard::layouts.admin` - podstawowy układ z nagłówkiem, treścią i stopką
+- 🟨 `shipyard::layouts.minimal` - bez nagłówka; zamiast niego w lewym górnym rogu jest logo aplikacji
   - do zastosowania np. w pełnoekranowych sub-apkach
-- 🟩 `layouts.shipyard.mail` - okrojony podstawowy układ bez większośći interaktywnych komponentów
+- 🟩 `shipyard::layouts.mail` - okrojony podstawowy układ bez większośći interaktywnych komponentów
   - przewidziany do standardowych, wystylizowanych maili
-- 🟦 `layouts.shipyard.simple` - wyczyszczony z komponentów i z wbudowanymi podstawowymi stylami
+- 🟦 `shipyard::layouts.simple` - wyczyszczony z komponentów i z wbudowanymi podstawowymi stylami
   - do zastosowania np. w uproszczonych mailach
 
 

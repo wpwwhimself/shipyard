@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Mail\Shipyard;
+namespace Wpwwhimself\Shipyard\Mail;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -41,7 +41,7 @@ class ResetPasswordLink extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'mail.shipyard.password.reset-link',
+            view: 'shipyard::mail.password.reset-link',
         );
     }
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Shipyard;
+namespace Wpwwhimself\Shipyard\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -39,7 +39,7 @@ class ThemeController extends Controller
 
     #region test pages
     public function testTheme() {
-        return view("pages.shipyard.test.theme");
+        return view("shipyard::pages.test.theme");
     }
 
     public function testThemeToast(string $type) {

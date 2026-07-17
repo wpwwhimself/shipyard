@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Traits\Shipyard;
+namespace Wpwwhimself\Shipyard\Traits;
 
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Auth;

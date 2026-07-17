@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Shipyard;
+namespace Wpwwhimself\Shipyard\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Mail\Shipyard\ContactFormQuery;
+use Wpwwhimself\Shipyard\Mail\ContactFormQuery;
 use App\Models\StandardPage;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
@@ -27,7 +27,7 @@ class FrontController extends Controller
             ->firstWhere(fn ($page) => $page->slug == $slug);
         if (!$page) abort(404);
 
-        return view("pages.shipyard.standard-page", compact("page"));
+        return view("shipyard::pages.standard-page", compact("page"));
     }
 
     #region contact form
@@ -52,7 +52,7 @@ class FrontController extends Controller
 
     #region fetching components
     public function icon(string $icon) {
-        return view("components.shipyard.app.icon", ["name" => $icon])->render();
+        return view("shipyard::components.app.icon", ["name" => $icon])->render();
     }
     #endregion
 

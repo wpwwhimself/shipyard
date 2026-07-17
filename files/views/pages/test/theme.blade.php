@@ -1,18 +1,18 @@
-@extends("layouts.shipyard.admin")
+@extends("shipyard::layouts.admin")
 @section("title", "Strona testowa dla motywu")
 
 @section("content")
 
 <div @class(["flex", "down", "stagger-contents" => setting("animations_mode") >= 1])>
 
-<x-shipyard.app.h lvl="1" icon="hand-wave">Hello</x-shipyard.app.h>
+<x-shipyard::app.h lvl="1" icon="hand-wave">Hello</x-shipyard::app.h>
 
-<x-shipyard.app.section
+<x-shipyard::app.section
     title="Inputy"
     icon="cursor-text"
 >
     <x-slot:actions>
-        <x-shipyard.ui.button
+        <x-shipyard::ui.button
             action="none"
             class="tertiary"
             icon="plus"
@@ -30,7 +30,7 @@
             ["select"],
             ["checkbox"],
         ] as [$type])
-        <x-shipyard.ui.input :type="$type"
+        <x-shipyard::ui.input :type="$type"
             :name="$type"
             :label="$type"
             icon="cursor-text"
@@ -48,10 +48,10 @@
         />
         @endforeach
 
-        <x-shipyard.app.h icon="shape" lvl="3">Atrybuty</x-shipyard.app.h>
+        <x-shipyard::app.h icon="shape" lvl="3">Atrybuty</x-shipyard::app.h>
         <div class="grid but-mobile-down" style="--col-count: 3;">
             @foreach (["text", "checkbox", "select"] as $type)
-            <x-shipyard.ui.input :type="$type"
+            <x-shipyard::ui.input :type="$type"
                 name="{{ $type }}-required"
                 label="{{ $type }}-required"
                 icon="cursor-text"
@@ -66,7 +66,7 @@
                 :checked="in_array($type, ['checkbox'])"
                 required
             />
-            <x-shipyard.ui.input :type="$type"
+            <x-shipyard::ui.input :type="$type"
                 name="{{ $type }}-disabled"
                 label="{{ $type }}-disabled"
                 icon="cursor-text"
@@ -84,10 +84,10 @@
             @endforeach
         </div>
     </div>
-</x-shipyard.app.section>
+</x-shipyard::app.section>
 
 <div class="grid but-mobile-down" style="--col-count: 2;">
-    <x-shipyard.app.section
+    <x-shipyard::app.section
         title="Jestem sekcją"
         subtitle="I robię fajne rzeczy"
         icon="human-greeting"
@@ -98,15 +98,15 @@
             Mogę być zwinięta, żeby nie zajmować tyle miejsca.
         </p>
 
-        <x-shipyard.app.card
+        <x-shipyard::app.card
             title="Jestem kartą wewnątrz sekcji"
             icon="human-greeting"
         >
             <p>Jestem kartą wewnątrz sekcji - grupuję informacje.</p>
-        </x-shipyard.app.card>
-    </x-shipyard.app.section>
+        </x-shipyard::app.card>
+    </x-shipyard::app.section>
 
-    <x-shipyard.app.card
+    <x-shipyard::app.card
         title="Jestem kartą"
         subtitle="I też robię fajne rzeczy"
         icon="human-greeting"
@@ -115,35 +115,35 @@
             Jestem kartą i jestem po to, by grupować informacje.
             Mogę znajdować się luzem na stronie lub być częścią sekcji.
         </p>
-    </x-shipyard.app.card>
+    </x-shipyard::app.card>
 </div>
 
-<x-shipyard.app.card
+<x-shipyard::app.card
     title="Buttony i tosty"
     icon="button-pointer"
 >
     <div class="flex right center middle">
-        <x-shipyard.ui.button
+        <x-shipyard::ui.button
             icon="check"
             label="Zapisz"
             pop="Główna akcja w systemie; po jej wykonaniu stanie się coś dużego (np. zapisanie danych, przeładowanie tej samej strony)."
             class="primary"
             :action="route('theme.test.toast', ['type' => 'success'])"
         />
-        <x-shipyard.ui.button
+        <x-shipyard::ui.button
             icon="alert"
             label="Uruchom"
             pop="Destrukcyjna akcja, wymagająca podwójnego zatwierdzenia."
             class="danger"
             :action="route('theme.test.toast', ['type' => 'success'])"
         />
-        <x-shipyard.ui.button
+        <x-shipyard::ui.button
             icon="arrow-right"
             label="Przejdź"
             pop="Podstawowy przycisk; po jego kliknięciu przejdziesz do innej strony."
             :action="route('theme.test.toast', ['type' => 'error'])"
         />
-        <x-shipyard.ui.button
+        <x-shipyard::ui.button
             icon="party-popper"
             label="Wywołaj"
             pop="Akcja niedestrukcyjna; po jego kliknięciu zmieni się coś na obecnie wyświetlanej stronie lub pojawi modal, bez odświeżania danych."
@@ -151,14 +151,14 @@
             onclick="openModal('test-modal')"
             class="tertiary"
         />
-        <x-shipyard.ui.button
+        <x-shipyard::ui.button
             icon="open-in-new"
             label="Otwórz"
             pop="Przejście do innej witryny lub wyświetlenie zawartości w nowej karcie. Wymaga cechy 'target'"
             :action="route('theme.test.toast', ['type' => 'success'])"
             target="_blank"
         />
-        <x-shipyard.ui.button
+        <x-shipyard::ui.button
             icon="toggle-switch"
             label="Przełącz"
             pop="Przełącznik; z założenia tertiary."
@@ -167,22 +167,22 @@
             class="toggle"
         />
     </div>
-</x-shipyard.app.card>
+</x-shipyard::app.card>
 
-<x-shipyard.app.card
+<x-shipyard::app.card
     title="Loadery"
     icon="reload"
     id="test-loaders"
 >
-    <x-shipyard.app.loader />
-    <x-shipyard.app.loader horizontal />
+    <x-shipyard::app.loader />
+    <x-shipyard::app.loader horizontal />
 
     <script>
     document.querySelectorAll("#test-loaders .loader").forEach(loader => loader.classList.remove("hidden"));
     </script>
-</x-shipyard.app.card>
+</x-shipyard::app.card>
 
-<x-shipyard.app.card
+<x-shipyard::app.card
     title="Countery"
     icon="counter"
 >
@@ -193,11 +193,11 @@
     ] as $style)
     <div class="flex right center">
         @for ($i = 0; $i < (in_array($style, ["military"]) ? 250 : 50); $i = $i + 3)
-        <x-shipyard.stats.counter :rank="$i" :style="$style" />
+        <x-shipyard::stats.counter :rank="$i" :style="$style" />
         @endfor
     </div>
     @endforeach
-</x-shipyard.app.card>
+</x-shipyard::app.card>
 
 </div>
 

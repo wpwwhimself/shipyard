@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Shipyard;
+namespace Wpwwhimself\Shipyard\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Mail\Shipyard\ReportError;
+use Wpwwhimself\Shipyard\Mail\ReportError;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;

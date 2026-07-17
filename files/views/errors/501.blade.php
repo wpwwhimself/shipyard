@@ -1,3 +1,3 @@
-@extends("layouts.shipyard.error")
+@extends("shipyard::layouts.error")
 @section("title", "Strona w budowie")
 @section("description", "Ta strona nie jest jeszcze gotowa. Spróbuj innym razem.")

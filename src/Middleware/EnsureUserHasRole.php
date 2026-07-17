@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Middleware\Shipyard;
+namespace Wpwwhimself\Shipyard\Middleware;
 
 use App\Models\User;
 use Closure;

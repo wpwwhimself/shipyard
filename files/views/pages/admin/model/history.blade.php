@@ -1,4 +1,4 @@
-@extends("layouts.shipyard.admin")
+@extends("shipyard::layouts.admin")
 @section("title", "Historia")
 @section("subtitle", "Administracja | ".$meta["label"]." | ".$data)
 
@@ -24,27 +24,27 @@
     $hmeta = $hentry->getMetadata();
     @endphp
 
-    <x-shipyard.app.section
+    <x-shipyard::app.section
         :title="$events[$hmeta['audit_event']]"
         :icon="$icons[$hmeta['audit_event']]"
         :extended="false"
     >
         <x-slot:actions>
             <div class="ghost">
-                <x-shipyard.app.icon-label-value
+                <x-shipyard::app.icon-label-value
                     icon="account-edit"
                     label="Data operacji"
                 >
                     {{ $hmeta["user_name"] }},
                     <span {{ Popper::pop($hmeta["audit_created_at"]) }}>{{ \Carbon\Carbon::parse($hmeta["audit_created_at"])->diffForHumans() }}</span>
-                </x-shipyard.app.icon-label-value>
+                </x-shipyard::app.icon-label-value>
             </div>
         </x-slot:actions>
 
         @foreach ($hentry->getModified() as $field_name => $change)
             <div class="grid but-mobile-down animatable highlight" style="--col-count: 3;">
                 <div class="accent secondary">
-                    <x-shipyard.app.icon :name="model_field_icon($scope, $field_name)" />
+                    <x-shipyard::app.icon :name="model_field_icon($scope, $field_name)" />
                     {{ $data::getFields()[$field_name]["label"] ?? $field_name }}
                 </div>
                 <div class="ghost">
@@ -55,12 +55,12 @@
                 </div>
             </div>
             @endforeach
-    </x-shipyard.app.section>
+    </x-shipyard::app.section>
 @endforeach
 
 <div class="flex right center middle">
     <div class="card">
-        <x-shipyard.ui.button
+        <x-shipyard::ui.button
             icon="arrow-left"
             label="Wróć"
             :action="route('admin.model.edit', ['model' => $scope, 'id' => $data->getKey()])"

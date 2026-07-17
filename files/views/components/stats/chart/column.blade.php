@@ -12,7 +12,7 @@ $maxValue = max($max, collect($data)->max("value"));
 $sumValue = collect($data)->sum("value");
 @endphp
 
-<x-shipyard.stats.chart.wrapper
+<x-shipyard::stats.chart.wrapper
     :title="$title"
     :subtitle="$subtitle"
     :icon="$icon"
@@ -53,4 +53,4 @@ $sumValue = collect($data)->sum("value");
         {{ $d["label"] }}
     </div>
     @endforeach
-</x-shipyard.stats.chart.wrapper>
+</x-shipyard::stats.chart.wrapper>

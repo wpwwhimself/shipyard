@@ -56,7 +56,7 @@ Zestaw metod decydujących o wyświetlaniu obiektu na listingu, w edytorze lub g
 ```php
 public static function modelAddButton(): string
 {
-    return view("components.shipyard.ui.button", [
+    return view("shipyard::components.ui.button", [
         "icon" => "plus",
         "label" => "Dodaj",
         "action" => route(...),
@@ -74,7 +74,7 @@ Jeśli chcesz zmienić domyślny przycisk w sidebarze listingu, który prowadzi 
 public function modelEditButton(): Attribute
 {
     return Attribute::make(
-        get: fn () => view("components.shipyard.ui.button", [
+        get: fn () => view("shipyard::components.ui.button", [
             "icon" => "pencil",
             "label" => "Edytuj",
             "action" => route(...),
@@ -435,7 +435,7 @@ Zwraca scope dla podanej klasy modelu.
 ### model_icon
 
 ```php
-<x-shipyard.app.icon :name="model_icon('users')" />
+<x-shipyard::app.icon :name="model_icon('users')" />
 ```
 
 Zwraca nazwę ikony modelu.
@@ -443,7 +443,7 @@ Zwraca nazwę ikony modelu.
 ### model_field_icon
 
 ```php
-<x-shipyard.app.icon :name="model_field_icon('users', 'name')" />
+<x-shipyard::app.icon :name="model_field_icon('users', 'name')" />
 ```
 
 Zwraca nazwę ikony pola modelu (wliczając domyślne).
@@ -451,7 +451,7 @@ Zwraca nazwę ikony pola modelu (wliczając domyślne).
 ### model_field_label
 
 ```php
-<x-shipyard.ui.input name="aaa" :label="model_field_label('users', 'name')" :icon="model_field_icon('users', 'name')" />
+<x-shipyard::ui.input name="aaa" :label="model_field_label('users', 'name')" :icon="model_field_icon('users', 'name')" />
 ```
 
 Zwraca etykietę pola modelu.

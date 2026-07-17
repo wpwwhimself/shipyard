@@ -1,4 +1,4 @@
-@extends("layouts.shipyard.mail")
+@extends("shipyard::layouts.mail")
 @section("title", "Resetowanie hasła")
 
 @section("content")
@@ -9,7 +9,7 @@
         Aby tego dokonać, kliknij poniższy przycisk.
     </p>
 
-    <x-shipyard.ui.button
+    <x-shipyard::ui.button
         icon="key-change"
         label="Ustaw nowe hasło"
         :action="$url"
