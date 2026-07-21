@@ -110,6 +110,7 @@ class User extends Authenticatable implements ContractsAuditable
                     "name",
                 ],
             ],
+            "role" => "technical",
         ],
     ];
 
