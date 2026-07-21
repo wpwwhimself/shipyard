@@ -115,6 +115,25 @@
             Jestem kartą i jestem po to, by grupować informacje.
             Mogę znajdować się luzem na stronie lub być częścią sekcji.
         </p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th class="sortable">Cześć</th>
+                    <th>Jestem</th>
+                    <th class="sortable">Tabelą</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (range(1, 10) as $i)
+                <tr>
+                    <td>{{ array_rand(range(1, 10)) }}</td>
+                    <td>{{ array_rand(range(1, 10)) }}</td>
+                    <td>{{ array_rand(range(1, 10)) }}</td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
     </x-shipyard::app.card>
 </div>
 
