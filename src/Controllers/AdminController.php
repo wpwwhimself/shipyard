@@ -90,8 +90,8 @@ class AdminController extends Controller
                 ],
             ],
             [
-                "title" => "SEO",
-                "subtitle" => "Metadane na potrzeby wyszukiwarek",
+                "title" => "SEO i integracje",
+                "subtitle" => "Metadane na potrzeby wyszukiwarek i dodatkowy kod",
                 "icon" => "earth",
                 "id" => "seo",
                 "fields" => [
@@ -121,9 +121,15 @@ class AdminController extends Controller
                         "icon" => "tag-multiple",
                     ],
                     [
-                        "name" => "metadata_google_tag_code",
-                        "label" => "Kod śledzący Google Analytics",
-                        "icon" => "magnify",
+                        "name" => "system_prepends",
+                        "label" => "Kod do nagłówka",
+                        "icon" => "xml",
+                        "hint" => "Np. tracker Google Analytics lub AdSense.",
+                    ],
+                    [
+                        "name" => "system_appends",
+                        "label" => "Kod do ciała",
+                        "icon" => "xml",
                     ],
                 ],
             ],

@@ -106,6 +106,7 @@
         @hasSection("prepends")
         @yield("prepends")
         @endif
+        {!! setting("system_prepends") !!}
     </head>
     <body>
         @if (!setting("app_adaptive_dark_mode"))
@@ -121,6 +122,7 @@
         @hasSection("appends")
         @yield("appends")
         @endif
+        {!! setting("system_appends") !!}
 
         <x-shipyard::app.toast />
         <x-shipyard::app.modal />
