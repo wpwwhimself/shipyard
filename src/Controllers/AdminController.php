@@ -43,6 +43,12 @@ class AdminController extends Controller
                         "hint" => "Link do logo aplikacji. Po dodaniu wyświetla się w nagłówku strony oraz, jeśli nie podano favicona, na karcie przeglądarki.",
                     ],
                     [
+                        "name" => "app_logo_dark_path",
+                        "label" => "Logo w trybie ciemnym",
+                        "icon" => "compare",
+                        "hint" => "Opcjonalny link do logo aplikacji dla trybu ciemnego.",
+                    ],
+                    [
                         "name" => "app_favicon_path",
                         "label" => "Favicon",
                         "icon" => "image-text",

@@ -628,6 +628,18 @@ header {
 .logo {
     height: 4em;
     vertical-align: middle;
+
+    &.dark {
+        display: none;
+
+        body.dark & {
+            display: block;
+        }
+    }
+
+    body.dark &:not(.dark) {
+        display: none;
+    }
 }
 
 #lookup-container {
