@@ -628,17 +628,11 @@ header {
 .logo {
     height: 4em;
     vertical-align: middle;
+    display: none;
 
-    &.dark {
-        display: none;
-
-        body.dark & {
-            display: block;
-        }
-    }
-
-    body.dark &:not(.dark) {
-        display: none;
+    body.dark &.dark,
+    body:not(.dark) &.light {
+        display: block;
     }
 }
 
