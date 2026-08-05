@@ -409,6 +409,7 @@ pre {
         &:hover {
             scale: -3;
             rotate: 90deg;
+            z-index: 10;
         }
 
         & > svg {
