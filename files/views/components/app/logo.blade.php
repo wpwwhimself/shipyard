@@ -5,7 +5,7 @@
 @if (setting("app_logo_path") !== null)
 @if ($clickable) <a href="/"> @endif
 
-<picture role="logo">
+<picture class="logo-container">
     @if (setting("app_adaptive_dark_mode"))
     <source
         @class(["logo"])
