@@ -174,8 +174,8 @@ class AuthController extends Controller
                 $rq->only('email', 'password', 'password_confirmation', 'token'),
                 function (User $user, string $password) {
                     $user->forceFill([
-                        'name' => (setting("users_login_is") == "none") ? $user->name : substr($password, 0, self::NOLOGIN_LOGIN_PART_LENGTH),
-                        'password' => Hash::make($password)
+                        'name' => (setting("users_login_is") == "none") ? substr($password, 0, self::NOLOGIN_LOGIN_PART_LENGTH) : $user->name,
+                        'password' => $password,
                     ]);
                     $user->save();
                 }
