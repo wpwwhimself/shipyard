@@ -26,7 +26,9 @@
         'Logowanie',
         nullif('Rejestracja', setting('users_self_register_enabled')),
     ]))"
-    :action="route('login')"
+    action="none"
+    onclick="openModal('login')"
+    class="tertiary"
 />
 
 @endauth

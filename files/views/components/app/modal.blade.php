@@ -58,6 +58,7 @@ const fields = form.querySelector("[role='fields']");
 const summary = form.querySelector("[role='summary']");
 const summary_loader = summary.querySelector(".loader");
 const summary_content = summary.querySelector("[role='summary-content']");
+const actions = form.querySelector(".actions");
 
 const submit_btn = form.querySelector("button[type='submit']");
 const summary_btn = form.querySelector("[role='go_to_summary']");
@@ -76,6 +77,12 @@ const openModal = (name, defaults = {}, overrides = {}, afterAll = () => {}) => 
             form.action = data.full_target_route;
             card.querySelector("[role$='title']").textContent = data.heading;
             fields.innerHTML = data.rendered_fields;
+
+            // remove superfluous buttons (index of 3 and on)
+            for (let i = actions.children.length - 1; i >= 3; i--) {
+                actions.children[i].remove();
+            }
+            actions.innerHTML += data.extra_buttons?.join("") ?? "";
 
             Object.entries(defaults).forEach(([name, value]) => {
                 if (form.querySelector(`[role='fields'] [name="${name}"]`)) {

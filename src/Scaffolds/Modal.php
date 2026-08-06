@@ -16,6 +16,44 @@ abstract class Modal
     protected static function defaultItems(): array
     {
         return [
+            "login" => [
+                "heading" => "Logowanie",
+                "target_route" => "login.process",
+                "fields" => [
+                    (setting("users_login_is") == "none") ? null : [
+                        "name" => setting("users_login_is"),
+                        "type" => "text",
+                        "label" => setting("users_login_is") == "email" ? "Adres email" : "Login",
+                        "icon" => "badge-account",
+                        "required" => true,
+                    ],
+                    [
+                        "name" => "password",
+                        "type" => "password",
+                        "label" => "Hasło",
+                        "icon" => "key",
+                        "required" => true,
+                    ],
+                    [
+                        "name" => "remember",
+                        "type" => "checkbox",
+                        "label" => "Zapamiętaj mnie",
+                        "icon" => "cookie",
+                    ],
+                ],
+                "extra_buttons" => [
+                    view("shipyard::components.ui.button", [
+                        "icon" => "lock-question",
+                        "label" => "Nie pamiętam hasła",
+                        "action" => route("password.reset"),
+                    ])->render(),
+                    (!setting("users_self_register_enabled")) ? null : view("shipyard::components.ui.button", [
+                        "icon" => "account-plus",
+                        "label" => "Rejestracja",
+                        "action" => route("register"),
+                    ])->render(),
+                ],
+            ],
             "report-error" => [
                 "heading" => "Zgłoś błąd",
                 "target_route" => "error.report",

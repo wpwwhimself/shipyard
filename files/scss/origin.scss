@@ -255,12 +255,11 @@ footer {
     }
 }
 
-form, form > [role="fields"] {
+form, form > [role="fields"], form > [role="extra_buttons"] {
     @extend .flex, .down;
 
-    &.tight {
-        max-width: 25em;
-        margin-inline: auto;
+    &[role="extra_buttons"] {
+        @extend .middle;
     }
 }
 

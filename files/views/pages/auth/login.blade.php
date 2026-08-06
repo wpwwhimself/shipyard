@@ -7,7 +7,7 @@
     <x-shipyard::app.form
         :action="route('login.process')"
         method="post"
-        @class(["tight", "stagger-contents" => setting("animations_mode") >= 2])
+        @class(["stagger-contents" => setting("animations_mode") >= 2])
     >
         @if (setting("users_login_is") != "none")
         <x-shipyard::ui.input type="text"

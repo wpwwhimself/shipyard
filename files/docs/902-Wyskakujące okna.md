@@ -18,6 +18,7 @@ Lista modali jest określona przez okluczowany array. Klucze to nazwa modala (u�
 - `target_route` - route POST, do którego ma trafić zapytanie
 - `summary_route` - route POST do podsumowania, jakie wyświetla się przed zatwierdzeniem formularza
 - `fields` - lista pól, jakie modal powinien wyświetlać. Tworzona tak jak zwykłe inputy
+- `extra_buttons` - lista dodatkowych elementów (zazwyczaj przycisków) dodawanych do przycisków formularza. Te elementy muszą być gotowym HTMLem
 
 ### Pola ✏️
 
