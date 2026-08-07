@@ -157,7 +157,7 @@ abstract class Modal
         if ($ret->has("summary_route")) {
             $ret->put("full_summary_route", route($ret["summary_route"]));
         }
-        $ret->put("rendered_fields", collect($ret["fields"])->map(function ($f) use ($overrides) {
+        $ret->put("rendered_fields", collect($ret["fields"])->filter()->map(function ($f) use ($overrides) {
             // overrides
             foreach (["icon", "label", "required", "extra"] as $overridable) {
                 if (!isset($f["name"])) continue;
