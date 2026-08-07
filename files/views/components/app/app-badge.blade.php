@@ -1,5 +1,5 @@
 <div id="app-badge">
-    <x-shipyard::app.logo />
+    <x-shipyard::app.logo :force-theme="\App\ShipyardTheme::getTheme() === 'austerity' ? 'dark' : null" />
 
     <div role="details">
         <h2 role="app-name"><a href="/">{{ setting("app_name") }}</a></h2>

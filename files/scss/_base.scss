@@ -633,12 +633,17 @@ header {
 .logo {
     height: 4em;
     vertical-align: middle;
-    display: none;
 
-    body.dark &.dark,
-    body:not(.dark) &.light {
-        display: block;
+    &.dark,
+    &.light {
+        display: none;
+
+        body.dark &.dark,
+        body:not(.dark) &.light {
+            display: block;
+        }
     }
+
 }
 
 #lookup-container {
