@@ -115,6 +115,7 @@ function similar_models(?string $scope = null): array
             "icon" => model_icon($scope),
             "label" => model($scope)::META["label"],
             "scope" => $scope,
+            "meta" => model($scope)::META,
         ])
         ->toArray();
 }

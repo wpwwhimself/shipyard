@@ -48,6 +48,7 @@
         :icon="$model['icon'] ?? null"
         :pop="$model['label']"
         :action="route('admin.model.list', ['model' => $model['scope']])"
+        :show-for="$model['meta']['role'] ?? null"
     />
     @endforeach
 </div>

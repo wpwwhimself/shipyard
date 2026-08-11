@@ -34,7 +34,7 @@ $pages_are_truncated = $pages->count() > $max_pages;
 @endif
 @endif
 
-@if (Auth::user()?->hasRole("content-manager|technical"))
+@if (Auth::user())
 <x-shipyard::ui.button
     icon="cogs"
     pop="Administracja"
@@ -73,7 +73,6 @@ $pages_are_truncated = $pages->count() > $max_pages;
     icon="database"
     pop="Zarządzanie danymi"
     :action="route('admin.models')"
-    show-for="technical"
     class="hidden"
     data-mode="admin"
 />

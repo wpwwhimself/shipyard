@@ -34,7 +34,7 @@
             :icon="$model['icon'] ?? null"
             :label="$model['label']"
             :action="route('admin.model.list', ['model' => $model['scope']])"
-            :show-for="$model['role'] ?? null"
+            :show-for="$model['meta']['role'] ?? null"
         />
         @endforeach
     </div>
