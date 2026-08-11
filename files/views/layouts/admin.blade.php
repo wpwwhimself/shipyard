@@ -44,25 +44,27 @@
     </x-slot:middle>
 
     <x-slot:bottom>
-        @if (setting("contact_form_enabled") && \App\Models\User::all()->count(fn ($u) => $u->hasRole("mediator")))
-        <x-shipyard::ui.button
-            icon="email"
-            pop="Formularz kontaktowy"
-            action="none"
-            onclick="openModal(`contact-form`)"
-            class="tertiary"
-        />
-        @endif
+        <div class="flex right center">
+            @if (setting("contact_form_enabled") && \App\Models\User::all()->count(fn ($u) => $u->hasRole("mediator")))
+            <x-shipyard::ui.button
+                icon="email"
+                pop="Formularz kontaktowy"
+                action="none"
+                onclick="openModal(`contact-form`)"
+                class="tertiary"
+            />
+            @endif
 
-        @unless (setting("app_adaptive_dark_mode"))
-        <x-shipyard::ui.button
-            icon="theme-light-dark"
-            pop="Tryb ciemny"
-            action="none"
-            onclick="toggleTheme()"
-            class="tertiary"
-        />
-        @endunless
+            @unless (setting("app_adaptive_dark_mode"))
+            <x-shipyard::ui.button
+                icon="theme-light-dark"
+                pop="Tryb ciemny"
+                action="none"
+                onclick="toggleTheme()"
+                class="tertiary"
+            />
+            @endunless
+        </div>
 
         <x-shipyard::app.app-badge />
     </x-slot:bottom>
