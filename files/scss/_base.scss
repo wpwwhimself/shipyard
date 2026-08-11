@@ -455,6 +455,11 @@ pre {
 [role="doc-toc"] {
     grid-area: 1 / 2;
 
+    & > .card {
+        max-height: calc(100vh - 2em);
+        overflow-y: auto;
+    }
+
     & ol {
         padding-left: 1em;
     }
