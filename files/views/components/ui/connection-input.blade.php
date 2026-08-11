@@ -23,7 +23,6 @@ $options = $models->flatMap(fn ($m) => $m::forConnection()->get()->map(fn ($i) =
 if ($models->count() > 1) {
     $options = $options->groupBy("group");
 }
-// dd($model?->{$connectionName}->map(fn ($i) => $i->getKey())->toArray());
 @endphp
 
 @switch ($rdata['mode'])
@@ -39,6 +38,7 @@ if ($models->count() > 1) {
                 : $model?->{$rdata['field_name'] ?? Str::snake($connectionName).'_id'}
             )
         "
+        :required="$rdata['required'] ?? false"
         :select-data="[
             'options' => $options,
             'emptyOption' => true,

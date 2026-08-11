@@ -133,6 +133,7 @@ Stała `CONNECTIONS` zbiera informacje o relacjach z innymi modelami. Wymaga okr
 - opcjonalne
   - `field_name` - kolumna w obiekcie przechowująca relację, jeśli nie jest to np. `project_id`
   - `field_label` - etykieta relacji w edytorze - domyślnie `META[label]`
+  - `required` - t/f - zaznacza wymagalność pola
   - `readonly` - t/f - blokuje możliwość edycji relacji
 
 ### Definicje relacji
