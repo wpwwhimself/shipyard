@@ -91,11 +91,14 @@
                     <x-shipyard::app.icon name="lock" />
                 </span>
                 @endif
+
+                @foreach (Arr::wrap($rdata['model']) as $m)
                 <x-shipyard::ui.button
                     pop="Przeglądaj wszystkie"
                     icon="arrow-right"
-                    :action="route('admin.model.list', ['model' => scope($rdata['model'])])"
+                    :action="route('admin.model.list', ['model' => scope($m)])"
                 />
+                @endforeach
             </x-slot:actions>
 
             <input type="hidden" name="_connections[]" value="{{ $relation }}">
