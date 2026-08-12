@@ -312,7 +312,10 @@ class AdminController extends Controller
         $meta = model($scope)::META;
         $data = model($scope)::find($id);
 
-        if (!Auth::user()?->hasRole(model($scope)::META["checkOwnerUnless"] ?? null) && Auth::id() !== $data?->created_by ?? null) abort(403);
+        if (!Auth::user()?->hasRole(model($scope)::META["checkOwnerUnless"] ?? null)
+            && (Auth::id() !== $data?->created_by ?? null)
+            && $id !== null
+        ) abort(403);
 
         $fields = model($scope)::getFields();
         $connections = model($scope)::getConnections();
