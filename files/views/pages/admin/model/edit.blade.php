@@ -165,9 +165,9 @@
             <x-shipyard::ui.button
                 icon="arrow-left"
                 pop="Wróć"
-                :action="Auth::user()?->hasRole('technical')
-                    ? route('admin.model.list', ['model' => $scope])
-                    : route('profile')"
+                :action="Str::endsWith(request()->headers->get('referer'), '/profile')
+                    ? route('profile')
+                    : route('admin.model.list', ['model' => $scope])"
             />
         </div>
     </x-slot:actions>
