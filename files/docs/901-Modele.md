@@ -195,6 +195,7 @@ Stała `SORTS` zawiera definicje metod sortowania listingu. Dane przechowywane s
   - field - kolumna w bazie
   - function - atrybut lub helper
 - `discr` - nazwa pola lub funkcji
+  - Dla `compare-using = field`, `discr` może być arrayem pól (np. `["name", "subject_id"]`). Wówczas sortowanie odbywa się w podanej kolejności, a kierunek sorta jest nadawany dla wszystkich elementów.
 
 Filtrowanie malejąco osiągane jest przez dodanie minusa przed nazwą sorta, np. `-name`.
 

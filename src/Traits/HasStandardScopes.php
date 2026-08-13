@@ -3,6 +3,7 @@
 namespace Wpwwhimself\Shipyard\Traits;
 
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
@@ -49,10 +50,12 @@ trait HasStandardScopes
         }
 
         if ($sortData && $sortData["compare-using"] == "field") {
-            $query = $query->orderBy(
-                $sortData["discr"],
-                $sort[0] == "-" ? "desc" : "asc",
-            );
+            foreach (Arr::wrap($sortData["discr"]) as $discr) {
+                $query = $query->orderBy(
+                    $discr,
+                    $sort[0] == "-" ? "desc" : "asc",
+                );
+            }
         }
 
         $data = $query->get();
