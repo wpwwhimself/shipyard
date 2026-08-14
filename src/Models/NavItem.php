@@ -153,28 +153,6 @@ class NavItem extends Model implements ContractsAuditable
     ];
     #endregion
 
-    public const SORTS = [
-        // "<name>" => [
-        //     "label" => "",
-        //     "compare-using" => "function|field",
-        //     "discr" => "<function_name|field_name>",
-        // ],
-    ];
-
-    public const FILTERS = [
-        // "<name>" => [
-        //     "label" => "",
-        //     "icon" => "",
-        //     "compare-using" => "function|field",
-        //     "discr" => "<function_name|field_name>",
-        //     "mode" => "<one|many>",
-        //     "operator" => "",
-        //     "options" => [
-        //         "<label>" => <value>,
-        //     ],
-        // ],
-    ];
-
     #region scopes
     use HasStandardScopes;
     #endregion
