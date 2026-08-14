@@ -5,6 +5,17 @@
 @section("sidebar")
 
 <div class="card stick-top">
+    @if ($data)
+    <x-shipyard::ui.button
+        icon="plus"
+        pop="Dodaj kolejny wpis"
+        class="primary"
+        :action="route('admin.model.edit', ['model' => $scope])"
+    />
+
+    <x-shipyard::app.sidebar-separator />
+    @endif
+
     @foreach ($sections as $section)
     <x-shipyard::ui.button
         :icon="$section['icon'] ?? null"
