@@ -23,57 +23,13 @@ class {{ class }} extends Model implements ContractsAuditable
         "icon" => "",
         "description" => "",
         "role" => "",
-        "ordering" => ,
+        "ordering" => 1,
     ];
 
     use HasStandardFields, HasStandardScopes, HasStandardAttributes;
     use SoftDeletes, Userstamps, Auditable;
 
     #region presentation
-    public function __toString(): string
-    {
-        return $this->name;
-    }
-
-    public function optionLabel(): Attribute
-    {
-        return Attribute::make(
-            get: fn () => $this->name,
-        );
-    }
-
-    public function displayTitle(): Attribute
-    {
-        return Attribute::make(
-            get: fn () => view("shipyard::components.app.h", [
-                "lvl" => 3,
-                "icon" => $this->icon ?? self::META["icon"],
-                "attributes" => new ComponentAttributeBag([
-                    "role" => "card-title",
-                ]),
-                "slot" => $this,
-            ])->render(),
-        );
-    }
-
-    public function displaySubtitle(): Attribute
-    {
-        return Attribute::make(
-            get: fn () => view("shipyard::components.app.model.badges", [
-                "badges" => $this->badges,
-            ])->render(),
-        );
-    }
-
-    public function displayMiddlePart(): Attribute
-    {
-        return Attribute::make(
-            get: fn () => view("shipyard::components.app.model.connections-preview", [
-                "connections" => self::getConnections(),
-                "model" => $this,
-            ])->render(),
-        );
-    }
     #endregion
 
     #region fields
@@ -86,8 +42,8 @@ class {{ class }} extends Model implements ContractsAuditable
     ];
 
     protected $fillable = [
-        "name",
-        "visible",
+        "name", "visible", "order",
+        //
     ];
     #endregion
 

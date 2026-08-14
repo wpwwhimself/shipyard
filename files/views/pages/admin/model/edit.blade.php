@@ -1,5 +1,5 @@
 @extends("shipyard::layouts.admin")
-@section("title", ($data ?: "Nowy wpis"))
+@section("title", ($data?->raw_title ?: "Nowy wpis"))
 @section("subtitle", "Administracja | ".$meta["label"])
 
 @section("sidebar")
@@ -62,6 +62,7 @@
     <div @class(["grid", "but-mobile-down", "stagger-contents" => setting("animations_mode") >= 1]) style="--col-count: 2;">
         <x-shipyard::app.section
             title="Dane podstawowe"
+            :subtitle="$data ?? null"
             :icon="model_icon($scope)"
             id="basic"
             style="grid-column: span 2;"

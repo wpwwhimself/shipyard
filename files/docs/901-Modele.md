@@ -42,15 +42,94 @@ Stała `META` przechowuje metadane i podstawowe reguły modelu
 
 ## Prezentacja 🔦
 
-Zestaw metod decydujących o wyświetlaniu obiektu na listingu, w edytorze lub gdziekolwiek:
-- `__toString()` - standardowy cast do stringa
-  - tu można też użyć komponentów, np. ikon albo kolorków
-- `optionLabel()` / `option_label` - tak będzie wyświetlać się na listach, np. selektor relacji
-  - czysty tekst, tu można wyświetlić też ID
+Zestaw metod decydujących o wyświetlaniu obiektu na listingu, w edytorze lub gdziekolwiek.
+
+Poniższe metody domyślnie definiowane są w `HasStandardAttributes`, ale można je nadpisać dla poszczególnego modelu.
+
+### toString
+```php
+public function __toString(): string
+{
+    return $this->name;
+}
+```
+Standardowy cast do stringa
+- najczęściej pojawia się luzem w komponentach, np. w treści tabel, w których model jest elementem
+- tu można użyć komponentów, np. ikon albo kolorków
+
+### optionLabel
+```php
+public function optionLabel(): Attribute
+{
+    return Attribute::make(
+        get: fn () => $this->name,
+    );
+}
+```
+Tak będzie wyświetlać się na listach, np. selektor relacji
+- czysty tekst, tu można wyświetlić też ID
+
+### rawTitle
+```php
+public function rawTitle(): Attribute
+{
+    return Attribute::make(
+        get: fn () => $this->name,
+    );
+}
+```
+Surowy tekst, używany w tytule strony
+
+### Prezentacja na kafelku
+```php
+public function displayTitle(): Attribute
+{
+    return Attribute::make(
+        get: fn () => view("shipyard::components.app.h", [
+            "lvl" => 3,
+            "icon" => $this->icon ?? static::META["icon"],
+            "attributes" => new ComponentAttributeBag([
+                "role" => "card-title",
+            ]),
+            "slot" => $this->raw_title,
+        ])->render(),
+    );
+}
+```
+```php
+public function displayPreTitle(): Attribute
+{
+    return Attribute::make(
+        get: fn () => "<img class='thumbnail' src='...' alt='...' />",
+    );
+}
+```
+```php
+public function displaySubtitle(): Attribute
+{
+    return Attribute::make(
+        get: fn () => view("shipyard::components.app.model.badges", [
+            "badges" => $this->badges,
+        ])->render(),
+    );
+}
+```
+```php
+public function displayMiddlePart(): Attribute
+{
+    return Attribute::make(
+        get: fn () => view("shipyard::components.app.model.connections-preview", [
+            "connections" => self::getConnections(),
+            "model" => $this,
+        ])->render(),
+    );
+}
+```
+Zestaw metod do upiększania kafelków modelu:
 - `displayTitle()` / `display_title` - tak będzie wyświetlać się na tytule kafelka
 - `displaySubtitle()` / `display_subtitle`
 - `displayPreTitle()` / `display_pre_title` - opcjonalny obiekt na lewo od tytułu, np. dla obrazka produktu
-- `displayMiddlePart()` / `display_middle_part` - dane wyświetlane na środku kafelka - zazwyczaj podgląd relacji lub wyświetlanie cech obiektu
+- `displayMiddlePart()` / `display_middle_part` - dane wyświetlane na środku kafelka
 
 ### modelAddButton
 ```php
