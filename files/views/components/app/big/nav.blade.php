@@ -34,6 +34,15 @@ $pages_are_truncated = $pages->count() > $max_pages;
 @endif
 @endif
 
+<x-shipyard::ui.button
+    icon="unfold-less-vertical"
+    pop="Zwiń"
+    action="none"
+    onclick="openMenu('pinned')"
+    class="tertiary hidden"
+    data-mode="main"
+/>
+
 @if (Auth::user())
 <x-shipyard::ui.button
     icon="cogs"
@@ -83,5 +92,5 @@ $pages_are_truncated = $pages->count() > $max_pages;
     action="none"
     onclick="openMenu('pinned')"
     class="tertiary hidden"
-    data-mode="main|admin"
+    data-mode="admin"
 />
