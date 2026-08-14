@@ -254,11 +254,13 @@ function getIconPreview(input_name) {
     const input = document.querySelector(`input[name="${input_name}"]`)
     const icon = input.nextElementSibling.querySelector(`.icon`);
 
+    const icon_name = input.value || "aaa"; 
+
     clearTimeout(debounce_timer);
     debounce_timer = setTimeout(() => {
         icon.classList.add("ghost");
 
-        fetchPublic(`/front/icon/${input.value}`)
+        fetchPublic(`/front/icon/${icon_name}`)
             .then(res => res.text())
             .then(html => icon.replaceWith(fromHTML(html)))
             .catch(err => console.error(err));

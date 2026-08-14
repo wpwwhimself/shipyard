@@ -342,6 +342,9 @@ if (Str::endsWith($type, "multiple") && !Str::endsWith($name, "[]")) $name .= "[
 
         @if ($type == "icon")
         <x-shipyard::app.icon :name="$value" />
+        <script defer>
+        getIconPreview('{{ $name }}');
+        </script>
         @endif
 
         @if ($type == "ABC")
