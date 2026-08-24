@@ -246,6 +246,7 @@ Stała `EXTRA_SECTIONS` zawiera definicje dodatkowych sekcji wyświetlanych prze
 - wymagane
   - `title` - tytuł sekcji
   - `icon`
+  - `component` - nazwa komponentu wyświetlanego w sekcji, np. `app.book.preview`
   - `show-on`
     - list - wyświetla przed listingiem, po filtrach
     - edit - wyświetla jako kolejny kafelek po relacjach
