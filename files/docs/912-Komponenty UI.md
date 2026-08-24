@@ -25,6 +25,10 @@ Standardowe pole tekstowe.
 
 Inne HTMLowe typy inputa.
 
+### 🎨 color
+
+Domyślny input koloru jest zastąpiony pakietem [wipeautcrafter/jscolorpicker](https://github.com/wipeautcrafter/jscolorpicker), który pozwala na dodatkowo na czyszczenie koloru.
+
 ### 🔍 lookup
 
 Pole pozwalające na wyszukiwanie informacji z zewnątrz, np. po odpytaniu API.

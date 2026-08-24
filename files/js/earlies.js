@@ -4,6 +4,7 @@
 
 window.shipyard = {
     selects: {},
+    colorPickers: {},
 };
 
 /**
@@ -244,6 +245,27 @@ function reinitSelect() {
     });
 }
 
+function initColorPicker(name) {
+    if (window.shipyard.colorPickers[name]) {
+        return;
+    }
+    
+    const picker = new ColorPicker(`#${name}`, {
+        toggleStyle: "input",
+        enableAlpha: false,
+        submitMode: "instant",
+        showClearButton: true,
+    });
+
+    window.shipyard.colorPickers[name] = picker;
+}
+
+function reinitColorPicker() {
+    document.querySelectorAll(`[role="color-picker"]`).forEach(input => {
+        initColorPicker(input.name);
+    })
+}
+
 function reinitHTML() {
     window.CKEditorInit();
 }
@@ -384,6 +406,7 @@ function reinitAll() {
     reapplyPopper();
     reinitSelect();
     reinitHTML();
+    reinitColorPicker();
 }
 
 function reapplyPopper() {

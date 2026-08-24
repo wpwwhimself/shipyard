@@ -297,6 +297,11 @@ if (Str::endsWith($type, "multiple") && !Str::endsWith($name, "[]")) $name .= "[
         />
         @break
 
+        @case ("color")
+        <input id="{{ $name }}" name="{{ $name }}" value="{{ $value }}" role="color-picker" />
+        <script defer>initColorPicker("{{ $name }}");</script>
+        @break
+
         @default
         <input type="{{ $type }}"
             id="{{ $name }}"

@@ -79,6 +79,11 @@
         <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
         {{-- ✅ choices stuff ✅ --}}
 
+        {{-- 🎨 color picker stuff 🎨 --}}
+        <link rel="stylesheet" href="{{ asset("css/Shipyard/colorpicker.min.css") }}" />
+        <script src="{{ asset("js/Shipyard/colorpicker.min.js") }}"></script>
+        {{-- 🎨 color picker stuff 🎨 --}}
+
         @if (\App\ShipyardTheme::moduleEnabled("wysiwyg"))
         {{-- ✏️ ckeditor stuff ✏️ --}}
         <script type="importmap">
