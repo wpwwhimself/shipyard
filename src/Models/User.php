@@ -43,6 +43,7 @@ class User extends Authenticatable implements ContractsAuditable
         'email',
         'password',
         'roles',
+        "p13n",
     ];
 
     #region presentation
@@ -179,6 +180,7 @@ class User extends Authenticatable implements ContractsAuditable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'p13n' => "collection",
         ];
     }
 

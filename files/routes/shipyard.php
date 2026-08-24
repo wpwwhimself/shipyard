@@ -41,6 +41,10 @@ Route::controller(AuthController::class)->prefix("auth")->group(function () {
 Route::middleware("auth")->group(function () {
     Route::controller(ProfileController::class)->prefix("profile")->group(function () {
         Route::get("/", "myProfile")->name("profile");
+        Route::prefix("p13n")->group(function () {
+            Route::get("", "p13n")->name("profile.p13n");
+            Route::post("", "processP13n")->name("profile.p13n.process");
+        });
     });
 
     Route::controller(AdminController::class)->prefix("admin")->group(function () {

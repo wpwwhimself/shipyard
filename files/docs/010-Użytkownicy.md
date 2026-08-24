@@ -4,6 +4,12 @@
     "role": "technical"
 }
 
+# Personalizacja
+
+Użytkownicy mają możliwość dopasowania niektórych ustawień systemowych do własnych preferencji. Jest to możliwe w [panelu personalizacji](/profile/p13n) za pomocą przycisku _🟡 Personalizacja_ w profilu użytkownika.
+
+Po podaniu wartości dla wskazanych ustawień, aplikacja będzie brała je pod uwagę przed wartościami systemowymi. Aby przywrócić domyślne zachowanie, należy usunąć wartość z danego pola.
+
 # Ustawienia
 
 W [ustawieniach systemu](/admin/settings) w sekcji _🟦 Użytkownicy i interakcja_ dostępne są ustawienia związane z użytkownikami.

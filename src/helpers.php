@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Setting;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Wpwwhimself\Shipyard\Console\InstallCommand;
 
@@ -28,7 +29,18 @@ function nullif(string $value, bool $condition): string|null
  */
 function setting(string $key, $default = null): ?string
 {
-    return Setting::get($key, $default);
+    $value = Setting::get($key, $default);
+
+    // p13n
+    $personalized_settings = [
+        "app_adaptive_dark_mode",
+        "app_primary_color", // wyjątek, bo nie ma takiego settinga
+    ];
+    if (in_array($key, $personalized_settings)) {
+        $value = Auth::user()?->p13n?->get($key) ?? $value;
+    }
+
+    return $value;
 }
 
 function shipyard_version(): string

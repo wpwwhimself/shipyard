@@ -64,7 +64,7 @@ class AdminController extends Controller
             ],
             [
                 "title" => "Wygląd",
-                "subtitle" => "Style i kolory",
+                "subtitle" => "Domyślne kolory i zachowanie (jeśli nie są spersonalizowane)",
                 "icon" => "palette",
                 "id" => "theme",
                 "fields" => [

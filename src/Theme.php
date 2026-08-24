@@ -16,7 +16,13 @@ trait Theme
     #region colors
     public static function getColors(): string
     {
-        return collect(self::COLORS)
+        $colors = collect(self::COLORS);
+        
+        if (setting("app_primary_color")) {
+            $colors->put("primary", setting("app_primary_color"));
+        }
+
+        return $colors
             ->map(fn ($color, $name) => is_array($color)
                 ? "--$name: light-dark($color[0], $color[1]);"
                 : "--$name: $color;"

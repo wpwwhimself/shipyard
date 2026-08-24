@@ -26,8 +26,13 @@
 
     <x-slot:actions>
         <x-shipyard::ui.button
+            icon="account-cowboy-hat"
+            label="Personalizacja"
+            :action="route('profile.p13n')"
+        />
+        <x-shipyard::ui.button
             icon="pencil"
-            label="Edytuj"
+            label="Edytuj dane"
             :action="route('admin.model.edit', ['model' => 'users', 'id' => Auth::user()->id])"
         />
     </x-slot:actions>
