@@ -406,11 +406,12 @@ pre {
         scale: -1;
         vertical-align: center;
 
-        &:hover {
-            scale: -3;
-            rotate: 90deg;
-            z-index: 10;
-        }
+        // disabled due to poor performance, scale in particular
+        // &:hover {
+        //     scale: -3;
+        //     rotate: 90deg;
+        //     z-index: 10;
+        // }
 
         & > svg {
             color: var(--fg);
