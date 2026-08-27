@@ -15,12 +15,12 @@
     <x-shipyard::app.section title="Dane użytkownika" :icon="model_icon('users')">
         <x-shipyard::ui.input type="text"
             name="name" label="Login"
-            icon="badge-account"
+            :icon="model_field_icon('users', 'name')"
             required
         />
         <x-shipyard::ui.input type="text"
             name="email" label="Adres email"
-            icon="at"
+            :icon="model_field_icon('users', 'email')"
             required
         />
         <x-shipyard::ui.input type="password"

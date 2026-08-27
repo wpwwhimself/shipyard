@@ -2,8 +2,6 @@
 
 namespace Wpwwhimself\Shipyard\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
-
 use Wpwwhimself\Shipyard\Mail\ResetPasswordLink;
 use App\Scaffolds\Role;
 use Wpwwhimself\Shipyard\Traits\HasStandardScopes;
@@ -14,7 +12,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\View\ComponentAttributeBag;
 use Laravel\Sanctum\HasApiTokens;
@@ -25,7 +22,7 @@ use OwenIt\Auditing\Contracts\Auditable as ContractsAuditable;
 class User extends Authenticatable implements ContractsAuditable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable, HasApiTokens, SoftDeletes, Userstamps, Auditable;
+    use HasFactory, Notifiable, HasApiTokens;
 
     public const META = [
         "label" => "Użytkownicy",
@@ -38,24 +35,19 @@ class User extends Authenticatable implements ContractsAuditable
         "uneditableField" => "name",
     ];
 
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-        'roles',
-        "p13n",
-    ];
+    use HasStandardFields, HasStandardScopes, HasStandardAttributes;
+    use SoftDeletes, Userstamps, Auditable;
 
     #region presentation
     public function __toString(): string
     {
-        return $this->name;
+        return $this->display_name ?? $this->name;
     }
 
     public function optionLabel(): Attribute
     {
         return Attribute::make(
-            get: fn () => $this->name,
+            get: fn () => $this,
         );
     }
 
@@ -68,15 +60,25 @@ class User extends Authenticatable implements ContractsAuditable
                 "attributes" => new ComponentAttributeBag([
                     "role" => "card-title",
                 ]),
-                "slot" => $this->name,
+                "slot" => $this,
             ])->render(),
+        );
+    }
+
+    public function rawTitle(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => $this,
         );
     }
 
     public function displaySubtitle(): Attribute
     {
         return Attribute::make(
-            get: fn () => $this->email,
+            get: fn () => implode(" • ", [
+                $this->name,
+                $this->email,
+            ]),
         );
     }
 
@@ -91,13 +93,24 @@ class User extends Authenticatable implements ContractsAuditable
     #endregion
 
     #region fields
-    use HasStandardFields;
-
     public const FIELDS = [
+        "name" => [
+            "type" => "text",
+            "label" => "Login",
+            "icon" => "badge-account-outline",
+            "required" => true,
+        ],
+        "display_name" => [
+            "type" => "text",
+            "label" => "Nazwa wyświetlana",
+            "icon" => "badge-account",
+            "hint" => "Nazwa wyświetlana, np. Twoje imię i nazwisko. Jeśli nie podano, Twoje konto wyświetlać będzie Twój login.",
+        ],
         "email" => [
             "type" => "email",
             "label" => "Adres email",
             "icon" => "at",
+            "required" => true,
         ],
         "roles" => [
             "type" => "select-multiple",
@@ -114,10 +127,26 @@ class User extends Authenticatable implements ContractsAuditable
             "role" => "technical",
         ],
     ];
-
-    public const CONNECTIONS = [
+    
+    protected $fillable = [
+        'name',
+        'display_name',
+        'email',
+        'password',
+        'roles',
+        "p13n",
     ];
 
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
+    #endregion
+
+    #region relations
+    #endregion
+    
+    #region actions and extras
     public const ACTIONS = [
         [
             "icon" => "key-change",
@@ -128,11 +157,14 @@ class User extends Authenticatable implements ContractsAuditable
     ];
     #endregion
 
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
+    #region scopes
+    public function scopeForConnection($query)
+    {
+        return $query->orderBy("name");
+    }
+    #endregion
 
+    #region sorts and filters
     public const SORTS = [
         "name" => [
             "label" => "nazwa użytkownika",
@@ -164,17 +196,9 @@ class User extends Authenticatable implements ContractsAuditable
             "operator" => "regexp",
         ],
     ];
-
-    #region scopes
-    use HasStandardScopes;
-
-    public function scopeForConnection($query)
-    {
-        return $query->orderBy("name");
-    }
     #endregion
 
-    #region attributes
+    #region attributes and helpers
     protected function casts(): array
     {
         return [
@@ -183,8 +207,6 @@ class User extends Authenticatable implements ContractsAuditable
             'p13n' => "collection",
         ];
     }
-
-    use HasStandardAttributes;
 
     public function roles(): Attribute
     {
@@ -204,12 +226,7 @@ class User extends Authenticatable implements ContractsAuditable
                 ]),
         );
     }
-    #endregion
 
-    #region relations
-    #endregion
-
-    #region helpers
     public function hasRole(?string $role, bool $and_is_not_archmage = false): bool
     {
         if (empty($role)) return true;
@@ -221,13 +238,14 @@ class User extends Authenticatable implements ContractsAuditable
 
         return $ret || (!$and_is_not_archmage && in_array("archmage", $this->roles));
     }
-    #endregion
 
-    #region password reset
     public function sendPasswordResetNotification($token): void
     {
         $url = route("password.reset", ["token" => $token]);
         Mail::to($this->email)->send(new ResetPasswordLink($url));
     }
+    #endregion
+
+    #region on-saves
     #endregion
 }

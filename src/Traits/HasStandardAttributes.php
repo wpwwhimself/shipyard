@@ -54,7 +54,7 @@ trait HasStandardAttributes
     public function rawTitle(): Attribute
     {
         return Attribute::make(
-            get: fn () => $this->name,
+            get: fn () => $this->name ?? $this->getKey(),
         );
     }
 
