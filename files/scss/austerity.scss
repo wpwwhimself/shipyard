@@ -152,6 +152,11 @@ header,
     padding-inline: 4em;
 }
 
+footer,
+header {
+    box-shadow: 0 0 1em var(--primary);
+}
+
 /** specific **/
 [role="actions"],
 .actions {
