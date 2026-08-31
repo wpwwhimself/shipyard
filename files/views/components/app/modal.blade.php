@@ -60,11 +60,6 @@ const summary_loader = summary.querySelector(".loader");
 const summary_content = summary.querySelector("[role='summary-content']");
 const actions = form.querySelector(".actions");
 
-const submit_btn = form.querySelector("button[type='submit']");
-const summary_btn = form.querySelector("[role='go_to_summary']");
-const summary_close_btn = form.querySelector("[role='close_summary']");
-const close_modal_btn = card.querySelector("[role='close_modal']");
-
 const openModal = (name, defaults = {}, overrides = {}, afterAll = () => {}) => {
     loader.classList.remove("hidden");
     modal.classList.remove("hidden");
@@ -96,6 +91,10 @@ const openModal = (name, defaults = {}, overrides = {}, afterAll = () => {}) => 
                     form.querySelector("[role='fields']").append(fromHTML(`<input type="hidden" name="${name}" value="${value}">`));
                 }
             });
+
+            const submit_btn = form.querySelector("button[type='submit']");
+            const summary_btn = form.querySelector("[role='go_to_summary']");
+            const summary_close_btn = form.querySelector("[role='close_summary']");
 
             fields.classList.remove("hidden");
             summary_content.innerHTML = "";
@@ -149,6 +148,8 @@ const toggleBigLoader = () => {
 }
 
 const openModalManually = (header, html) => {
+    const submit_btn = form.querySelector("button[type='submit']");
+
     modal.classList.remove("hidden");
     loader.classList.add("hidden");
 
@@ -162,6 +163,11 @@ const openModalManually = (header, html) => {
 }
 
 const closeModal = () => {
+    const submit_btn = form.querySelector("button[type='submit']");
+    const summary_btn = form.querySelector("[role='go_to_summary']");
+    const summary_close_btn = form.querySelector("[role='close_summary']");
+    const close_modal_btn = card.querySelector("[role='close_modal']");
+
     fields.innerHTML = "";
     card.classList.add("hidden");
     modal.classList.add("hidden");
@@ -173,6 +179,11 @@ const closeModal = () => {
 }
 
 const closeSummary = () => {
+    const submit_btn = form.querySelector("button[type='submit']");
+    const summary_btn = form.querySelector("[role='go_to_summary']");
+    const summary_close_btn = form.querySelector("[role='close_summary']");
+    const close_modal_btn = card.querySelector("[role='close_modal']");
+
     summary_content.innerHTML = "";
     fields.classList.remove("hidden");
     summary.classList.add("hidden");
