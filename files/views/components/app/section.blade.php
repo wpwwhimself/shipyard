@@ -12,9 +12,7 @@
 $key ??= Str::uuid();
 @endphp
 
-<div {{ $attributes->class([
-    "section",
-]) }} data-ebid="{{ $key }}">
+<div {{ $attributes->class(["section"])->merge(["data-title" => $title]) }} data-ebid="{{ $key }}">
     @if ($title)
     <div class="header">
         <div class="titles">

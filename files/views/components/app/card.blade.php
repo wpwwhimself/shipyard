@@ -7,9 +7,7 @@
     "innerStyle" => null,
 ])
 
-<div {{ $attributes->class([
-    "card",
-]) }}>
+<div {{ $attributes->class(["card"])->merge(["data-title" => $title]) }}>
     @if ($title)
     <div class="header">
         <div class="titles">
