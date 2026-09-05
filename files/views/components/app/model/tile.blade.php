@@ -2,7 +2,7 @@
     "model",
 ])
 
-<div role="model-card" {{ $attributes }}>
+<div role="model-card" {{ $attributes->merge(["data-model" => $model->raw_title]) }}>
     <div role="top-part">
         {!! $model->display_pre_title !!}
         <div role="model-intro">
