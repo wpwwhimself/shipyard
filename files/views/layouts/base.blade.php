@@ -57,13 +57,11 @@
         @endif
         </style>
 
-        @env ("local")
-        @if (file_exists(public_path("css/shipyard_theme_cache.css")))
+        @if (Str::startsWith(shipyard_version(), "dev") && file_exists(public_path("css/shipyard_theme_cache.css")))
         <link rel="stylesheet" href="{{ asset("css/shipyard_theme_cache.css") }}">
-        @endif
         @else
         <link rel="stylesheet" href="https://wpww.pl/shipyard/{{ \App\ShipyardTheme::getTheme() }}.css?v={{ shipyard_version() }}">
-        @endenv
+        @endif
         <link rel="stylesheet" href="{{ asset("css/app.css") }}?v={{ shipyard_version() }}">
         {{-- 💄 styles 💄 --}}
 

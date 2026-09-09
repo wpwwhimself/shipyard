@@ -51,15 +51,6 @@ class InstallCommand extends Command
 
         $this->info("⚓ Shipyard will now be installed. Hang tight...");
 
-        #region version cache
-        file_put_contents(
-            base_path(self::PACKAGE_INFO_PATH),
-            json_encode([
-                "version" => $new_version,
-            ])
-        );
-        #endregion
-
         #region copying
         $this->info("📨 Copying...");
 
@@ -131,7 +122,16 @@ class InstallCommand extends Command
         $this->call("migrate", ["--force" => true]);
         #endregion
 
-        if (env("APP_ENV") === "local") {
+        #region version cache
+        file_put_contents(
+            base_path(self::PACKAGE_INFO_PATH),
+            json_encode([
+                "version" => $new_version,
+            ])
+        );
+        #endregion
+
+        if (Str::startsWith($new_version, "dev")) {
             $this->call("shipyard:cache-theme");
         }
 
