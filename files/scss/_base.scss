@@ -717,6 +717,8 @@ main {
 [role="model-badges"] {
     @extend .flex, .right, .middle, .no-gap;
 
+    display: inline-flex;
+
     & .medal {
         display: inline-block;
         width: 0.5em;
