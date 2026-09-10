@@ -325,8 +325,14 @@ Ten atrybut służy do generowania odznak dla obiektu, pozwalających pokazać n
   - `icon`
   - `condition` - warunek, po spełnieniu którego wyświetla się badge
   - `class`, `style` - opcjonalne, służą do stylowania
+- logika medalu - wyświetla badge jako wstążkę medalową
+  - `label`
+  - `medal` - okluczowana tablica w formacie `[{górna granica koloru w %} => {kolor}]`
+  - `condition`
 - logika niestandardowa
   - `html` - surowy kod wyświetlanego badge'a
+
+> Komponent `shipyard::app.model.badges`, który za prop `badges` przyjmuje dane z tego atrybutu, pozwala na prezentację odznak. Prop `large` steruje wielkością odznak w formie medalu.
 
 ## Funkcje onSave 💾
 

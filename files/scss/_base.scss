@@ -714,6 +714,26 @@ main {
     }
 }
 
+[role="model-badges"] {
+    @extend .flex, .right, .middle, .no-gap;
+
+    & .medal {
+        display: inline-block;
+        width: 0.5em;
+        height: 1em;
+        background: linear-gradient(to bottom, var(--medal-colors));
+
+        & > .medal-texture {
+            height: 100%;
+            background: repeating-linear-gradient(to bottom, transparent, #77777744 10%, transparent 20%);
+        }
+    }
+    &.large .medal {
+        width: 4em;
+        background: linear-gradient(to right, var(--medal-colors));
+    }
+}
+
 [role="pagination"] {
     @extend .flex, .right, .center, .middle;
 
