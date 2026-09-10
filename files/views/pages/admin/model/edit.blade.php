@@ -144,7 +144,7 @@
         >
             <x-dynamic-component
                 :component="$sdata['component']"
-                :data="$data ?? new (model($scope))()"
+                :attributes="new Illuminate\View\ComponentAttributeBag(array_merge([($sdata['data_key'] ?? 'data') => ($data ?? new (model($scope))())], $sdata['props']))"
             />
         </x-shipyard::app.section>
         @endforeach

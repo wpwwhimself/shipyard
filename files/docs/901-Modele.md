@@ -252,8 +252,8 @@ Stała `EXTRA_SECTIONS` zawiera definicje dodatkowych sekcji wyświetlanych prze
     - edit - wyświetla jako kolejny kafelek po relacjach
 - opcjonalne
   - `role`
-
-Komponent otrzymuje obiekt w postaci propsa `$data`.
+  - `data_key` - nazwa propsa, do którego przekazany będzie model, domyślnie `data`
+  - `props` - okluczowany array dodatkowych propsów przekazywanych do komponentu
 
 ## Scope'y 🔭
 
