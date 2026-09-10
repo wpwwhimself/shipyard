@@ -66,10 +66,8 @@
     & > .header {
         @extend .flex, .right, .middle, .spread;
 
-        flex-wrap: nowrap;
-
         & > .titles {
-            @extend .flex, .right, .middle;
+            @extend .flex, .right, .middle, .nowrap;
 
             & > [role$="icon"] {
                 margin: 0;
@@ -433,7 +431,7 @@ main {
         @extend .flex, .right, .middle, .spread;
 
         & > .titles {
-            @extend .flex, .right, .middle;
+            @extend .flex, .right, .middle, .nowrap;
 
             & > [role$="icon"] {
                 margin: 0;
