@@ -150,7 +150,7 @@
 >
     <x-dynamic-component
         :component="$esdata['component']"
-        :attributes="new Illuminate\View\ComponentAttributeBag(array_merge([($esdata['data_key'] ?? 'data') => ($data ?? new (model($scope))())], $esdata['props']))"
+        :attributes="new Illuminate\View\ComponentAttributeBag(array_merge([($esdata['data_key'] ?? 'data') => ($data ?? new (model($scope))())], ($esdata['props'] ?? [])))"
     />
 </x-shipyard::app.section>
 @endforeach
