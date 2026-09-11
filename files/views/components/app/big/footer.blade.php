@@ -1,4 +1,4 @@
-<footer>
+<footer {{ $attributes }}>
     @isset ($top)
     <div role="top-part">
         {{ $top }}

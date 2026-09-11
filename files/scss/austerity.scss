@@ -312,6 +312,14 @@ header {
             vertical-align: middle;
         }
     }
+
+    &.clean {
+        padding-block: 0.25em;
+
+        & .logo {
+            height: 3em;
+        }
+    }
 }
 
 .input-container {

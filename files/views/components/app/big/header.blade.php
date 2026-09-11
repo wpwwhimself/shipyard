@@ -1,4 +1,4 @@
-<header>
+<header {{ $attributes }}>
     @isset ($top)
     <div role="top-part">
         {{ $top }}

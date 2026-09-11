@@ -10,6 +10,8 @@ Proces rozszerzenia standardowych layoutów strony zakłada oczywiście, że to 
 ## Szablony do użycia
 
 - 🟥 `shipyard::layouts.admin` - podstawowy układ z nagłówkiem, treścią i stopką
+- 🟪 `shipyard::layouts.clean` - z pomniejszonym nagłówkiem bez tytułu
+  - do zastosowania np. na stronach frontowych, gdzie treści są istotniejsze niż nawigacja
 - 🟨 `shipyard::layouts.minimal` - bez nagłówka; zamiast niego w lewym górnym rogu jest logo aplikacji
   - do zastosowania np. w pełnoekranowych sub-apkach
 - 🟩 `shipyard::layouts.mail` - okrojony podstawowy układ bez większośći interaktywnych komponentów
@@ -27,11 +29,11 @@ Niżej wymienione komponenty przyjmują nazwę `*.blade.php`.
 
 Przy nazwach podano również kolorami, czy komponent jest wspierany przez dany layout.
 
-## background 🟥🟨
+## background 🟥🟪🟨
 
 Tło aplikacji może zostać zmodyfikowane poprzez dodatkowy komponent. W jego treści mogą znajdować się na przykład **wystylowane obrazki latające w tle**.
 
-## footer-extra 🟥🟨
+## footer-extra 🟥🟪🟨
 
 Stopka layoutu (jeśli istnieje) przewiduje miejsce na dodatkowe informacje, np. **dane kontaktowe**. Wyświetlać się one będą wówczas na środku stopki.
 
