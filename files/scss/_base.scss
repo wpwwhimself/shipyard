@@ -649,7 +649,6 @@ header {
             display: block;
         }
     }
-
 }
 
 #lookup-container {
@@ -1044,6 +1043,10 @@ table {
         &.but-mobile-right {
             flex-direction: row;
         }
+    }
+
+    .but-mobile-hidden {
+        display: none !important;
     }
 
     .banner.full-width {
