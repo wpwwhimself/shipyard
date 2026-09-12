@@ -315,7 +315,7 @@ a.button, a:has(> .tile), a:has(> .full-width) {
         @extend .flex, .right, .middle, .spread;
 
         & > [role="title-container"] {
-            @extend .flex, .right, .middle;
+            @extend .flex, .right, .middle, .nowrap;
         }
     }
 
