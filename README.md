@@ -62,3 +62,40 @@ composer require wpwwhimself/shipyard
 ```
 composer require wpwwhimself/shipyard:dev-main
 ```
+
+## Miscellaneous
+
+### Laravel Nightwatch - app tracking
+
+Shipyard comes with Laravel Nightwatch for tracking traffic.
+In order to enable it, add the following to your app's `.env`:
+```conf
+NIGHTWATCH_TOKEN=...
+NIGHTWATCH_INGEST_URI=127.0.0.1:2047 # unique for every app on your server
+NIGHTWATCH_REQUEST_SAMPLE_RATE=0.1
+```
+
+To run the Nightwatch agent you need to set it up to run in the background. Using `systemctl`:
+1. create a template `/etc/systemd/system/laravel-nightwatch@.service`:
+    ```conf
+    [Unit]
+    Description=Laravel Nightwatch Agent for %I
+    After=network.target
+    
+    [Service]
+    User=www-data
+    Group=www-data
+    Restart=always
+    RestartSec=5
+    WorkingDir=/path/to/your/app/%I
+    ExecStart=/usr/bin/php /path/to/your/app/%I/artisan nightwatch:agent
+    StandardOutput=append:/path/to/your/app/%I/storage/logs/nightwatch-service.log
+    StandardError=inherit
+
+    [Install]
+    WantedBy=multi-user.target
+    ```
+2. reload daemon: `sudo systemctl daemon-reload`
+3. `sudo systemctl enable laravel-nightwatch@your-app`
+4. `sudo systemctl start laravel-nightwatch@your-app.service`
+5. verify it works in your app directory: `php artisan nightwatch:status`
