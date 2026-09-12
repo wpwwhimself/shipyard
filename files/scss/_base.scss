@@ -649,6 +649,10 @@ header {
             display: block;
         }
     }
+
+    a:has(&) {
+        align-self: center;
+    }
 }
 
 #lookup-container {
