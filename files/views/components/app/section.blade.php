@@ -2,6 +2,7 @@
     "title" => null,
     "subtitle" => null,
     "icon" => null,
+    "titleLvl" => 2,
     "extended" => "perma",
     "key" => null,
     "innerClass" => null,
@@ -17,11 +18,11 @@ $key ??= Str::uuid();
     <div class="header">
         <div class="titles">
             @if ($icon)
-            <x-shipyard::app.h lvl="2" role="section-icon" :icon="$icon" />
+            <x-shipyard::app.h :lvl="$titleLvl" role="section-icon" :icon="$icon" />
             @endif
 
             <div role="texts">
-                <x-shipyard::app.h lvl="2" role="section-title">{{ $title }}</x-shipyard::app.h>
+                <x-shipyard::app.h :lvl="$titleLvl" role="section-title">{{ $title }}</x-shipyard::app.h>
                 @if ($subtitle)
                 <span role="section-subtitle">{!! $subtitle !!}</span>
                 @endif
