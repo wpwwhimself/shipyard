@@ -49,6 +49,8 @@ function shipyard_version(): string
         @file_get_contents(base_path(InstallCommand::PACKAGE_INFO_PATH)),
         true
     ) ?? [];
+    if (empty($data)) throw new \Error("⚓ Cannot find Shipyard version data. Did you run shipyard:install?");
+
     return $data["version"];
 }
 
