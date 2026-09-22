@@ -723,9 +723,11 @@ main {
     display: inline-flex;
 
     & .medal {
+        --scale: 2.75;
+
         display: inline-block;
         width: 0.5em;
-        height: 1em;
+        height: calc(2.3 * var(--scale) * 8px / 3);
         background: linear-gradient(to bottom, var(--medal-colors));
 
         & > .medal-texture {
