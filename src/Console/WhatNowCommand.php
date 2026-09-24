@@ -39,6 +39,13 @@ class User extends ShipyardUser
 {
     public const FROM_SHIPYARD = true;
 
+    public function __construct()
+    {
+        \$this->mergeFillable([
+            //
+        ]);
+    }
+
 }"
         );
         $this->comment("> clear your `resources/css/app.css` file - it may overwrite themes");
