@@ -44,6 +44,9 @@ class User extends ShipyardUser
         \$this->mergeFillable([
             //
         ]);
+        \$this->mergeCasts([
+            //
+        ]);
     }
 
 }"
