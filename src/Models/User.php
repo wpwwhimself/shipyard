@@ -202,7 +202,7 @@ class User extends Authenticatable implements ContractsAuditable
     protected $casts = [
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
-        'p13n' => "array",
+        'p13n' => "collection",
     ];
     // retro-compatibility ↨
     protected function casts(): array
