@@ -37,6 +37,9 @@ function setting(string $key, $default = null): ?string
         "app_primary_color", // wyjątek, bo nie ma takiego settinga
     ];
     if (in_array($key, $personalized_settings)) {
+        dd(
+            Auth::user()?->getCasts()
+        );
         $value = Auth::user()?->p13n?->get($key) ?? $value;
     }
 

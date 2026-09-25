@@ -127,7 +127,7 @@ class User extends Authenticatable implements ContractsAuditable
             "role" => "technical",
         ],
     ];
-    
+
     protected $fillable = [
         'name',
         'display_name',
@@ -145,7 +145,7 @@ class User extends Authenticatable implements ContractsAuditable
 
     #region relations
     #endregion
-    
+
     #region actions and extras
     public const ACTIONS = [
         [
@@ -199,13 +199,15 @@ class User extends Authenticatable implements ContractsAuditable
     #endregion
 
     #region attributes and helpers
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+        'password' => 'hashed',
+        'p13n' => "array",
+    ];
+    // retro-compatibility ↨
     protected function casts(): array
     {
-        return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
-            'p13n' => "collection",
-        ];
+        return $this->casts;
     }
 
     public function roles(): Attribute
