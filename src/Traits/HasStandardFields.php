@@ -4,6 +4,7 @@ namespace Wpwwhimself\Shipyard\Traits;
 
 use Wpwwhimself\Shipyard\Controllers\DocsController;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
 
@@ -22,7 +23,7 @@ trait HasStandardFields
     {
         $table = (new static())->getTable();
 
-        return array_merge(array_filter([
+        $fields = array_merge(array_filter([
             "id" => (!Schema::hasColumn($table, "id")) ? null : [
                 "type" => "text",
                 "label" => "ID",
@@ -54,6 +55,8 @@ trait HasStandardFields
                 "icon" => "sort",
             ],
         ]), static::FIELDS);
+
+        return array_filter($fields, fn ($fld) => Auth::user()?->hasRole($fld["role"] ?? null) ?? true);
     }
 
     /**
