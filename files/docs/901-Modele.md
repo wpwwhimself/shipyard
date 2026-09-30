@@ -137,7 +137,7 @@ public static function modelAddButton(): string
 {
     return view("shipyard::components.ui.button", [
         "icon" => "plus",
-        "label" => "Dodaj",
+        "pop" => "Dodaj",
         "action" => route(...),
         "attributes" => new ComponentAttributeBag([
             "class" => "primary",
