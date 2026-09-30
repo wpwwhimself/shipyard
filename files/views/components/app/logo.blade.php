@@ -7,6 +7,7 @@
 @if ($clickable) <a href="/"> @endif
 
 <picture class="logo-container">
+    {{-- adaptive - toggles by color scheme --}}
     @if (setting("app_adaptive_dark_mode") && !$forceTheme)
     <source
         @class(["logo"])
@@ -22,6 +23,8 @@
     @endif
     @endif
 
+    {{-- manual - toggles by hand --}}
+    @if (!$forceTheme)
     <img
         @class([
             "logo",
@@ -40,6 +43,14 @@
             "hidden" => $forceTheme === "light",
         ])
         src="{{ asset(setting("app_logo_dark_path")) }}"
+        alt="{{ setting("app_name") }}"
+    >
+    @endif
+
+    @else
+    {{-- fixed - only one image is needed --}}
+    <img @class(["logo"])
+        src="{{ asset(setting("app_logo_".($forceTheme == "dark" ? "dark_" : "")."path")) }}"
         alt="{{ setting("app_name") }}"
     >
     @endif

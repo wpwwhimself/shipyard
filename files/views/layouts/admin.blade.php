@@ -44,7 +44,7 @@
     </x-slot:middle>
 
     <x-slot:bottom>
-        <div class="flex right center">
+        <div class="flex right center hide-for-print">
             @if (setting("contact_form_enabled") && \App\Models\User::all()->count(fn ($u) => $u->hasRole("mediator")))
             <x-shipyard::ui.button
                 icon="email"
