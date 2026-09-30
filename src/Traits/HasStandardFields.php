@@ -23,7 +23,7 @@ trait HasStandardFields
     {
         $table = (new static())->getTable();
 
-        $fields = array_merge(array_filter([
+        $fields = array_replace_recursive(array_filter([
             "id" => (!Schema::hasColumn($table, "id")) ? null : [
                 "type" => "text",
                 "label" => "ID",
