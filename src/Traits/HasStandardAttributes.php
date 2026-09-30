@@ -10,10 +10,18 @@ use Illuminate\View\ComponentAttributeBag;
 
 trait HasStandardAttributes
 {
+    public function roleRules(): array
+    {
+        return [];
+    }
+
     public function canBeSeen(): Attribute
     {
         return Attribute::make(
-            fn () => $this->visible > 1 - Auth::check(),
+            fn () => $this->visible > 1 - Auth::check()
+                && collect($this->roleRules())
+                    ->filter(fn ($test, $role) => in_array($role, Auth::user()?->roles))
+                    ->reduce(fn ($sum, $test) => $sum && $test, true),
         );
     }
 

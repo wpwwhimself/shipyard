@@ -28,7 +28,7 @@ class User extends Authenticatable implements ContractsAuditable
         "label" => "Użytkownicy",
         "icon" => "account",
         "description" => "Lista użytkowników systemu. Każdy z wymienionych może otrzymać role, które nadają mu uprawnienia do korzystania z konkretnych funkcjonalności.",
-        "role" => "",
+        "role" => "technical",
         "uneditable" => [
             "archmage",
         ],

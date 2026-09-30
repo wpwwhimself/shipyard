@@ -33,7 +33,6 @@ Stała `META` przechowuje metadane i podstawowe reguły modelu
 - `ordering` - indeks na [liście modeli](/admin/models)
 
 ### opcjonalne
-- `checkOwnerUnless` - (opcj.) - jeśli wypełnione, domyślnie uprawnieni (czyli ci z `role`) mogą przeglądać tylko swoje obiekty (sprawdzane po `created_by`), a uprawnieni z `checkOwnerUnless` widzą wszystkie wpisy
 - `listScope` - domyślny scope używany do listingu, jeśli nie ma być to `forAdminList`
 - `defaultSort` - domyślne sortowanie listingu (patrz `SORTS`)
 - `defaultFltr` - domyslne filtrowanie listingu (patrz `FILTERS`) - 🚧 niezaimplementowane
@@ -333,6 +332,21 @@ Ten atrybut służy do generowania odznak dla obiektu, pozwalających pokazać n
   - `html` - surowy kod wyświetlanego badge'a
 
 > Komponent `shipyard::app.model.badges`, który za prop `badges` przyjmuje dane z tego atrybutu, pozwala na prezentację odznak. Prop `large` steruje wielkością odznak w formie medalu.
+
+### roleRules
+```php
+public function roleRules(): array
+{
+    return [
+        "client" => $this->client_id == Auth::user()?->client->id,
+    ];
+}
+```
+
+Domyślnym działaniem listingu modelu jest wyświetlanie wszystkich modeli dla ról, które widzą listing (`META["role"]`). Powyższa funkcja pozwala na nadanie dodatkowego sprawdzania uprawnień dla konkretnych profili.
+
+Funkcja powinna zwracać array, gdzie klucze to profile objęte sprawdzaniem, a wartość to test dla danego modelu.
+Modele niespełniające wszystkich adekwatnych testów nie zostaną wyświetlone na listingu przez scope `forAdminList`.
 
 ## Funkcje onSave 💾
 

@@ -306,16 +306,13 @@ class AdminController extends Controller
 
     public function editModel(string $scope, int|string|null $id = null): View|RedirectResponse
     {
-        if (!Auth::user()?->hasRole(model($scope)::META["role"] ?? null)) abort(403);
+        if ($scope !== "users" && !Auth::user()?->hasRole(model($scope)::META["role"] ?? null)) abort(403); // user must be in roles to see the model
         if ($scope === "users" && Auth::id() != $id && !Auth::user()?->hasRole("technical")) abort(403); // manual user editing permission, as this is a special case
 
         $meta = model($scope)::META;
         $data = model($scope)::find($id);
 
-        if (!Auth::user()?->hasRole(model($scope)::META["checkOwnerUnless"] ?? null)
-            && (Auth::id() !== $data?->created_by ?? null)
-            && $id !== null
-        ) abort(403);
+        if (!$data->can_be_seen) abort(403);
 
         $fields = model($scope)::getFields();
         $connections = model($scope)::getConnections();

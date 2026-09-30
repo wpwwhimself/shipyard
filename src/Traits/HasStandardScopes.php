@@ -36,13 +36,6 @@ trait HasStandardScopes
         )
             ->each(fn ($fd) => $query = $query->whereNull($fd["discr"]));
 
-        if (
-            (static::META["checkOwnerUnless"] ?? false)
-            && !Auth::user()?->hasRole(static::META["checkOwnerUnless"]."|archmage", true)
-        ) {
-            $query = $query->where("created_by", Auth::id());
-        }
-
         // pre-get sort for db sorting
         if (!$sort) {
             if (Schema::hasColumn($this->getTable(), "order")) $query = $query->orderBy("order");
@@ -58,7 +51,8 @@ trait HasStandardScopes
             }
         }
 
-        $data = $query->get();
+        $data = $query->get()
+            ->filter(fn ($i) => $i->can_be_seen);
 
         // post-get filters for model filtering
         foreach ($filters ?? [] as $filter_name => $filter_value) {
