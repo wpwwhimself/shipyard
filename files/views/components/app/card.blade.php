@@ -7,7 +7,11 @@
     "innerStyle" => null,
 ])
 
-<div {{ $attributes->class(["card"])->merge(["data-title" => $title]) }}>
+@php
+$titleless_icon_mode = empty($title) && !empty($icon);
+@endphp
+
+<div {{ $attributes->class(["card", "grid dynamic" => $titleless_icon_mode])->merge(["data-title" => $title]) }}>
     @if ($title)
     <div class="header">
         <div class="titles">
@@ -34,6 +38,7 @@
     <x-shipyard::app.loader horizontal />
 
     @isset ($slot)
+    @if ($titleless_icon_mode) <x-shipyard::app.icon :name="$icon" /> @endif
     <div @class(["contents", $innerClass]) @style([$innerStyle])>
         {{ $slot }}
     </div>

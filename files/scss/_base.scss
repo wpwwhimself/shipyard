@@ -508,6 +508,10 @@ pre {
         grid-template-columns: none;
         grid-template-rows: repeat(var(--col-count), 1fr);
     }
+
+    &.dynamic {
+        grid-template-columns: repeat(var(--col-count), auto);
+    }
 }
 
 hr {

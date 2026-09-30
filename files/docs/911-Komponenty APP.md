@@ -16,7 +16,7 @@ Podstawowy komponent grupujący informacje.
 | -- | -- | -- |
 | `title` | str |
 | `subtitle` | str | wymaga tytułu |
-| `icon` | str |
+| `icon` | str | pojawia się obok tytułu, jeśli podany, lub obok treści w przypadku braku tytułu |
 | `titleLvl` | int (3) |
 | `innerClass` | str | klasy do przekazania do ciała sekcji |
 | `innerStyle` | str | style do przekazania do ciała sekcji |
