@@ -441,7 +441,7 @@ Zwraca dane ze stałej `EXTRA_SECTIONS` (puste, jeśli takiej nie ma).
 bool $can_be_seen = $model->can_be_seen;
 ```
 
-Zwraca, czy model jest widoczny dla aktualnego użytkownika (na podstawie kolumny `visible`).
+Zwraca, czy model jest widoczny dla aktualnego użytkownika (na podstawie kolumny `visible`) oraz reguł `roleRules`.
 
 ### isUneditable
 

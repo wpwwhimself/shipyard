@@ -312,7 +312,7 @@ class AdminController extends Controller
         $meta = model($scope)::META;
         $data = model($scope)::find($id);
 
-        if (!$data->can_be_seen) abort(403);
+        if ($data && !$data->can_be_seen) abort(403);
 
         $fields = model($scope)::getFields();
         $connections = model($scope)::getConnections();
