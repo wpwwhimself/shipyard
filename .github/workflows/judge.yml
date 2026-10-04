@@ -25,7 +25,7 @@ jobs:
           path: _shipyard
       - name: Install Laravel
         run: composer create-project laravel/laravel:^12.0 shipyard-test --prefer-dist --no-interaction
-      - name: Install Sass
+      - name: 💄 Install Sass
         run: npm install -g sass
       - name: Prepare The Environment
         run: |
@@ -41,12 +41,10 @@ jobs:
         run: |
           sudo systemctl start mysql
           mysql --user="root" --password="root" -e "CREATE DATABASE \`shipyard\` character set UTF8mb4 collate utf8mb4_bin;"
-      - name: Install Composer Dependencies
+      - name: Install deps and ⚓ Shipyard
         run: cd shipyard-test && composer update
-      - name: Install Dusk
+      - name: 🌆 Install Dusk
         run: cd shipyard-test && composer require laravel/dusk
-      - name: ⚓ Install Shipyard
-        run: cd shipyard-test && php artisan shipyard:install
       - name: 🔑 Generate Application Key
         run: cd shipyard-test && php artisan key:generate
       - name: Upgrade Chrome Driver
