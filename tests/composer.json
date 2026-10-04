@@ -15,7 +15,7 @@
     "repositories": {
         "shipyard": {
             "type": "path",
-            "url": "_shipyard",
+            "url": "../_shipyard",
             "options": {
                 "symlink": true
             }
