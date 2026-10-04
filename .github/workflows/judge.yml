@@ -43,6 +43,8 @@ jobs:
           mysql --user="root" --password="root" -e "CREATE DATABASE \`shipyard\` character set UTF8mb4 collate utf8mb4_bin;"
       - name: Install Composer Dependencies
         run: cd shipyard-test && composer update
+      - name: Install Dusk
+        run: cd shipyard-test && php artisan dusk:install
       - name: ⚓ Install Shipyard
         run: cd shipyard-test && php artisan shipyard:install
       - name: 🔑 Generate Application Key
