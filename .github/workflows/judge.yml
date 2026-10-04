@@ -25,7 +25,7 @@ jobs:
           path: _shipyard
       - name: Install Laravel
         run: |
-          composer create-project laravel/laravel:^12.0 shipyard-test . --prefer-dist --no-interaction
+          composer create-project laravel/laravel:^12.0 . --prefer-dist --no-interaction
       - name: Prepare The Environment
         run: |
           cp _shipyard/tests/.env.example .env
