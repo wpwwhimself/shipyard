@@ -25,12 +25,12 @@ jobs:
           path: _shipyard
       - name: Install Laravel
         run: |
-          composer create-project laravel/laravel:^12.0 . --prefer-dist --no-interaction
+          composer create-project laravel/laravel:^12.0 shipyard-test --prefer-dist --no-interaction
       - name: Prepare The Environment
         run: |
-          cp _shipyard/tests/.env.example .env
-          cp _shipyard/tests/composer.json composer.json
-          cp -a _shipyard/tests .
+          cp _shipyard/tests/.env.example shipyard-test/.env
+          cp _shipyard/tests/composer.json shipyard-test/composer.json
+          cp -a _shipyard/tests shipyard-test/.
       - name: Set up locale
         run: |
           sudo locale-gen pl_PL.UTF-8
@@ -40,28 +40,28 @@ jobs:
           sudo systemctl start mysql
           mysql --user="root" --password="root" -e "CREATE DATABASE \`shipyard\` character set UTF8mb4 collate utf8mb4_bin;"
       - name: Install Composer Dependencies
-        run: composer install --no-progress --prefer-dist --optimize-autoloader
+        run: cd shipyard-test && composer install --no-progress --prefer-dist --optimize-autoloader
       - name: ⚓ Install Shipyard
-        run: php artisan shipyard:install
+        run: cd shipyard-test && php artisan shipyard:install
       - name: 🔑 Generate Application Key
-        run: php artisan key:generate
+        run: cd shipyard-test && php artisan key:generate
       - name: Upgrade Chrome Driver
-        run: php artisan dusk:chrome-driver --detect
+        run: cd shipyard-test && php artisan dusk:chrome-driver --detect
       - name: Start Chrome Driver
-        run: ./vendor/laravel/dusk/bin/chromedriver-linux --port=9515 &
+        run: ./shipyard-test/vendor/laravel/dusk/bin/chromedriver-linux --port=9515 &
       - name: Run Laravel Server
-        run: php artisan serve --no-reload &
+        run: cd shipyard-test && php artisan serve --no-reload &
       - name: 🧪 Run Dusk Tests
-        run: php artisan dusk
+        run: cd shipyard-test && php artisan dusk
       - name: Upload Screenshots
         if: failure()
         uses: actions/upload-artifact@v4
         with:
           name: screenshots
-          path: tests/Browser/screenshots
+          path: shipyard-test/tests/Browser/screenshots
       - name: Upload Console Logs
         if: failure()
         uses: actions/upload-artifact@v4
         with:
           name: console
-          path: tests/Browser/console
+          path: shipyard-test/tests/Browser/console
