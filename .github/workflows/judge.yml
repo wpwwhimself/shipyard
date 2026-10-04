@@ -17,7 +17,6 @@ jobs:
       LANG: pl_PL.UTF-8
       LANGUAGE: pl_PL:pl
       LC_ALL: pl_PL.UTF-8
-      COMPOSER_NO_DEV: 0
       MAIL_FROM_ADDRESS: archmage@test.test
     steps:
       - name: Checkout
@@ -43,7 +42,7 @@ jobs:
           sudo systemctl start mysql
           mysql --user="root" --password="root" -e "CREATE DATABASE \`shipyard\` character set UTF8mb4 collate utf8mb4_bin;"
       - name: Install Composer Dependencies
-        run: cd shipyard-test && composer update
+        run: cd shipyard-test && COMPOSER_NO_DEV=0 composer update
       - name: ⚓ Install Shipyard
         run: cd shipyard-test && php artisan shipyard:install
       - name: 🔑 Generate Application Key
