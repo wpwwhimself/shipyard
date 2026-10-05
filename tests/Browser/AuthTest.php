@@ -15,6 +15,7 @@ class AuthTest extends DuskTestCase
         $this->browse(function (Browser $browser) {
             $browser->visit('/')
                 ->assertSee('Logowanie')
+                ->clickAtXPath(self::x("class", "button", "Logowanie"))
                 ->waitFor("#modal-card")
                 ->with("#modal-card", fn ($modal) => $modal
                     ->assertSee("Logowanie")
