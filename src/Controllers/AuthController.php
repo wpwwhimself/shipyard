@@ -49,6 +49,7 @@ class AuthController extends Controller
     public function register()
     {
         if (Auth::check()) return redirect()->intended(route("profile"));
+        if (!setting("users_self_register_enabled")) return back()->with("toast", ["error", "Rejestracja nie jest możliwa"]);
         return view("shipyard::pages.auth.register");
     }
 

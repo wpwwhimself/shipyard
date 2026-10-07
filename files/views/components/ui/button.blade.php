@@ -30,6 +30,8 @@
     {{ $attributes->class([
         "button",
         "active" => URL::current() == $action,
+    ])->merge([
+        "data-label" => $label ?? $pop,
     ]) }}
 
     @if ($pop || $hideLabel)

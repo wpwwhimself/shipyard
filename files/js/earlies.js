@@ -249,7 +249,7 @@ function initColorPicker(name) {
     if (window.shipyard.colorPickers[name]) {
         return;
     }
-    
+
     const picker = new ColorPicker(`#${name}`, {
         toggleStyle: "input",
         enableAlpha: false,
@@ -276,7 +276,7 @@ function getIconPreview(input_name) {
     const input = document.querySelector(`input[name="${input_name}"]`)
     const icon = input.nextElementSibling.querySelector(`.icon`);
 
-    const icon_name = input.value || "aaa"; 
+    const icon_name = input.value || "aaa";
 
     clearTimeout(debounce_timer);
     debounce_timer = setTimeout(() => {

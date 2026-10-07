@@ -6,11 +6,10 @@ use Illuminate\Foundation\Testing\DatabaseTruncation;
 use Illuminate\Support\Facades\Artisan;
 use Laravel\Dusk\Browser;
 use Tests\DuskTestCase;
-use Tests\XPathHelpers;
 
 class ModelTest extends DuskTestCase
 {
-    use XPathHelpers, DatabaseTruncation;
+    use DatabaseTruncation;
 
     protected $exceptTables = ["users"];
 
@@ -28,7 +27,7 @@ class ModelTest extends DuskTestCase
                 ->assertSee("Administracja | Podstrony");
             $browser->type("name", "Chrup chrup");
             $browser->waitForReload(function (Browser $bbrowser) {
-                $bbrowser->clickAtXPath(self::x("class", "button", "Zapisz zmiany"));
+                $bbrowser->click(".button[data-label*='Zapisz zmiany']");
             })->pause(0.5e3)
                 ->assertSee("Zapisano")
                 ->assertSee("Chrup chrup");
