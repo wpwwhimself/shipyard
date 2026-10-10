@@ -17,7 +17,7 @@ jobs:
       LANG: pl_PL.UTF-8
       LANGUAGE: pl_PL:pl
       LC_ALL: pl_PL.UTF-8
-      MAIL_FROM_ADDRESS: archmage@test.test
+      MAIL_FROM_ADDRESS: hello@example.com
     steps:
       - name: Checkout
         uses: actions/checkout@v5
