@@ -4,16 +4,23 @@ namespace Tests\Browser;
 
 use App\Models\Setting;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 use Laravel\Dusk\Browser;
 use Tests\DuskTestCase;
 
-class AuthStandardTest extends DuskTestCase
+class AuthPasswordTest extends DuskTestCase
 {
     #region setup
     public function setUp(): void
     {
         parent::setUp();
-        Setting::find("users_login_is")->update(["value" => "name"]);
+        Setting::find("users_login_is")->update(["value" => "none"]);
+        User::updateOrCreate([
+            "name" => "pltu", // password login test user
+        ], [
+            "email" => "plt@test.test",
+            "password" => Hash::make("pltupltu"),
+        ]);
     }
 
     public function tearDown(): void
@@ -40,17 +47,17 @@ class AuthStandardTest extends DuskTestCase
         });
     }
 
-    public function test_user_can_login_via_name(): void
+    public function test_user_can_login_via_password(): void
     {
         $this->browse(function (Browser $browser) {
-            $user = "archmage";
+            $user = "pltu";
+            $password = "pltupltu";
 
             $browser->visit("/")
                 ->click(".button[data-label*='Logowanie']")
                 ->waitFor("#modal-card")
                 ->with("#modal-card", fn ($modal) => $modal
-                    ->type("name", $user)
-                    ->type("password", $user)
+                    ->type("password", $password)
                 )
                 ->clickAndWaitForReload(".button[data-label*='Zatwierdź']")->pause(1e3)
                 ->assertSee("Mój profil")
