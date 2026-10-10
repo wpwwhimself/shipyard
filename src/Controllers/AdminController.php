@@ -355,6 +355,7 @@ class AdminController extends Controller
         $fields = model($scope)::getFields();
         $data = $rq->except("_token", "_connections", "method");
         foreach ($fields as $name => $fdata) {
+            if ($fdata["disabled"] ?? false) continue;
             switch ($fdata["type"]) {
                 case "checkbox": $data[$name] ??= false; break;
                 case "JSON": $data[$name] = json_decode($data[$name], count($fdata["columnTypes"]) == 2); break;
