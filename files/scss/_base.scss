@@ -613,6 +613,10 @@ header {
             animation: zip 1.5s ease-in-out infinite;
         }
     }
+
+    &:not(.hidden) + .contents {
+        @extend .ghost;
+    }
 }
 @keyframes rotate {
     to {
