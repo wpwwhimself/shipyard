@@ -320,9 +320,29 @@ a.button, a:has(> .tile), a:has(> .full-width) {
     }
 
     & > .data {
-        &.column {
+        &.column,
+        &.bar {
             @extend .grid;
 
+            & > .value-wrapper {
+                & > .value {
+                    @extend .accent, .background, .secondary;
+
+                    &[data-tippy] {
+                        @extend .primary;
+                    }
+
+                    position: relative;
+
+                    & > .value-label {
+                        color: var(--fg);
+                        position: absolute;
+                    }
+                }
+            }
+        }
+
+        &.column {
             grid-auto-flow: column !important;
             grid-template-columns: unset !important;
             grid-template-rows: 1fr 2em;
@@ -336,19 +356,33 @@ a.button, a:has(> .tile), a:has(> .full-width) {
                 align-content: end;
 
                 & > .value {
-                    @extend .accent, .background, .secondary;
-
-                    &[data-tippy] {
-                        @extend .primary;
-                    }
-
-                    position: relative;
-
                     & > .value-label {
-                        color: var(--fg);
-                        position: absolute;
                         bottom: calc(100% + 0.5em); left: 0; right: 0;
                         text-align: center;
+                    }
+                }
+            }
+        }
+
+        &.bar {
+            grid-auto-flow: row !important;
+            grid-template-rows: unset !important;
+            grid-template-columns: auto 1fr !important;
+            padding-right: 2em;
+
+            & > .label {
+                text-align: right;
+            }
+            & > .value-wrapper {
+                height: 100%;
+                align-content: center;
+
+                & > .value {
+                    height: 100%;
+
+                    & > .value-label {
+                        left: calc(100% + 0.5em); top: 0; bottom: 0;
+                        text-align: left;
                     }
                 }
             }
