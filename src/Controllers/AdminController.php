@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 use Illuminate\Support\Str;
+use PageviewCounter\Models\Pageview;
 
 class AdminController extends Controller
 {
@@ -247,6 +248,46 @@ class AdminController extends Controller
         }
 
         return redirect()->route("admin.system-settings")->with("toast", ["success", "Zapisano"]);
+    }
+    #endregion
+
+    #region stats
+    public function stats(): View
+    {
+        $fields = [
+            [
+                "id" => "today",
+                "title" => "Ruch dzisiaj",
+                "icon" => "calendar-today",
+                "data" => Pageview::withoutBots()->daily()
+                    ->whereDate("created_at", now())
+                    ->where("path", "not like", "api/%")
+                    ->where("path", "not like", "\_%")
+                    ->orderByDesc("views")
+                    ->get()
+                    ->map(fn ($pv) => [
+                        "label" => $pv->path,
+                        "value" => $pv->views,
+                    ]),
+            ],
+            [
+                "id" => "users",
+                "title" => "Unikalni użytkownicy",
+                "subtitle" => "Ostatnie 7 dni",
+                "icon" => "account-multiple",
+                "data" => Pageview::withoutBots()->uniqueVisitors()
+                    ->whereDate("created_at", ">=", now()->subDays(7))
+                    ->get()
+                    ->map(fn ($pv) => [
+                        "label" => $pv->date,
+                        "value" => $pv->unique_visitors,
+                    ]),
+            ],
+        ];
+
+        return view("shipyard::pages.admin.stats", compact(
+            "fields",
+        ));
     }
     #endregion
 

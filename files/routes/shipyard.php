@@ -53,6 +53,10 @@ Route::middleware("auth")->group(function () {
             Route::post("", "processSettings")->name("admin.system-settings.process");
         });
 
+        Route::prefix("stats")->middleware(EnsureUserHasRole::class.":statistician")->group(function () {
+            Route::get("", "stats")->name("admin.system-stats");
+        });
+
         Route::prefix("files")->middleware(EnsureUserHasRole::class.":content-manager")->group(function () {
             Route::get("", "files")->name("files");
             Route::get("download", "filesDownload")->name("files.download");

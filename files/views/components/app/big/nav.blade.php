@@ -79,6 +79,14 @@ $pages_are_truncated = $pages->count() > $max_pages;
     data-mode="admin"
 />
 <x-shipyard::ui.button
+    icon="finance"
+    pop="Statystyki systemu"
+    :action="route('admin.system-stats')"
+    show-for="statistician"
+    class="hidden"
+    data-mode="admin"
+/>
+<x-shipyard::ui.button
     icon="database"
     pop="Zarządzanie danymi"
     :action="route('admin.models')"

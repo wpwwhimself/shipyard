@@ -41,6 +41,11 @@ abstract class Role
                 "icon" => "account-voice",
                 "description" => "Otrzymuje wiadomości z formularza kontaktowego",
             ],
+            [
+                "name" => "statistician",
+                "icon" => "finance",
+                "description" => "Ma dostęp do statystyk systemowych",
+            ],
             // [
             //     "name" => "",
             //     "icon" => "",
