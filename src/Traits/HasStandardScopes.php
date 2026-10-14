@@ -22,11 +22,16 @@ trait HasStandardScopes
         foreach ($filters ?? [] as $filter_name => $filter_value) {
             if ($filterData[$filter_name]["compare-using"] != "field") continue;
 
-            $query = $query->where(
-                $filterData[$filter_name]["discr"],
-                $filterData[$filter_name]["operator"] ?? "=",
-                $filter_value
-            );
+            $query = (Str::endsWith($filterData[$filter_name]["type"], "multiple"))
+                ? $query->whereIn(
+                    $filterData[$filter_name]["discr"],
+                    $filter_value
+                )
+                : $query->where(
+                    $filterData[$filter_name]["discr"],
+                    $filterData[$filter_name]["operator"] ?? "=",
+                    $filter_value
+                );
         }
         // pre-get filters for allowNulls
         collect($filterData)->filter(fn ($fd, $filter_name) =>
