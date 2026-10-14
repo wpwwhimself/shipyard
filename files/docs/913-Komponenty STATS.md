@@ -39,13 +39,14 @@ Opisana komórka z wartością. Może też wyświetlać porównanie z innymi war
 
 # chart - wykresy 📊
 
-## column
+## bar/column
 
 ```php
+<x-shipyard::stats.chart.bar title="Dziwności w skali roku" :data="$data" />
 <x-shipyard::stats.chart.column title="Dziwności w skali roku" :data="$data" />
 ```
 
-Wykres kolumnowy.
+Wykres słupkowy lub kolumnowy.
 
 | prop | typ | opis |
 | -- | -- | -- |
