@@ -63,7 +63,7 @@ composer require wpwwhimself/shipyard
 composer require wpwwhimself/shipyard:dev-main
 ```
 
-## Miscellaneous
+## Obsolete 🪦
 
 ### Laravel Nightwatch - app tracking
 
