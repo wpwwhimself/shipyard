@@ -10,15 +10,16 @@ use Wpwwhimself\Shipyard\Controllers\SpellbookController;
 use Wpwwhimself\Shipyard\Controllers\ThemeController;
 use Wpwwhimself\Shipyard\Middleware\EnsureUserHasRole;
 use Illuminate\Support\Facades\Route;
+use PageviewCounter\Middleware\LogRequest;
 
-Route::middleware("web")->group(function () {
+Route::middleware(["web"])->group(function () {
 
 #region auth
 Route::controller(AuthController::class)->prefix("auth")->group(function () {
-    Route::get("/login", "login")->name("login");
+    Route::get("/login", "login")->middleware(LogRequest::class)->name("login");
     Route::post("/login", "processLogin")->name("login.process");
 
-    Route::get("/register", "register")->name("register");
+    Route::get("/register", "register")->middleware(LogRequest::class)->name("register");
     Route::post("/register", "processRegister")->name("register.process");
 
     Route::middleware("auth")->group(function () {
@@ -40,7 +41,7 @@ Route::controller(AuthController::class)->prefix("auth")->group(function () {
 #region admin
 Route::middleware("auth")->group(function () {
     Route::controller(ProfileController::class)->prefix("profile")->group(function () {
-        Route::get("/", "myProfile")->name("profile");
+        Route::get("/", "myProfile")->middleware(LogRequest::class)->name("profile");
         Route::prefix("p13n")->group(function () {
             Route::get("", "p13n")->name("profile.p13n");
             Route::post("", "processP13n")->name("profile.p13n.process");
@@ -58,7 +59,7 @@ Route::middleware("auth")->group(function () {
         });
 
         Route::prefix("files")->middleware(EnsureUserHasRole::class.":content-manager")->group(function () {
-            Route::get("", "files")->name("files");
+            Route::get("", "files")->middleware(LogRequest::class)->name("files");
             Route::get("download", "filesDownload")->name("files.download");
             Route::post("upload", "filesUpload")->name("files.upload");
             Route::get("delete", "filesDelete")->name("files.delete");
@@ -76,7 +77,7 @@ Route::middleware("auth")->group(function () {
             Route::get("", "models")->name("admin.models");
             Route::redirect("settings", "/admin/settings"); // settings model is not editable
             Route::prefix("{model}")->group(function () {
-                Route::get("", "listModel")->name("admin.model.list");
+                Route::get("", "listModel")->middleware(LogRequest::class)->name("admin.model.list");
                 Route::post("filter", "filterListModel")->name("admin.model.list.filter");
                 Route::get("edit/{id?}", "editModel")->name("admin.model.edit");
                 Route::post("edit", "processEditModel")->name("admin.model.edit.process");
@@ -89,8 +90,8 @@ Route::middleware("auth")->group(function () {
 
 #region front
 Route::controller(FrontController::class)->group(function () {
-    Route::get("/", "index")->name("main");
-    Route::get("/pages/{slug}", "standardPage")->name("standard-page");
+    Route::get("/", "index")->middleware(LogRequest::class)->name("main");
+    Route::get("/pages/{slug}", "standardPage")->middleware(LogRequest::class)->name("standard-page");
 
     Route::post("contact", "processContactForm")->name("contact-form.process");
 

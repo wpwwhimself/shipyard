@@ -261,8 +261,6 @@ class AdminController extends Controller
                 "icon" => "calendar-today",
                 "data" => Pageview::withoutBots()->daily()
                     ->whereDate("created_at", now())
-                    ->where("path", "not like", "api/%")
-                    ->where("path", "not like", "\_%")
                     ->orderByDesc("views")
                     ->get()
                     ->map(fn ($pv) => [

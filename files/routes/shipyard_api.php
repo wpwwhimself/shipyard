@@ -5,12 +5,13 @@ use Wpwwhimself\Shipyard\Controllers\FrontController;
 use Wpwwhimself\Shipyard\Controllers\ModalController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use PageviewCounter\Middleware\LogRequest;
 
 Route::middleware(["api", "auth:sanctum"])->prefix("api")->group(function () {
 
 #region auth
 Route::controller(AuthController::class)->prefix("auth")->group(function () {
-    Route::get("me", fn (Request $rq) => response()->json($rq->user()));
+    Route::get("me", fn (Request $rq) => response()->json($rq->user()))->middleware(LogRequest::class);
 
     Route::prefix("tokens")->group(function () {
         Route::withoutMiddleware("auth:sanctum")
@@ -35,7 +36,7 @@ Route::controller(FrontController::class)->group(function () {
         Route::delete("{id}", "apiDeleteModel");
         Route::get("{id}", "apiFindModel");
         Route::post("", "apiCreateModel");
-        Route::get("", "apiListModel");
+        Route::get("", "apiListModel")->middleware(LogRequest::class);
     });
 });
 #endregion
