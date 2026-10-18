@@ -50,7 +50,7 @@
     @else
     {{-- fixed - only one image is needed --}}
     <img @class(["logo"])
-        src="{{ asset(setting("app_logo_".($forceTheme == "dark" ? "dark_" : "")."path")) }}"
+        src="{{ asset(setting("app_logo_".($forceTheme == "dark" ? "dark_" : "")."path") ?? setting("app_logo_path")) }}"
         alt="{{ setting("app_name") }}"
     >
     @endif
