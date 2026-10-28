@@ -18,20 +18,11 @@ if ($model?->badges) $badges = $model->badges;
     {{ $badge["html"] }}
 
     @elseif ($badge["medal"] ?? false)
-    <div class="medal"
-        {{ Popper::pop($badge["label"]) }}
-        style="--medal-colors: {{ collect($badge['medal'])
-            ->map(fn ($color, $offset) => [$color, $offset])
-            ->sliding(2)
-            ->map(fn ($cdata) => $cdata->values())
-            ->map(fn ($cdata) => implode(', ', [
-                implode(' ', [$cdata[0][0], $cdata[0][1].'%']),
-                implode(' ', [$cdata[1][0], $cdata[0][1].'%'])
-            ]))
-            ->join(', ')
-        }};"
-    >
-        <div class="medal-texture"></div>
+    <div {{ Popper::pop(implode("", [
+        view("shipyard::components.app.model.badges.medal", ["badge" => $badge, "large" => true])->render(),
+        $badge["label"],
+    ])) }}>
+        <x-shipyard::app.model.badges.medal :badge="$badge" />
     </div>
 
     @else
