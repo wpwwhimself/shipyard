@@ -331,7 +331,7 @@ class AdminController extends Controller
         $filters = collect($rq->except("_token"))
             ->map(fn ($v, $k) => is_array($v) ? array_filter($v, fn ($vv) => $vv !== null) : $v)
             ->filter(fn ($v, $k) => $v !== null);
-        $data = model($scope)::$listScope(
+        $data = model($scope)::with($meta["listScopeWith"] ?? [])->$listScope(
             $filters["sort"] ?? $meta["defaultSort"] ?? null,
             $filters["fltr"] ?? $meta["defaultFltr"] ?? null
         );

@@ -34,6 +34,7 @@ Stała `META` przechowuje metadane i podstawowe reguły modelu
 
 ### opcjonalne
 - `listScope` - domyślny scope używany do listingu, jeśli nie ma być to `forAdminList`
+- `listScopeWith` - wymusza eager loading konkretnych relacji przed wywołaniem `listScope` - przydatne np. do przyspieszania ładowania kafelków używających relacji
 - `defaultSort` - domyślne sortowanie listingu (patrz `SORTS`)
 - `defaultFltr` - domyslne filtrowanie listingu (patrz `FILTERS`) - 🚧 niezaimplementowane
 - `uneditable` - array odgórnie podanych ID modeli, które nie mogą być edytowane
