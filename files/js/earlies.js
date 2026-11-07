@@ -450,11 +450,11 @@ function openSection(btn, key) {
  * @param {object} options - optional modifiers:
  *   - customError - html of an error message
  */
-function fetchComponent(loader_selector, url, urlbody = {}, targets = [], afterCallback = (res) => {}, options = {}) {
+async function fetchComponent(loader_selector, url, urlbody = {}, targets = [], afterCallback = (res) => {}, options = {}, _debounce_timer = debounce_timer) {
     const loader = document.querySelector(loader_selector);
 
-    clearTimeout(debounce_timer);
-    debounce_timer = setTimeout(async () => {
+    clearTimeout(_debounce_timer);
+    _debounce_timer = setTimeout(async () => {
         // start the sequence
         loader.classList.remove("hidden");
         targets.forEach(tdata => {
