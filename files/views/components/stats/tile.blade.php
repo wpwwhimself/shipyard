@@ -5,7 +5,9 @@
     "comparedTo" => null,
 ])
 
-<div class="stat-tile">
+<div {{ $attributes->class("stat-tile")->merge([
+    "data-label" => $label,
+]) }}>
     <span role="label subtitle">{{ $label }}</span>
     <span role="value">
         {{ $value ?? $slot }}
