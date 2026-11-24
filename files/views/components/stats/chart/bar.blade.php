@@ -41,7 +41,7 @@ $sumValue = collect($data)->sum("value");
 
     @endphp
     <div class="label">
-        {{ $d["label"] }}
+        {!! $d["label"] !!}
     </div>
     <div class="value-wrapper">
         <div class="value" style="width: {{ $d['value'] / $maxValue * 100 }}%;"

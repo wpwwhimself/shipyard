@@ -383,6 +383,7 @@ a.button, a:has(> .tile), a:has(> .full-width) {
                     & > .value-label {
                         left: calc(100% + 0.5em); top: 0; bottom: 0;
                         text-align: left;
+                        align-content: center;
                     }
                 }
             }
