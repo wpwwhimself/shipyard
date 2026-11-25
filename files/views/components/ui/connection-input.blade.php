@@ -4,7 +4,6 @@
     "dummy" => false,
 ])
 
-@if ($model?->{$connectionName})
 @php
 $rdata = $model::getConnections()[$connectionName];
 $models = collect($rdata["model"]);
@@ -63,4 +62,3 @@ if ($models->count() > 1) {
     />
     @break
 @endswitch
-@endif
